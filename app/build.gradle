@@ -17,14 +17,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+
+        def BASE_URL = "BASE_URL"
+
+        dev {
+            applicationId "com.android.ocasa.dev"
+            resValue "string", "app_name", "Ocasa dev"
+            buildConfigField "String", BASE_URL, "\"dev\""
+        }
+
+        production {
+            applicationId "com.android.ocasa.app"
+            resValue "string", "app_name", "Ocasa"
+            buildConfigField "String", BASE_URL, "\"prod\""
+
+        }
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    compile 'com.google.android.gms:play-services:8.1.0'
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.assertj:assertj-core:1.7.0'
-    compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
     compile project(':core')
