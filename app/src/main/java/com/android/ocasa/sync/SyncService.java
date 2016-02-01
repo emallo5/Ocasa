@@ -89,8 +89,11 @@ public class SyncService extends Service {
 
         @Override
         public void performSync(Bundle extras) {
+
+            String tableId = extras.getString(EXTRA_ID);
+
             new TableService(SyncService.this)
-                    .syncTable(new TableService.SaveTableResponseCallback(SyncService.this) {
+                    .syncTable(tableId, new TableService.SaveTableResponseCallback(SyncService.this) {
                         @Override
                         public void onSuccess(Table response) {
                             super.onSuccess(response);

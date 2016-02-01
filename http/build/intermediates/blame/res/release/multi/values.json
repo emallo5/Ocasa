@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "/home/ignacio/AndroidStudioProjects/Ocasa/http/build/intermediates/res/merged/release/values/values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 41,
+                    "endOffset": 92
+                },
+                "from": {
+                    "file": "/home/ignacio/AndroidStudioProjects/Ocasa/http/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 1,
+                        "startColumn": 4,
+                        "startOffset": 16,
+                        "endColumn": 41,
+                        "endOffset": 53
+                    }
+                }
+            }
+        ]
+    }
+]

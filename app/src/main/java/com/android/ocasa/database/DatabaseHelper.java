@@ -8,6 +8,7 @@ import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
+import com.android.ocasa.model.Option;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -38,6 +39,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Record.class);
             TableUtils.createTable(connectionSource, Field.class);
             TableUtils.createTable(connectionSource, Column.class);
+            TableUtils.createTable(connectionSource, Option.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }

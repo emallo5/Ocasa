@@ -132,4 +132,9 @@ public class DetailRecordFragment extends BaseFragment implements LoaderManager.
         datePickerDialog.show(getChildFragmentManager(), "DateDialog");
     }
 
+    @Override
+    public void onComboClick() {
+
+    }
+
 }

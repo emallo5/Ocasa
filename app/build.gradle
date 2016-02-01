@@ -47,6 +47,7 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
     compile 'com.crittercism:crittercism-android-agent:5.5.1'
+    compile 'com.nineoldandroids:library:2.4.0'
     compile project(':core')
     compile project(':http')
 }

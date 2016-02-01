@@ -9,4 +9,5 @@ public interface FieldViewActionListener {
 
     public void onMapClick(FieldMapView view, LatLng location);
     public void onDateClick();
+    public void onComboClick();
 }
