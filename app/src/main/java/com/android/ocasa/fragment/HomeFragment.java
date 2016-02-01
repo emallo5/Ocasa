@@ -74,7 +74,7 @@ public class HomeFragment extends ListFragment implements LoaderManager.LoaderCa
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        
+
         RecyclerView list =  getRecyclerView();
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
