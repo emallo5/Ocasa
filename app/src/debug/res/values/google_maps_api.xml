@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TODO Change to real api key-->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDRfW86tTw956qsnm12EOYMrwIYDb_sqow</string>
+</resources>

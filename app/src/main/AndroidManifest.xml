@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.ocasa">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
@@ -11,12 +13,35 @@
         android:name=".OcasaApplication"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".barcode.BarcodeActivity">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
+
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.HomeActivity"/>
+
+        <activity android:name=".barcode.BarcodeActivity"/>
+
+        <activity
+            android:name=".activity.DetailRecordActivity"
+            android:parentActivityName=".activity.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
+        </activity>
+
+        <service android:name=".sync.SyncService"/>
+        <service android:name=".sync.LoginService"/>
+
+        <receiver android:name=".fragment.LoginFragment$LoginReceiver"/>
+        <receiver android:name=".fragment.SyncFragment$SyncReceiver"/>
+        <receiver android:name=".fragment.HomeFragment$RecordSyncReceiver"/>
 
     </application>
 

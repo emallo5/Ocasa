@@ -94,6 +94,12 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
 
     @Override
     public T finById(ID id) {
+        try {
+            return dao.queryForId(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 

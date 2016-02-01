@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "com.android.ocasa"
@@ -23,15 +23,15 @@ android {
         def BASE_URL = "BASE_URL"
 
         dev {
-            applicationId "com.android.ocasa.dev"
+            //applicationId "com.android.ocasa.dev"
             resValue "string", "app_name", "Ocasa dev"
-            buildConfigField "String", BASE_URL, "\"dev\""
+            buildConfigField "String", BASE_URL, "\"http://192.168.25.26/\""
         }
 
         production {
-            applicationId "com.android.ocasa.app"
+            //applicationId "com.android.ocasa.app"
             resValue "string", "app_name", "Ocasa"
-            buildConfigField "String", BASE_URL, "\"prod\""
+            buildConfigField "String", BASE_URL, "\"http://192.168.25.26/\""
 
         }
     }
@@ -43,7 +43,10 @@ dependencies {
     compile 'com.google.android.gms:play-services:8.1.0'
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.assertj:assertj-core:1.7.0'
+    testCompile 'org.mockito:mockito-core:1.10.19'
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
+    compile 'com.crittercism:crittercism-android-agent:5.5.1'
     compile project(':core')
+    compile project(':http')
 }

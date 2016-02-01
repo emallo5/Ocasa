@@ -3,10 +3,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="BarActivityTheme">
         <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@android:color/white</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/ocasaLightGray</item>
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorPrimaryDark">@color/ocasaLightBlue</item>
+        <item name="colorAccent">@color/ocasaLightBlue</item>
+        <item name="android:textColorSecondary">@color/ocasaLightBlue</item>
     </style>
 
 </resources>

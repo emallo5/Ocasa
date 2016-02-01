@@ -23,7 +23,6 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.Toast;
 
-import com.android.ocasa.BuildConfig;
 import com.android.ocasa.R;
 import com.android.ocasa.barcode.ui.CameraSource;
 import com.android.ocasa.barcode.ui.CameraSourcePreview;
@@ -51,8 +50,6 @@ public class BarcodeActivity extends BaseActivity {
     private static final int RC_HANDLE_CAMERA_PERM = 2;
 
     // constants used to pass extra data in the intent
-    public static final String AutoFocus = "AutoFocus";
-    public static final String UseFlash = "UseFlash";
     public static final String BarcodeObject = "Barcode";
 
     private CameraSource mCameraSource;
@@ -183,7 +180,7 @@ public class BarcodeActivity extends BaseActivity {
         // make sure that auto focus is an available option
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             builder = builder.setFocusMode(
-                    autoFocus ? Camera.Parameters.FOCUS_MODE_AUTO : null);
+                    autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO : null);
         }
 
         mCameraSource = builder
@@ -252,8 +249,8 @@ public class BarcodeActivity extends BaseActivity {
         if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG, "Camera permission granted - initialize the camera source");
             // we have permission, so create the camerasource
-            boolean autoFocus = getIntent().getBooleanExtra(AutoFocus,false);
-            boolean useFlash = getIntent().getBooleanExtra(UseFlash, false);
+            boolean autoFocus = true;
+            boolean useFlash = false;
             createCameraSource(autoFocus, useFlash);
             return;
         }

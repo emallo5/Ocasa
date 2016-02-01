@@ -3,8 +3,18 @@ package com.android.ocasa.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.android.ocasa.model.Application;
+import com.android.ocasa.model.Category;
+import com.android.ocasa.model.Column;
+import com.android.ocasa.model.Field;
+import com.android.ocasa.model.FieldType;
+import com.android.ocasa.model.Record;
+import com.android.ocasa.model.Table;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
+
+import java.sql.SQLException;
 
 /**
  * Created by ignacio on 11/01/16.
@@ -21,6 +31,16 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
 
+        try {
+            TableUtils.createTable(connectionSource, Application.class);
+            TableUtils.createTable(connectionSource, Category.class);
+            TableUtils.createTable(connectionSource, Table.class);
+            TableUtils.createTable(connectionSource, Record.class);
+            TableUtils.createTable(connectionSource, Field.class);
+            TableUtils.createTable(connectionSource, Column.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

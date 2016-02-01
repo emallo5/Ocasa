@@ -1,9 +1,9 @@
 package com.android.ocasa.core.activity;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
@@ -45,12 +45,23 @@ public class BaseActivity extends AppCompatActivity {
 
 
     public void pushFragment(Fragment frag, String tag, int containerId){
-        pushFragment(frag, tag, containerId, false);
+        pushFragment(frag, tag, containerId, false, false);
     }
 
-    public void pushFragment(Fragment frag, String tag, int containerId, boolean addToBackStack){
+    public void pushFragment(Fragment frag, String tag, int containerId, boolean anim){
+        pushFragment(frag, tag, containerId, anim, false);
+    }
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+    public void pushFragment(Fragment frag, String tag, int containerId, boolean anim, boolean addToBackStack){
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if(anim)
+            transaction.setCustomAnimations(R.anim.slide_in_left,
+                    R.anim.slide_out_left,
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_right);
+
         transaction.replace(containerId, frag, tag);
 
         if (addToBackStack){
@@ -62,8 +73,8 @@ public class BaseActivity extends AppCompatActivity {
 
     public void showFragment(Fragment frag, String tag, int containerId, boolean addToBackStack){
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.hide(getFragmentManager().findFragmentById(containerId));
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.hide(getSupportFragmentManager().findFragmentById(containerId));
         transaction.add(containerId, frag, tag);
         transaction.addToBackStack(null);
 

@@ -1,2 +1,13 @@
 <resources>
+
+    <!-- TODO Change to real api key-->
+    <string name="crittercism_appID">56a0d3b66c33dc0f00f1168f</string>
+
+    <string name="login_hint_user">Usuario</string>
+    <string name="login_hint_password">Contraseña</string>
+    <string name="login_button">Ingresar</string>
+
+    <string name="login_empty_user_message">Debe ingresar un usuario</string>
+    <string name="login_empty_password_message">Debe ingresar una contraseña</string>
+
 </resources>

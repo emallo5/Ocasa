@@ -1,1 +1,2 @@
-include ':app', ':http', ':core'
+include ':app', ':http', ':core', ':volley'
+project(':volley').projectDir = new File('http/volley')

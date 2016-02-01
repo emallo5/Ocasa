@@ -1,7 +1,7 @@
 package com.android.ocasa.core.activity;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -41,8 +41,12 @@ public class BarActivity extends BaseActivity {
         pushFragment(fragment, tag, R.id.container, false);
     }
 
-    public void pushFragment(Fragment fragment, String tag, boolean addToBackStack){
-        pushFragment(fragment, tag, R.id.container, addToBackStack);
+    public void pushFragment(Fragment fragment, String tag, boolean anim){
+        pushFragment(fragment, tag, R.id.container, anim, false);
+    }
+
+    public void pushFragment(Fragment fragment, String tag, boolean anim, boolean addToBackStack){
+        pushFragment(fragment, tag, R.id.container, anim, addToBackStack);
     }
 
     public void showFragment(Fragment fragment, String tag, boolean addToBackStack){
@@ -61,8 +65,8 @@ public class BarActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if(getFragmentManager().getBackStackEntryCount() > 0){
-                    getFragmentManager().popBackStack();
+                if(getSupportFragmentManager().getBackStackEntryCount() > 0){
+                    getSupportFragmentManager().popBackStack();
                     return true;
                 }
 

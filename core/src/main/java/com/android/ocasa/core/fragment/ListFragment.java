@@ -1,8 +1,8 @@
 package com.android.ocasa.core.fragment;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 
 import com.android.ocasa.core.R;
+import com.android.ocasa.core.listener.RecyclerItemClickListener;
 
 /**
  * Created by ignacio on 11/01/16.
@@ -20,6 +21,13 @@ public class ListFragment extends Fragment {
     private RecyclerView mList;
     private ProgressBar mProgress;
 
+    private RecyclerItemClickListener.OnItemClickListener onClickListener = new RecyclerItemClickListener.OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position, long id) {
+            onListItemClick(view, position, id);
+        }
+    };
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,20 +35,24 @@ public class ListFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        initControls();
+        initControls(view);
     }
 
-    private void initControls(){
+    private void initControls(View view){
 
-        mList = (RecyclerView) getView().findViewById(R.id.list);
-        mProgress = (ProgressBar) getView().findViewById(R.id.progress);
+        mList = (RecyclerView) view.findViewById(R.id.list);
+        mList.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), onClickListener));
+        mProgress = (ProgressBar) view.findViewById(R.id.progress);
     }
 
     public RecyclerView getRecyclerView(){
         return mList;
+    }
+
+    public void onListItemClick(View v, int position, long id) {
     }
 
     public void setListShown(boolean shown) {
