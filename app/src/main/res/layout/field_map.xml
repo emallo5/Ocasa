@@ -7,6 +7,7 @@
     android:singleLine="true"
     android:ellipsize="end"
     android:gravity="center_vertical"
+    android:drawablePadding="@dimen/medium_padding"
     android:drawableLeft="@android:drawable/ic_menu_mapmode"
     android:drawableStart="@android:drawable/ic_menu_mapmode"
     android:layout_marginTop="@dimen/large_padding"/>

@@ -30,6 +30,7 @@
 
         <activity
             android:name=".activity.DetailRecordActivity"
+            android:configChanges="orientation|screenSize"
             android:parentActivityName=".activity.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

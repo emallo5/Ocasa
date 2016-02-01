@@ -44,7 +44,7 @@ public enum FieldType {
             return new TextFieldFactory();
         }
     },
-    DOUBLE("double"){
+    DOUBLE("decimal"){
         @Override
         public FieldViewFactory getFieldFactory() {
             return new TextFieldFactory();

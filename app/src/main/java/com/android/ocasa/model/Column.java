@@ -2,7 +2,12 @@ package com.android.ocasa.model;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+
+import org.w3c.dom.ProcessingInstruction;
+
+import java.util.Collection;
 
 /**
  * Created by ignacio on 26/01/16.
@@ -30,6 +35,9 @@ public class Column {
 
     @DatabaseField(dataType = DataType.ENUM_STRING)
     private FieldType fieldType;
+
+    @ForeignCollectionField(eager = true)
+    private Collection<Option> options;
 
     public Column() {}
 
@@ -87,5 +95,13 @@ public class Column {
 
     public void setFieldType(FieldType fieldType) {
         this.fieldType = fieldType;
+    }
+
+    public Collection<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(Collection<Option> options) {
+        this.options = options;
     }
 }

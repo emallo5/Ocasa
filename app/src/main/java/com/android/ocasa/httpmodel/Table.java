@@ -41,7 +41,7 @@ public class Table {
             column.setId(jObject.get("column_id").getAsString());
             column.setName(jObject.get("name").getAsString());
             column.setOrder(jObject.get("order").getAsInt());
-            column.setLength(jObject.get("length").getAsInt());
+            column.setLength(jObject.has("length") ? jObject.get("length").getAsInt() : 0);
             column.setEditable(jObject.get("editable").getAsBoolean());
             column.setMandatory(jObject.get("mandatory").getAsBoolean());
             column.setFieldType(FieldType.findTypeByApiName(jObject.get("field_type").getAsString()));
