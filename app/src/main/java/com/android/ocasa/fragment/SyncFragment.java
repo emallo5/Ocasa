@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -16,6 +18,10 @@ import com.android.ocasa.R;
 import com.android.ocasa.core.fragment.BaseFragment;
 import com.android.ocasa.service.MenuService;
 import com.android.ocasa.sync.SyncService;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.DraweeView;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
  * Created by ignacio on 21/01/16.
@@ -48,13 +54,19 @@ public class SyncFragment extends BaseFragment {
         return inflater.inflate(R.layout.fragment_sync, container, false);
     }
 
-    /*@Override
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ProgressBar progress = (ProgressBar) view.findViewById(R.id.progress);
-        progress.setVisibility(View.VISIBLE);
-    }*/
+        Uri uri = Uri.parse("asset:///animacion_loading.gif");
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setUri(uri)
+                .setAutoPlayAnimations(true)
+                .build();
+
+        SimpleDraweeView progress = (SimpleDraweeView) view.findViewById(R.id.progress);
+        progress.setController(controller);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

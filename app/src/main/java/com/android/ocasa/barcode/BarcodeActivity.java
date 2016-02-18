@@ -30,6 +30,7 @@ import com.android.ocasa.barcode.ui.GraphicOverlay;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
@@ -180,7 +181,7 @@ public class BarcodeActivity extends BaseActivity {
         // make sure that auto focus is an available option
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             builder = builder.setFocusMode(
-                    autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO : null);
+                    autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE : null);
         }
 
         mCameraSource = builder
@@ -313,10 +314,7 @@ public class BarcodeActivity extends BaseActivity {
         if (graphic != null) {
             barcode = graphic.getBarcode();
             if (barcode != null) {
-                /*Intent data = new Intent();
-                data.putExtra(BarcodeObject, barcode);
-                setResult(CommonStatusCodes.SUCCESS, data);
-                finish();*/
+               onBarcodeSelected(barcode);
             }
             else {
                 Log.d(TAG, "barcode data is null");
@@ -326,6 +324,13 @@ public class BarcodeActivity extends BaseActivity {
             Log.d(TAG,"no barcode detected");
         }
         return barcode != null;
+    }
+
+    public void onBarcodeSelected(Barcode barcode){
+        Intent data = new Intent();
+        data.putExtra(BarcodeObject, barcode);
+        setResult(CommonStatusCodes.SUCCESS, data);
+        finish();
     }
 
     private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {

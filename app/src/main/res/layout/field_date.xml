@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.android.ocasa.widget.FieldDateView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/input_backgroud"
-    android:padding="@dimen/large_padding"
+    style="@style/Input"
     android:layout_marginTop="@dimen/large_padding"
-    android:gravity="center_vertical"
-    android:drawableLeft="@android:drawable/ic_menu_month"
-    android:drawableStart="@android:drawable/ic_menu_month"
-    android:drawablePadding="@dimen/medium_padding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>

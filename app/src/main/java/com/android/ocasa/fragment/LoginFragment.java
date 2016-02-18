@@ -9,29 +9,38 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.CardView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.ocasa.R;
+import com.android.ocasa.activity.ForgotPassWordActivity;
+import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.core.fragment.BaseFragment;
 import com.android.ocasa.service.UserService;
 import com.android.ocasa.sync.LoginService;
+import com.android.ocasa.util.KeyboardUtil;
 
 /**
  * Created by ignacio on 21/01/16.
  */
 public class LoginFragment extends BaseFragment {
 
-    private CardView container;
+    private RelativeLayout container;
     private EditText userText;
     private EditText passwordText;
     private Button loginButton;
+    private TextView forgotPasswordButton;
     private ProgressBar progress;
 
     private LoginCallback callback;
@@ -89,23 +98,49 @@ public class LoginFragment extends BaseFragment {
     }
 
     private void initControls(View view){
-        container = (CardView) view.findViewById(R.id.login_container);
+        container = (RelativeLayout) view.findViewById(R.id.login_container);
         userText = (EditText) view.findViewById(R.id.login_user);
         passwordText = (EditText) view.findViewById(R.id.login_password);
         loginButton = (Button) view.findViewById(R.id.login_button);
+        forgotPasswordButton = (TextView) view.findViewById(R.id.forgot_password_button);
         progress = (ProgressBar) view.findViewById(R.id.progress);
     }
 
     private void setListeners(){
 
+        passwordText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    doLogin();
+
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(validateFields())
-                    login();
+                doLogin();
             }
         });
+
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((BaseActivity)getActivity()).startNewActivity(new Intent(getActivity(), ForgotPassWordActivity.class));
+            }
+        });
+    }
+
+    private void doLogin(){
+        KeyboardUtil.hideKeyboard(getActivity());
+
+        if(validateFields())
+            login();
     }
 
     private boolean validateFields(){

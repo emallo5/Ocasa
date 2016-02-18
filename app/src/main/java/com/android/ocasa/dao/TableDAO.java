@@ -15,4 +15,5 @@ public class TableDAO extends GenericDAOImpl<Table,String> {
     public TableDAO(Context context) {
         super(Table.class, context);
     }
+
 }

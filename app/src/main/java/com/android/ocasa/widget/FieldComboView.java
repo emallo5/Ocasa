@@ -34,7 +34,7 @@ public class FieldComboView extends TextView implements FieldViewAdapter {
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onComboClick();
+                listener.onComboClick(FieldComboView.this);
             }
         });
     }
@@ -42,5 +42,15 @@ public class FieldComboView extends TextView implements FieldViewAdapter {
     @Override
     public void setFieldViewActionListener(FieldViewActionListener listener) {
         this.listener = listener;
+    }
+
+    @Override
+    public void setValue(String value) {
+        setText(value);
+    }
+
+    @Override
+    public String getValue() {
+        return getText().toString();
     }
 }

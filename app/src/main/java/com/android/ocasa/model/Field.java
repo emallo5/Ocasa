@@ -1,11 +1,17 @@
 package com.android.ocasa.model;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by ignacio on 26/01/16.
  */
-
+@DatabaseTable(tableName = "fields")
 public class Field {
 
     @DatabaseField(generatedId = true)
@@ -19,6 +25,9 @@ public class Field {
 
     @DatabaseField
     private String value;
+
+    @ForeignCollectionField(eager = false)
+    private Collection<History> historical;
 
     public int getId() {
         return id;
@@ -54,5 +63,20 @@ public class Field {
 
     public Object getFormatValue(){
         return column.getFieldType().format(value);
+    }
+
+    public Collection<History> getHistorical() {
+        return historical;
+    }
+
+    public void setHistorical(Collection<History> historical) {
+        this.historical = historical;
+    }
+
+    public void addHistory(History history){
+        if(historical == null)
+            historical = new ArrayList<>();
+
+        historical.add(history);
     }
 }

@@ -6,4 +6,7 @@ package com.android.ocasa.widget;
 public interface FieldViewAdapter {
 
     public void setFieldViewActionListener(FieldViewActionListener listener);
+    public void setValue(String value);
+    public String getValue();
+
 }

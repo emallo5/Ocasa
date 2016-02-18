@@ -2,7 +2,11 @@ package com.android.ocasa.dao;
 
 import android.content.Context;
 
+import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Record;
+import com.j256.ormlite.stmt.DeleteBuilder;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -25,5 +29,38 @@ public class RecordDAO extends GenericDAOImpl<Record, Integer> {
         }
 
         return null;
+    }
+
+    public List<Record> findRecordsForTableAndQuery(String tableId, String query){
+
+        try {
+            QueryBuilder<Record, Integer> recordQuery = dao.queryBuilder();
+
+
+            QueryBuilder<Field, Integer> fieldDao = new FieldDAO(context).getDao().queryBuilder();
+
+            fieldDao.where().like("value", "%" + query + "%");
+
+            recordQuery.join(fieldDao);
+
+            recordQuery.where().eq("table_id", tableId);
+            recordQuery.groupBy("id");
+
+            return recordQuery.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void deleteRecordsForTable(String tableId){
+        try {
+            DeleteBuilder deleteBuilder = dao.deleteBuilder();
+            deleteBuilder.where().eq("table_id", tableId);
+            deleteBuilder.delete();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

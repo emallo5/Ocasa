@@ -10,6 +10,10 @@ import android.support.v4.content.LocalBroadcastManager;
 public class NotificationManager {
 
     public static void sendBroadcast(Context context, String action){
-        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(action));
+        sendBroadcast(context, new Intent(action));
+    }
+
+    public static void sendBroadcast(Context context, Intent intent){
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 }

@@ -16,21 +16,12 @@ public class MapFieldFactory extends FieldViewFactory {
 
     @Override
     public View createView(ViewGroup container, Field field) {
-        
-        try {
-            LatLng latLng = (LatLng) field.getFormatValue();
 
-            FieldMapView text = (FieldMapView) LayoutInflater
-                    .from(container.getContext()).inflate(R.layout.field_map, container, false);
+        FieldMapView text = (FieldMapView) LayoutInflater
+                .from(container.getContext()).inflate(R.layout.field_map, container, false);
 
-            text.setLocation(latLng);
-            text.setText("Lat: " + latLng.latitude + " Lng: " + latLng.longitude);
+        text.setValue(field.getValue());
 
-            return text;
-        }catch (Exception e){
-
-        }
-
-        return null;
+        return text;
     }
 }

@@ -24,7 +24,7 @@ public class LoginActivity extends BaseActivity implements LoginFragment.LoginCa
 
     @Override
     public void onLogin() {
-        pushFragment(Fragment.instantiate(this, SyncFragment.class.getName()), "Sync", R.id.container);
+        pushFragment(Fragment.instantiate(this, SyncFragment.class.getName()), "Sync", R.id.container, true);
     }
 
 

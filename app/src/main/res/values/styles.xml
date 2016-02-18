@@ -8,6 +8,22 @@
         <item name="colorPrimaryDark">@color/ocasaLightBlue</item>
         <item name="colorAccent">@color/ocasaLightBlue</item>
         <item name="android:textColorSecondary">@color/ocasaLightBlue</item>
+        <item name="navBarIcon">@drawable/logo_ocasa_nav_bar</item>
+    </style>
+
+    <style name="FilterTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/ocasaLightGray</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="colorPrimary">@color/ocasaLightBlue</item>
+        <item name="colorPrimaryDark">@color/ocasaLightBlue</item>
+        <item name="colorAccent">@color/ocasaLightBlue</item>
+    </style>
+
+    <style name="Input">
+        <item name="android:textColor">@color/ocasaTextColor</item>
+        <item name="android:textColorHint">@color/ocasaHintColor</item>
+        <item name="android:background">@drawable/input_backgroud</item>
+        <item name="android:padding">@dimen/large_padding</item>
     </style>
 
 </resources>

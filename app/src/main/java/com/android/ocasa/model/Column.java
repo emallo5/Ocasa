@@ -36,8 +36,11 @@ public class Column {
     @DatabaseField(dataType = DataType.ENUM_STRING)
     private FieldType fieldType;
 
-    @ForeignCollectionField(eager = true)
-    private Collection<Option> options;
+    @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
+    private Table table;
+
+    @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
+    private Table relationship;
 
     public Column() {}
 
@@ -97,11 +100,19 @@ public class Column {
         this.fieldType = fieldType;
     }
 
-    public Collection<Option> getOptions() {
-        return options;
+    public Table getTable() {
+        return table;
     }
 
-    public void setOptions(Collection<Option> options) {
-        this.options = options;
+    public void setTable(Table table) {
+        this.table = table;
+    }
+
+    public Table getRelationship() {
+        return relationship;
+    }
+
+    public void setRelationship(Table relationship) {
+        this.relationship = relationship;
     }
 }

@@ -7,10 +7,10 @@ import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
-import com.android.ocasa.model.FieldType;
-import com.android.ocasa.model.Option;
+import com.android.ocasa.model.History;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
+import com.android.ocasa.model.User;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -39,7 +39,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Record.class);
             TableUtils.createTable(connectionSource, Field.class);
             TableUtils.createTable(connectionSource, Column.class);
-            TableUtils.createTable(connectionSource, Option.class);
+            TableUtils.createTable(connectionSource, User.class);
+            TableUtils.createTable(connectionSource, History.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }

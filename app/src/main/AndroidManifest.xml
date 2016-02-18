@@ -4,11 +4,13 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:supportsRtl="true"
         android:name=".OcasaApplication"
         android:theme="@style/AppTheme">
@@ -17,32 +19,64 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
-        <activity android:name=".activity.LoginActivity">
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.HomeActivity"/>
+        <activity
+            android:name=".activity.ForgotPassWordActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activity.LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.LoginActivity" />
+        </activity>
 
-        <activity android:name=".barcode.BarcodeActivity"/>
+        <activity
+            android:name=".activity.HomeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".activity.ReadFieldActvivity"/>
 
         <activity
             android:name=".activity.DetailRecordActivity"
-            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activity.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.HomeActivity" />
         </activity>
 
+        <activity
+            android:theme="@style/FilterTheme"
+            android:name=".activity.FilterActivity"/>
+
         <service android:name=".sync.SyncService"/>
         <service android:name=".sync.LoginService"/>
+        <service android:name=".sync.SendService"/>
 
         <receiver android:name=".fragment.LoginFragment$LoginReceiver"/>
         <receiver android:name=".fragment.SyncFragment$SyncReceiver"/>
         <receiver android:name=".fragment.HomeFragment$RecordSyncReceiver"/>
+
+        <receiver android:name=".receiver.RequestTableReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.android.ocasa.service.DOWNLOAD_TABLE_REQUEST"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

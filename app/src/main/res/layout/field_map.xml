@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.android.ocasa.widget.FieldMapView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Input"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/input_backgroud"
-    android:padding="@dimen/large_padding"
     android:singleLine="true"
     android:ellipsize="end"
     android:gravity="center_vertical"
     android:drawablePadding="@dimen/medium_padding"
-    android:drawableLeft="@android:drawable/ic_menu_mapmode"
-    android:drawableStart="@android:drawable/ic_menu_mapmode"
+    android:drawableLeft="@drawable/ic_pin"
+    android:drawableStart="@drawable/ic_pin"
     android:layout_marginTop="@dimen/large_padding"/>

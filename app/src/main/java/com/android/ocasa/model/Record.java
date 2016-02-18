@@ -46,4 +46,37 @@ public class Record {
     public void setFields(Collection<Field> fields) {
         this.fields = fields;
     }
+
+    public void updateField(String columnId, String value){
+
+        for (Field field : fields){
+            if(field.getColumn().getId().equalsIgnoreCase(columnId)){
+                field.setValue(value);
+                break;
+            }
+        }
+    }
+
+    public Field getFieldForColumn(String columnId){
+
+        for (Field field : fields){
+            if(field.getColumn().getId().equalsIgnoreCase(columnId)){
+                return field;
+            }
+        }
+
+        return null;
+    }
+
+    public Column getColumnForField(int fieldId){
+
+        for (Field field : fields){
+            if(field.getId() == fieldId){
+                return field.getColumn();
+            }
+        }
+
+        return null;
+    }
+
 }

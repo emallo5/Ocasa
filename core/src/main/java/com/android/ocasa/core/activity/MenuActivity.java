@@ -3,9 +3,11 @@ package com.android.ocasa.core.activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.android.ocasa.core.R;
 
@@ -15,6 +17,11 @@ import com.android.ocasa.core.R;
 public class MenuActivity extends BarActivity {
 
     private ActionBarDrawerToggle drawerToggle;
+
+    public interface MenuListener{
+        public void onMenuClosed();
+        public void onMenuOpened();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +37,30 @@ public class MenuActivity extends BarActivity {
                 getDrawerLayout(),
                 getToolbar(),
                 R.string.app_name,
-                R.string.app_name);
+                R.string.app_name){
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+
+                Fragment menu = getSupportFragmentManager().findFragmentByTag("Menu");
+
+                if(menu != null){
+                    ((MenuListener) menu).onMenuClosed();
+                }
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                Fragment menu = getSupportFragmentManager().findFragmentByTag("Menu");
+
+                if(menu != null){
+                    ((MenuListener) menu).onMenuOpened();
+                }
+            }
+        };
+
 
         getDrawerLayout().setDrawerListener(drawerToggle);
         getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
@@ -41,6 +71,10 @@ public class MenuActivity extends BarActivity {
 
     public void setMenu(Fragment fragment){
         pushFragment(fragment, "Menu", R.id.menu_container);
+    }
+
+    public void closeMenu(){
+        getDrawerLayout().closeDrawer(GravityCompat.START);
     }
 
     @Override

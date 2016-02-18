@@ -18,7 +18,7 @@ public class DateFieldFactory extends FieldViewFactory {
         FieldDateView text = (FieldDateView) LayoutInflater
                 .from(container.getContext()).inflate(R.layout.field_date, container, false);
 
-        text.setText(field.getValue());
+        text.setValue(field.getValue());
 
         return text;
     }

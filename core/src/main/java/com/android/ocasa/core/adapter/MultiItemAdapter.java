@@ -4,29 +4,43 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by ignacio on 18/01/16.
  */
-public class MultiItemAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
+public abstract class MultiItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private SparseArray<DelegateAdapter<T>> adapters;
+    private SparseArray<DelegateAdapter> adapters;
 
     private List<AdapterItem> items;
 
-    @Override
-    public T onCreateViewHolder(ViewGroup parent, int viewType) {
-        return adapters.get(viewType).onCreateViewHolder();
+    public MultiItemAdapter(){
+        this.adapters = new SparseArray<>();
+        this.items = new ArrayList<>();
     }
 
     @Override
-    public void onBindViewHolder(T holder, int position) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return adapters.get(viewType).onCreateViewHolder(parent);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         adapters.get(items.get(position).getType()).onBindViewHolder(holder, items.get(position));
     }
 
-    public void addAdapter(DelegateAdapter<T> adapter, int type){
+    public void addAdapter(DelegateAdapter adapter, int type){
         adapters.put(type, adapter);
+    }
+
+    public void addItem(AdapterItem item){
+        items.add(item);
+    }
+
+    public AdapterItem getItem(int position){
+        return items.get(position);
     }
 
     @Override

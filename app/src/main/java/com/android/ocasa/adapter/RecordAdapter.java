@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
@@ -16,23 +17,47 @@ import java.util.List;
 /**
  * Created by ignacio on 28/01/16.
  */
-public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordHolder> {
+public class RecordAdapter extends BaseAdapter {
 
     private List<Record> records;
 
     public RecordAdapter(List<Record> records) {
         this.records = records;
-        setHasStableIds(true);
     }
 
     @Override
-    public RecordHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new RecordHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_record, parent, false));
+    public int getCount() {
+        return records.size();
     }
 
     @Override
-    public void onBindViewHolder(RecordHolder holder, int position) {
+    public Object getItem(int i) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return records.get(position).getId();
+    }
+
+    @Override
+    public View getView(int position, View view, ViewGroup viewGroup) {
+
+        RecordHolder holder;
+
+        if(view == null){
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_record, viewGroup, false);
+
+            holder = new RecordHolder();
+
+            holder.first = (TextView) view.findViewById(R.id.first);
+            holder.second = (TextView) view.findViewById(R.id.second);
+            holder.third = (TextView) view.findViewById(R.id.third);
+
+            view.setTag(holder);
+        }else{
+            holder = (RecordHolder) view.getTag();
+        }
 
         Record record = records.get(position);
 
@@ -41,32 +66,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordHold
         holder.first.setText(fields.get(0).getValue());
         holder.second.setText(fields.get(1).getValue());
         holder.third.setText(fields.get(2).getValue());
+
+        return view;
     }
 
-    @Override
-    public int getItemCount() {
-        return records.size();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return records.get(position).getId();
-    }
-
-    public class RecordHolder extends RecyclerView.ViewHolder{
+    static class RecordHolder{
 
         TextView first;
         TextView second;
         TextView third;
-
-        public RecordHolder(View itemView) {
-            super(itemView);
-
-            first = (TextView) itemView.findViewById(R.id.first);
-            second = (TextView) itemView.findViewById(R.id.second);
-            third = (TextView) itemView.findViewById(R.id.third);
-        }
-
     }
 
 }

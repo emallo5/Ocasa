@@ -7,20 +7,21 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.ListView;
 
 import com.android.ocasa.R;
 import com.android.ocasa.activity.DetailRecordActivity;
-import com.android.ocasa.adapter.RecordAdapter;
 import com.android.ocasa.core.activity.BaseActivity;
-import com.android.ocasa.core.fragment.ListFragment;
-import com.android.ocasa.loader.TableTaskLoader;
 import com.android.ocasa.model.Record;
-import com.android.ocasa.service.UserService;
+import com.android.ocasa.service.RecordService;
 import com.android.ocasa.sync.SyncService;
 
 import java.util.List;
@@ -28,9 +29,7 @@ import java.util.List;
 /**
  * Created by ignacio on 11/01/16.
  */
-public class HomeFragment extends ListFragment implements LoaderManager.LoaderCallbacks<List<Record>>{
-
-    static final String ARG_TABLE_ID = "table_id";
+public class HomeFragment extends TableRecordListFragment implements LoaderManager.LoaderCallbacks<List<Record>>, SearchView.OnQueryTextListener{
 
     private RecordSyncReceiver receiver;
     private IntentFilter filter;
@@ -49,7 +48,7 @@ public class HomeFragment extends ListFragment implements LoaderManager.LoaderCa
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getLoaderManager().initLoader(0, getArguments(), this);
+        setHasOptionsMenu(true);
 
         syncTable();
         syncRecords();
@@ -75,53 +74,113 @@ public class HomeFragment extends ListFragment implements LoaderManager.LoaderCa
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        RecyclerView list =  getRecyclerView();
-        list.setHasFixedSize(true);
-        list.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        ListView list =  getListView();
+        list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        list.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+
+                MenuInflater inflater = actionMode.getMenuInflater();
+                inflater.inflate(R.menu.menu_filter, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode actionMode) {
+
+            }
+        });
 
         receiver = new RecordSyncReceiver();
-        filter = new IntentFilter(UserService.USER_LOGIN_FINISHED_ACTION);
+        filter = new IntentFilter();
+        filter.addAction(RecordService.RECORD_SYNC_FINISHED_ACTION);
+        filter.addAction(RecordService.RECORD_SYNC_ERROR_ACTION);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, filter);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
     }
 
     @Override
-    public Loader<List<Record>> onCreateLoader(int id, Bundle args) {
-        return new TableTaskLoader(getActivity(), args.getString(ARG_TABLE_ID));
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<Record>> loader, List<Record> data) {
-
-        setListShown(true);
-
-        if(data!= null)
-            getRecyclerView().setAdapter(new RecordAdapter(data));
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<Record>> loader) {
-
-    }
-
-    @Override
-    public void onListItemClick(View v, int position, long id) {
-        super.onListItemClick(v, position, id);
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
 
         Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
         intent.putExtra(DetailRecordActivity.EXTRA_RECORD_ID, id);
         ((BaseActivity) getActivity()).startNewActivity(intent);
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menu_table_list, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.filter);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+    }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//      /*  switch (item.getItemId()){
+//            case R.id.filter:
+//                Intent intent = new Intent(getActivity(), FilterActivity.class);
+//                intent.putExtra("table_id", getArguments().getString(ARG_TABLE_ID));
+//
+//                getActivity().startActivityForResult(intent, 1200);
+//                getActivity().overridePendingTransition(R.anim.slide_up_dialog, R.anim.no_change);
+//                return true;
+//        }*/
+//
+//        return super.onOptionsItemSelected(item);
+//    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        getArguments().putString(ARG_SEARCH_QUERY, query);
+
+        reloadData();
+
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        getArguments().putString(ARG_SEARCH_QUERY, newText);
+
+        reloadData();
+
+        return true;
+    }
+
 
     public class RecordSyncReceiver extends BroadcastReceiver {
 
@@ -129,7 +188,11 @@ public class HomeFragment extends ListFragment implements LoaderManager.LoaderCa
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            getLoaderManager().restartLoader(0, getArguments(), HomeFragment.this);
+            if(intent.getAction().equalsIgnoreCase(RecordService.RECORD_SYNC_FINISHED_ACTION))
+                getLoaderManager().restartLoader(0, getArguments(), HomeFragment.this);
+            else if(intent.getAction().equalsIgnoreCase(RecordService.RECORD_SYNC_ERROR_ACTION)){
+                setListShown(true);
+            }
         }
     }
 }

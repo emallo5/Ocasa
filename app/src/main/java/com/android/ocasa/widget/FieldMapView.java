@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.ocasa.model.FieldType;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
@@ -12,15 +13,9 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class FieldMapView extends TextView implements FieldViewAdapter{
 
+    private String value;
+
     private FieldViewActionListener listener;
-
-    private LatLng location;
-
-    public FieldMapView(Context context, final LatLng location) {
-        super(context);
-
-        init();
-    }
 
     public FieldMapView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -38,7 +33,7 @@ public class FieldMapView extends TextView implements FieldViewAdapter{
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onMapClick(FieldMapView.this, location);
+                listener.onMapClick(FieldMapView.this);
             }
         });
     }
@@ -48,7 +43,14 @@ public class FieldMapView extends TextView implements FieldViewAdapter{
         this.listener = listener;
     }
 
-    public void setLocation(LatLng location) {
-        this.location = location;
+    @Override
+    public void setValue(String value) {
+        this.value = value;
+        setText(FieldType.MAP.getDisplayText(getContext(), value));
+    }
+
+    @Override
+    public String getValue() {
+        return value;
     }
 }

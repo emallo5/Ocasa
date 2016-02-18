@@ -76,7 +76,6 @@ public class BaseActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.hide(getSupportFragmentManager().findFragmentById(containerId));
         transaction.add(containerId, frag, tag);
-        transaction.addToBackStack(null);
 
         if (addToBackStack){
             transaction.addToBackStack(tag);

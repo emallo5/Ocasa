@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Record;
+import com.j256.ormlite.stmt.DeleteBuilder;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -27,4 +28,25 @@ public class FieldDAO extends GenericDAOImpl<Field, Integer> {
 
         return null;
     }
+
+    public void deleteFieldsForTable(String tableId){
+        try {
+            DeleteBuilder deleteBuilder = dao.deleteBuilder();
+            deleteBuilder.where().eq("table_id", tableId);
+            deleteBuilder.delete();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteFieldsForRecord(int recordId){
+        try {
+            DeleteBuilder deleteBuilder = dao.deleteBuilder();
+            deleteBuilder.where().eq("record_id", recordId);
+            deleteBuilder.delete();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

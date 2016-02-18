@@ -7,7 +7,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import com.android.ocasa.httpmodel.Menu;
-import com.android.ocasa.httpmodel.Table;
+import com.android.ocasa.httpmodel.HttpTable;
 import com.android.ocasa.httpmodel.TableRecord;
 import com.android.ocasa.service.MenuService;
 import com.android.ocasa.service.RecordService;
@@ -93,9 +93,9 @@ public class SyncService extends Service {
             String tableId = extras.getString(EXTRA_ID);
 
             new TableService(SyncService.this)
-                    .syncTable(tableId, new TableService.SaveTableResponseCallback(SyncService.this) {
+                    .syncTable(tableId, new TableService.SaveTableResponseCallback(SyncService.this, tableId) {
                         @Override
-                        public void onSuccess(Table response) {
+                        public void onSuccess(HttpTable response) {
                             super.onSuccess(response);
                             finish();
                         }

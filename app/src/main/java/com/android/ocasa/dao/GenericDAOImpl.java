@@ -17,9 +17,13 @@ import java.util.concurrent.Callable;
  */
 public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
 
+    protected Context context;
+
     protected Dao<T, ID> dao;
 
     public GenericDAOImpl(Class<T> entityClass, Context context) {
+
+        this.context = context;
 
         OrmLiteSqliteOpenHelper helper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
 
@@ -71,6 +75,22 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     }
 
     @Override
+    public void update(final Collection<T> entities) {
+        try {
+            dao.callBatchTasks(new Callable<Void>() {
+                public Void call() throws SQLException {
+                    for (T entity : entities) {
+                        dao.update(entity);
+                    }
+                    return null;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void refresh(T entity) {
         try {
             dao.refresh(entity);
@@ -90,6 +110,11 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
 
     @Override
     public void deleteAll() {
+        try {
+            dao.deleteBuilder().delete();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

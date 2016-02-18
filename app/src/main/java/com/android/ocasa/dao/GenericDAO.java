@@ -12,6 +12,7 @@ public interface GenericDAO<T , ID> {
     public void save(T entity);
     public void save(Collection<T> entities) throws Exception;
     public void update(T entity);
+    public void update(Collection<T> entity);
     public void refresh(T entity);
     public void delete(T entity) throws SQLException;
     public void deleteAll();

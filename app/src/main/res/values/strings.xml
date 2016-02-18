@@ -6,8 +6,21 @@
     <string name="login_hint_user">Usuario</string>
     <string name="login_hint_password">Contraseña</string>
     <string name="login_button">Ingresar</string>
+    <string name="login_forgot_password_button"><u>¿Olvidó su contraseña?</u></string>
 
     <string name="login_empty_user_message">Debe ingresar un usuario</string>
     <string name="login_empty_password_message">Debe ingresar una contraseña</string>
+
+    <string name="forgot_password_title">¿Olvidó su contraseña?</string>
+    <string name="forgot_password_hint_email">Email</string>
+    <string name="forgot_password_button">Recuperar Contraseña</string>
+
+    <string name="forgot_password_empty_user_message">Debe ingresar un email</string>
+
+    <string name="font_fontFamily_regular">sans-serif</string>
+    <string name="font_fontFamily_medium">sans-serif</string>
+
+    <string name="form_map_field_display_text">Lat: %1$s Lng: %2$s</string>
+
 
 </resources>

@@ -7,7 +7,11 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public interface FieldViewActionListener {
 
-    public void onMapClick(FieldMapView view, LatLng location);
-    public void onDateClick();
-    public void onComboClick();
+    public void onHistoryClick(int fieldId);
+    public void onQrClick(int fieldId);
+    public void onMapClick(FieldMapView view);
+    public void onDateClick(FieldDateView view);
+    public void onTimeClick(FieldTimeView view);
+    public void onPhoneClick(FieldPhoneView view);
+    public void onComboClick(FieldComboView view);
 }

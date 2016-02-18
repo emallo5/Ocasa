@@ -33,6 +33,8 @@ public class BarActivity extends BaseActivity {
 
         setSupportActionBar(toolbar);
 
+        getDelegate().getSupportActionBar().setTitle("");
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }

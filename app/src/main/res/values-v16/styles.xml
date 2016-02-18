@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Input">
+        <item name="android:textColor">@color/ocasaTextColor</item>
+        <item name="android:textColorHint">@color/ocasaHintColor</item>
+        <item name="android:background">@drawable/input_backgroud</item>
+        <item name="android:fontFamily">@string/font_fontFamily_regular</item>
+        <item name="android:padding">@dimen/large_padding</item>
+    </style>
+
+</resources>
