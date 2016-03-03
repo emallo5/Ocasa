@@ -1,2 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.android.support-recyclerview-v7-23.1.1_c6929736b00cdcd48032ce57afa7bb1bedbe0afe.jar" />
+    </item>
+    <item
+        jar="C:\Users\julopez\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.1.4\129874135e6081269ace2312092031558865de12\bolts-android-1.1.4.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="129874135e6081269ace2312092031558865de12">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\bolts-android-1.1.4_6f1cdffcdd4730e92ec49bb97c635c4653d23760.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\8.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.google.android.gms-play-services-location-8.4.0_1f6969b6a15629f457dd3b61bc0b848fb50008eb.jar" />
+    </item>
+    <item
+        jar="D:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\support-annotations-23.1.1_160e21806fe4fcbe2b20c34d1bbde421f69a17ae.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5e412e954a24c5310a459c09870e4e2081aceb03">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.android.support-cardview-v7-23.1.1_45fabae2176d3d5acec1c01f7dee758f0671db22.jar" />
+    </item>
+    <item
+        jar="C:\Users\julopez\.gradle\caches\modules-2\files-2.1\com.j256.ormlite\ormlite-core\4.48\e579bd2905d0399af5029aaaf9817d5fa0ca88a5\ormlite-core-4.48.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e579bd2905d0399af5029aaaf9817d5fa0ca88a5">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\ormlite-core-4.48_771c227dc847550d819cb758fea930730878a588.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\internal_impl-23.1.1_838c493c3898bd96711a11d6b515a1a2cfdf7fc0.jar" />
+    </item>
+    <item
+        jar="C:\Users\julopez\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\library-2.4.0_9ef13a56e56a7d5f030e7c6ce886a5c1bac1d784.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.yqritc\recyclerview-flexibledivider\1.2.4\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="ebf6b1bcf0c8d7fc197a27e6bb915cb32ba7c303">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.yqritc-recyclerview-flexibledivider-1.2.4_fa410eb6a1abe6fb2a1f653a2d57ed1df2f711c0.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.facebook.fresco\fresco\0.9.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="ca51025f4a58fc7fb6cfaa85e7d09b7ae47e6187">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.facebook.fresco-fresco-0.9.0_a00b2abc5c91293a0b37d40a30b36c2fc4688ba6.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.android.support-design-23.1.1_32fb1202ae6ac860c9a8d8bdc91a2feff61a0159.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.android.support-appcompat-v7-23.1.1_972bac1614fb1644fd0260b0f37baeeefa5b2023.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.facebook.fresco\drawee\0.9.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="3158c15bb0ae97575debdb40cfcd8f0f9f244526">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.facebook.fresco-drawee-0.9.0_a6d40cafe670873955b167bc101684121a56c5f9.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\Ocasa\core\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="40948884401a9bee59f7e4dd5625bb97e73e81b0">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\Ocasa-core-unspecified_a642aad092f730294abe3f2f5542c5216d77cbd4.jar" />
+    </item>
+    <item
+        jar="C:\Users\julopez\.gradle\caches\modules-2\files-2.1\com.j256.ormlite\ormlite-android\4.48\afa06f539a4026c10b247386312aa67404b80a16\ormlite-android-4.48.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="afa06f539a4026c10b247386312aa67404b80a16">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\ormlite-android-4.48_c89d776017a806ffcf584a97324b6e0fa3896785.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.android.support-support-v4-23.1.1_46ee26960b58b5e1529b2910cfcfdb1270f86d33.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\Ocasa\http\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="815a8dfe33e0a877b28127d5dc4b65df0282dea6">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\Ocasa-http-unspecified_6f38eb9cd6d857966449db246ad03244be2970d6.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.google.android.gms-play-services-basement-8.4.0_58b176a5b2e4b0f9da5405b958dbd065b1d50d1a.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-base\0.9.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="39bd9f893c75eac9e76559cc4e96af6e417afdc5">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.facebook.fresco-imagepipeline-base-0.9.0_4377c12f3def47ade84896f79ece8209b9c7bef1.jar" />
+    </item>
+    <item
+        jar="C:\Users\julopez\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.5\686c608d1805b6d4d425ec4459e88164ffc85870\gson-2.5.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="686c608d1805b6d4d425ec4459e88164ffc85870">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\gson-2.5_75ca2f342792bcb9161643ee822942fdee49d779.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.google.android.gms-play-services-maps-8.4.0_63c3e9a971e44aa2fdc114bbdf230a562876237c.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\Ocasa\volley\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="39b79a1fdf03800c3a3516fabf169d806e548be2">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\Ocasa-volley-unspecified_d1fc6e55e110a68a5b004af82962db09226b5f69.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.google.android.gms-play-services-base-8.4.0_c53333db903266e49e124d6dff2ff49db6b80dae.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline\0.9.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="57528b5deee77bfa2188fc279fd45066366f17f5">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.facebook.fresco-imagepipeline-0.9.0_ef53de653aa2e3539403b54b3c837f35a96a02a7.jar" />
+    </item>
+    <item
+        jar="C:\Users\julopez\.gradle\caches\modules-2\files-2.1\com.crittercism\crittercism-android-agent\5.5.1\9c7d76508b90a4c5a0093e48b6d8ab15c7084bbf\crittercism-android-agent-5.5.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="9c7d76508b90a4c5a0093e48b6d8ab15c7084bbf">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\crittercism-android-agent-5.5.1_3ef4c9b006e4c0e2bcf56ba27de96a2fb9e7bfa9.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.facebook.fresco\fbcore\0.9.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="4ee95617ab850030c51486d02bc9d207b14419c6">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.facebook.fresco-fbcore-0.9.0_073f0099aa8ae9bb8f1eeec981cebf5c9a733005.jar" />
+    </item>
+    <item
+        jar="D:\source_code\Ocasa\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\8.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="dfecc4d835cdabcdecf7e95f0d20a3ef1e9d8ef4">
+        <dex dex="D:\source_code\Ocasa\app\build\intermediates\pre-dexed\dev\debug\com.google.android.gms-play-services-vision-8.4.0_90fe924c2f293d980908915dd663f337e3599e8d.jar" />
+    </item>
+
+</items>
