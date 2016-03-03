@@ -10,25 +10,15 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentPadding="@dimen/large_padding">
+        app:contentPaddingBottom="@dimen/large_padding"
+        app:contentPaddingLeft="@dimen/large_padding"
+        app:contentPaddingRight="@dimen/large_padding">
 
         <LinearLayout
             android:id="@+id/detail_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/table_title"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:layout_margin="@dimen/large_padding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+            android:orientation="vertical"/>
 
     </android.support.v7.widget.CardView>
 

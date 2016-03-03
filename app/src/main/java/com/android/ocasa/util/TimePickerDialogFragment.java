@@ -56,7 +56,7 @@ public class TimePickerDialogFragment extends DialogFragment implements TimePick
         int hour = getArguments().getInt(ARG_HOUR);
         int minute = getArguments().getInt(ARG_MINUTE);
 
-        return new TimePickerDialog(getActivity(), com.android.ocasa.core.R.style.SlideDialog, this, hour, minute, true);
+        return new TimePickerDialog(getActivity(), com.android.ocasa.core.R.style.PickerDialog, this, hour, minute, true);
     }
 
     @Override

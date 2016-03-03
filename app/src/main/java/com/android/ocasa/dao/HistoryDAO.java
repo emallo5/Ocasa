@@ -2,7 +2,9 @@ package com.android.ocasa.dao;
 
 import android.content.Context;
 
+import com.android.ocasa.model.Field;
 import com.android.ocasa.model.History;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -16,9 +18,26 @@ public class HistoryDAO extends GenericDAOImpl<History, Integer> {
         super(History.class, context);
     }
 
+    public List<History> findHistoricalForColumnAndRecord(String columnId, long recordId){
+        try {
+            QueryBuilder<History, Integer> historyBuilder = dao.queryBuilder();
+
+            QueryBuilder<Field, Long> fieldBuilder = new FieldDAO(context).getDao().queryBuilder();
+            fieldBuilder.where().eq("column_id", columnId).and().eq("record_id", recordId);
+
+            historyBuilder.join(fieldBuilder);
+            historyBuilder.orderBy("systemDate", false);
+            return historyBuilder.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public List<History> findHistoricalForField(String fieldId){
         try {
-            return dao.queryBuilder().orderBy("date", false).where().eq("field_id", fieldId).query();
+            return dao.queryBuilder().orderBy("systemDate", false).where().eq("field_id", fieldId).query();
         } catch (SQLException e) {
             e.printStackTrace();
         }

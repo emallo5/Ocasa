@@ -10,6 +10,8 @@ import com.android.ocasa.model.Field;
  */
 public abstract class FieldViewFactory {
 
-    public abstract View createView(ViewGroup container, Field field);
+    public abstract View createView(ViewGroup container, Field field, boolean isEditMode);
+
+    public abstract View createSubView(ViewGroup container, Field field, boolean isEditMode);
 
 }

@@ -33,6 +33,9 @@ public class Column {
     @DatabaseField
     private boolean mandatory;
 
+    @DatabaseField
+    private boolean logic;
+
     @DatabaseField(dataType = DataType.ENUM_STRING)
     private FieldType fieldType;
 
@@ -90,6 +93,14 @@ public class Column {
 
     public void setMandatory(boolean mandatory) {
         this.mandatory = mandatory;
+    }
+
+    public boolean isLogic() {
+        return logic;
+    }
+
+    public void setLogic(boolean logic) {
+        this.logic = logic;
     }
 
     public FieldType getFieldType() {

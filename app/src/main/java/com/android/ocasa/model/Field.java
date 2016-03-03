@@ -26,6 +26,8 @@ public class Field {
     @DatabaseField
     private String value;
 
+    private Record relationship;
+
     @ForeignCollectionField(eager = false)
     private Collection<History> historical;
 
@@ -63,6 +65,14 @@ public class Field {
 
     public Object getFormatValue(){
         return column.getFieldType().format(value);
+    }
+
+    public Record getRelationship() {
+        return relationship;
+    }
+
+    public void setRelationship(Record relationship) {
+        this.relationship = relationship;
     }
 
     public Collection<History> getHistorical() {

@@ -1,34 +1,35 @@
 package com.android.ocasa.widget;
 
 import android.content.Context;
+import android.nfc.FormatException;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.ocasa.R;
+import com.android.ocasa.model.FieldType;
 
 /**
  * Created by ignacio on 04/02/16.
  */
-public class FieldPhoneView extends RelativeLayout implements FieldViewAdapter {
+public class FieldPhoneView extends LinearLayout implements FieldViewAdapter {
 
     private FieldViewActionListener listener;
 
-    private FieldTextView fieldTextView;
+    private TextView label;
+    private InputFieldView field;
 
     public FieldPhoneView(Context context) {
-        super(context);
-
-        init();
+        this(context, null);
     }
 
     public FieldPhoneView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-
-        init();
+        this(context, attrs, 0);
     }
 
     public FieldPhoneView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -37,17 +38,20 @@ public class FieldPhoneView extends RelativeLayout implements FieldViewAdapter {
         init();
     }
 
-    @Override
+    /*@Override
     public void setTag(Object tag) {
         super.setTag("");
-        fieldTextView.setTag(tag);
-    }
+        field.setTag(tag);
+    }*/
 
     private void init(){
 
+        setOrientation(VERTICAL);
+
         LayoutInflater.from(getContext()).inflate(R.layout.field_phone_layout, this, true);
 
-        fieldTextView = (FieldTextView) findViewById(R.id.field_text);
+        label = (TextView) findViewById(R.id.label);
+        field = (InputFieldView) findViewById(R.id.field);
 
         ImageView callButton = (ImageView) findViewById(R.id.call_button);
         callButton.setOnClickListener(new OnClickListener() {
@@ -58,23 +62,31 @@ public class FieldPhoneView extends RelativeLayout implements FieldViewAdapter {
         });
     }
 
-    public EditText getTextField(){
-        return  fieldTextView.getTextField();
-    }
-
     @Override
     public void setFieldViewActionListener(FieldViewActionListener listener) {
-        fieldTextView.setFieldViewActionListener(listener);
         this.listener = listener;
     }
 
     @Override
-    public void setValue(String value) {
+    public void setLabel(String label) {
+        this.label.setText(label);
+    }
 
+    @Override
+    public void setValue(String value) throws FormatException{
+
+        if(FieldType.PHONE.checkValue(value))
+            throw new FormatException();
+
+        field.getInput().setText(value);
     }
 
     @Override
     public String getValue() {
-        return fieldTextView.getTextField().getText().toString();
+        return field.getInput().getText().toString();
+    }
+
+    public InputFieldView getField() {
+        return field;
     }
 }

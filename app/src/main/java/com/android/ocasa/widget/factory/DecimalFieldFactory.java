@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.android.ocasa.model.Field;
-import com.android.ocasa.widget.FieldTextView;
+import com.android.ocasa.widget.FormInputFieldView;
 
 /**
  * Created by ignacio on 10/02/16.
@@ -14,11 +14,11 @@ import com.android.ocasa.widget.FieldTextView;
 public class DecimalFieldFactory extends TextFieldFactory {
 
     @Override
-    public View createView(ViewGroup container, Field field) {
+    public View createView(ViewGroup container, Field field, boolean isEditMode) {
 
-        FieldTextView textView = (FieldTextView) super.createView(container, field);
+        FormInputFieldView textView = (FormInputFieldView) super.createView(container, field, isEditMode);
 
-        EditText textField = textView.getTextField();
+        EditText textField = textView.getField().getInput();
         textField.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         return textView;

@@ -16,7 +16,7 @@ import com.android.ocasa.core.listener.RecyclerItemClickListener;
 /**
  * Created by ignacio on 11/01/16.
  */
-public class RecyclerListFragment extends Fragment {
+public class RecyclerListFragment extends BaseFragment {
 
     private RecyclerView mList;
     private ProgressBar mProgress;

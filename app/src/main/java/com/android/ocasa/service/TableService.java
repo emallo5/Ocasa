@@ -88,7 +88,8 @@ public class TableService {
             for (Column column : httpTable.getColumns()){
                 column.setTable(table);
 
-                if(column.getFieldType() == FieldType.COMBO){
+                if(column.getFieldType() == FieldType.COMBO ||
+                        column.getFieldType() == FieldType.LIST){
                     tableDAO.save(column.getRelationship());
 
                     Intent intent = new Intent(DOWNLOAD_TABLE_REQUEST);

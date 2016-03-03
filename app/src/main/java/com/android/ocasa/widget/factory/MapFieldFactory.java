@@ -15,13 +15,21 @@ import com.google.android.gms.maps.model.LatLng;
 public class MapFieldFactory extends FieldViewFactory {
 
     @Override
-    public View createView(ViewGroup container, Field field) {
+    public View createView(ViewGroup container, Field field, boolean isEditMode) {
 
         FieldMapView text = (FieldMapView) LayoutInflater
                 .from(container.getContext()).inflate(R.layout.field_map, container, false);
 
-        text.setValue(field.getValue());
+        text.setLabel(field.getColumn().getName());
+
+        if(!isEditMode)
+            text.setValue(field.getValue());
 
         return text;
+    }
+
+    @Override
+    public View createSubView(ViewGroup container, Field field, boolean isEditMode) {
+        return null;
     }
 }

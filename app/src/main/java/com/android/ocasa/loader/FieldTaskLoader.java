@@ -3,37 +3,37 @@ package com.android.ocasa.loader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-import com.android.ocasa.dao.FieldDAO;
 import com.android.ocasa.dao.HistoryDAO;
-import com.android.ocasa.model.Field;
+import com.android.ocasa.model.History;
+
+import java.util.List;
 
 
 /**
  * Created by ignacio on 11/02/16.
  */
-public class FieldTaskLoader extends AsyncTaskLoader<Field> {
+public class FieldTaskLoader extends AsyncTaskLoader<List<History>> {
 
-    private int fieldId;
+    private long recordId;
+    private String columnId;
 
-    private Field field;
+    private List<History> historical;
 
-    public FieldTaskLoader(Context context, int fieldId) {
+    public FieldTaskLoader(Context context, long recordId, String columnId) {
         super(context);
-        this.fieldId = fieldId;
+        this.recordId = recordId;
+        this.columnId = columnId;
     }
 
     @Override
-    public Field loadInBackground() {
+    public List<History> loadInBackground() {
 
-        Field field = new FieldDAO(getContext()).finById(fieldId);
-        field.setHistorical(new HistoryDAO(getContext()).findHistoricalForField(String.valueOf(field.getId())));
-
-        return field;
+        return new HistoryDAO(getContext()).findHistoricalForColumnAndRecord(columnId, recordId);
     }
 
     @Override
-    public void deliverResult(Field data) {
-        this.field = data;
+    public void deliverResult(List<History> data) {
+        this.historical = data;
 
         if(isStarted())
             super.deliverResult(data);
@@ -41,8 +41,8 @@ public class FieldTaskLoader extends AsyncTaskLoader<Field> {
 
     @Override
     protected void onStartLoading() {
-        if(field != null)
-            deliverResult(field);
+        if(historical != null)
+            deliverResult(historical);
         else{
             forceLoad();
         }

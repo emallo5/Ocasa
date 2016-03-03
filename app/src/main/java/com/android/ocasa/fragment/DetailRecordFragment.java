@@ -3,27 +3,27 @@ package com.android.ocasa.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.nfc.FormatException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.ocasa.R;
 import com.android.ocasa.activity.ReadFieldActvivity;
+import com.android.ocasa.activity.ValidityDateActivity;
 import com.android.ocasa.barcode.BarcodeActivity;
-import com.android.ocasa.core.fragment.BaseFragment;
 import com.android.ocasa.loader.RecordTaskLoader;
 import com.android.ocasa.loader.SaveFormTask;
+import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
-import com.android.ocasa.model.History;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.util.DatePickerDialogFragment;
@@ -31,6 +31,7 @@ import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.util.TimePickerDialogFragment;
 import com.android.ocasa.widget.FieldComboView;
 import com.android.ocasa.widget.FieldDateView;
+import com.android.ocasa.widget.FieldListView;
 import com.android.ocasa.widget.FieldMapView;
 import com.android.ocasa.widget.FieldPhoneView;
 import com.android.ocasa.widget.FieldTimeView;
@@ -43,31 +44,54 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ignacio on 28/01/16.
  */
 public class DetailRecordFragment extends LocationFragment implements LoaderManager.LoaderCallbacks<Record>,
         FieldViewActionListener, TimePickerDialogFragment.OnTimeChangeListener,
-        DatePickerDialogFragment.OnDateChangeListener{
+        DatePickerDialogFragment.OnDateChangeListener, ComboPickerDialog.OnComboPickerListener{
 
     static final String ARG_RECORD_ID = "record_id";
+    static final String ARG_RECORDS_ID = "records_id";
+    static final String ARG_MULTIPLE_EDIT = "multiple_edit";
 
     static final int REQUEST_QR_SCANNER = 1000;
     static final int REQUEST_MAP = 2000;
+    static final int REQUEST_VALIDITY_DATE = 3000;
+
+    static final String MAP_TAG = "Map";
+    static final String DATE_TAG = "Date";
+    static final String TIME_TAG = "Time";
+    static final String COMBO_TAG = "Combo";
 
     private LinearLayout container;
 
-    private TextView tableTitle;
-
     private Record record;
 
-    public static DetailRecordFragment newInstance(int recordId) {
+    private Map<String, String> formValues;
+
+    public static DetailRecordFragment newInstance(long recordId) {
 
         Bundle args = new Bundle();
-        args.putInt(ARG_RECORD_ID, recordId);
+        args.putLong(ARG_RECORD_ID, recordId);
+        args.putBoolean(ARG_MULTIPLE_EDIT, false);
+
+        DetailRecordFragment fragment = new DetailRecordFragment();
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    public static DetailRecordFragment newInstance(long[] recordId) {
+
+        Bundle args = new Bundle();
+        args.putLong(ARG_RECORD_ID, recordId[0]);
+        args.putLongArray(ARG_RECORDS_ID, recordId);
+        args.putBoolean(ARG_MULTIPLE_EDIT, true);
 
         DetailRecordFragment fragment = new DetailRecordFragment();
         fragment.setArguments(args);
@@ -78,7 +102,20 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        formValues = new HashMap<>();
+
         getLoaderManager().initLoader(0, getArguments(), this);
+
+        getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if(getFragmentManager().getBackStackEntryCount() == 0){
+                    String title = getString(R.string.detail_title, record.getTable().getName());
+
+                    setTitle(title);
+                }
+            }
+        });
     }
 
     @Nullable
@@ -92,12 +129,11 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
         super.onViewCreated(view, savedInstanceState);
 
         container = (LinearLayout) view.findViewById(R.id.detail_container);
-        tableTitle = (TextView) view.findViewById(R.id.table_title);
     }
 
     @Override
     public Loader<Record> onCreateLoader(int id, Bundle args) {
-        return new RecordTaskLoader(getActivity(), args.getInt(ARG_RECORD_ID));
+        return new RecordTaskLoader(getActivity(), args.getLong(ARG_RECORD_ID));
     }
 
     @Override
@@ -116,8 +152,12 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
 
     private void fillRecord(){
 
-        if(record.getTable().getName() != null)
-            tableTitle.setText(record.getTable().getName().toUpperCase());
+        if(record.getTable().getName() != null){
+
+            String title = getString(R.string.detail_title, record.getTable().getName());
+
+            setTitle(title);
+        }
 
         fillFields(new ArrayList<>(record.getFields()));
     }
@@ -127,21 +167,19 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
         if(container.getChildCount() > 1)
             container.removeViews(1, fields.size() + 1);
 
+        boolean isEditMode = getArguments().getBoolean(ARG_MULTIPLE_EDIT);
+
         for (Field field : fields){
             FieldViewFactory factory = field.getColumn().getFieldType().getFieldFactory();
 
-            View view = factory.createView(container, field);
+            View view = factory.createView(container, field, isEditMode);
 
             if(view != null) {
-                try {
-                    view.setTag(String.valueOf(field.getId()));
+                formValues.put(field.getColumn().getId(), field.getValue());
+                view.setTag(field.getColumn().getId());
 
-                    FieldViewAdapter adapter = (FieldViewAdapter) view;
-                    adapter.setFieldViewActionListener(this);
-                } catch (ClassCastException e) {
-
-                }
-
+                FieldViewAdapter adapter = (FieldViewAdapter) view;
+                adapter.setFieldViewActionListener(this);
                 container.addView(view);
             }
         }
@@ -171,7 +209,11 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
 
                 FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(data.getStringExtra(ReadFieldActvivity.QR_FIELD_TAG));
 
-                view.setValue(barcode.displayValue);
+                try {
+                    view.setValue(barcode.displayValue);
+                } catch (FormatException e) {
+                    Toast.makeText(getActivity(), "Formato invalido", Toast.LENGTH_SHORT).show();
+                }
             }
         }else if(requestCode == REQUEST_MAP){
             if(resultCode == Activity.RESULT_OK){
@@ -183,32 +225,37 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
                 FieldMapView view = (FieldMapView) container.findViewWithTag(columnId);
                 view.setValue(FieldType.MAP.format(location));
             }
+        }else if(requestCode == REQUEST_VALIDITY_DATE){
+            if(resultCode == Activity.RESULT_OK){
+
+                Calendar validityDate = (Calendar) data.getSerializableExtra("ValidityDate");
+
+                SaveFormTask.FormData formData = new SaveFormTask.FormData(formValues,
+                        getArguments().getLongArray(ARG_RECORDS_ID),
+                        getLastLocation(), validityDate);
+
+                new SaveFormTask(getActivity()).execute(formData);
+
+                Toast.makeText(getContext(), "Enviando...", Toast.LENGTH_SHORT).show();
+
+                getActivity().onBackPressed();
+            }
         }
-
-    }
-
-
-    @Override
-    public void onHistoryClick(int fieldId) {
-        FieldHistoricalFragmentRecycler fragment = FieldHistoricalFragmentRecycler.newInstance(fieldId);
-
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(com.android.ocasa.core.R.anim.slide_in_left,
-                com.android.ocasa.core.R.anim.slide_out_left,
-                com.android.ocasa.core.R.anim.slide_in_right,
-                com.android.ocasa.core.R.anim.slide_out_right);
-        transaction.hide(getFragmentManager().findFragmentByTag("Detail"));
-        transaction.add(com.android.ocasa.core.R.id.container, fragment, "Historical");
-        transaction.addToBackStack(null);
-
-        transaction.commit();
     }
 
     @Override
-    public void onQrClick(int fieldId) {
+    public void onHistoryClick(View view) {
+        FieldHistoricalFragment fragment = FieldHistoricalFragment.newInstance(record.getId(),
+                view.getTag().toString());
+
+        showFragment("Detail", fragment, "Historical");
+    }
+
+    @Override
+    public void onQrClick(View view) {
 
         Intent intent =  new Intent(getActivity(), ReadFieldActvivity.class);
-        intent.putExtra(ReadFieldActvivity.QR_FIELD_TAG, String.valueOf(fieldId));
+        intent.putExtra(ReadFieldActvivity.QR_FIELD_TAG, view.getTag().toString());
 
         startActivityForResult(intent, REQUEST_QR_SCANNER);
     }
@@ -216,20 +263,11 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
     @Override
     public void onMapClick(FieldMapView view) {
 
-        MapFragment fragment = MapFragment.newInstance((String) view.getTag(),
+        MapFragment fragment = MapFragment.newInstance((String) view.getTag(), view.getLabel(),
                 (LatLng) FieldType.MAP.parse(view.getValue()));
         fragment.setTargetFragment(this, REQUEST_MAP);
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(com.android.ocasa.core.R.anim.slide_in_left,
-                com.android.ocasa.core.R.anim.slide_out_left,
-                com.android.ocasa.core.R.anim.slide_in_right,
-                com.android.ocasa.core.R.anim.slide_out_right);
-        transaction.hide(getFragmentManager().findFragmentByTag("Detail"));
-        transaction.add(com.android.ocasa.core.R.id.container, fragment, "Map");
-        transaction.addToBackStack(null);
-
-        transaction.commit();
+        showFragment("Detail", fragment, MAP_TAG);
     }
 
     @Override
@@ -239,7 +277,7 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
         calendar.setTime(DateTimeHelper.parseDate(view.getValue()));
 
         DatePickerDialogFragment datePickerDialog = DatePickerDialogFragment.newInstance((String) view.getTag(), calendar);
-        datePickerDialog.show(getChildFragmentManager(), "DateDialog");
+        showDialog(DATE_TAG, datePickerDialog);
     }
 
     @Override
@@ -249,7 +287,7 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
         calendar.setTime(DateTimeHelper.parseTime(view.getValue()));
 
         TimePickerDialogFragment timePickerDialog = TimePickerDialogFragment.newInstance((String) view.getTag(), calendar);
-        timePickerDialog.show(getChildFragmentManager(), "TimeDialog");
+        showDialog(TIME_TAG, timePickerDialog);
     }
 
     @Override
@@ -261,60 +299,94 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
     @Override
     public void onComboClick(FieldComboView view) {
 
-        Table table = record.getColumnForField(Integer.valueOf(view.getTag().toString())).getRelationship();
+        Table table = record.getFieldForColumn(view.getTag().toString()).getColumn().getRelationship();
 
-        ComboTableFragment fragment = ComboTableFragment.newInstance(table.getId());
+        ComboPickerDialog dialog = ComboPickerDialog.newInstance(view.getTag().toString(), table.getId());
+        showDialog(COMBO_TAG, dialog);
+    }
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(com.android.ocasa.core.R.anim.slide_in_left,
-                com.android.ocasa.core.R.anim.slide_out_left,
-                com.android.ocasa.core.R.anim.slide_in_right,
-                com.android.ocasa.core.R.anim.slide_out_right);
-        transaction.hide(getFragmentManager().findFragmentByTag("Detail"));
-        transaction.add(com.android.ocasa.core.R.id.container, fragment, "List");
-        transaction.addToBackStack(null);
+    @Override
+    public void onListClick(FieldListView view) {
 
-        transaction.commit();
+        Column column = record.getFieldForColumn(view.getTag().toString()).getColumn();
+
+//        String[] values = record.getFieldForColumn(view.getValue()).getValue().split(",");
+        String value = record.getFieldForColumn(view.getValue()).getValue();
+
+        DetailListFragment fragment = DetailListFragment.newInstance(view.getLabel(), column.getRelationship().getId(),"571", value);
+
+        showFragment("Detail", fragment, "ListDetail");
+    }
+
+    @Override
+    public void onPick(String fieldTag, Record record) {
+
+        FieldComboView comboView = (FieldComboView) container.findViewWithTag(fieldTag);
+
+        for (Field field : record.getFields()){
+
+            FieldViewAdapter adapter = (FieldViewAdapter) comboView.findViewWithTag(field.getColumn().getId());
+
+            if(adapter != null){
+                try {
+                    adapter.setValue(field.getValue());
+                } catch (FormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        String columnId = comboView.getValue().split(",")[0];
+
+        Field field = record.getFieldForColumn(columnId);
+
+        comboView.setValue(columnId + "," + field.getValue());
     }
 
     @Override
     public void onTimeChange(String fieldTag, Calendar calendar) {
         FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(fieldTag);
 
-        view.setValue(DateTimeHelper.formatTime(calendar.getTime()));
+        try {
+            view.setValue(DateTimeHelper.formatTime(calendar.getTime()));
+        } catch (FormatException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void onDateChange(String fieldTag, Calendar calendar) {
+    public void onDateChange(String fieldTag, Calendar calendar){
         FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(fieldTag);
 
-        view.setValue(DateTimeHelper.formatDate(calendar.getTime()));
+        try {
+            view.setValue(DateTimeHelper.formatDate(calendar.getTime()));
+        } catch (FormatException e) {
+            e.printStackTrace();
+        }
     }
 
     private void save(){
 
-        for (Field field : record.getFields()){
+        for (Map.Entry<String, String> pair : formValues.entrySet()) {
+            FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(pair.getKey());
 
-            FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(String.valueOf(field.getId()));
-
-            if(!view.getValue().equalsIgnoreCase(field.getValue())) {
-
-                History history = new History();
-                history.setValue(field.getValue());
-                history.setDate(DateTimeHelper.formatDateTime(new Date()));
-                history.setField(field);
-
-                field.addHistory(history);
-
-                field.setValue(view.getValue());
-            }
+            pair.setValue(view.getValue());
         }
 
-        new SaveFormTask(getActivity()).execute(record);
+        SaveFormTask.FormData formData;
+
+        if(getArguments().getBoolean(ARG_MULTIPLE_EDIT)){
+            Intent intent = new Intent(getActivity(), ValidityDateActivity.class);
+            startActivityForResult(intent, REQUEST_VALIDITY_DATE);
+            getActivity().overridePendingTransition(R.anim.slide_up_dialog, R.anim.no_change);
+            return;
+        }else{
+            formData = new SaveFormTask.FormData(formValues, getArguments().getLong(ARG_RECORD_ID), getLastLocation());
+            new SaveFormTask(getActivity()).execute(formData);
+        }
 
         Toast.makeText(getContext(), "Enviando...", Toast.LENGTH_SHORT).show();
 
         getActivity().onBackPressed();
     }
-
 }

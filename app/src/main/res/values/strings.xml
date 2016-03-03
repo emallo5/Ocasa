@@ -17,10 +17,17 @@
 
     <string name="forgot_password_empty_user_message">Debe ingresar un email</string>
 
+    <string name="detail_title">Detalle %1$s</string>
+
     <string name="font_fontFamily_regular">sans-serif</string>
     <string name="font_fontFamily_medium">sans-serif</string>
 
+    <string name="historical_title">Historial</string>
+
     <string name="form_map_field_display_text">Lat: %1$s Lng: %2$s</string>
 
+    <string name="map_info_location_text">Toque un punto para establecer una nueva ubicación</string>
+    <string name="map_new_location_text">Establecer nuva ubicación</string>
+    <string name="map_new_location_button">Aceptar</string>
 
 </resources>

@@ -63,6 +63,10 @@
             android:theme="@style/FilterTheme"
             android:name=".activity.FilterActivity"/>
 
+        <activity
+            android:theme="@style/FilterTheme"
+            android:name=".activity.ValidityDateActivity"/>
+
         <service android:name=".sync.SyncService"/>
         <service android:name=".sync.LoginService"/>
         <service android:name=".sync.SendService"/>

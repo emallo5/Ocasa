@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.SearchView;
 import android.view.ActionMode;
@@ -15,12 +16,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.ocasa.R;
 import com.android.ocasa.activity.DetailRecordActivity;
 import com.android.ocasa.core.activity.BaseActivity;
+import com.android.ocasa.core.activity.MenuActivity;
 import com.android.ocasa.model.Record;
+import com.android.ocasa.model.Table;
 import com.android.ocasa.service.RecordService;
 import com.android.ocasa.sync.SyncService;
 
@@ -29,7 +34,8 @@ import java.util.List;
 /**
  * Created by ignacio on 11/01/16.
  */
-public class HomeFragment extends TableRecordListFragment implements LoaderManager.LoaderCallbacks<List<Record>>, SearchView.OnQueryTextListener{
+public class HomeFragment extends TableRecordListFragment implements
+        SearchView.OnQueryTextListener, AbsListView.MultiChoiceModeListener{
 
     private RecordSyncReceiver receiver;
     private IntentFilter filter;
@@ -76,33 +82,13 @@ public class HomeFragment extends TableRecordListFragment implements LoaderManag
 
         ListView list =  getListView();
         list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        list.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+        list.setMultiChoiceModeListener(this);
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-            }
-
-            @Override
-            public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-
-                MenuInflater inflater = actionMode.getMenuInflater();
-                inflater.inflate(R.menu.menu_filter, menu);
+                //getListView().setItemChecked(i, true);
                 return true;
-            }
-
-            @Override
-            public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-                return false;
-            }
-
-            @Override
-            public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-                return false;
-            }
-
-            @Override
-            public void onDestroyActionMode(ActionMode actionMode) {
-
             }
         });
 
@@ -133,6 +119,13 @@ public class HomeFragment extends TableRecordListFragment implements LoaderManag
         Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
         intent.putExtra(DetailRecordActivity.EXTRA_RECORD_ID, id);
         ((BaseActivity) getActivity()).startNewActivity(intent);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Table> loader, Table data) {
+        super.onLoadFinished(loader, data);
+
+        ((MenuActivity)getActivity()).getDelegate().getSupportActionBar().setTitle(data.getName());
     }
 
     @Override
@@ -181,6 +174,42 @@ public class HomeFragment extends TableRecordListFragment implements LoaderManag
         return true;
     }
 
+    @Override
+    public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
+        actionMode.setTitle(getListView().getCheckedItemCount() + " items seleccionados");
+    }
+
+    @Override
+    public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+        MenuInflater inflater = actionMode.getMenuInflater();
+        inflater.inflate(R.menu.menu_multiple_selection, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+        return false;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+
+        if(menuItem.getItemId() == R.id.modify){
+            Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
+            intent.putExtra(DetailRecordActivity.EXTRA_RECORDS_ID, getListView().getCheckedItemIds());
+            intent.putExtra(DetailRecordActivity.EXTRA_MULTIPLE_EDIT, true);
+            ((BaseActivity) getActivity()).startNewActivity(intent);
+            actionMode.finish();
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode actionMode) {
+
+    }
 
     public class RecordSyncReceiver extends BroadcastReceiver {
 

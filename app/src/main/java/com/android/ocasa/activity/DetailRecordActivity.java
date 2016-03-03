@@ -11,6 +11,8 @@ import com.android.ocasa.fragment.DetailRecordFragment;
 public class DetailRecordActivity extends BarActivity {
 
     public static final String EXTRA_RECORD_ID = "record_id";
+    public static final String EXTRA_RECORDS_ID = "records_id";
+    public static final String EXTRA_MULTIPLE_EDIT = "multiple_edit";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,10 @@ public class DetailRecordActivity extends BarActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        pushFragment(DetailRecordFragment.newInstance((int) extras.getLong(EXTRA_RECORD_ID)), "Detail");
+        if(extras.containsKey(EXTRA_MULTIPLE_EDIT)) {
+            pushFragment(DetailRecordFragment.newInstance(extras.getLongArray(EXTRA_RECORDS_ID)), "Detail");
+        }else{
+            pushFragment(DetailRecordFragment.newInstance(extras.getLong(EXTRA_RECORD_ID)), "Detail");
+        }
     }
 }

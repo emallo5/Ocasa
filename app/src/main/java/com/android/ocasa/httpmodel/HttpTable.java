@@ -45,9 +45,11 @@ public class HttpTable {
             column.setLength(jObject.has("length") ? jObject.get("length").getAsInt() : 0);
             column.setEditable(jObject.get("editable").getAsBoolean());
             column.setMandatory(jObject.get("mandatory").getAsBoolean());
+            column.setLogic(jObject.has("logic") && jObject.get("logic").getAsBoolean());
             column.setFieldType(FieldType.findTypeByApiName(jObject.get("field_type").getAsString()));
 
-            if(column.getFieldType() == FieldType.COMBO){
+            if(column.getFieldType() == FieldType.COMBO ||
+                    column.getFieldType() == FieldType.LIST){
                 Table table = new Table();
                 table.setId(jObject.get("table_id").getAsString());
 

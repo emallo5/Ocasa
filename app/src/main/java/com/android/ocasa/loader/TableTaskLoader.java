@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
 import com.android.ocasa.dao.RecordDAO;
+import com.android.ocasa.dao.TableDAO;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Record;
+import com.android.ocasa.model.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +15,12 @@ import java.util.List;
 /**
  * Created by ignacio on 28/01/16.
  */
-public class TableTaskLoader extends AsyncTaskLoader<List<Record>> {
+public class TableTaskLoader extends AsyncTaskLoader<Table> {
 
     private String tableId;
     private String query;
 
-    private List<Record> table;
+    private Table table;
 
     public TableTaskLoader(Context context, String tableId, String query) {
         super(context);
@@ -27,14 +29,18 @@ public class TableTaskLoader extends AsyncTaskLoader<List<Record>> {
     }
 
     @Override
-    public List<Record> loadInBackground() {
+    public Table loadInBackground() {
 
-        RecordDAO recordDAO = new RecordDAO(getContext());
+        TableDAO tableDAO = new TableDAO(getContext());
+
+        Table table = tableDAO.finById(tableId);
 
         if(query != null)
-            return recordDAO.findRecordsForTableAndQuery(tableId, query);
+            table.setRecords(new RecordDAO(getContext()).findRecordsForTableAndQuery(tableId, query));
+        else
+            table.setRecords(new RecordDAO(getContext()).findRecordsForTable(tableId));
 
-        return recordDAO.findRecordsForTable(tableId);
+        return table;
     }
 
     private List<Record> filter(List<Record> records){
@@ -73,7 +79,7 @@ public class TableTaskLoader extends AsyncTaskLoader<List<Record>> {
     }
 
     @Override
-    public void deliverResult(List<Record> data) {
+    public void deliverResult(Table data) {
         this.table = data;
 
         if(isStarted())

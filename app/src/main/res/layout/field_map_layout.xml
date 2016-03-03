@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/medium_padding"/>
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_toLeftOf="@+id/map"
+            android:weightSum="2">
+
+            <EditText
+                style="@style/Input"
+                android:id="@+id/latitude"
+                android:layout_marginRight="@dimen/medium_padding"
+                android:inputType="numberSigned|numberDecimal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <EditText
+                style="@style/Input"
+                android:id="@+id/longitude"
+                android:layout_marginLeft="@dimen/medium_padding"
+                android:inputType="numberSigned|numberDecimal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_pin"
+            android:scaleType="center"
+            android:padding="@dimen/medium_padding"
+            android:clickable="true"
+            android:background="?android:selectableItemBackground"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <!--<TextView-->
+        <!--android:id="@+id/text_field"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:singleLine="true"-->
+        <!--android:ellipsize="end"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:drawablePadding="@dimen/medium_padding"-->
+        <!--android:drawableLeft="@drawable/ic_pin"-->
+        <!--android:drawableStart="@drawable/ic_pin"/>-->
+
+</merge>

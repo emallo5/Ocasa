@@ -1,105 +1,44 @@
 package com.android.ocasa.widget;
 
 import android.content.Context;
+import android.nfc.FormatException;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.android.ocasa.R;
-import com.android.ocasa.util.IconizedMenu;
-
-import java.util.Date;
+import com.android.ocasa.model.FieldType;
+import com.android.ocasa.util.DateTimeHelper;
 
 /**
  * Created by ignacio on 04/02/16.
  */
-public class FieldTimeView extends RelativeLayout implements FieldViewAdapter, IconizedMenu.OnMenuItemClickListener{
-
-    private FieldViewActionListener listener;
-
-    private TextView textView;
-
-    private ImageView qrScanner;
+public class FieldTimeView extends FormTextFieldView {
 
     public FieldTimeView(Context context) {
-        super(context);
-
-        init();
+        this(context, null);
     }
 
     public FieldTimeView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-
-        init();
+        this(context, attrs, 0);
     }
 
     public FieldTimeView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        init();
-    }
-
-    private void init(){
-
-        LayoutInflater.from(getContext()).inflate(R.layout.field_time_layout, this, true);
-
-        textView = (TextView) findViewById(R.id.text_field);
-        qrScanner = (ImageView) findViewById(R.id.qr_scanner);
-
-        qrScanner.setOnClickListener(new OnClickListener() {
+        getField().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                showMenu();
-            }
-        });
-
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onTimeClick(FieldTimeView.this);
+                getListener().onTimeClick(FieldTimeView.this);
             }
         });
     }
 
-    private void showMenu(){
-        IconizedMenu actionMenu = new IconizedMenu(getContext(), qrScanner);
-        actionMenu.setOnMenuItemClickListener(this);
-        MenuInflater inflater = actionMenu.getMenuInflater();
-        inflater.inflate(R.menu.menu_form_field, actionMenu.getMenu());
-        actionMenu.show();
-    }
-
     @Override
-    public void setFieldViewActionListener(FieldViewActionListener listener) {
-        this.listener = listener;
-    }
+    public void setValue(String value) throws FormatException{
 
-    @Override
-    public void setValue(String value) {
-        textView.setText(value);
-    }
+        if(FieldType.TIME.checkValue(value))
+            throw new FormatException();
 
-    @Override
-    public String getValue() {
-        return textView.getText().toString();
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.history:
-                listener.onHistoryClick(Integer.valueOf(getTag().toString()));
-                break;
-            case R.id.qr_scanner:
-                listener.onQrClick(Integer.valueOf(getTag().toString()));
-                break;
-        }
-
-        return true;
+        super.setValue(value);
     }
 }
+

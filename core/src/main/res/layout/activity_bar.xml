@@ -16,13 +16,13 @@
             android:layout_width="match_parent" >
 
 
-                <ImageView
+               <!-- <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:scaleType="center"
                     android:src="?attr/navBarIcon"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true"/>-->
 
         </android.support.v7.widget.Toolbar>
 

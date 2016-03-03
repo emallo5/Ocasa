@@ -13,7 +13,7 @@ import java.util.Collection;
 public class Record {
 
     @DatabaseField(generatedId = true)
-    private int id;
+    private long id;
 
     @DatabaseField(foreign = true, foreignAutoRefresh = true, foreignAutoCreate = true)
     private Table table;
@@ -21,13 +21,16 @@ public class Record {
     @ForeignCollectionField(eager = true)
     private Collection<Field> fields;
 
+    @DatabaseField(foreign = true)
+    private Receipt receipt;
+
     public Record() {}
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -79,4 +82,11 @@ public class Record {
         return null;
     }
 
+    public Receipt getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(Receipt receipt) {
+        this.receipt = receipt;
+    }
 }

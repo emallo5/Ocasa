@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by ignacio on 28/01/16.
  */
-public class RecordDAO extends GenericDAOImpl<Record, Integer> {
+public class RecordDAO extends GenericDAOImpl<Record, Long> {
 
     public RecordDAO(Context context) {
         super(Record.class, context);
@@ -34,10 +34,10 @@ public class RecordDAO extends GenericDAOImpl<Record, Integer> {
     public List<Record> findRecordsForTableAndQuery(String tableId, String query){
 
         try {
-            QueryBuilder<Record, Integer> recordQuery = dao.queryBuilder();
+            QueryBuilder<Record, Long> recordQuery = dao.queryBuilder();
 
 
-            QueryBuilder<Field, Integer> fieldDao = new FieldDAO(context).getDao().queryBuilder();
+            QueryBuilder<Field, Long> fieldDao = new FieldDAO(context).getDao().queryBuilder();
 
             fieldDao.where().like("value", "%" + query + "%");
 
@@ -47,6 +47,48 @@ public class RecordDAO extends GenericDAOImpl<Record, Integer> {
             recordQuery.groupBy("id");
 
             return recordQuery.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<Record> findDetailRecords(String tableId, String columnId, String value){
+
+        try {
+            QueryBuilder<Record, Long> recordQuery = dao.queryBuilder();
+
+            QueryBuilder<Field, Long> fieldDao = new FieldDAO(context).getDao().queryBuilder();
+
+            fieldDao.where().like("column_id", columnId).and().eq("value", value);
+
+            recordQuery.join(fieldDao);
+
+            recordQuery.where().eq("table_id", tableId);
+            recordQuery.groupBy("id");
+
+            return recordQuery.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    public Record findRecordsForColumnAndValue(String columnId, String value){
+
+        try {
+            QueryBuilder<Record, Long> recordQuery = dao.queryBuilder();
+
+            QueryBuilder<Field, Long> fieldDao = new FieldDAO(context).getDao().queryBuilder();
+
+            fieldDao.where().eq("column_id", columnId).and().eq("value", value);
+
+            recordQuery.join(fieldDao);
+
+            return recordQuery.queryForFirst();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -6,8 +6,13 @@
         <item name="windowActionModeOverlay">true</item>
     </style>
 
-    <style name="SlideDialog" parent="Theme.AppCompat.Light.Dialog">
+    <style name="SlideDialog" parent="Base.Theme.AppCompat.Light.Dialog">
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+    </style>
+
+    <style name="PickerDialog" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="DialogAnimation">

@@ -8,7 +8,9 @@
         <item name="colorPrimaryDark">@color/ocasaLightBlue</item>
         <item name="colorAccent">@color/ocasaLightBlue</item>
         <item name="android:textColorSecondary">@color/ocasaLightBlue</item>
-        <item name="navBarIcon">@drawable/logo_ocasa_nav_bar</item>
+        <item name="navBarIcon">@null</item>
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="android:actionModeBackground">@color/ocasaLightBlue</item>
     </style>
 
     <style name="FilterTheme" parent="Theme.AppCompat.Light.DarkActionBar">

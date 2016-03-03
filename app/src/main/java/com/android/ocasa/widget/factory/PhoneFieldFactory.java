@@ -1,5 +1,6 @@
 package com.android.ocasa.widget.factory;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +15,26 @@ import com.android.ocasa.widget.FieldPhoneView;
  */
 public class PhoneFieldFactory extends FieldViewFactory {
     @Override
-    public View createView(ViewGroup container, Field field) {
+    public View createView(ViewGroup container, Field field, boolean isEditMode) {
 
         FieldPhoneView text = (FieldPhoneView) LayoutInflater
                 .from(container.getContext()).inflate(R.layout.field_phone, container, false);
 
-        EditText textField = text.getTextField();
-        textField.setText(field.getValue());
+        text.setLabel(field.getColumn().getName());
+
+        EditText textField = text.getField().getInput();
+        textField.setInputType(InputType.TYPE_CLASS_PHONE);
+
+        if(!isEditMode)
+            textField.setText(field.getValue());
+
         textField.setHint(field.getColumn().getName());
 
         return text;
+    }
+
+    @Override
+    public View createSubView(ViewGroup container, Field field, boolean isEditMode) {
+        return null;
     }
 }

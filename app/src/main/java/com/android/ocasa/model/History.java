@@ -13,10 +13,22 @@ public class History {
     private int id;
 
     @DatabaseField
-    private String date;
+    private String systemDate;
+
+    @DatabaseField
+    private String validityDate;
 
     @DatabaseField
     private String value;
+
+    @DatabaseField
+    private double latitude;
+
+    @DatabaseField
+    private double longitude;
+
+    @DatabaseField
+    private String timeZone;
 
     @DatabaseField(foreign = true)
     private Field field;
@@ -35,12 +47,20 @@ public class History {
         this.id = id;
     }
 
-    public String getDate() {
-        return date;
+    public String getSystemDate() {
+        return systemDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setSystemDate(String date) {
+        this.systemDate = date;
+    }
+
+    public String getValidityDate() {
+        return validityDate;
+    }
+
+    public void setValidityDate(String validityDate) {
+        this.validityDate = validityDate;
     }
 
     public String getValue() {
@@ -49,6 +69,30 @@ public class History {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
     }
 
     public Field getField() {

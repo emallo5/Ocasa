@@ -26,13 +26,18 @@ public class RecordAdapter extends BaseAdapter {
     }
 
     @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+
+    @Override
     public int getCount() {
         return records.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return records.get(i);
     }
 
     @Override

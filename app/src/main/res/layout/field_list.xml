@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.android.ocasa.widget.FieldListView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Input"
+    android:layout_marginTop="@dimen/large_padding"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:drawableRight="@android:drawable/ic_menu_more"/>

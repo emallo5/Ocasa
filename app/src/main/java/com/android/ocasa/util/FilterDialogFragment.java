@@ -75,7 +75,6 @@ public class FilterDialogFragment extends DialogFragment implements LoaderManage
         getLoaderManager().initLoader(0, getArguments(), this);
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

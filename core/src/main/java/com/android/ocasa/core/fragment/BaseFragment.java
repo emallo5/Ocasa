@@ -1,10 +1,15 @@
 package com.android.ocasa.core.fragment;
 
 import android.os.Build;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+
+import com.android.ocasa.core.activity.BaseActivity;
+import com.android.ocasa.core.activity.MenuActivity;
 
 /**
  * Created by ignacio on 21/01/16.
@@ -45,5 +50,34 @@ public class BaseFragment extends Fragment{
         }
 
         return animation;
+    }
+
+    public void setTitle(String title){
+        ((BaseActivity) getActivity()).getDelegate().getSupportActionBar().setTitle(title);
+    }
+
+    public void showFragment(String hideTag, Fragment fragment, String shoTag){
+
+        if(getFragmentManager().findFragmentByTag(shoTag) != null)
+            return;
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(com.android.ocasa.core.R.anim.slide_in_left,
+                com.android.ocasa.core.R.anim.slide_out_left,
+                com.android.ocasa.core.R.anim.slide_in_right,
+                com.android.ocasa.core.R.anim.slide_out_right);
+        transaction.hide(getFragmentManager().findFragmentByTag(hideTag));
+        transaction.add(com.android.ocasa.core.R.id.container, fragment, shoTag);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
+    }
+
+    public void showDialog(String tag, DialogFragment dialog){
+
+        if(getChildFragmentManager().findFragmentByTag(tag) != null)
+            return;
+
+        dialog.show(getChildFragmentManager(), tag);
     }
 }

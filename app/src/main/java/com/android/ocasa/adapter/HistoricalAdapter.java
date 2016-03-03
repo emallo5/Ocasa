@@ -7,11 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
-import com.android.ocasa.model.Field;
 import com.android.ocasa.model.History;
-import com.android.ocasa.model.Record;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +25,7 @@ public class HistoricalAdapter extends RecyclerView.Adapter<HistoricalAdapter.Hi
     @Override
     public HistoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new HistoryHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_record, parent, false));
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_history, parent, false));
 
     }
 
@@ -37,9 +34,10 @@ public class HistoricalAdapter extends RecyclerView.Adapter<HistoricalAdapter.Hi
 
         History history = historical.get(position);
 
-        holder.first.setText(history.getDate());
-        holder.second.setText(history.getValue());
-        holder.third.setText("Ignacio Oviedo");
+        holder.value.setText(history.getValue());
+        holder.date.setText(history.getSystemDate() + " " + history.getTimeZone());
+        holder.location.setText("Lat : " + history.getLatitude() + " Lng : " + history.getLongitude());
+        holder.user.setText("Ignacio Oviedo");
     }
 
     @Override
@@ -49,16 +47,18 @@ public class HistoricalAdapter extends RecyclerView.Adapter<HistoricalAdapter.Hi
 
     public class HistoryHolder extends RecyclerView.ViewHolder{
 
-        TextView first;
-        TextView second;
-        TextView third;
+        TextView value;
+        TextView date;
+        TextView location;
+        TextView user;
 
         public HistoryHolder(View itemView) {
             super(itemView);
 
-            first = (TextView) itemView.findViewById(R.id.first);
-            second = (TextView) itemView.findViewById(R.id.second);
-            third = (TextView) itemView.findViewById(R.id.third);
+            value = (TextView) itemView.findViewById(R.id.value);
+            date = (TextView) itemView.findViewById(R.id.date);
+            location = (TextView) itemView.findViewById(R.id.location);
+            user = (TextView) itemView.findViewById(R.id.user);
         }
     }
 }

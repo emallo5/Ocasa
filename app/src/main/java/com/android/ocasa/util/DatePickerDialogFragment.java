@@ -16,6 +16,7 @@ import java.util.Calendar;
 public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
     static final String DATE_FIELD_TAG = "field_tag";
+    static final String ARG_MIN_DATE = "min_date";
     static final String ARG_DAY = "day";
     static final String ARG_MONTH = "month";
     static final String ARG_YEAR = "year";
@@ -39,6 +40,19 @@ public class DatePickerDialogFragment extends DialogFragment implements DatePick
         return fragment;
     }
 
+    public static DatePickerDialogFragment newInstance(Calendar calendar, long minDate) {
+
+        Bundle args = new Bundle();
+        args.putInt(ARG_DAY, calendar.get(Calendar.DAY_OF_MONTH));
+        args.putInt(ARG_MONTH, calendar.get(Calendar.MONTH));
+        args.putInt(ARG_YEAR, calendar.get(Calendar.YEAR));
+        args.putLong(ARG_MIN_DATE, minDate);
+
+        DatePickerDialogFragment fragment = new DatePickerDialogFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -56,8 +70,14 @@ public class DatePickerDialogFragment extends DialogFragment implements DatePick
         int year = getArguments().getInt(ARG_YEAR);
         int month = getArguments().getInt(ARG_MONTH);
         int day = getArguments().getInt(ARG_DAY);
-        
-        return new DatePickerDialog(getActivity(), com.android.ocasa.core.R.style.SlideDialog, this, year, month, day);
+
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(),
+                com.android.ocasa.core.R.style.PickerDialog, this, year, month, day);
+
+        if(getArguments().containsKey(ARG_MIN_DATE))
+            dialog.getDatePicker().setMinDate(getArguments().getLong(ARG_MIN_DATE));
+
+        return dialog;
     }
 
     @Override

@@ -19,14 +19,16 @@ import com.android.ocasa.adapter.RecordAdapter;
 import com.android.ocasa.core.fragment.RecyclerListFragment;
 import com.android.ocasa.loader.TableTaskLoader;
 import com.android.ocasa.model.Record;
+import com.android.ocasa.model.Table;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by ignacio on 15/02/16.
  */
-public abstract class TableRecordListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<List<Record>>{
+public abstract class TableRecordListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Table>{
 
     static final String ARG_TABLE_ID = "table_id";
     static final String ARG_SEARCH_QUERY = "search_query";
@@ -61,24 +63,22 @@ public abstract class TableRecordListFragment extends ListFragment implements Lo
     }
 
     @Override
-    public Loader<List<Record>> onCreateLoader(int id, Bundle args) {
+    public Loader<Table> onCreateLoader(int id, Bundle args) {
         return new TableTaskLoader(getActivity(), args.getString(ARG_TABLE_ID),
                 args.getString(ARG_SEARCH_QUERY));
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Record>> loader, List<Record> data) {
+    public void onLoadFinished(Loader<Table> loader, Table data) {
 
         if(getListAdapter() == null)
             setListShown(true);
 
-        if(!data.isEmpty()) {
-            setListAdapter(new RecordAdapter(data));
-        }
+        setListAdapter(new RecordAdapter(new ArrayList<Record>(data.getRecords())));
     }
 
     @Override
-    public void onLoaderReset(Loader<List<Record>> loader) {
+    public void onLoaderReset(Loader<Table> loader) {
 
     }
 
