@@ -1,6 +1,5 @@
 package com.android.ocasa.adapter;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,12 @@ public class RecordAdapter extends BaseAdapter {
 
     public RecordAdapter(List<Record> records) {
         this.records = records;
+    }
+
+    public void refreshItems(ArrayList<Record> data) {
+        this.records.clear();
+        this.records.addAll(data);
+        notifyDataSetChanged();
     }
 
     @Override

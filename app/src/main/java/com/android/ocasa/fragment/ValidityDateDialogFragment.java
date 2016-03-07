@@ -72,7 +72,7 @@ public class ValidityDateDialogFragment extends DialogFragment implements DatePi
 
         actionBar.setTitle("Actualizar");
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.abc_ic_clear_mtrl_alpha);
+        //actionBar.setHomeAsUpIndicator(android.);
 
         date = Calendar.getInstance();
         time = Calendar.getInstance();

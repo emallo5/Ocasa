@@ -33,7 +33,7 @@ public class FieldDateView extends FormTextFieldView {
 
     @Override
     public void setValue(String value) throws FormatException {
-        if(FieldType.DATE.checkValue(value))
+        if(!FieldType.DATE.isValidValue(value))
             throw new FormatException();
 
         super.setValue(value);

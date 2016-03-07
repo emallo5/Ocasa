@@ -11,6 +11,7 @@ import com.android.ocasa.model.History;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.service.RecordService;
+import com.android.ocasa.service.notification.NotificationManager;
 import com.android.ocasa.sync.SendService;
 import com.android.ocasa.util.DateTimeHelper;
 
@@ -101,6 +102,8 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
         super.onPostExecute(aVoid);
 
         context.startService(new Intent(context, SendService.class));
+
+        NotificationManager.sendBroadcast(context, RecordService.RECORD_SYNC_FINISHED_ACTION);
     }
 
     public static class FormData{

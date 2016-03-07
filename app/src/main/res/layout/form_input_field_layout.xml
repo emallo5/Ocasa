@@ -8,7 +8,7 @@
         android:layout_marginBottom="@dimen/medium_padding"/>
 
     <com.android.ocasa.widget.InputFieldView
-        style="@style/Input"
+        style="@style/InputForm"
         android:id="@+id/field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

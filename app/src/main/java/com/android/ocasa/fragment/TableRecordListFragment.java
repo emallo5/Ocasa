@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.AbsListView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.android.ocasa.R;
@@ -71,10 +72,13 @@ public abstract class TableRecordListFragment extends ListFragment implements Lo
     @Override
     public void onLoadFinished(Loader<Table> loader, Table data) {
 
-        if(getListAdapter() == null)
+        if(getListAdapter() == null) {
             setListShown(true);
+            setListAdapter(new RecordAdapter(new ArrayList<Record>(data.getRecords())));
+        }else{
+            ((RecordAdapter)getListAdapter()).refreshItems(new ArrayList<Record>(data.getRecords()));
+        }
 
-        setListAdapter(new RecordAdapter(new ArrayList<Record>(data.getRecords())));
     }
 
     @Override

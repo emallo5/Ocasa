@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.android.ocasa.core.activity.BarActivity;
 import com.android.ocasa.fragment.DetailRecordFragment;
+import com.android.ocasa.fragment.MultipleEditFragment;
 
 /**
  * Created by ignacio on 28/01/16.
@@ -26,7 +27,7 @@ public class DetailRecordActivity extends BarActivity {
         Bundle extras = getIntent().getExtras();
 
         if(extras.containsKey(EXTRA_MULTIPLE_EDIT)) {
-            pushFragment(DetailRecordFragment.newInstance(extras.getLongArray(EXTRA_RECORDS_ID)), "Detail");
+            pushFragment(MultipleEditFragment.newInstance(extras.getLongArray(EXTRA_RECORDS_ID)), "Detail");
         }else{
             pushFragment(DetailRecordFragment.newInstance(extras.getLong(EXTRA_RECORD_ID)), "Detail");
         }

@@ -8,6 +8,7 @@ import com.android.ocasa.dao.TableDAO;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
+import com.j256.ormlite.android.AndroidCompiledStatement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class TableTaskLoader extends AsyncTaskLoader<Table> {
         TableDAO tableDAO = new TableDAO(getContext());
 
         Table table = tableDAO.finById(tableId);
+
 
         if(query != null)
             table.setRecords(new RecordDAO(getContext()).findRecordsForTableAndQuery(tableId, query));

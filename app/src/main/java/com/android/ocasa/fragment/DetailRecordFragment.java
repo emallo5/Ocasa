@@ -51,50 +51,18 @@ import java.util.Map;
 /**
  * Created by ignacio on 28/01/16.
  */
-public class DetailRecordFragment extends LocationFragment implements LoaderManager.LoaderCallbacks<Record>,
+public class DetailRecordFragment extends FormRecordFragment implements
         FieldViewActionListener, TimePickerDialogFragment.OnTimeChangeListener,
         DatePickerDialogFragment.OnDateChangeListener, ComboPickerDialog.OnComboPickerListener{
-
-    static final String ARG_RECORD_ID = "record_id";
-    static final String ARG_RECORDS_ID = "records_id";
-    static final String ARG_MULTIPLE_EDIT = "multiple_edit";
-
-    static final int REQUEST_QR_SCANNER = 1000;
-    static final int REQUEST_MAP = 2000;
-    static final int REQUEST_VALIDITY_DATE = 3000;
-
-    static final String MAP_TAG = "Map";
-    static final String DATE_TAG = "Date";
-    static final String TIME_TAG = "Time";
-    static final String COMBO_TAG = "Combo";
-
-    private LinearLayout container;
-
-    private Record record;
-
-    private Map<String, String> formValues;
 
     public static DetailRecordFragment newInstance(long recordId) {
 
         Bundle args = new Bundle();
         args.putLong(ARG_RECORD_ID, recordId);
-        args.putBoolean(ARG_MULTIPLE_EDIT, false);
 
         DetailRecordFragment fragment = new DetailRecordFragment();
         fragment.setArguments(args);
 
-        return fragment;
-    }
-
-    public static DetailRecordFragment newInstance(long[] recordId) {
-
-        Bundle args = new Bundle();
-        args.putLong(ARG_RECORD_ID, recordId[0]);
-        args.putLongArray(ARG_RECORDS_ID, recordId);
-        args.putBoolean(ARG_MULTIPLE_EDIT, true);
-
-        DetailRecordFragment fragment = new DetailRecordFragment();
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -102,15 +70,11 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        formValues = new HashMap<>();
-
-        getLoaderManager().initLoader(0, getArguments(), this);
-
         getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                if(getFragmentManager().getBackStackEntryCount() == 0){
-                    String title = getString(R.string.detail_title, record.getTable().getName());
+                if (getFragmentManager().getBackStackEntryCount() == 0) {
+                    String title = getString(R.string.detail_title, getRecord().getTable().getName());
 
                     setTitle(title);
                 }
@@ -118,40 +82,8 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
         });
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_detail_record, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        container = (LinearLayout) view.findViewById(R.id.detail_container);
-    }
-
-    @Override
-    public Loader<Record> onCreateLoader(int id, Bundle args) {
-        return new RecordTaskLoader(getActivity(), args.getLong(ARG_RECORD_ID));
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Record> loader, Record data) {
-
-        if(data != null){
-            record = data;
-            fillRecord();
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Record> loader) {
-
-    }
-
-    private void fillRecord(){
-
+    public void fillRecord(Record record) {
         if(record.getTable().getName() != null){
 
             String title = getString(R.string.detail_title, record.getTable().getName());
@@ -162,231 +94,11 @@ public class DetailRecordFragment extends LocationFragment implements LoaderMana
         fillFields(new ArrayList<>(record.getFields()));
     }
 
-    private void fillFields(List<Field> fields){
-
-        if(container.getChildCount() > 1)
-            container.removeViews(1, fields.size() + 1);
-
-        boolean isEditMode = getArguments().getBoolean(ARG_MULTIPLE_EDIT);
-
-        for (Field field : fields){
-            FieldViewFactory factory = field.getColumn().getFieldType().getFieldFactory();
-
-            View view = factory.createView(container, field, isEditMode);
-
-            if(view != null) {
-                formValues.put(field.getColumn().getId(), field.getValue());
-                view.setTag(field.getColumn().getId());
-
-                FieldViewAdapter adapter = (FieldViewAdapter) view;
-                adapter.setFieldViewActionListener(this);
-                container.addView(view);
-            }
-        }
-
-        View button = LayoutInflater.from(getActivity()).inflate(R.layout.send_button, container, false);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                save();
-            }
-        });
-
-        container.addView(button);
-    }
-
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onSaveButtonClick() {
+        Map<String, String> formValues = getFormValues();
 
-        if(requestCode == REQUEST_QR_SCANNER){
-            if(resultCode == CommonStatusCodes.SUCCESS){
-                if(data == null)
-                    return;
-
-                Barcode barcode = data.getParcelableExtra(BarcodeActivity.BarcodeObject);
-
-                FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(data.getStringExtra(ReadFieldActvivity.QR_FIELD_TAG));
-
-                try {
-                    view.setValue(barcode.displayValue);
-                } catch (FormatException e) {
-                    Toast.makeText(getActivity(), "Formato invalido", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }else if(requestCode == REQUEST_MAP){
-            if(resultCode == Activity.RESULT_OK){
-
-                LatLng location = data.getParcelableExtra(MapFragment.DATA_NEW_LOCATION);
-
-                String columnId = data.getStringExtra(MapFragment.MAP_FIELD_TAG);
-
-                FieldMapView view = (FieldMapView) container.findViewWithTag(columnId);
-                view.setValue(FieldType.MAP.format(location));
-            }
-        }else if(requestCode == REQUEST_VALIDITY_DATE){
-            if(resultCode == Activity.RESULT_OK){
-
-                Calendar validityDate = (Calendar) data.getSerializableExtra("ValidityDate");
-
-                SaveFormTask.FormData formData = new SaveFormTask.FormData(formValues,
-                        getArguments().getLongArray(ARG_RECORDS_ID),
-                        getLastLocation(), validityDate);
-
-                new SaveFormTask(getActivity()).execute(formData);
-
-                Toast.makeText(getContext(), "Enviando...", Toast.LENGTH_SHORT).show();
-
-                getActivity().onBackPressed();
-            }
-        }
-    }
-
-    @Override
-    public void onHistoryClick(View view) {
-        FieldHistoricalFragment fragment = FieldHistoricalFragment.newInstance(record.getId(),
-                view.getTag().toString());
-
-        showFragment("Detail", fragment, "Historical");
-    }
-
-    @Override
-    public void onQrClick(View view) {
-
-        Intent intent =  new Intent(getActivity(), ReadFieldActvivity.class);
-        intent.putExtra(ReadFieldActvivity.QR_FIELD_TAG, view.getTag().toString());
-
-        startActivityForResult(intent, REQUEST_QR_SCANNER);
-    }
-
-    @Override
-    public void onMapClick(FieldMapView view) {
-
-        MapFragment fragment = MapFragment.newInstance((String) view.getTag(), view.getLabel(),
-                (LatLng) FieldType.MAP.parse(view.getValue()));
-        fragment.setTargetFragment(this, REQUEST_MAP);
-
-        showFragment("Detail", fragment, MAP_TAG);
-    }
-
-    @Override
-    public void onDateClick(FieldDateView view) {
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(DateTimeHelper.parseDate(view.getValue()));
-
-        DatePickerDialogFragment datePickerDialog = DatePickerDialogFragment.newInstance((String) view.getTag(), calendar);
-        showDialog(DATE_TAG, datePickerDialog);
-    }
-
-    @Override
-    public void onTimeClick(FieldTimeView view) {
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(DateTimeHelper.parseTime(view.getValue()));
-
-        TimePickerDialogFragment timePickerDialog = TimePickerDialogFragment.newInstance((String) view.getTag(), calendar);
-        showDialog(TIME_TAG, timePickerDialog);
-    }
-
-    @Override
-    public void onPhoneClick(FieldPhoneView view) {
-        Intent call = new Intent(Intent.ACTION_CALL,  Uri.parse("tel:" + view.getValue()));
-        startActivity(call);
-    }
-
-    @Override
-    public void onComboClick(FieldComboView view) {
-
-        Table table = record.getFieldForColumn(view.getTag().toString()).getColumn().getRelationship();
-
-        ComboPickerDialog dialog = ComboPickerDialog.newInstance(view.getTag().toString(), table.getId());
-        showDialog(COMBO_TAG, dialog);
-    }
-
-    @Override
-    public void onListClick(FieldListView view) {
-
-        Column column = record.getFieldForColumn(view.getTag().toString()).getColumn();
-
-//        String[] values = record.getFieldForColumn(view.getValue()).getValue().split(",");
-        String value = record.getFieldForColumn(view.getValue()).getValue();
-
-        DetailListFragment fragment = DetailListFragment.newInstance(view.getLabel(), column.getRelationship().getId(),"571", value);
-
-        showFragment("Detail", fragment, "ListDetail");
-    }
-
-    @Override
-    public void onPick(String fieldTag, Record record) {
-
-        FieldComboView comboView = (FieldComboView) container.findViewWithTag(fieldTag);
-
-        for (Field field : record.getFields()){
-
-            FieldViewAdapter adapter = (FieldViewAdapter) comboView.findViewWithTag(field.getColumn().getId());
-
-            if(adapter != null){
-                try {
-                    adapter.setValue(field.getValue());
-                } catch (FormatException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        String columnId = comboView.getValue().split(",")[0];
-
-        Field field = record.getFieldForColumn(columnId);
-
-        comboView.setValue(columnId + "," + field.getValue());
-    }
-
-    @Override
-    public void onTimeChange(String fieldTag, Calendar calendar) {
-        FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(fieldTag);
-
-        try {
-            view.setValue(DateTimeHelper.formatTime(calendar.getTime()));
-        } catch (FormatException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onDateChange(String fieldTag, Calendar calendar){
-        FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(fieldTag);
-
-        try {
-            view.setValue(DateTimeHelper.formatDate(calendar.getTime()));
-        } catch (FormatException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void save(){
-
-        for (Map.Entry<String, String> pair : formValues.entrySet()) {
-            FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(pair.getKey());
-
-            pair.setValue(view.getValue());
-        }
-
-        SaveFormTask.FormData formData;
-
-        if(getArguments().getBoolean(ARG_MULTIPLE_EDIT)){
-            Intent intent = new Intent(getActivity(), ValidityDateActivity.class);
-            startActivityForResult(intent, REQUEST_VALIDITY_DATE);
-            getActivity().overridePendingTransition(R.anim.slide_up_dialog, R.anim.no_change);
-            return;
-        }else{
-            formData = new SaveFormTask.FormData(formValues, getArguments().getLong(ARG_RECORD_ID), getLastLocation());
-            new SaveFormTask(getActivity()).execute(formData);
-        }
-
-        Toast.makeText(getContext(), "Enviando...", Toast.LENGTH_SHORT).show();
-
-        getActivity().onBackPressed();
+        SaveFormTask.FormData formData = new SaveFormTask.FormData(formValues, getArguments().getLong(ARG_RECORD_ID), getLastLocation());
+        save(formData);
     }
 }

@@ -4,20 +4,21 @@ import android.content.Context;
 import android.nfc.FormatException;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
 import com.android.ocasa.model.FieldType;
+import com.android.ocasa.util.IconizedMenu;
 
 /**
  * Created by ignacio on 04/02/16.
  */
-public class FieldPhoneView extends LinearLayout implements FieldViewAdapter {
+public class FieldPhoneView extends LinearLayout implements FieldViewAdapter, IconizedMenu.OnMenuItemClickListener {
 
     private FieldViewActionListener listener;
 
@@ -38,12 +39,6 @@ public class FieldPhoneView extends LinearLayout implements FieldViewAdapter {
         init();
     }
 
-    /*@Override
-    public void setTag(Object tag) {
-        super.setTag("");
-        field.setTag(tag);
-    }*/
-
     private void init(){
 
         setOrientation(VERTICAL);
@@ -52,6 +47,13 @@ public class FieldPhoneView extends LinearLayout implements FieldViewAdapter {
 
         label = (TextView) findViewById(R.id.label);
         field = (InputFieldView) findViewById(R.id.field);
+
+        field.getAction().setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showMenu();
+            }
+        });
 
         ImageView callButton = (ImageView) findViewById(R.id.call_button);
         callButton.setOnClickListener(new OnClickListener() {
@@ -75,7 +77,7 @@ public class FieldPhoneView extends LinearLayout implements FieldViewAdapter {
     @Override
     public void setValue(String value) throws FormatException{
 
-        if(FieldType.PHONE.checkValue(value))
+        if(!FieldType.PHONE.isValidValue(value))
             throw new FormatException();
 
         field.getInput().setText(value);
@@ -88,5 +90,31 @@ public class FieldPhoneView extends LinearLayout implements FieldViewAdapter {
 
     public InputFieldView getField() {
         return field;
+    }
+
+    private void showMenu(){
+        IconizedMenu actionMenu = new IconizedMenu(getContext(), field.getAction());
+        actionMenu.setOnMenuItemClickListener(this);
+        MenuInflater inflater = actionMenu.getMenuInflater();
+        inflater.inflate(R.menu.menu_form_field, actionMenu.getMenu());
+        actionMenu.show();
+    }
+
+    public FieldViewActionListener getListener() {
+        return listener;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.history:
+                listener.onHistoryClick(this);
+                break;
+            case R.id.qr_scanner:
+                listener.onQrClick(this);
+                break;
+        }
+
+        return true;
     }
 }

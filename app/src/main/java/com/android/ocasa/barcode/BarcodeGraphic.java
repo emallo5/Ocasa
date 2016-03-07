@@ -24,6 +24,8 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic{
 
     private Paint mRectPaint;
     private Paint mTextPaint;
+    private Paint mTestPaint;
+
     private volatile Barcode mBarcode;
 
     BarcodeGraphic(GraphicOverlay overlay) {
@@ -40,6 +42,11 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic{
         mTextPaint = new Paint();
         mTextPaint.setColor(selectedColor);
         mTextPaint.setTextSize(36.0f);
+
+        mTestPaint = new Paint();
+        mTestPaint.setColor(selectedColor);
+        mTestPaint.setTextAlign(Paint.Align.CENTER);
+        mTestPaint.setTextSize(50.0f);
     }
 
     public int getId() {
@@ -80,6 +87,13 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic{
         rect.right = translateX(rect.right);
         rect.bottom = translateY(rect.bottom);
         canvas.drawRect(rect, mRectPaint);
+
+        String text = "Leido";
+        int width = (int) rect.width();
+
+        int numOfChars = mTestPaint.breakText(text,true,width,null);
+        int start = (text.length() - numOfChars) / 2;
+        canvas.drawText(text,start,start+numOfChars, rect.centerX(), rect.centerY(),mTestPaint);
 
         // Draws a label at the bottom of the barcode indicate the barcode value that was detected.
         canvas.drawText(barcode.rawValue, rect.left, rect.bottom, mTextPaint);

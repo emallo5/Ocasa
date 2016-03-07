@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.android.ocasa.R;
 import com.android.ocasa.activity.DetailRecordActivity;
+import com.android.ocasa.adapter.RecordAdapter;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.core.activity.MenuActivity;
 import com.android.ocasa.model.Record;
@@ -83,14 +84,6 @@ public class HomeFragment extends TableRecordListFragment implements
         ListView list =  getListView();
         list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         list.setMultiChoiceModeListener(this);
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                //getListView().setItemChecked(i, true);
-                return true;
-            }
-        });
 
         receiver = new RecordSyncReceiver();
         filter = new IntentFilter();
@@ -175,8 +168,11 @@ public class HomeFragment extends TableRecordListFragment implements
     }
 
     @Override
-    public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
-        actionMode.setTitle(getListView().getCheckedItemCount() + " items seleccionados");
+    public void onItemCheckedStateChanged(ActionMode actionMode, int position, long l, boolean checked) {
+
+        int count = getListView().getCheckedItemCount();
+
+        actionMode.setTitle(getResources().getQuantityString(R.plurals.list_item_selected, count, count));
     }
 
     @Override

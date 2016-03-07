@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -37,6 +38,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Vie
 
     private GoogleMap map;
 
+    private CoordinatorLayout coordinatorLayout;
     private MapView mapView;
 
     private LatLng newLocation;
@@ -70,6 +72,8 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Vie
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.container);
+
         mapView = (MapView) view.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
 
@@ -85,12 +89,14 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Vie
     @Override
     public void onMapReady(final GoogleMap map) {
 
-        final LatLng location = getArguments().getParcelable(ARG_LOCATION);
+        LatLng location = getArguments().getParcelable(ARG_LOCATION);
 
         this.map = map;
 
-        setNewLocation(location);
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 15), 2000, null);
+        if(location != null) {
+            setNewLocation(location);
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 15), 2000, null);
+        }
 
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -98,14 +104,14 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback, Vie
 
                 setNewLocation(latLng);
 
-                Snackbar.make(mapView, R.string.map_new_location_text,
+                Snackbar.make(coordinatorLayout, R.string.map_new_location_text,
                         Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.map_new_location_button, MapFragment.this)
                         .show();
             }
         });
 
-        Snackbar.make(mapView, R.string.map_info_location_text,
+        Snackbar.make(coordinatorLayout, R.string.map_info_location_text,
                 Snackbar.LENGTH_LONG)
                 .show();
     }

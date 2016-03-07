@@ -19,7 +19,9 @@
         android:id="@+id/action"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:src="@android:drawable/ic_menu_more"
+        android:src="@drawable/ic_more"
+        android:clickable="true"
+        android:background="?android:selectableItemBackground"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"/>
 

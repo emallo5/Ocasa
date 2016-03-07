@@ -70,7 +70,7 @@ public class FilterDialogFragment extends DialogFragment implements LoaderManage
                 .getDelegate().getSupportActionBar();
 
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.abc_ic_clear_mtrl_alpha);
+        //actionBar.setHomeAsUpIndicator(R.drawable.abc_ic_clear_mtrl_alpha);
 
         getLoaderManager().initLoader(0, getArguments(), this);
     }

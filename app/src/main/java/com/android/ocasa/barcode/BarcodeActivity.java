@@ -71,7 +71,7 @@ public class BarcodeActivity extends BaseActivity {
 
         // read parameters from the intent used to launch the activity.
         boolean autoFocus = true;
-        boolean useFlash = false;
+        boolean useFlash = true;
 
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
@@ -174,9 +174,9 @@ public class BarcodeActivity extends BaseActivity {
         // to other detection examples to enable the barcode detector to detect small barcodes
         // at long distances.
         CameraSource.Builder builder = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
-                .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setRequestedPreviewSize(1600, 1024)
-                .setRequestedFps(15.0f);
+                .setFacing(CameraSource.CAMERA_FACING_BACK);
+                //.setRequestedPreviewSize(1600, 1024)
+                //.setRequestedFps(15.0f);
 
         // make sure that auto focus is an available option
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -185,7 +185,7 @@ public class BarcodeActivity extends BaseActivity {
         }
 
         mCameraSource = builder
-                .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
+                .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_AUTO : null)
                 .build();
     }
 

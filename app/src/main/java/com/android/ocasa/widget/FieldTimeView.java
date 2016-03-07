@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.android.ocasa.model.FieldType;
-import com.android.ocasa.util.DateTimeHelper;
 
 /**
  * Created by ignacio on 04/02/16.
@@ -35,7 +34,7 @@ public class FieldTimeView extends FormTextFieldView {
     @Override
     public void setValue(String value) throws FormatException{
 
-        if(FieldType.TIME.checkValue(value))
+        if(!FieldType.TIME.isValidValue(value))
             throw new FormatException();
 
         super.setValue(value);

@@ -1,9 +1,7 @@
 package com.android.ocasa.model;
 
-import android.content.Context;
 import android.location.Location;
 
-import com.android.ocasa.R;
 import com.android.ocasa.widget.factory.ComboFieldFactory;
 import com.android.ocasa.widget.factory.DateFieldFactory;
 import com.android.ocasa.widget.factory.DecimalFieldFactory;
@@ -50,33 +48,11 @@ public enum FieldType {
 
             return new LatLng(Double.valueOf(values[0]), Double.valueOf(values[1]));
         }
-
-        @Override
-        public String getDisplayText(Context context, String value) {
-
-            String[] values = value.split(",");
-
-            if(values.length == 1){
-                return "";
-            }
-
-            return context.getString(R.string.form_map_field_display_text, values[0], values[1]);
-        }
     },
     PHONE("phone"){
         @Override
         public FieldViewFactory getFieldFactory() {
             return new PhoneFieldFactory();
-        }
-
-        @Override
-        public boolean checkValue(String value) {
-
-            String phonePattern = "\\d";
-
-            Pattern pattern = Pattern.compile(phonePattern);
-
-            return !pattern.matcher(value).matches();
         }
     },
     DOUBLE("decimal"){
@@ -98,13 +74,13 @@ public enum FieldType {
         }
 
         @Override
-        public boolean checkValue(String value) {
+        public boolean isValidValue(String value) {
 
             String timePattern = "((?:19|20)\\d\\d)/(0?[1-9]|1[012])/([12][0-9]|3[01]|0?[1-9])";
 
             Pattern pattern = Pattern.compile(timePattern);
 
-            return !pattern.matcher(value).matches();
+            return pattern.matcher(value).matches();
         }
 
     },
@@ -115,13 +91,13 @@ public enum FieldType {
         }
 
         @Override
-        public boolean checkValue(String value) {
+        public boolean isValidValue(String value) {
 
             String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
 
             Pattern pattern = Pattern.compile(timePattern);
 
-            return !pattern.matcher(value).matches();
+            return pattern.matcher(value).matches();
         }
     },
     ATTACHMENT("attachment"),
@@ -143,7 +119,7 @@ public enum FieldType {
         this.apiName = value;
     }
 
-    public boolean checkValue(String value){
+    public boolean isValidValue(String value){
         return true;
     }
 
@@ -152,10 +128,6 @@ public enum FieldType {
     }
 
     public Object parse(String value){
-        return value;
-    }
-
-    public String getDisplayText(Context context, String value){
         return value;
     }
 

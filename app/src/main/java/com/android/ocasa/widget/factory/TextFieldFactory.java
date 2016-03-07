@@ -45,7 +45,7 @@ public class TextFieldFactory extends FieldViewFactory {
                 e.printStackTrace();
             }
 
-        formField.getField().getAction().setVisibility(View.GONE);
+        formField.getField().getAction().setVisibility(View.INVISIBLE);
 
         return formField;
     }
