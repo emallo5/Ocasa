@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.android.volley.toolbox.PoolingByteArrayOutputStreamTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2016-03-03T16:53:07" hostname="ignacio-Codika" time="0.013">
+  <properties/>
+  <testcase name="pooledOneBuffer" classname="com.android.volley.toolbox.PoolingByteArrayOutputStreamTest" time="0.002"/>
+  <testcase name="pooledIndividualWrites" classname="com.android.volley.toolbox.PoolingByteArrayOutputStreamTest" time="0.005"/>
+  <testcase name="unpooled" classname="com.android.volley.toolbox.PoolingByteArrayOutputStreamTest" time="0.002"/>
+  <testcase name="unpooledIndividualWrites" classname="com.android.volley.toolbox.PoolingByteArrayOutputStreamTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

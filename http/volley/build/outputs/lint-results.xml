@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="4" by="lint 24.4.1">
+
+    <issue
+        id="MissingPermission"
+        severity="Error"
+        message="Missing permissions required by AccountManager.getAuthToken: android.permission.USE_CREDENTIALS"
+        category="Correctness"
+        priority="9"
+        summary="Missing Permissions"
+        explanation="This check scans through your code and libraries and looks at the APIs being used, and checks this against the set of permissions required to access those APIs. If the code using those APIs is called at runtime, then the program will crash.
+
+Furthermore, for permissions that are revocable (with targetSdkVersion 23), client code must also be prepared to handle the calls throwing an exception if the user rejects the request for permission at runtime."
+        errorLine1="        AccountManagerFuture&lt;Bundle> future = mAccountManager.getAuthToken(mAccount,"
+        errorLine2="                                              ^">
+        <location
+            file="/home/ignacio/AndroidStudioProjects/Ocasa/http/volley/src/main/java/com/android/volley/toolbox/AndroidAuthenticator.java"
+            line="87"
+            column="47"/>
+    </issue>
+
+    <issue
+        id="MissingPermission"
+        severity="Error"
+        message="Missing permissions required by AccountManager.invalidateAuthToken: android.permission.MANAGE_ACCOUNTS or android.permission.USE_CREDENTIALS"
+        category="Correctness"
+        priority="9"
+        summary="Missing Permissions"
+        explanation="This check scans through your code and libraries and looks at the APIs being used, and checks this against the set of permissions required to access those APIs. If the code using those APIs is called at runtime, then the program will crash.
+
+Furthermore, for permissions that are revocable (with targetSdkVersion 23), client code must also be prepared to handle the calls throwing an exception if the user rejects the request for permission at runtime."
+        errorLine1="        mAccountManager.invalidateAuthToken(mAccount.type, authToken);"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/home/ignacio/AndroidStudioProjects/Ocasa/http/volley/src/main/java/com/android/volley/toolbox/AndroidAuthenticator.java"
+            line="112"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="GoogleAppIndexingWarning"
+        severity="Warning"
+        message="App is not indexable by Google Search; consider adding at least one Activity with an ACTION-VIEW intent-filler. See issue explanation for more details."
+        category="Usability"
+        priority="5"
+        summary="Missing support for Google App Indexing"
+        explanation="Adds deep links to get your app into the Google index, to get installs and traffic to your app from Google Search."
+        url="https://g.co/AppIndexing/AndroidStudio"
+        urls="https://g.co/AppIndexing/AndroidStudio"
+        errorLine1="    &lt;application />"
+        errorLine2="    ~~~~~~~~~~~~~~~">
+        <location
+            file="/home/ignacio/AndroidStudioProjects/Ocasa/http/volley/src/main/AndroidManifest.xml"
+            line="9"
+            column="5"/>
+    </issue>
+
+</issues>
