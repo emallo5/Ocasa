@@ -6,9 +6,11 @@ import android.content.res.Configuration;
 import android.support.annotation.RequiresPermission;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.google.android.gms.common.images.Size;
 
@@ -17,7 +19,7 @@ import java.io.IOException;
 /**
  * Created by ignacio on 14/01/16.
  */
-public class CameraSourcePreview extends ViewGroup {
+public class CameraSourcePreview extends FrameLayout {
 
     private static final String TAG = "CameraSourcePreview";
 
@@ -151,7 +153,7 @@ public class CameraSourcePreview extends ViewGroup {
         }
 
         for (int i = 0; i < getChildCount(); ++i) {
-            getChildAt(i).layout(0, 0, childWidth, childHeight);
+            getChildAt(i).layout((layoutWidth / 2) - (childWidth / 2), (layoutHeight / 2) - (childHeight / 2), childWidth, childHeight);
         }
 
         try {

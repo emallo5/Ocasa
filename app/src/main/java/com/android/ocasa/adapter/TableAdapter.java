@@ -1,45 +1,59 @@
 package com.android.ocasa.adapter;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
-import com.android.ocasa.core.adapter.AdapterItem;
-import com.android.ocasa.core.adapter.DelegateAdapter;
+import com.android.ocasa.core.adapter.DelegateListAdapter;
 import com.android.ocasa.model.Table;
 
 /**
  * Created by ignacio on 10/02/16.
  */
-public class TableAdapter implements DelegateAdapter {
+public class TableAdapter implements DelegateListAdapter {
 
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new TableHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_table, parent, false));
+    static final int TABLE_TYPE = 2;
+
+    private Table table;
+
+    public TableAdapter(Table table) {
+        this.table = table;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, AdapterItem item) {
+    public View createView(View convertView, ViewGroup parent, int position) {
+        TableHolder holder;
 
-        TableHolder tableHolder = (TableHolder) holder;
+        if(convertView == null){
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_table, parent, false);
 
-        Table app = (Table) item.getData();
+            holder = new TableHolder();
+            holder.name = (TextView) convertView.findViewById(R.id.name);
 
-        tableHolder.name.setText(app.getName());
+            convertView.setTag(holder);
+        }else{
+            holder = (TableHolder) convertView.getTag();
+        }
 
+        holder.name.setText(table.getName());
+
+        return convertView;
     }
 
-    public class TableHolder extends RecyclerView.ViewHolder{
+    @Override
+    public int getViewType() {
+        return TABLE_TYPE;
+    }
+
+    @Override
+    public Object getItem() {
+        return table;
+    }
+
+    public class TableHolder{
 
         TextView name;
-
-        public TableHolder(View itemView) {
-            super(itemView);
-
-            name = (TextView) itemView.findViewById(R.id.name);
-        }
     }
 }

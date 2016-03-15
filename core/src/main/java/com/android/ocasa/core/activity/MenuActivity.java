@@ -1,6 +1,7 @@
 package com.android.ocasa.core.activity;
 
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.android.ocasa.core.R;
+import com.balysv.materialmenu.MaterialMenuDrawable;
 
 /**
  * Created by ignacio on 25/05/2015.
@@ -97,5 +99,4 @@ public class MenuActivity extends BarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }

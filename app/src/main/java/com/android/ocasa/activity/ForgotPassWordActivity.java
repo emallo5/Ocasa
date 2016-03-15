@@ -3,6 +3,7 @@ package com.android.ocasa.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.android.ocasa.R;
 import com.android.ocasa.core.activity.BarActivity;
 import com.android.ocasa.fragment.ForgotPasswordFragment;
 
@@ -15,7 +16,8 @@ public class ForgotPassWordActivity extends BarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getDelegate().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getToolbar().setTitle(R.string.forgot_password_bar_title);
 
         if(savedInstanceState != null)
             return;

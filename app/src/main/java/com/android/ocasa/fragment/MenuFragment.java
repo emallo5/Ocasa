@@ -18,8 +18,10 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
@@ -42,7 +44,7 @@ public class MenuFragment extends Fragment implements MenuActivity.MenuListener,
 
     private TextView appName;
     private ImageView appsOpenButton;
-    private RecyclerView list;
+    private ListView list;
     private LinearLayout appsContainer;
     private ImageView appsCloseButton;
     private RecyclerView appList;
@@ -94,9 +96,9 @@ public class MenuFragment extends Fragment implements MenuActivity.MenuListener,
 
         appsOpenButton = (ImageView) view.findViewById(R.id.open_app);
 
-        list = (RecyclerView) view.findViewById(R.id.list);
-        list.setHasFixedSize(true);
-        list.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        list = (ListView) view.findViewById(R.id.list);
+//        list.setHasFixedSize(true);
+//        list.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         appsContainer = (LinearLayout) view.findViewById(R.id.apps_container);
 
@@ -116,7 +118,7 @@ public class MenuFragment extends Fragment implements MenuActivity.MenuListener,
             }
         });
 
-        list.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+        /*list.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, long id) {
 
@@ -127,7 +129,17 @@ public class MenuFragment extends Fragment implements MenuActivity.MenuListener,
                     callback.onItemClick((Table) item.getData());
                 }
             }
-        }));
+        }));*/
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                MenuOptionsAdapter adapter = (MenuOptionsAdapter) list.getAdapter();
+
+                if (adapter.getItemViewType(position) == 2) {
+                    callback.onItemClick((Table) list.getItemAtPosition(position));
+                }
+            }
+        });
 
         appsCloseButton.setOnClickListener(new View.OnClickListener() {
             @Override

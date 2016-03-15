@@ -36,6 +36,8 @@ public class TableTaskLoader extends AsyncTaskLoader<Table> {
 
         Table table = tableDAO.finById(tableId);
 
+        if(table == null)
+            return null;
 
         if(query != null)
             table.setRecords(new RecordDAO(getContext()).findRecordsForTableAndQuery(tableId, query));

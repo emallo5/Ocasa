@@ -9,38 +9,57 @@ import android.widget.TextView;
 import com.android.ocasa.R;
 import com.android.ocasa.core.adapter.AdapterItem;
 import com.android.ocasa.core.adapter.DelegateAdapter;
+import com.android.ocasa.core.adapter.DelegateListAdapter;
 import com.android.ocasa.model.Category;
 
 /**
  * Created by ignacio on 10/02/16.
  */
-public class CategoryAdapter implements DelegateAdapter{
+public class CategoryAdapter implements DelegateListAdapter{
 
 
-    @Override
-    public CategoryHolder onCreateViewHolder(ViewGroup parent) {
-        return new CategoryHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_category, parent, false));
+    static final int CATEGORY_TYPE = 1;
+
+    private Category category;
+
+    public CategoryAdapter(Category category) {
+        this.category = category;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, AdapterItem item) {
+    public View createView(View convertView, ViewGroup parent, int position) {
 
-        CategoryHolder categoryHolder = (CategoryHolder) holder;
+        CategoryHolder holder;
 
-        Category app = (Category) item.getData();
+        if(convertView == null){
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_category, parent, false);
 
-        categoryHolder.name.setText(app.getName().toUpperCase());
+            holder = new CategoryHolder();
+            holder.name = (TextView) convertView.findViewById(R.id.name);
+
+            convertView.setTag(holder);
+        }else{
+            holder = (CategoryHolder) convertView.getTag();
+        }
+
+        holder.name.setText(category.getName().toUpperCase());
+
+        return convertView;
     }
 
-    public class CategoryHolder extends RecyclerView.ViewHolder{
+    @Override
+    public int getViewType() {
+        return CATEGORY_TYPE;
+    }
+
+    @Override
+    public Object getItem() {
+        return category;
+    }
+
+    public class CategoryHolder{
 
         TextView name;
-
-        public CategoryHolder(View itemView) {
-            super(itemView);
-
-            name = (TextView) itemView.findViewById(R.id.name);
-        }
     }
 
 

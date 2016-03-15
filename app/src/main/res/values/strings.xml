@@ -11,6 +11,8 @@
     <string name="login_empty_user_message">Debe ingresar un usuario</string>
     <string name="login_empty_password_message">Debe ingresar una contraseña</string>
 
+    <string name="forgot_password_bar_title">Recuperar contraseña</string>
+
     <string name="forgot_password_title">¿Olvidó su contraseña?</string>
     <string name="forgot_password_hint_email">Email</string>
     <string name="forgot_password_button">Recuperar Contraseña</string>

@@ -25,7 +25,6 @@ public class RecordTaskLoader extends AsyncTaskLoader<Record> {
         this.recordId = recordId;
     }
 
-
     @Override
     public Record loadInBackground() {
 

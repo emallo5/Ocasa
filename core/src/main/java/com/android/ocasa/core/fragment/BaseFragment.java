@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.android.ocasa.core.activity.BarActivity;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.core.activity.MenuActivity;
 
@@ -53,7 +54,7 @@ public class BaseFragment extends Fragment{
     }
 
     public void setTitle(String title){
-        ((BaseActivity) getActivity()).getDelegate().getSupportActionBar().setTitle(title);
+        ((BarActivity) getActivity()).getToolbar().setTitle(title);
     }
 
     public void showFragment(String hideTag, Fragment fragment, String shoTag){

@@ -72,6 +72,9 @@ public abstract class TableRecordListFragment extends ListFragment implements Lo
     @Override
     public void onLoadFinished(Loader<Table> loader, Table data) {
 
+        if(data == null)
+            return;
+
         if(getListAdapter() == null) {
             setListShown(true);
             setListAdapter(new RecordAdapter(new ArrayList<Record>(data.getRecords())));

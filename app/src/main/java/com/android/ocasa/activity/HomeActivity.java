@@ -14,6 +14,8 @@ import com.android.ocasa.model.Table;
  */
 public class HomeActivity extends MenuActivity implements MenuFragment.OnMenuItemClickListener{
 
+    private Table selectTable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +29,14 @@ public class HomeActivity extends MenuActivity implements MenuFragment.OnMenuIte
 
     @Override
     public void onItemClick(Table table) {
+
         closeMenu();
+
+        if(selectTable != null && selectTable.getId().equals(table.getId()))
+            return;
+
+        selectTable = table;
+
         pushFragment(HomeFragment.newInstance(table.getId()), "Home");
     }
 

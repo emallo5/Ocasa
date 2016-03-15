@@ -118,7 +118,8 @@ public class HomeFragment extends TableRecordListFragment implements
     public void onLoadFinished(Loader<Table> loader, Table data) {
         super.onLoadFinished(loader, data);
 
-        ((MenuActivity)getActivity()).getDelegate().getSupportActionBar().setTitle(data.getName());
+        if(data != null)
+            ((MenuActivity)getActivity()).getDelegate().getSupportActionBar().setTitle(data.getName());
     }
 
     @Override
@@ -192,8 +193,16 @@ public class HomeFragment extends TableRecordListFragment implements
 
         if(menuItem.getItemId() == R.id.modify){
             Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
-            intent.putExtra(DetailRecordActivity.EXTRA_RECORDS_ID, getListView().getCheckedItemIds());
-            intent.putExtra(DetailRecordActivity.EXTRA_MULTIPLE_EDIT, true);
+
+            long[] checkedIds = getListView().getCheckedItemIds();
+
+            if(checkedIds.length > 1) {
+                intent.putExtra(DetailRecordActivity.EXTRA_MULTIPLE_EDIT, true);
+                intent.putExtra(DetailRecordActivity.EXTRA_RECORDS_ID, getListView().getCheckedItemIds());
+            }else{
+                intent.putExtra(DetailRecordActivity.EXTRA_RECORD_ID, checkedIds[0]);
+            }
+
             ((BaseActivity) getActivity()).startNewActivity(intent);
             actionMode.finish();
             return true;

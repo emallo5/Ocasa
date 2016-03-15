@@ -6,4 +6,5 @@
     android:textColor="@color/ocasaTextColor"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
+    android:textStyle="bold"
     android:padding="@dimen/large_padding" />

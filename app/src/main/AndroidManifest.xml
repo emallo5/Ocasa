@@ -47,7 +47,9 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.ReadFieldActvivity"/>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activity.ReadFieldActvivity"/>
 
         <activity
             android:name=".activity.DetailRecordActivity"
