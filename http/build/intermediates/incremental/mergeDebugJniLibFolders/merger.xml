@@ -1,6 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="/home/ignacio/AndroidStudioProjects/Ocasa/http/src/main/jniLibs"/></dataSet><dataSet config="debug"><source path="/home/ignacio/AndroidStudioProjects/Ocasa/http/src/debug/jniLibs"/></dataSet></merger>
-=======
-<merger version="3"><dataSet config="main"><source path="D:\source_code\Ocasa\http\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="D:\source_code\Ocasa\http\src\debug\jniLibs"/></dataSet></merger>
->>>>>>> 5f52dd6f5522f4b807cfd6acd3d89d4f4d299076

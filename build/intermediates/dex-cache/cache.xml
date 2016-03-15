@@ -1,12 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
-
-    <item
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/Ocasa/core/unspecified/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="312796407a463c94a83929a611bea4bd82598b1c">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/pre-dexed/dev/debug/Ocasa-core-unspecified_3a2af11150bc442d59b2fd166cc2fa08f9d60709.jar" />
-    </item>
-
-</items>
+<items version="2" />

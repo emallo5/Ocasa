@@ -4,6 +4,8 @@ import android.content.Context;
 import android.location.Location;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,12 +14,13 @@ import android.widget.TextView;
 
 import com.android.ocasa.R;
 import com.android.ocasa.model.FieldType;
+import com.android.ocasa.util.IconizedMenu;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by ignacio on 28/01/16.
  */
-public class FieldMapView extends LinearLayout implements FieldViewAdapter{
+public class FieldMapView extends LinearLayout implements FieldViewAdapter, IconizedMenu.OnMenuItemClickListener{
 
     private String value = "";
 
@@ -27,7 +30,7 @@ public class FieldMapView extends LinearLayout implements FieldViewAdapter{
     private EditText latitude;
     private EditText longitude;
 
-    private ImageView map;
+    private ImageView action;
 
     public FieldMapView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -50,12 +53,12 @@ public class FieldMapView extends LinearLayout implements FieldViewAdapter{
         label = (TextView) findViewById(R.id.label);
         latitude = (EditText) findViewById(R.id.latitude);
         longitude = (EditText) findViewById(R.id.longitude);
-        map = (ImageView) findViewById(R.id.map);
+        action = (ImageView) findViewById(R.id.map);
 
-        map.setOnClickListener(new OnClickListener() {
+        action.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onMapClick(FieldMapView.this);
+                showMenu();
             }
         });
     }
@@ -95,5 +98,27 @@ public class FieldMapView extends LinearLayout implements FieldViewAdapter{
             return "";
 
         return latitude.toString() + "," + longitude.toString();
+    }
+
+    private void showMenu(){
+        IconizedMenu actionMenu = new IconizedMenu(getContext(), action);
+        actionMenu.setOnMenuItemClickListener(this);
+        MenuInflater inflater = actionMenu.getMenuInflater();
+        inflater.inflate(R.menu.menu_form_map_field, actionMenu.getMenu());
+        actionMenu.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.location:
+                listener.onMapClick(FieldMapView.this);
+                break;
+            case R.id.history:
+                listener.onHistoryClick(this);
+                break;
+        }
+
+        return true;
     }
 }

@@ -41,8 +41,8 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
 
         List<Record> records = new ArrayList<>();
 
-        for (int index = 0; index < recordIds.length; index++){
-            Record record = updateRecord(formdata.getValues(), recordIds[index], formdata.getLastLocation(), formdata.getValidityDate());
+        for (long recordId : recordIds) {
+            Record record = updateRecord(formdata.getValues(), recordId, formdata.getLastLocation(), formdata.getValidityDate());
             records.add(record);
         }
 

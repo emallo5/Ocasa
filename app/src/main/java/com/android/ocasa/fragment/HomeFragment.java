@@ -6,31 +6,25 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.SearchView;
+
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.ocasa.R;
 import com.android.ocasa.activity.DetailRecordActivity;
-import com.android.ocasa.adapter.RecordAdapter;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.core.activity.MenuActivity;
-import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.service.RecordService;
 import com.android.ocasa.sync.SyncService;
-
-import java.util.List;
 
 /**
  * Created by ignacio on 11/01/16.

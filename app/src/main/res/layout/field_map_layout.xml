@@ -42,7 +42,7 @@
             android:id="@+id/map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_pin"
+            android:src="@drawable/ic_more"
             android:scaleType="center"
             android:padding="@dimen/medium_padding"
             android:clickable="true"

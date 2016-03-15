@@ -1,20 +1,14 @@
 package com.android.ocasa.model;
 
-import com.android.ocasa.BuildConfig;
-import com.android.ocasa.CustomTestRunner;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.*;
 
 /**
  * Created by ignacio on 07/03/16.
  */
-@RunWith(CustomTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
 public class FieldTypeTest {
 
     @Test
