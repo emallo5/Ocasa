@@ -21,6 +21,9 @@ public class Category {
     @ForeignCollectionField(eager = true)
     private Collection<Table> tables;
 
+    @ForeignCollectionField(eager = true)
+    private Collection<Action> actions;
+
     @DatabaseField(foreign = true)
     private Application application;
 
@@ -49,6 +52,14 @@ public class Category {
 
     public void setTables(Collection<Table> tables) {
         this.tables = tables;
+    }
+
+    public Collection<Action> getActions() {
+        return actions;
+    }
+
+    public void setActions(Collection<Action> actions) {
+        this.actions = actions;
     }
 
     public Application getApplication() {

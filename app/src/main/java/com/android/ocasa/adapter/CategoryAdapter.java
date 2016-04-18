@@ -17,7 +17,6 @@ import com.android.ocasa.model.Category;
  */
 public class CategoryAdapter implements DelegateListAdapter{
 
-
     static final int CATEGORY_TYPE = 1;
 
     private Category category;

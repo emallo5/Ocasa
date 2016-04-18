@@ -9,6 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -17,7 +20,7 @@ import android.widget.Toast;
 import com.android.ocasa.R;
 import com.android.ocasa.activity.ReadFieldActvivity;
 import com.android.ocasa.barcode.BarcodeActivity;
-import com.android.ocasa.loader.RecordTaskLoader;
+import com.android.ocasa.loader.RecordTaskLoaderTest;
 import com.android.ocasa.loader.SaveFormTask;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
@@ -28,6 +31,9 @@ import com.android.ocasa.util.DatePickerDialogFragment;
 import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.util.TimePickerDialogFragment;
 
+import com.android.ocasa.viewmodel.CellViewModel;
+import com.android.ocasa.viewmodel.FieldViewModel;
+import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.widget.FieldComboView;
 import com.android.ocasa.widget.FieldDateView;
 import com.android.ocasa.widget.FieldListView;
@@ -47,9 +53,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by ignacio on 07/03/16.
+ * Ignacio Oviedo on 07/03/16.
  */
-public abstract class FormRecordFragment extends LocationFragment implements LoaderManager.LoaderCallbacks<Record>,
+public abstract class FormRecordFragment extends LocationFragment implements LoaderManager.LoaderCallbacks<FormViewModel>,
         FieldViewActionListener, TimePickerDialogFragment.OnTimeChangeListener,
         DatePickerDialogFragment.OnDateChangeListener, ComboPickerDialog.OnComboPickerListener{
 
@@ -65,13 +71,15 @@ public abstract class FormRecordFragment extends LocationFragment implements Loa
 
     private Map<String, String> formValues;
 
-    private Record record;
+    private FormViewModel record;
 
     private LinearLayout container;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
 
         formValues = new HashMap<>();
 
@@ -92,60 +100,49 @@ public abstract class FormRecordFragment extends LocationFragment implements Loa
     }
 
     @Override
-    public Loader<Record> onCreateLoader(int id, Bundle args) {
-        return new RecordTaskLoader(getActivity(), args.getLong(ARG_RECORD_ID));
+    public Loader<FormViewModel> onCreateLoader(int id, Bundle args) {
+        return new RecordTaskLoaderTest(getActivity(), args.getLong(ARG_RECORD_ID));
     }
 
     @Override
-    public void onLoadFinished(Loader<Record> loader, Record data) {
+    public void onLoadFinished(Loader<FormViewModel> loader, FormViewModel data) {
 
         if(data != null){
             record = data;
-            fillRecord(record);
+            fillForm(data);
         }
     }
 
     @Override
-    public void onLoaderReset(Loader<Record> loader) {
+    public void onLoaderReset(Loader<FormViewModel> loader) {
 
     }
 
-    public abstract void fillRecord(Record record);
+    public abstract void fillForm(FormViewModel record);
 
-    public void fillFields(List<Field> fields){
+    public void fillFields(List<FieldViewModel> fields){
         fillFields(fields, false);
     }
 
-    public void fillFields(List<Field> fields, boolean isEditMode){
+    public void fillFields(List<FieldViewModel> fields, boolean isEditMode){
 
         if(container.getChildCount() > 1)
             container.removeViews(1, fields.size() + 1);
 
-        for (Field field : fields){
-            FieldViewFactory factory = field.getColumn().getFieldType().getFieldFactory();
+        for (FieldViewModel field : fields){
+            FieldViewFactory factory = field.getType().getFieldFactory();
 
             View view = factory.createView(container, field, isEditMode);
 
             if(view != null) {
-                formValues.put(field.getColumn().getId(), field.getValue());
-                view.setTag(field.getColumn().getId());
+                formValues.put(field.getTag(), field.getValue());
+                view.setTag(field.getTag());
 
                 FieldViewAdapter adapter = (FieldViewAdapter) view;
                 adapter.setFieldViewActionListener(this);
                 container.addView(view);
             }
         }
-
-        View button = LayoutInflater.from(getActivity()).inflate(R.layout.send_button, container, false);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onSaveButtonClick();
-            }
-        });
-
-        container.addView(button);
     }
 
     @Override
@@ -238,48 +235,39 @@ public abstract class FormRecordFragment extends LocationFragment implements Loa
     @Override
     public void onComboClick(FieldComboView view) {
 
-        Table table = record.getFieldForColumn(view.getTag().toString()).getColumn().getRelationship();
+        FieldViewModel field = record.getFieldForTag(view.getTag().toString());
 
-        ComboPickerDialog dialog = ComboPickerDialog.newInstance(view.getTag().toString(), table.getId());
+        ComboPickerDialog dialog = ComboPickerDialog.newInstance(view.getTag().toString(), field.getRelationshipTable());
         showDialog(COMBO_TAG, dialog);
     }
 
     @Override
     public void onListClick(FieldListView view) {
 
-        Column column = record.getFieldForColumn(view.getTag().toString()).getColumn();
+        /*Column column = record.getFieldForColumn(view.getTag().toString()).getColumn();
 
-//        String[] values = record.getFieldForColumn(view.getValue()).getValue().split(",");
         String value = record.getFieldForColumn(view.getValue()).getValue();
 
         DetailListFragment fragment = DetailListFragment.newInstance(view.getLabel(), column.getRelationship().getId(), "571", value);
 
-        showFragment("Detail", fragment, "ListDetail");
+        showFragment("Detail", fragment, "ListDetail");*/
     }
 
     @Override
-    public void onPick(String fieldTag, Record record) {
+    public void onPick(String fieldTag, CellViewModel record) {
 
         FieldComboView comboView = (FieldComboView) container.findViewWithTag(fieldTag);
+        comboView.setValue(record.getValue());
 
-        for (Field field : record.getFields()){
+        for (FieldViewModel field : record.getFields()){
 
-            FieldViewAdapter adapter = (FieldViewAdapter) comboView.findViewWithTag(field.getColumn().getId());
-
-            if(adapter != null){
-                try {
-                    adapter.setValue(field.getValue());
-                } catch (FormatException e) {
-                    e.printStackTrace();
-                }
+            FieldViewAdapter adapter = (FieldViewAdapter) comboView.findViewWithTag(field.getTag());
+            try {
+                adapter.setValue(field.getValue());
+            } catch (FormatException e) {
+                e.printStackTrace();
             }
         }
-
-        String columnId = comboView.getValue().split(",")[0];
-
-        Field field = record.getFieldForColumn(columnId);
-
-        comboView.setValue(columnId + "," + field.getValue());
     }
 
     @Override
@@ -304,7 +292,7 @@ public abstract class FormRecordFragment extends LocationFragment implements Loa
         }
     }
 
-    public Record getRecord(){
+    public FormViewModel getRecord(){
         return record;
     }
 
@@ -318,6 +306,23 @@ public abstract class FormRecordFragment extends LocationFragment implements Loa
         return formValues;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_form_send, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.send:
+                onSaveButtonClick();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     public abstract void onSaveButtonClick();
 

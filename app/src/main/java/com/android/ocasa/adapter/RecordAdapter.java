@@ -28,6 +28,7 @@ public class RecordAdapter extends BaseAdapter {
         this.records.clear();
         this.records.addAll(data);
         notifyDataSetChanged();
+
     }
 
     @Override

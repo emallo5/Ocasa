@@ -39,7 +39,7 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     }
 
     @Override
-    public void save(T entity) {
+    public synchronized void save(T entity) {
         try {
             dao.createOrUpdate(entity);
         } catch (SQLException e) {
@@ -48,7 +48,7 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     }
 
     @Override
-    public void save(final Collection<T> entities){
+    public synchronized void save(final Collection<T> entities){
 
         try {
             dao.callBatchTasks(new Callable<Void>() {
@@ -118,7 +118,7 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     }
 
     @Override
-    public T finById(ID id) {
+    public T findById(ID id) {
         try {
             return dao.queryForId(id);
         } catch (SQLException e) {

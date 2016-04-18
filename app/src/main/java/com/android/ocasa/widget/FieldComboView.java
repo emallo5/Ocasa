@@ -49,7 +49,8 @@ public class FieldComboView extends LinearLayout implements FieldViewAdapter {
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onComboClick(FieldComboView.this);
+                if(listener != null)
+                    listener.onComboClick(FieldComboView.this);
             }
         });
     }

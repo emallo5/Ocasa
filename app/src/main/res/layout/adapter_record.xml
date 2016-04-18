@@ -6,7 +6,6 @@
     android:background="@drawable/record_item_selector"
     android:padding="@dimen/large_padding">
 
-
     <TextView
         android:id="@+id/second"
         android:layout_width="match_parent"

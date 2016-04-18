@@ -21,13 +21,6 @@ public class RecyclerListFragment extends BaseFragment {
     private RecyclerView mList;
     private ProgressBar mProgress;
 
-    private RecyclerItemClickListener.OnItemClickListener onClickListener = new RecyclerItemClickListener.OnItemClickListener() {
-        @Override
-        public void onItemClick(View view, int position, long id) {
-            onListItemClick(view, position, id);
-        }
-    };
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,7 +37,6 @@ public class RecyclerListFragment extends BaseFragment {
     private void initControls(View view){
 
         mList = (RecyclerView) view.findViewById(R.id.list);
-        mList.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), onClickListener));
         mProgress = (ProgressBar) view.findViewById(R.id.progress);
     }
 
@@ -52,7 +44,12 @@ public class RecyclerListFragment extends BaseFragment {
         return mList;
     }
 
-    public void onListItemClick(View v, int position, long id) {
+    public RecyclerView.Adapter getAdapter(){
+        return mList.getAdapter();
+    }
+
+    public void setAdapter(RecyclerView.Adapter adapter){
+        mList.setAdapter(adapter);
     }
 
     public void setListShown(boolean shown) {

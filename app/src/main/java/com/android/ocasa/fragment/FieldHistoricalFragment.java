@@ -66,7 +66,6 @@ public class FieldHistoricalFragment extends RecyclerListFragment implements Loa
         if(!data.isEmpty()){
             getRecyclerView().setAdapter(new HistoricalAdapter(data));
         }
-
     }
 
     @Override

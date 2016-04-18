@@ -31,9 +31,10 @@ public class GenericRequest<T> extends Request<T>{
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
         try {
-            String json = new String(
+            /*String json = new String(
                     response.data,
-                    HttpHeaderParser.parseCharset(response.headers));
+                    HttpHeaderParser.parseCharset(response.headers));*/
+            String json = new String(response.data, "UTF-8");
             return Response.success(
                     gson.fromJson(json, clazz),
                     HttpHeaderParser.parseCacheHeaders(response));

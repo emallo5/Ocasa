@@ -3,12 +3,15 @@ package com.android.ocasa.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Column;
+import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.History;
 import com.android.ocasa.model.Receipt;
+import com.android.ocasa.model.ReceiptItem;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.model.User;
@@ -37,12 +40,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Application.class);
             TableUtils.createTable(connectionSource, Category.class);
             TableUtils.createTable(connectionSource, Table.class);
+            TableUtils.createTable(connectionSource, Action.class);
+            TableUtils.createTable(connectionSource, ColumnAction.class);
             TableUtils.createTable(connectionSource, Record.class);
             TableUtils.createTable(connectionSource, Field.class);
             TableUtils.createTable(connectionSource, Column.class);
             TableUtils.createTable(connectionSource, User.class);
             TableUtils.createTable(connectionSource, History.class);
             TableUtils.createTable(connectionSource, Receipt.class);
+            TableUtils.createTable(connectionSource, ReceiptItem.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -37,4 +37,11 @@
     <string name="map_new_location_text">Establecer nuva ubicación</string>
     <string name="map_new_location_button">Aceptar</string>
 
+    <string-array name="create_receipt_tabs">
+        <item>Cabecera</item>
+        <item>Items</item>
+    </string-array>
+
+    <string name="create_receipt_tab_items">Items (%1$d)</string>
+
 </resources>

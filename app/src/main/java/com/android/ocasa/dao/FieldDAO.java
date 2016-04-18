@@ -4,11 +4,11 @@ import android.content.Context;
 
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
-import com.android.ocasa.model.Record;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,13 +31,32 @@ public class FieldDAO extends GenericDAOImpl<Field, Long> {
         return null;
     }
 
-    public List<Field> findFieldsLogicForRecord(String recordId){
+    public List<Field> findLogicsForRecord(String recordId){
 
         try {
             QueryBuilder<Field, Long> fieldBuilder = dao.queryBuilder();
 
             QueryBuilder<Column, String> columnBuilder = new ColumnDAO(context).getDao().queryBuilder();
             columnBuilder.where().eq("logic", true);
+
+            fieldBuilder.join(columnBuilder);
+            fieldBuilder.where().eq("record_id", recordId);
+
+            return fieldBuilder.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<Field> findForAvailableColumns(long recordId, ArrayList<String> availableColumns){
+
+        try {
+            QueryBuilder<Field, Long> fieldBuilder = dao.queryBuilder();
+
+            QueryBuilder<Column, String> columnBuilder = new ColumnDAO(context).getDao().queryBuilder();
+            columnBuilder.where().in("id", availableColumns);
 
             fieldBuilder.join(columnBuilder);
             fieldBuilder.where().eq("record_id", recordId);

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.widget.FormInputFieldView;
 
@@ -23,4 +24,10 @@ public class DecimalFieldFactory extends TextFieldFactory {
 
         return textView;
     }
+
+    @Override
+    public View createSubView(ViewGroup container, String value, String label, boolean isEditMode) {
+        return null;
+    }
+
 }

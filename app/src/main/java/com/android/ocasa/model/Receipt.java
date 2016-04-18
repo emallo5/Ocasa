@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import java.util.Collection;
 
 /**
- * Created by ignacio on 22/02/16.
+ * Ignacio Oviedo on 22/02/16.
  */
 @DatabaseTable(tableName = "receipts")
 public class Receipt {
@@ -19,7 +19,13 @@ public class Receipt {
     private int number;
 
     @ForeignCollectionField
-    private Collection<Record> records;
+    private Collection<ReceiptItem> items;
+
+    @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
+    private Action action;
+
+    @DatabaseField
+    private String validityDate;
 
     public Receipt() {
     }
@@ -40,11 +46,27 @@ public class Receipt {
         this.number = number;
     }
 
-    public Collection<Record> getRecords() {
-        return records;
+    public Collection<ReceiptItem> getItems() {
+        return items;
     }
 
-    public void setRecords(Collection<Record> records) {
-        this.records = records;
+    public void setItems(Collection<ReceiptItem> items) {
+        this.items = items;
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    public String getValidityDate() {
+        return validityDate;
+    }
+
+    public void setValidityDate(String validityDate) {
+        this.validityDate = validityDate;
     }
 }

@@ -44,4 +44,17 @@ public class HistoryDAO extends GenericDAOImpl<History, Integer> {
 
         return null;
     }
+
+    public History findForReceiptAndField(String receiptId, String fieldId){
+        try {
+            return dao.queryBuilder().where()
+                    .eq("receipt_id", receiptId)
+                    .and()
+                    .eq("field_id", fieldId).queryForFirst();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

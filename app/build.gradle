@@ -37,13 +37,30 @@ android {
             buildConfigField "String", BASE_URL, "\"http://192.168.25.26/\""
 
         }
+
+        local {
+            applicationId "com.android.ocasa.local"
+            resValue "string", "app_name", "Ocasa Local"
+            buildConfigField "String", BASE_URL, "\"http://172.19.2.97:7878/\""
+
+        }
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile 'junit:junit:4.12'
     testCompile 'junit:junit:4.12'
+    compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.google.android.gms:play-services-vision:8.4.0'
     compile 'com.google.android.gms:play-services-maps:8.4.0'
     compile 'com.google.android.gms:play-services-location:8.4.0'
@@ -56,6 +73,10 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
     compile 'com.crittercism:crittercism-android-agent:5.5.1'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile ('com.vincentbrison.openlibraries.android:dualcache:2.2.2@jar') {
+        transitive = true
+    }
     compile project(':core')
     compile project(':http')
 }

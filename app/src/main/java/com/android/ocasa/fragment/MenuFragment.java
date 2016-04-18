@@ -28,9 +28,9 @@ import com.android.ocasa.R;
 import com.android.ocasa.adapter.MenuAdapter;
 import com.android.ocasa.adapter.MenuOptionsAdapter;
 import com.android.ocasa.core.activity.MenuActivity;
-import com.android.ocasa.core.adapter.AdapterItem;
 import com.android.ocasa.core.listener.RecyclerItemClickListener;
 import com.android.ocasa.loader.MenuTaskLoader;
+import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Table;
 
@@ -56,7 +56,8 @@ public class MenuFragment extends Fragment implements MenuActivity.MenuListener,
     private OnMenuItemClickListener callback;
 
     public interface OnMenuItemClickListener{
-        public void onItemClick(Table table);
+        public void onTableClick(Table table);
+        public void onActionClick(Action action);
     }
 
     @Override
@@ -97,8 +98,6 @@ public class MenuFragment extends Fragment implements MenuActivity.MenuListener,
         appsOpenButton = (ImageView) view.findViewById(R.id.open_app);
 
         list = (ListView) view.findViewById(R.id.list);
-//        list.setHasFixedSize(true);
-//        list.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         appsContainer = (LinearLayout) view.findViewById(R.id.apps_container);
 
@@ -118,25 +117,15 @@ public class MenuFragment extends Fragment implements MenuActivity.MenuListener,
             }
         });
 
-        /*list.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position, long id) {
-
-                MenuOptionsAdapter adapter = (MenuOptionsAdapter) list.getAdapter();
-                AdapterItem item = adapter.getItem(position);
-
-                if (item.getType() == 2) {
-                    callback.onItemClick((Table) item.getData());
-                }
-            }
-        }));*/
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 MenuOptionsAdapter adapter = (MenuOptionsAdapter) list.getAdapter();
 
                 if (adapter.getItemViewType(position) == 2) {
-                    callback.onItemClick((Table) list.getItemAtPosition(position));
+                    callback.onTableClick((Table) list.getItemAtPosition(position));
+                }else if(adapter.getItemViewType(position) == 3){
+                    callback.onActionClick((Action) list.getItemAtPosition(position));
                 }
             }
         });

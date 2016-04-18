@@ -26,4 +26,25 @@ public class ColumnDAO extends GenericDAOImpl<Column, String> {
 
         return null;
     }
+
+    public List<Column> findLogicColumnsForTable(String tableId){
+
+        try {
+            return dao.queryBuilder().where().eq("table_id", tableId).and().eq("logic", true).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public Column findPrimaryKeyColumnForTable(String tableId){
+        try {
+            return dao.queryBuilder().where().eq("table_id", tableId).and().eq("primaryKey", true).queryForFirst();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

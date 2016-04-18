@@ -35,7 +35,7 @@ public class DetailListTaskLoader extends AsyncTaskLoader<List<Record>> {
         List<Record> records = recordDAO.findDetailRecords(tableId, columnId, value);
 
         for (Record record : records){
-            record.setFields(new FieldDAO(getContext()).findFieldsLogicForRecord(String.valueOf(record.getId())));
+            record.setFields(new FieldDAO(getContext()).findLogicsForRecord(String.valueOf(record.getId())));
         }
 
         return records;

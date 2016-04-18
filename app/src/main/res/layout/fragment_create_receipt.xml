@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:padding="@dimen/large_padding"
+    android:clipToPadding="false">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentPaddingTop="@dimen/large_padding"
+        app:contentPaddingBottom="@dimen/large_padding"
+        app:contentPaddingLeft="@dimen/large_padding"
+        app:contentPaddingRight="@dimen/large_padding">
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/medium_padding"
+                android:text="Fecha vigencia"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <TextView
+                    style="@style/Input"
+                    android:id="@id/date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.2"
+                    android:singleLine="true"
+                    android:drawableLeft="@drawable/ic_calendar"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="@dimen/medium_padding"
+                    android:layout_marginRight="@dimen/medium_padding"/>
+
+                <TextView
+                    style="@style/Input"
+                    android:id="@+id/time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:singleLine="true"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_clock"
+                    android:drawablePadding="@dimen/medium_padding"
+                    android:layout_marginLeft="@dimen/medium_padding"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</ScrollView>

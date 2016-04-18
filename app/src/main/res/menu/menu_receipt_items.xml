@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/filter"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Filtro"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
+
+    <item
+        android:id="@+id/qr_scanner"
+        android:icon="@drawable/ic_qr"
+        android:title="Leer qr"
+        app:showAsAction="always"/>
+</menu>

@@ -10,10 +10,9 @@ import android.view.animation.AnimationUtils;
 
 import com.android.ocasa.core.activity.BarActivity;
 import com.android.ocasa.core.activity.BaseActivity;
-import com.android.ocasa.core.activity.MenuActivity;
 
 /**
- * Created by ignacio on 21/01/16.
+ * Ignacio Oviedo on 21/01/16.
  */
 public class BaseFragment extends Fragment{
 
@@ -45,7 +44,6 @@ public class BaseFragment extends Fragment{
                     public void onAnimationRepeat(Animation animation) {
 
                     }
-
                 });
             }
         }
@@ -54,7 +52,7 @@ public class BaseFragment extends Fragment{
     }
 
     public void setTitle(String title){
-        ((BarActivity) getActivity()).getToolbar().setTitle(title);
+        ((BaseActivity) getActivity()).getSupportActionBar().setTitle(title);
     }
 
     public void showFragment(String hideTag, Fragment fragment, String shoTag){

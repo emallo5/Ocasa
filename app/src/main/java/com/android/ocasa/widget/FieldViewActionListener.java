@@ -15,5 +15,4 @@ public interface FieldViewActionListener {
     public void onPhoneClick(FieldPhoneView view);
     public void onComboClick(FieldComboView view);
     public void onListClick(FieldListView view);
-
 }

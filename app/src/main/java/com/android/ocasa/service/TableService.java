@@ -3,6 +3,7 @@ package com.android.ocasa.service;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 
 import com.android.ocasa.BuildConfig;
 import com.android.ocasa.dao.ColumnDAO;
@@ -13,8 +14,6 @@ import com.android.ocasa.httpmodel.HttpTable;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.Table;
-import com.android.ocasa.service.notification.NotificationManager;
-import com.android.ocasa.sync.SyncService;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -82,24 +81,38 @@ public class TableService {
 
         private void saveTable(HttpTable httpTable){
 
-            TableDAO tableDAO = new TableDAO(getContext());
-            ColumnDAO dao = new ColumnDAO(getContext());
+            new AsyncTask<HttpTable, Void, Void>() {
 
-            for (Column column : httpTable.getColumns()){
-                column.setTable(table);
+                @Override
+                protected Void doInBackground(HttpTable... httpTables) {
 
-                if(column.getFieldType() == FieldType.COMBO ||
-                        column.getFieldType() == FieldType.LIST){
-                    tableDAO.save(column.getRelationship());
+                    if(httpTables[0].getColumns() == null)
+                        return null;
 
-                    Intent intent = new Intent(DOWNLOAD_TABLE_REQUEST);
-                    intent.putExtra("id", column.getRelationship().getId());
+                    TableDAO tableDAO = new TableDAO(getContext());
+                    ColumnDAO dao = new ColumnDAO(getContext());
 
-                    getContext().sendBroadcast(intent);
+                    for (Column column : httpTables[0].getColumns()){
+                        column.setTable(table);
+
+                        if(column.getFieldType() == FieldType.COMBO ||
+                                column.getFieldType() == FieldType.LIST){
+                            tableDAO.save(column.getRelationship());
+
+                            Intent intent = new Intent(DOWNLOAD_TABLE_REQUEST);
+                            intent.putExtra("id", column.getRelationship().getId());
+
+                            getContext().sendBroadcast(intent);
+                        }
+                    }
+
+                    dao.save(httpTables[0].getColumns());
+
+                    return null;
                 }
-            }
+            }.execute(httpTable);
 
-            dao.save(httpTable.getColumns());
+
         }
     }
 

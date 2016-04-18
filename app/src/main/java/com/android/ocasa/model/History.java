@@ -16,9 +16,6 @@ public class History {
     private String systemDate;
 
     @DatabaseField
-    private String validityDate;
-
-    @DatabaseField
     private String value;
 
     @DatabaseField
@@ -35,6 +32,9 @@ public class History {
 
     @DatabaseField(foreign = true)
     private User user;
+
+    @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
+    private Receipt receipt;
 
     public History() {
     }
@@ -53,14 +53,6 @@ public class History {
 
     public void setSystemDate(String date) {
         this.systemDate = date;
-    }
-
-    public String getValidityDate() {
-        return validityDate;
-    }
-
-    public void setValidityDate(String validityDate) {
-        this.validityDate = validityDate;
     }
 
     public String getValue() {
@@ -109,5 +101,13 @@ public class History {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Receipt getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(Receipt receipt) {
+        this.receipt = receipt;
     }
 }

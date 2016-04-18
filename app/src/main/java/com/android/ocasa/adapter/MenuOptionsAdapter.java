@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.android.ocasa.core.adapter.DelegateListAdapter;
+import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Table;
 
@@ -15,6 +16,8 @@ import java.util.List;
  * Created by ignacio on 04/02/16.
  */
 public class MenuOptionsAdapter extends BaseAdapter {
+
+    static final int ACTION_TYPE = 3;
 
     private List<DelegateListAdapter> items;
 
@@ -27,6 +30,10 @@ public class MenuOptionsAdapter extends BaseAdapter {
 
             for (Table table : category.getTables()){
                 items.add(new TableAdapter(table));
+            }
+
+            for (Action action : category.getActions()){
+                items.add(new ActionAdapter(action));
             }
         }
     }

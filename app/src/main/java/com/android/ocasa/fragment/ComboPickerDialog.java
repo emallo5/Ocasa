@@ -13,13 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
 import com.android.ocasa.loader.TableTaskLoader;
-import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Record;
-import com.android.ocasa.model.Table;
+import com.android.ocasa.viewmodel.CellViewModel;
+import com.android.ocasa.viewmodel.TableViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * Created by ignacio on 22/02/16.
  */
-public class ComboPickerDialog extends DialogFragment implements LoaderManager.LoaderCallbacks<Table>{
+public class ComboPickerDialog extends DialogFragment implements LoaderManager.LoaderCallbacks<TableViewModel>{
 
     static final String ARG_TABLE_ID = "table_id";
     static final String COMBO_FIELD_TAG = "field_tag";
@@ -37,7 +38,7 @@ public class ComboPickerDialog extends DialogFragment implements LoaderManager.L
     private OnComboPickerListener callback;
 
     public interface OnComboPickerListener{
-        void onPick(String fieldTag, Record record);
+        void onPick(String fieldTag, CellViewModel record);
     }
 
     public static ComboPickerDialog newInstance(String fieldTag, String tableId) {
@@ -80,38 +81,43 @@ public class ComboPickerDialog extends DialogFragment implements LoaderManager.L
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         callback.onPick(getArguments().getString(COMBO_FIELD_TAG),
-                                (Record) adapter.getItem(i));
+                                (CellViewModel) adapter.getItem(i));
                     }
                 }).create();
     }
 
     @Override
-    public Loader<Table> onCreateLoader(int id, Bundle args) {
+    public Loader<TableViewModel> onCreateLoader(int id, Bundle args) {
         return new TableTaskLoader(getActivity(), args.getString(ARG_TABLE_ID), null);
     }
 
     @Override
-    public void onLoadFinished(Loader<Table> loader, Table data) {
-        if(!data.getRecords().isEmpty()) {
-            adapter.setRecords(new ArrayList<>(data.getRecords()));
+    public void onLoadFinished(Loader<TableViewModel> loader, TableViewModel data) {
+        if(!data.getCells().isEmpty()) {
+            adapter.setRecords(data.getCells());
         }
     }
 
     @Override
-    public void onLoaderReset(Loader<Table> loader) {
+    public void onLoaderReset(Loader<TableViewModel> loader) {
 
     }
 
     public static class PickerAdapter extends BaseAdapter{
 
-        private List<Record> records;
+        private List<CellViewModel> records;
+
+        private int fieldCount;
 
         public PickerAdapter(){
             this.records = new ArrayList<>();
         }
 
-        public void setRecords(List<Record> records){
+        public void setRecords(List<CellViewModel> records){
             this.records.addAll(records);
+
+            fieldCount = records.isEmpty() ? 0 : records.get(0).getFields().size();
+
             notifyDataSetChanged();
         }
 
@@ -136,35 +142,40 @@ public class ComboPickerDialog extends DialogFragment implements LoaderManager.L
             RecordHolder holder;
 
             if(view == null){
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_record, viewGroup, false);
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_combo_detail, viewGroup, false);
 
-                holder = new RecordHolder();
-
-                holder.first = (TextView) view.findViewById(R.id.first);
-                holder.second = (TextView) view.findViewById(R.id.second);
-                holder.third = (TextView) view.findViewById(R.id.third);
+                holder = new RecordHolder(view, fieldCount);
 
                 view.setTag(holder);
             }else{
                 holder = (RecordHolder) view.getTag();
             }
 
-            Record record = records.get(position);
+            CellViewModel record = records.get(position);
 
-            List<Field> fields = new ArrayList<>(record.getFields());
-
-            holder.first.setText(fields.get(0).getValue());
-            holder.second.setText(fields.get(1).getValue());
-            holder.third.setText(fields.get(2).getValue());
-
+            for (int index = 0; index < holder.fields.size(); index++){
+                TextView text = holder.fields.get(index);
+                text.setText(record.getFields().get(index).getValue());
+            }
             return view;
         }
 
         static class RecordHolder{
 
-            TextView first;
-            TextView second;
-            TextView third;
+            List<TextView> fields;
+
+            public RecordHolder(View view, int fieldCount){
+
+                fields = new ArrayList<>();
+
+                LinearLayout container = (LinearLayout) view.findViewById(R.id.container);
+
+                for (int index = 0; index < fieldCount; index++) {
+                    TextView text = new TextView(view.getContext());
+                    fields.add(text);
+                    container.addView(text);
+                }
+            }
         }
     }
 }

@@ -45,6 +45,7 @@ public class HttpTable {
             column.setLength(jObject.has("length") ? jObject.get("length").getAsInt() : 0);
             column.setEditable(jObject.get("editable").getAsBoolean());
             column.setMandatory(jObject.get("mandatory").getAsBoolean());
+            column.setPrimaryKey(jObject.has("primary_key") && jObject.get("primary_key").getAsBoolean());
             column.setLogic(jObject.has("logic") && jObject.get("logic").getAsBoolean());
             column.setFieldType(FieldType.findTypeByApiName(jObject.get("field_type").getAsString()));
 

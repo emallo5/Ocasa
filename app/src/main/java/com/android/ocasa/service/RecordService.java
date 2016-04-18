@@ -2,6 +2,7 @@ package com.android.ocasa.service;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 
 import com.android.ocasa.BuildConfig;
 import com.android.ocasa.dao.FieldDAO;
@@ -15,14 +16,11 @@ import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.service.notification.NotificationManager;
 import com.android.ocasa.util.DateTimeHelper;
-import com.android.ocasa.widget.FieldViewAdapter;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by ignacio on 28/01/16.
@@ -89,9 +87,6 @@ public class RecordService {
             super.onSuccess(response);
 
             saveTableRecord(response);
-
-            NotificationManager.sendBroadcast(getContext(), RECORD_SYNC_FINISHED_ACTION);
-
         }
 
         @Override
@@ -103,22 +98,50 @@ public class RecordService {
 
         private void saveTableRecord(TableRecord tableRecord){
 
-            RecordDAO recordDAO = new RecordDAO(getContext());
-            recordDAO.deleteRecordsForTable(table.getId());
+            new AsyncTask<TableRecord, Void, Void>(){
 
-            FieldDAO dao = new FieldDAO(getContext());
+                @Override
+                protected Void doInBackground(TableRecord... tableRecords) {
 
-            for (Record record : tableRecord.getRecords()){
-                record.setTable(table);
+                    RecordDAO recordDAO = new RecordDAO(getContext());
+                    recordDAO.deleteForTable(table.getId());
+                    HistoryDAO historyDAO = new HistoryDAO(getContext());
 
-                recordDAO.save(record);
+                    FieldDAO dao = new FieldDAO(getContext());
 
-                for (Field field : record.getFields()){
-                    field.setRecord(record);
+                    for (Record record : tableRecords[0].getRecords()){
+                        record.setTable(table);
+
+                        recordDAO.save(record);
+
+                        for (Field field : record.getFields()){
+                            field.setRecord(record);
+
+                            History history = new History();
+                            history.setValue(field.getValue());
+                            history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
+                            history.setField(field);
+                            history.setTimeZone(DateTimeHelper.getDeviceTimezone());
+
+                            field.addHistory(history);
+
+                            dao.save(field);
+                            historyDAO.save(history);
+                        }
+                    }
+
+                    return null;
                 }
 
-                dao.save(record.getFields());
-            }
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+
+                    NotificationManager.sendBroadcast(getContext(), RECORD_SYNC_FINISHED_ACTION);
+                }
+            }.execute(tableRecord);
+
+
         }
     }
 

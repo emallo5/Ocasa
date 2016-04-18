@@ -6,13 +6,17 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.android.ocasa.dao.RecordDAO;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.httpmodel.HttpTable;
 import com.android.ocasa.httpmodel.TableRecord;
+import com.android.ocasa.model.Record;
 import com.android.ocasa.service.MenuService;
 import com.android.ocasa.service.RecordService;
 import com.android.ocasa.service.TableService;
 import com.android.volley.VolleyError;
+
+import java.util.List;
 
 /**
  * Created by ignacio on 18/01/16.
@@ -119,6 +123,13 @@ public class SyncService extends Service {
         public void performSync(Bundle extras) {
 
             String tableId = extras.getString(EXTRA_ID);
+
+            List<Record> records = new RecordDAO(SyncService.this).findForTable(tableId);
+
+            if(records != null && !records.isEmpty()) {
+                finish();
+                return;
+            }
 
             new RecordService(SyncService.this)
                     .syncRecord(tableId, new RecordService.SaveRecordResponseCallback(SyncService.this, tableId){

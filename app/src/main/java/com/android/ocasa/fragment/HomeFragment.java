@@ -8,29 +8,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.widget.SearchView;
 
-import android.view.ActionMode;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AbsListView;
-import android.widget.ListView;
-
-import com.android.ocasa.R;
 import com.android.ocasa.activity.DetailRecordActivity;
 import com.android.ocasa.core.activity.BaseActivity;
-import com.android.ocasa.core.activity.MenuActivity;
+import com.android.ocasa.event.ReceiptItemEvent;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.service.RecordService;
 import com.android.ocasa.sync.SyncService;
+import com.android.ocasa.viewmodel.TableViewModel;
 
 /**
- * Created by ignacio on 11/01/16.
+ * Ignaco Oviedo on 11/01/16.
  */
-public class HomeFragment extends TableRecordListFragment implements
-        SearchView.OnQueryTextListener, AbsListView.MultiChoiceModeListener{
+public class HomeFragment extends FilterRecordListFragment{
 
     private RecordSyncReceiver receiver;
     private IntentFilter filter;
@@ -48,8 +38,6 @@ public class HomeFragment extends TableRecordListFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setHasOptionsMenu(true);
 
         syncTable();
         syncRecords();
@@ -75,10 +63,6 @@ public class HomeFragment extends TableRecordListFragment implements
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ListView list =  getListView();
-        list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        list.setMultiChoiceModeListener(this);
-
         receiver = new RecordSyncReceiver();
         filter = new IntentFilter();
         filter.addAction(RecordService.RECORD_SYNC_FINISHED_ACTION);
@@ -100,114 +84,20 @@ public class HomeFragment extends TableRecordListFragment implements
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
+    public void onItemClick(ReceiptItemEvent event) {
+        super.onItemClick(event);
 
         Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
-        intent.putExtra(DetailRecordActivity.EXTRA_RECORD_ID, id);
+        intent.putExtra(DetailRecordActivity.EXTRA_RECORD_ID, event.getRecordId());
         ((BaseActivity) getActivity()).startNewActivity(intent);
     }
 
     @Override
-    public void onLoadFinished(Loader<Table> loader, Table data) {
+    public void onLoadFinished(Loader<TableViewModel> loader, TableViewModel data) {
         super.onLoadFinished(loader, data);
 
         if(data != null)
-            ((MenuActivity)getActivity()).getDelegate().getSupportActionBar().setTitle(data.getName());
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        inflater.inflate(R.menu.menu_table_list, menu);
-
-        MenuItem menuItem = menu.findItem(R.id.filter);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setOnQueryTextListener(this);
-    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//      /*  switch (item.getItemId()){
-//            case R.id.filter:
-//                Intent intent = new Intent(getActivity(), FilterActivity.class);
-//                intent.putExtra("table_id", getArguments().getString(ARG_TABLE_ID));
-//
-//                getActivity().startActivityForResult(intent, 1200);
-//                getActivity().overridePendingTransition(R.anim.slide_up_dialog, R.anim.no_change);
-//                return true;
-//        }*/
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-
-        getArguments().putString(ARG_SEARCH_QUERY, query);
-
-        reloadData();
-
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        getArguments().putString(ARG_SEARCH_QUERY, newText);
-
-        reloadData();
-
-        return true;
-    }
-
-    @Override
-    public void onItemCheckedStateChanged(ActionMode actionMode, int position, long l, boolean checked) {
-
-        int count = getListView().getCheckedItemCount();
-
-        actionMode.setTitle(getResources().getQuantityString(R.plurals.list_item_selected, count, count));
-    }
-
-    @Override
-    public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-        MenuInflater inflater = actionMode.getMenuInflater();
-        inflater.inflate(R.menu.menu_multiple_selection, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-        return false;
-    }
-
-    @Override
-    public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-
-        if(menuItem.getItemId() == R.id.modify){
-            Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
-
-            long[] checkedIds = getListView().getCheckedItemIds();
-
-            if(checkedIds.length > 1) {
-                intent.putExtra(DetailRecordActivity.EXTRA_MULTIPLE_EDIT, true);
-                intent.putExtra(DetailRecordActivity.EXTRA_RECORDS_ID, getListView().getCheckedItemIds());
-            }else{
-                intent.putExtra(DetailRecordActivity.EXTRA_RECORD_ID, checkedIds[0]);
-            }
-
-            ((BaseActivity) getActivity()).startNewActivity(intent);
-            actionMode.finish();
-            return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public void onDestroyActionMode(ActionMode actionMode) {
-
+            ((BaseActivity)getActivity()).getDelegate().getSupportActionBar().setTitle(data.getName());
     }
 
     public class RecordSyncReceiver extends BroadcastReceiver {

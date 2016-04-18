@@ -8,17 +8,13 @@ import android.os.AsyncTask;
 import com.android.ocasa.dao.RecordDAO;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.History;
-import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.service.RecordService;
 import com.android.ocasa.service.notification.NotificationManager;
 import com.android.ocasa.sync.SendService;
 import com.android.ocasa.util.DateTimeHelper;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,25 +33,16 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
 
         FormData formdata = data[0];
 
-        long[] recordIds = formdata.getRecordIds();
+        long recordId = formdata.getRecordId();
 
-        List<Record> records = new ArrayList<>();
-
-        for (long recordId : recordIds) {
-            Record record = updateRecord(formdata.getValues(), recordId, formdata.getLastLocation(), formdata.getValidityDate());
-            records.add(record);
-        }
-
-        if(records.size() > 1){
-            generateReceipt(records);
-        }
+        updateRecord(formdata.getValues(), recordId, formdata.getLastLocation());
 
         return null;
     }
 
-    private Record updateRecord(Map<String, String> formValues, long recordId, Location lastLocation, Calendar validityDate){
+    private Record updateRecord(Map<String, String> formValues, long recordId, Location lastLocation){
 
-        Record record = new RecordDAO(context).finById(recordId);
+        Record record = new RecordDAO(context).findById(recordId);
 
         for (Field field : record.getFields()){
 
@@ -66,7 +53,6 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
                 History history = new History();
                 history.setValue(value);
                 history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
-                history.setValidityDate(DateTimeHelper.formatDateTime(validityDate.getTime()));
                 history.setField(field);
 
                 if(lastLocation != null) {
@@ -87,16 +73,6 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
         return record;
     }
 
-    private void generateReceipt(List<Record> records){
-
-        Receipt receipt = new Receipt();
-        receipt.setRecords(records);
-
-        for (Record record : records){
-            record.setReceipt(receipt);
-        }
-    }
-
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
@@ -109,39 +85,25 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
     public static class FormData{
 
         private Map<String, String> values;
-        private long[] recordIds;
+        private long recordId;
         private Location lastLocation;
-        private Calendar validityDate;
 
         public FormData(Map<String, String> values, long recordId, Location lastLocation){
             this.values = values;
-            this.recordIds = new long[1];
-            this.recordIds[0] = recordId;
+            this.recordId = recordId;
             this.lastLocation = lastLocation;
-            this.validityDate = Calendar.getInstance();
-        }
-
-        public FormData(Map<String, String> values, long[] recordIds, Location lastLocation, Calendar validityDate){
-            this.values = values;
-            this.recordIds = recordIds;
-            this.lastLocation = lastLocation;
-            this.validityDate = validityDate;
         }
 
         public Map<String, String> getValues() {
             return values;
         }
 
-        public long[] getRecordIds() {
-            return recordIds;
+        public long getRecordId() {
+            return recordId;
         }
 
         public Location getLastLocation() {
             return lastLocation;
-        }
-
-        public Calendar getValidityDate() {
-            return validityDate;
         }
     }
 

@@ -6,7 +6,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
+import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
+import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.widget.FieldDateView;
 import com.android.ocasa.widget.TextFieldView;
 
@@ -18,10 +20,8 @@ public class DateFieldFactory extends FieldViewFactory {
     @Override
     public View createView(ViewGroup container, Field field, boolean isEditMode) {
 
-        FieldDateView dateField = (FieldDateView) LayoutInflater
-                .from(container.getContext()).inflate(R.layout.field_date, container, false);
-
-        dateField.setLabel(field.getColumn().getName());
+        FieldDateView dateField =
+                (FieldDateView) createView(container, field.getValue(), field.getColumn().getName(), isEditMode);
 
         initField(dateField.getField(), field, isEditMode);
 
@@ -33,7 +33,28 @@ public class DateFieldFactory extends FieldViewFactory {
     }
 
     @Override
+    public View createView(ViewGroup container, String value, String label, boolean isEditMode) {
+
+        FieldDateView dateField = (FieldDateView) LayoutInflater
+                .from(container.getContext()).inflate(R.layout.field_date, container, false);
+
+        dateField.setLabel(label);
+
+        return dateField;
+    }
+
+    @Override
     public View createSubView(ViewGroup container, Field field, boolean isEditMode) {
+        return null;
+    }
+
+    @Override
+    public View createSubView(ViewGroup container, FieldViewModel field, boolean isEditMode) {
+        return null;
+    }
+
+    @Override
+    public View createView(ViewGroup container, FieldViewModel field, boolean isEditMode) {
         return null;
     }
 

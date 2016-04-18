@@ -3,7 +3,6 @@ package com.android.ocasa.widget.factory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
@@ -11,7 +10,7 @@ import com.android.ocasa.model.Field;
 import com.android.ocasa.widget.FieldTimeView;
 
 /**
- * Created by ignacio on 04/02/16.
+ * Ignacio on 04/02/16.
  */
 public class TimeFieldFactory extends DateFieldFactory {
 

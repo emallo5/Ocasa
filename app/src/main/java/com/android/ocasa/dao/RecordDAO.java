@@ -2,13 +2,19 @@ package com.android.ocasa.dao;
 
 import android.content.Context;
 
+import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Record;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.sql.Array;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,7 +26,7 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
         super(Record.class, context);
     }
 
-    public List<Record> findRecordsForTable(String tableId){
+    public List<Record> findForTable(String tableId){
 
         try {
             return dao.queryBuilder().where().eq("table_id", tableId).query();
@@ -31,19 +37,25 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
         return null;
     }
 
-    public List<Record> findRecordsForTableAndQuery(String tableId, String query){
+    public List<Record> findForTableAndQuery(String tableId, String query, long[] excludeIds){
 
         try {
             QueryBuilder<Record, Long> recordQuery = dao.queryBuilder();
 
+            if (query != null){
+                QueryBuilder<Field, Long> fieldDao = new FieldDAO(context).getDao().queryBuilder();
+                fieldDao.where().like("value", "%" + query + "%");
+                recordQuery.join(fieldDao);
+            }
 
-            QueryBuilder<Field, Long> fieldDao = new FieldDAO(context).getDao().queryBuilder();
+            Where<Record, Long> where = recordQuery.where();
+            where.eq("table_id", tableId);
 
-            fieldDao.where().like("value", "%" + query + "%");
+            if(excludeIds != null){
+                where.and();
+                where.notIn("id", Arrays.asList(ArrayUtils.toObject((excludeIds))));
+            }
 
-            recordQuery.join(fieldDao);
-
-            recordQuery.where().eq("table_id", tableId);
             recordQuery.groupBy("id");
 
             return recordQuery.query();
@@ -76,8 +88,17 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
         return null;
     }
 
+//    public List<Record> findForReceipt(long receiptId){
+//        try {
+//            return dao.queryBuilder().where().eq("receipt_id", receiptId).query();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return null;
+//    }
 
-    public Record findRecordsForColumnAndValue(String columnId, String value){
+    public Record findForColumnAndValue(String columnId, String value){
 
         try {
             QueryBuilder<Record, Long> recordQuery = dao.queryBuilder();
@@ -96,7 +117,34 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
         return null;
     }
 
-    public void deleteRecordsForTable(String tableId){
+    public Record findForTableAndValueId(String tableId, String id){
+
+        try {
+            QueryBuilder<Record, Long> recordQuery = dao.queryBuilder();
+
+            QueryBuilder<Field, Long> fieldDao = new FieldDAO(context).getDao().queryBuilder();
+
+            fieldDao.where().eq("value", id);
+
+            QueryBuilder<Column, String> columnDao = new ColumnDAO(context).getDao().queryBuilder();
+
+            columnDao.where().eq("primaryKey", true);
+
+            fieldDao.join(columnDao);
+
+            recordQuery.join(fieldDao);
+
+            recordQuery.where().eq("table_id", tableId);
+
+            return recordQuery.queryForFirst();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void deleteForTable(String tableId){
         try {
             DeleteBuilder deleteBuilder = dao.deleteBuilder();
             deleteBuilder.where().eq("table_id", tableId);

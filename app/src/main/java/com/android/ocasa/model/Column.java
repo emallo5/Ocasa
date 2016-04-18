@@ -2,15 +2,10 @@ package com.android.ocasa.model;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import org.w3c.dom.ProcessingInstruction;
-
-import java.util.Collection;
-
 /**
- * Created by ignacio on 26/01/16.
+ * Ignacio Oviedo on 26/01/16.
  */
 @DatabaseTable(tableName = "columns")
 public class Column {
@@ -32,6 +27,9 @@ public class Column {
 
     @DatabaseField
     private boolean mandatory;
+
+    @DatabaseField
+    private boolean primaryKey;
 
     @DatabaseField
     private boolean logic;
@@ -93,6 +91,14 @@ public class Column {
 
     public void setMandatory(boolean mandatory) {
         this.mandatory = mandatory;
+    }
+
+    public boolean isPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(boolean primaryKey) {
+        this.primaryKey = primaryKey;
     }
 
     public boolean isLogic() {
