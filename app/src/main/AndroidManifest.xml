@@ -64,6 +64,7 @@
         <activity android:name=".activity.CreateReceiptActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".activity.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -106,12 +107,67 @@
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
+            android:name=".activity.EditReceiptActivity"
+            android:parentActivityName=".activity.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
+        </activity>
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activity.ReceiptStatusActvity"
+            android:parentActivityName=".activity.CreateReceiptActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.CreateReceiptActivity" />
+        </activity>
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activity.DetailReceiptStatusActivity"
+            android:parentActivityName=".activity.DetailReceiptActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.DetailReceiptActivity" />
+        </activity>
+
+
+        <activity
             android:theme="@style/FilterTheme"
             android:name=".activity.FilterActivity"/>
 
         <activity
             android:theme="@style/FilterTheme"
             android:name=".activity.ValidityDateActivity"/>
+
+        <!--- PICK UP -->
+
+        <activity
+            android:name=".pickup.LocationsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".pickup.SyncPickupItemsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".pickup.PickupActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".pickup.LocationsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".pickup.LocationsActivity" />
+        </activity>
+
+        <activity
+            android:name=".pickup.scanner.ScannerActivity"
+            android:screenOrientation="portrait"/>
+
+        <receiver android:name=".pickup.SyncPickupItemsActivity$SyncReceiver"/>
+
+        <!--  - - - -  -->
 
         <service android:name=".sync.SyncService"/>
         <service android:name=".sync.LoginService"/>

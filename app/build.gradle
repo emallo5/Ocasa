@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.android.ocasa"
@@ -35,14 +35,12 @@ android {
             applicationId "com.android.ocasa.app"
             resValue "string", "app_name", "Ocasa"
             buildConfigField "String", BASE_URL, "\"http://192.168.25.26/\""
-
         }
 
         local {
             applicationId "com.android.ocasa.local"
             resValue "string", "app_name", "Ocasa Local"
-            buildConfigField "String", BASE_URL, "\"http://172.19.2.97:7878/\""
-
+            buildConfigField "String", BASE_URL, "\"http://172.19.2.24:7878/\""
         }
     }
 
@@ -60,23 +58,24 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile 'junit:junit:4.12'
     testCompile 'junit:junit:4.12'
-    compile 'org.apache.commons:commons-lang3:3.4'
-    compile 'com.google.android.gms:play-services-vision:8.4.0'
-    compile 'com.google.android.gms:play-services-maps:8.4.0'
-    compile 'com.google.android.gms:play-services-location:8.4.0'
-    compile 'com.facebook.fresco:fresco:0.9.0+'
+    compile 'com.google.android.gms:play-services-vision:9.0.2'
+    compile 'com.google.android.gms:play-services-maps:9.0.2'
+    compile 'com.google.android.gms:play-services-location:9.0.2'
+    compile 'com.facebook.fresco:fresco:0.9.+'
     compile 'com.yqritc:recyclerview-flexibledivider:1.2.4'
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.assertj:assertj-core:1.7.0'
     testCompile 'org.mockito:mockito-core:1.10.19'
     testCompile 'org.robolectric:shadows-httpclient:3.0'
-    compile 'com.j256.ormlite:ormlite-core:4.48'
-    compile 'com.j256.ormlite:ormlite-android:4.48'
     compile 'com.crittercism:crittercism-android-agent:5.5.1'
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile ('com.vincentbrison.openlibraries.android:dualcache:2.2.2@jar') {
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'com.j256.ormlite:ormlite-core:4.48'
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+    compile('com.vincentbrison.openlibraries.android:dualcache:2.2.2@jar') {
         transitive = true
     }
     compile project(':core')
     compile project(':http')
+    compile 'me.dm7.barcodescanner:zbar:1.8.4'
 }

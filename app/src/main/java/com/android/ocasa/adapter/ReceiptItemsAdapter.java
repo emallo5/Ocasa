@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,12 +27,30 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
 
     private int fieldCount;
 
+    public ReceiptItemsAdapter(CellViewModel record) {
+        this.records = new ArrayList<>();
+        this.records.add(record);
+
+        fieldCount = records.size() == 0 ? 0 : records.get(0).getFields().size();
+
+        setHasStableIds(true);
+    }
+
     public ReceiptItemsAdapter(List<CellViewModel> records) {
         this.records = records;
 
-        fieldCount = records.get(0).getFields().size();
+        fieldCount = records.size() == 0 ? 0 : records.get(0).getFields().size();
 
         setHasStableIds(true);
+    }
+
+
+    public void refreshItems(List<CellViewModel> records) {
+        fieldCount = records.size() == 0 ? 0 : records.get(0).getFields().size();
+
+        this.records.clear();
+        this.records.addAll(records);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -45,6 +63,8 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         CellViewModel record = records.get(position);
 
+        holder.number.setText("#" + (getItemCount() - position));
+
         for (int index = 0; index < holder.fields.size(); index++){
             TextView text = holder.fields.get(index);
             text.setText(record.getFields().get(index).getValue());
@@ -54,6 +74,7 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
     public void deleteItem(int position){
         records.remove(position);
         notifyItemRemoved(position);
+        notifyItemRangeChanged(0, position);
     }
 
     @Override
@@ -66,9 +87,22 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
         return records.size();
     }
 
+    public void addItem(CellViewModel cellViewModel) {
+        records.add(0, cellViewModel);
+        cellViewModel.setNumber(records.size());
+        notifyItemInserted(0);
+    }
+
+    public void addItems(List<CellViewModel> cellViewModel) {
+        records.addAll(0, cellViewModel);
+        notifyItemRangeInserted(0, cellViewModel.size());
+    }
+
+
     public static class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        Button delete;
+        TextView number;
+        ImageButton delete;
 
         ArrayList<TextView> fields;
 
@@ -79,6 +113,8 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
 
             fields = new ArrayList<>();
 
+            number = (TextView) itemView.findViewById(R.id.number);
+
             LinearLayout container = (LinearLayout) itemView.findViewById(R.id.container);
 
             for (int index = 0; index < fieldCount; index++) {
@@ -87,7 +123,7 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
                 container.addView(text);
             }
 
-            delete = (Button) itemView.findViewById(R.id.delete);
+            delete = (ImageButton) itemView.findViewById(R.id.delete);
             delete.setOnClickListener(this);
         }
 
@@ -95,7 +131,7 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.delete:
-                    EventBus.getDefault().post(new ReceiptItemDeleteEvent(getAdapterPosition()));
+                    EventBus.getDefault().post(new ReceiptItemDeleteEvent(getItemId(), getAdapterPosition()));
                     break;
                 default:
                     EventBus.getDefault().post(new ReceiptItemEvent(getItemId(), getAdapterPosition()));

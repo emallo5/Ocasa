@@ -9,9 +9,14 @@
         <item name="colorAccent">@color/ocasaLightBlue</item>
         <item name="android:textColorPrimary">@color/ocasaTextColor</item>
         <item name="android:textColorSecondary">@color/ocasaLightBlue</item>
-        <item name="navBarIcon">@null</item>
         <item name="actionModeStyle">@style/ActionMode</item>
         <item name="actionModeCloseDrawable">@drawable/ic_menu_clear</item>
+    </style>
+
+    <style name="BarActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowActionModeOverlay">true</item>
     </style>
 
     <!--<item name="actionMenuTextColor">@android:color/white</item>-->
@@ -48,5 +53,6 @@
         <item name="android:paddingBottom">@dimen/medium_padding</item>
         <item name="android:paddingTop">@dimen/medium_padding</item>
     </style>
+
 
 </resources>

@@ -19,6 +19,10 @@ public class FieldViewModel {
 
     private String relationshipTable;
 
+    private boolean isEditable;
+
+    private boolean isPrimaryKey;
+
     private List<FieldViewModel> relationshipFields;
 
     public String getTag() {
@@ -61,11 +65,27 @@ public class FieldViewModel {
         this.relationshipTable = relationshipTable;
     }
 
+    public boolean isEditable() {
+        return isEditable;
+    }
+
+    public void setEditable(boolean editable) {
+        isEditable = editable;
+    }
+
     public List<FieldViewModel> getRelationshipFields() {
         return relationshipFields;
     }
 
     public void setRelationshipFields(List<FieldViewModel> relationshipFields) {
         this.relationshipFields = relationshipFields;
+    }
+
+    public boolean isPrimaryKey() {
+        return isPrimaryKey;
+    }
+
+    public void setPrimaryKey(boolean primaryKey) {
+        isPrimaryKey = primaryKey;
     }
 }

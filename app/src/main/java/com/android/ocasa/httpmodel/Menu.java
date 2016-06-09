@@ -73,6 +73,7 @@ public class Menu {
 
                 columnAction.setColumn(column);
 
+                columnAction.setEditable(!jObject.has("editable") || jObject.get("editable").getAsBoolean());
                 columnAction.setDefaultValue(jObject.get("default").getAsString());
                 columnAction.setLastValue(jObject.get("last").getAsString());
 

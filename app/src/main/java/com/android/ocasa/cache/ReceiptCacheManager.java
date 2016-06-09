@@ -1,6 +1,7 @@
 package com.android.ocasa.cache;
 
 import com.android.ocasa.model.Field;
+import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCache;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheBuilder;
@@ -29,8 +30,8 @@ public class ReceiptCacheManager {
 
     private ReceiptCacheManager(){
         cache = new DualCacheBuilder<>(CACHE_NAME, 1, List.class)
-                .useDefaultSerializerInRam(10000)
-                .useDefaultSerializerInDisk(10000, true);;
+                .useDefaultSerializerInRam(1000)
+                .useDefaultSerializerInDisk(1000, true);;
     }
 
     public boolean recordExists(long recordId){
@@ -41,12 +42,32 @@ public class ReceiptCacheManager {
 
         List<FieldInfo> fieldInfos = (List<FieldInfo>) cache.get(String.valueOf(record.getId()));
 
+        if(fieldInfos == null)
+            return;
+
         for (FieldInfo fieldInfo : fieldInfos){
             Field field = record.findField(fieldInfo.getId());
 
             if(field != null)
                 field.setValue(fieldInfo.getValue());
         }
+    }
+
+    public void fillReceipt(Receipt receipt){
+
+        List<FieldInfo> fieldInfos = (List<FieldInfo>) cache.get("Receipt");
+
+        List<Field> headerValues = new ArrayList<>();
+
+        for (FieldInfo fieldInfo : fieldInfos){
+            Field field = new Field();
+            field.setId((int) fieldInfo.getId());
+            field.setValue(fieldInfo.getValue());
+
+            headerValues.add(field);
+        }
+
+        receipt.setHeaderValues(headerValues);
     }
 
     public void saveRecord(Record record){
@@ -63,12 +84,29 @@ public class ReceiptCacheManager {
         cache.put(String.valueOf(record.getId()), values);
     }
 
+    public void saveReceipt(Receipt record){
+
+        List<FieldInfo> values = new ArrayList<>();
+
+        for (Field field : record.getHeaderValues()){
+
+            FieldInfo fieldInfo = new FieldInfo(0, field.getValue());
+            fieldInfo.setColumnId(field.getColumn().getId());
+
+            values.add(fieldInfo);
+        }
+
+        cache.put("Receipt", values);
+    }
+
+
     public void clearCache(){
         cache.invalidate();
     }
 
     public static class FieldInfo{
         private long id;
+        private String columnId;
         private String value;
 
         public FieldInfo(){}
@@ -92,6 +130,14 @@ public class ReceiptCacheManager {
 
         public void setValue(String value) {
             this.value = value;
+        }
+
+        public String getColumnId() {
+            return columnId;
+        }
+
+        public void setColumnId(String columnId) {
+            this.columnId = columnId;
         }
     }
 }

@@ -2,6 +2,7 @@ package com.android.ocasa.model;
 
 import com.android.ocasa.widget.factory.ComboFieldFactory;
 import com.android.ocasa.widget.factory.DateFieldFactory;
+import com.android.ocasa.widget.factory.DateTimeFieldFactory;
 import com.android.ocasa.widget.factory.DecimalFieldFactory;
 import com.android.ocasa.widget.factory.FieldViewFactory;
 import com.android.ocasa.widget.factory.IntegerFieldFactory;
@@ -91,6 +92,22 @@ public enum FieldType {
         @Override
         public FieldViewFactory getFieldFactory() {
             return new TimeFieldFactory();
+        }
+
+        @Override
+        public boolean isValidValue(String value) {
+
+            String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
+
+            Pattern pattern = Pattern.compile(timePattern);
+
+            return pattern.matcher(value).matches();
+        }
+    },
+    DATETIME("datetime"){
+        @Override
+        public FieldViewFactory getFieldFactory() {
+            return new DateTimeFieldFactory();
         }
 
         @Override

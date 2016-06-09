@@ -3,7 +3,6 @@ package com.android.ocasa.dao;
 import android.content.Context;
 
 import com.android.ocasa.model.ReceiptItem;
-import com.android.ocasa.model.Record;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -20,7 +20,7 @@ public class Application {
     @DatabaseField
     private String name;
 
-    @ForeignCollectionField(eager = true, maxEagerForeignCollectionLevel = 2)
+    @ForeignCollectionField(eager = true, maxEagerForeignCollectionLevel = 3)
     private Collection<Category> categories;
 
     public Application() {

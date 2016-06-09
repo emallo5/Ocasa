@@ -15,25 +15,20 @@ import com.android.ocasa.widget.FieldListView;
  */
 public class ListFieldFactory extends FieldViewFactory{
 
-    @Override
-    public View createView(ViewGroup container, Field field, boolean isEditMode) {
-
-        FieldListView view = (FieldListView) LayoutInflater.from(container.getContext()).inflate(R.layout.field_list, container, false);
-
-        view.setLabel(field.getColumn().getName());
-
-        view.setValue(field.getValue());
-
-        return view;
-    }
+//    @Override
+//    public View createView(ViewGroup container, Field field, boolean isEditMode) {
+//
+//        FieldListView view = (FieldListView) LayoutInflater.from(container.getContext()).inflate(R.layout.field_list, container, false);
+//
+//        view.setLabel(field.getColumn().getName());
+//
+//        view.setValue(field.getValue());
+//
+//        return view;
+//    }
 
     @Override
     public View createView(ViewGroup container, String value, String label, boolean isEditMode) {
-        return null;
-    }
-
-    @Override
-    public View createSubView(ViewGroup container, Field field, boolean isEditMode) {
         return null;
     }
 

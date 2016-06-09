@@ -13,14 +13,14 @@ import com.android.ocasa.widget.FormInputFieldView;
  */
 public class IntegerFieldFactory extends TextFieldFactory {
 
-    @Override
-    public View createView(ViewGroup container, Field field, boolean isEditMode) {
-
-        FormInputFieldView textView = (FormInputFieldView) super.createView(container, field, isEditMode);
-
-        EditText textField = textView.getField().getInput();
-        textField.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-        return textView;
-    }
+//    @Override
+//    public View createView(ViewGroup container, Field field, boolean isEditMode) {
+//
+//        FormInputFieldView textView = (FormInputFieldView) super.createView(container, field, isEditMode);
+//
+//        EditText textField = textView.getField().getInput();
+//        textField.setInputType(InputType.TYPE_CLASS_NUMBER);
+//
+//        return textView;
+//    }
 }

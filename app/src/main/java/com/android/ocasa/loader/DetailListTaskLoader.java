@@ -30,7 +30,7 @@ public class DetailListTaskLoader extends AsyncTaskLoader<List<Record>> {
     @Override
     public List<Record> loadInBackground() {
 
-        RecordDAO recordDAO = new RecordDAO(getContext());
+        RecordDAO recordDAO = RecordDAO.getInstance(getContext());
 
         List<Record> records = recordDAO.findDetailRecords(tableId, columnId, value);
 

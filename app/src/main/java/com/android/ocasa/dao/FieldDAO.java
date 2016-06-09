@@ -69,6 +69,20 @@ public class FieldDAO extends GenericDAOImpl<Field, Long> {
         return null;
     }
 
+    public List<Field> findForReceipt(long receiptId){
+
+        try {
+            QueryBuilder<Field, Long> fieldBuilder = dao.queryBuilder();
+            fieldBuilder.where().eq("receipt_id", receiptId);
+
+            return fieldBuilder.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public void deleteFieldsForTable(String tableId){
         try {
             DeleteBuilder deleteBuilder = dao.deleteBuilder();

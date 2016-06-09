@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.nfc.FormatException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
@@ -20,13 +21,9 @@ import android.widget.Toast;
 import com.android.ocasa.R;
 import com.android.ocasa.activity.ReadFieldActvivity;
 import com.android.ocasa.barcode.BarcodeActivity;
-import com.android.ocasa.loader.RecordTaskLoaderTest;
+import com.android.ocasa.loader.FormTaskLoader;
 import com.android.ocasa.loader.SaveFormTask;
-import com.android.ocasa.model.Column;
-import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
-import com.android.ocasa.model.Record;
-import com.android.ocasa.model.Table;
 import com.android.ocasa.util.DatePickerDialogFragment;
 import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.util.TimePickerDialogFragment;
@@ -35,6 +32,7 @@ import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.widget.FieldComboView;
+import com.android.ocasa.widget.FieldDateTimeView;
 import com.android.ocasa.widget.FieldDateView;
 import com.android.ocasa.widget.FieldListView;
 import com.android.ocasa.widget.FieldMapView;
@@ -69,11 +67,13 @@ public abstract class FormRecordFragment extends LocationFragment implements Loa
     static final String TIME_TAG = "Time";
     static final String COMBO_TAG = "Combo";
 
-    private Map<String, String> formValues;
+    protected Map<String, String> formValues;
 
     private FormViewModel record;
 
-    private LinearLayout container;
+    protected LinearLayout container;
+
+    private FloatingActionButton detail;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,11 +97,30 @@ public abstract class FormRecordFragment extends LocationFragment implements Loa
         super.onViewCreated(view, savedInstanceState);
 
         container = (LinearLayout) view.findViewById(R.id.detail_container);
+        detail = (FloatingActionButton) view.findViewById(R.id.detail);
+
+        setListeners();
+    }
+
+    private void setListeners(){
+        detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFieldsInfo();
+            }
+        });
+    }
+
+    private void showFieldsInfo(){
+        for (Map.Entry<String, String> pair : formValues.entrySet()) {
+            FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(pair.getKey());
+            view.changeLabelVisbility(true);
+        }
     }
 
     @Override
     public Loader<FormViewModel> onCreateLoader(int id, Bundle args) {
-        return new RecordTaskLoaderTest(getActivity(), args.getLong(ARG_RECORD_ID));
+        return new FormTaskLoader(getActivity(), args.getLong(ARG_RECORD_ID));
     }
 
     @Override
@@ -129,7 +148,10 @@ public abstract class FormRecordFragment extends LocationFragment implements Loa
         if(container.getChildCount() > 1)
             container.removeViews(1, fields.size() + 1);
 
-        for (FieldViewModel field : fields){
+        for (int index = 0; index < fields.size(); index++){
+
+            FieldViewModel field = fields.get(index);
+
             FieldViewFactory factory = field.getType().getFieldFactory();
 
             View view = factory.createView(container, field, isEditMode);
@@ -274,8 +296,17 @@ public abstract class FormRecordFragment extends LocationFragment implements Loa
     public void onTimeChange(String fieldTag, Calendar calendar) {
         FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(fieldTag);
 
+        if(view instanceof FieldDateTimeView){
+            try {
+                ((FieldDateTimeView) view).setTime(DateTimeHelper.formatTime(calendar.getTime()));
+            } catch (FormatException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
         try {
-            view.setValue(DateTimeHelper.formatTime(calendar.getTime()));
+            view.setValue(DateTimeHelper.formatDateTime(calendar.getTime()));
         } catch (FormatException e) {
             e.printStackTrace();
         }
@@ -284,6 +315,15 @@ public abstract class FormRecordFragment extends LocationFragment implements Loa
     @Override
     public void onDateChange(String fieldTag, Calendar calendar){
         FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(fieldTag);
+
+        if(view instanceof FieldDateTimeView){
+            try {
+                ((FieldDateTimeView) view).setDate(DateTimeHelper.formatDate(calendar.getTime()));
+            } catch (FormatException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
 
         try {
             view.setValue(DateTimeHelper.formatDate(calendar.getTime()));

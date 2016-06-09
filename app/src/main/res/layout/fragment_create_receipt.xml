@@ -1,68 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="none"
-    android:padding="@dimen/large_padding"
-    android:clipToPadding="false">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentPaddingTop="@dimen/large_padding"
-        app:contentPaddingBottom="@dimen/large_padding"
-        app:contentPaddingLeft="@dimen/large_padding"
-        app:contentPaddingRight="@dimen/large_padding">
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/medium_padding"
+        app:contentPadding="@dimen/medium_padding">
 
         <LinearLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/medium_padding"
-                android:text="Fecha vigencia"/>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="2">
-
-                <TextView
-                    style="@style/Input"
-                    android:id="@id/date"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.2"
-                    android:singleLine="true"
-                    android:drawableLeft="@drawable/ic_calendar"
-                    android:gravity="center_vertical"
-                    android:drawablePadding="@dimen/medium_padding"
-                    android:layout_marginRight="@dimen/medium_padding"/>
-
-                <TextView
-                    style="@style/Input"
-                    android:id="@+id/time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:singleLine="true"
-                    android:gravity="center_vertical"
-                    android:drawableLeft="@drawable/ic_clock"
-                    android:drawablePadding="@dimen/medium_padding"
-                    android:layout_marginLeft="@dimen/medium_padding"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
+            android:orientation="vertical"/>
 
     </android.support.v7.widget.CardView>
 
+    <RelativeLayout
+        android:id="@+id/search_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/medium_padding"
+        android:paddingRight="@dimen/medium_padding"
+        android:layout_below="@+id/card"
+        android:background="@android:color/white">
 
-</ScrollView>
+        <android.support.v7.widget.SearchView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/scanner"/>
+
+        <ImageView
+            android:id="@+id/scanner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_qr"
+            android:scaleType="center"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/search" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/show_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/white"
+        android:gravity="center_vertical|right"
+        android:textStyle="bold"
+        android:padding="4dp"
+        android:textSize="14sp"
+        android:textAllCaps="true"
+        android:paddingRight="@dimen/medium_padding"
+        android:layout_below="@+id/search_container"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/show_table">
+
+        <!--<TextView-->
+        <!--android:id="@+id/items_count"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="4dp"-->
+        <!--android:background="@android:color/white"/>-->
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tabs"/>
+
+        <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/results"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@+id/items_count"/>-->
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/sub_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@+id/search_container"
+        android:layout_margin="@dimen/medium_padding"/>
+
+</RelativeLayout>

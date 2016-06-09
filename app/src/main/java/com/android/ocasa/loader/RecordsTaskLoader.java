@@ -28,7 +28,7 @@ public class RecordsTaskLoader extends AsyncTaskLoader<List<Record>> {
 
         List<Record> records = new ArrayList<>();
 
-        RecordDAO dao = new RecordDAO(getContext());
+        RecordDAO dao = RecordDAO.getInstance(getContext());
 
         ReceiptCacheManager cacheManager = ReceiptCacheManager.getInstance();
 

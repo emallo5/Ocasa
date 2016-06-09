@@ -2,10 +2,8 @@ package com.android.ocasa.dao;
 
 import android.content.Context;
 
-import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
 
-import java.util.List;
 
 /**
  * Created by ignacio on 18/01/16.

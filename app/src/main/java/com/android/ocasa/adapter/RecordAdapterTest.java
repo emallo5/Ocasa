@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Emiliano Mallo on 11/04/16.
+ * Ignacio Oviedo on 11/04/16.
  */
 public class RecordAdapterTest extends RecyclerView.Adapter<RecordAdapterTest.RecordViewHolder> {
 
@@ -48,6 +49,14 @@ public class RecordAdapterTest extends RecyclerView.Adapter<RecordAdapterTest.Re
     @Override
     public void onBindViewHolder(RecordViewHolder holder, int position) {
         CellViewModel record = records.get(position);
+
+        if(record.isNew()){
+            holder.status.setImageResource(R.drawable.ic_new_record);
+        }else if(record.isUpdated()){
+            holder.status.setImageResource(R.drawable.ic_update_record);
+        }else {
+            holder.status.setVisibility(View.GONE);
+        }
 
         holder.itemView.setActivated(selectedItems.get(record.getId(), false));
 
@@ -108,6 +117,8 @@ public class RecordAdapterTest extends RecyclerView.Adapter<RecordAdapterTest.Re
     }
 
     public void refreshItems(List<CellViewModel> records) {
+        fieldCount = records.isEmpty() ? 0 : records.get(0).getFields().size();
+
         this.records.clear();
         this.records.addAll(records);
         notifyDataSetChanged();
@@ -124,10 +135,14 @@ public class RecordAdapterTest extends RecyclerView.Adapter<RecordAdapterTest.Re
     public static class RecordViewHolder extends RecyclerView.ViewHolder implements
             View.OnClickListener, View.OnLongClickListener{
 
+        ImageView status;
+
         ArrayList<TextView> fields;
 
         public RecordViewHolder(View itemView, int fieldCount) {
             super(itemView);
+
+            status = (ImageView) itemView.findViewById(R.id.record_state);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);

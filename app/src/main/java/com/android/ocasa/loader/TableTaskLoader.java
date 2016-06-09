@@ -3,8 +3,6 @@ package com.android.ocasa.loader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-import com.android.ocasa.cache.ReceiptCacheManager;
-import com.android.ocasa.dao.FieldDAO;
 import com.android.ocasa.dao.RecordDAO;
 import com.android.ocasa.dao.TableDAO;
 import com.android.ocasa.model.Field;
@@ -51,11 +49,16 @@ public class TableTaskLoader extends AsyncTaskLoader<TableViewModel> {
 
         tableViewModel.setName(table.getName());
 
-        List<Record> records = new RecordDAO(getContext()).findForTableAndQuery(tableId, query, excludeIds);
+        List<Record> records = RecordDAO.getInstance(getContext()).findForTableAndQuery(tableId, query, excludeIds);
 
-        for (Record record: records) {
+        for (int index = 0; index < records.size(); index++){
+
+            Record record = records.get(index);
+
             CellViewModel cell = new CellViewModel();
             cell.setId(record.getId());
+            cell.setNew(record.isNew());
+            cell.setUpdated(record.isUpdated());
             cell.setValue(record.getPrimaryKey().getValue());
 
             fillCell(cell, record.getLogicFields());

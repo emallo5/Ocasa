@@ -54,6 +54,10 @@ public class FormTextFieldView extends LinearLayout implements FieldViewAdapter,
         });
     }
 
+    public TextView getLabel(){
+        return label;
+    }
+
     @Override
     public void setFieldViewActionListener(FieldViewActionListener listener) {
         this.listener = listener;
@@ -67,6 +71,11 @@ public class FormTextFieldView extends LinearLayout implements FieldViewAdapter,
     @Override
     public void setValue(String value) throws FormatException{
         this.field.getText().setText(value);
+    }
+
+    @Override
+    public void changeLabelVisbility(boolean visibility) {
+        label.setVisibility(VISIBLE);
     }
 
     @Override

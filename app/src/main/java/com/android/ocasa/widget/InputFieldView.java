@@ -1,6 +1,8 @@
 package com.android.ocasa.widget;
 
 import android.content.Context;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.EditText;
@@ -14,7 +16,8 @@ import com.android.ocasa.R;
  */
 public class InputFieldView extends RelativeLayout{
 
-    private EditText input;
+    private TextInputEditText input;
+    private TextInputLayout inputLayout;
     private ImageView action;
 
     public InputFieldView(Context context) {
@@ -35,12 +38,22 @@ public class InputFieldView extends RelativeLayout{
 
         LayoutInflater.from(getContext()).inflate(R.layout.field_input_layout, this, true);
 
-        input = (EditText) findViewById(R.id.input);
+        inputLayout = (TextInputLayout) findViewById(R.id.input_layout);
+        input = (TextInputEditText) findViewById(R.id.input);
         action = (ImageView) findViewById(R.id.action);
     }
 
-    public EditText getInput() {
+    public void setHint(String hint){
+        inputLayout.setHint(hint);
+        inputLayout.setHintEnabled(false);
+    }
+
+    public TextInputEditText getInput() {
         return input;
+    }
+
+    public TextInputLayout getInputLayout() {
+        return inputLayout;
     }
 
     public ImageView getAction() {

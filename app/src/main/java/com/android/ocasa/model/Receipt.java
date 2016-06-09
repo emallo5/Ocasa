@@ -24,8 +24,17 @@ public class Receipt {
     @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private Action action;
 
+    @ForeignCollectionField(eager = true)
+    private Collection<Field> headerValues;
+
     @DatabaseField
     private String validityDate;
+
+    @DatabaseField(defaultValue = "false")
+    private boolean isConfirmed;
+
+    @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
+    private Status status;
 
     public Receipt() {
     }
@@ -68,5 +77,29 @@ public class Receipt {
 
     public void setValidityDate(String validityDate) {
         this.validityDate = validityDate;
+    }
+
+    public Collection<Field> getHeaderValues() {
+        return headerValues;
+    }
+
+    public void setHeaderValues(Collection<Field> headerValues) {
+        this.headerValues = headerValues;
+    }
+
+    public boolean isConfirmed() {
+        return isConfirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        isConfirmed = confirmed;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

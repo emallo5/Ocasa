@@ -54,11 +54,10 @@ public class ReceiptTaskLoader extends AsyncTaskLoader<Receipt> {
 
                 Column primaryColumn = new ColumnDAO(getContext()).findPrimaryKeyColumnForTable(field.getColumn().getRelationship().getId());
 
-                Record relationship = new RecordDAO(getContext()).findForColumnAndValue(primaryColumn.getId(), field.getValue());
+                Record relationship = RecordDAO.getInstance(getContext()).findForColumnAndValue(primaryColumn.getId(), field.getValue());
                 relationship.setFields(
                         new FieldDAO(getContext()).findLogicsForRecord(String.valueOf(relationship.getId())));
 
-                field.setRelationship(relationship);
             }
         }
 

@@ -22,8 +22,8 @@ import org.greenrobot.eventbus.Subscribe;
  */
 public abstract class TableRecordListFragment extends RecyclerListFragment implements LoaderManager.LoaderCallbacks<TableViewModel>{
 
-    static final String ARG_TABLE_ID = "table_id";
-    static final String ARG_SEARCH_QUERY = "search_query";
+    public static final String ARG_TABLE_ID = "table_id";
+    public static final String ARG_SEARCH_QUERY = "search_query";
 
     private boolean wasPaused = false;
 

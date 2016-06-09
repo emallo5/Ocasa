@@ -14,8 +14,11 @@ public class FormViewModel {
 
     private List<FieldViewModel> fields;
 
+    private List<PairViewModel> status;
+
     public FormViewModel(){
         this.fields = new ArrayList<>();
+        this.status = new ArrayList<>();
     }
 
     public long getId() {
@@ -48,5 +51,17 @@ public class FormViewModel {
                 return field;
         }
         return null;
+    }
+
+    public void addPair(PairViewModel field){
+        this.status.add(field);
+    }
+
+    public List<PairViewModel> getStatus() {
+        return status;
+    }
+
+    public void setStatus(List<PairViewModel> status) {
+        this.status = status;
     }
 }

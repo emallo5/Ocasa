@@ -1,6 +1,7 @@
 package com.android.ocasa.widget;
 
 import android.content.Context;
+import android.support.design.widget.TextInputLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -19,7 +20,7 @@ public class FormInputFieldView extends LinearLayout implements FieldViewAdapter
 
     private FieldViewActionListener listener;
 
-    private TextView label;
+    //private TextView label;
     private InputFieldView field;
 
     public FormInputFieldView(Context context) {
@@ -42,7 +43,7 @@ public class FormInputFieldView extends LinearLayout implements FieldViewAdapter
 
         LayoutInflater.from(getContext()).inflate(R.layout.form_input_field_layout, this, true);
 
-        label = (TextView) findViewById(R.id.label);
+        //label = (TextView) findViewById(R.id.label);
         field = (InputFieldView) findViewById(R.id.field);
 
         field.getAction().setOnClickListener(new OnClickListener() {
@@ -60,12 +61,17 @@ public class FormInputFieldView extends LinearLayout implements FieldViewAdapter
 
     @Override
     public void setLabel(String label) {
-        this.label.setText(label);
+        field.setHint(label);
     }
 
     @Override
     public void setValue(String value) {
         this.field.getInput().setText(value);
+    }
+
+    @Override
+    public void changeLabelVisbility(boolean visibility) {
+        field.getInputLayout().setHintEnabled(visibility);
     }
 
     @Override

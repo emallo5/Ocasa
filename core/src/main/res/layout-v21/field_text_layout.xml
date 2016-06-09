@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/action"
+        android:layout_toStartOf="@+id/action"
+        android:background="@null"
+        android:textColor="@color/ocasaTextColor"
+        android:singleLine="true"
+        android:gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/action"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_more"
+        android:clickable="true"
+        android:background="?android:selectableItemBackground"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
+
+</merge>

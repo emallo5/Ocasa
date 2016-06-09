@@ -108,6 +108,8 @@ public class TableService {
 
                     dao.save(httpTables[0].getColumns());
 
+                    //tableDAO.save(table);
+
                     return null;
                 }
             }.execute(httpTable);

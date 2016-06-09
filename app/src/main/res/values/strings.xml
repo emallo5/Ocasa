@@ -38,10 +38,21 @@
     <string name="map_new_location_button">Aceptar</string>
 
     <string-array name="create_receipt_tabs">
-        <item>Cabecera</item>
         <item>Items</item>
+        <item>Disponibles</item>
+    </string-array>
+
+    <string-array name="pickup_tabs">
+        <item>Encontrados (%1$d)</item>
+        <item>No Encontrados (%1$d)</item>
     </string-array>
 
     <string name="create_receipt_tab_items">Items (%1$d)</string>
+
+    <!--- PICKUP -->
+
+    <string name="confirmation_dialog_title">Elemento no encontrado</string>
+    <string name="confirmation_dialog_message">El siguiente elemento no fue encontrado %1$s.</string>
+    <string name="items_count">"Items : "</string>
 
 </resources>

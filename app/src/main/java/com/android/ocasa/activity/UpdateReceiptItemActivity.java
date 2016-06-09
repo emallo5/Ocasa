@@ -11,7 +11,7 @@ import com.android.ocasa.fragment.UpdateReceiptItemFragment;
 public class UpdateReceiptItemActivity extends BarActivity {
 
     public static final String EXTRA_RECORD_ID = "record_id";
-    public static final String EXTRA_AVAILABLE_COLUMNS = "available_columns";
+    public static final String EXTRA_ACTION_ID = "action_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class UpdateReceiptItemActivity extends BarActivity {
         Bundle extras = getIntent().getExtras();
 
         pushFragment(UpdateReceiptItemFragment.newInstance(
-                extras.getStringArrayList(EXTRA_AVAILABLE_COLUMNS), extras.getLong(EXTRA_RECORD_ID)),
+                extras.getLong(EXTRA_RECORD_ID), extras.getString(EXTRA_ACTION_ID)),
                 "Detail");
     }
 }

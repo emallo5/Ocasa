@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.android.ocasa.core.R;
-import com.balysv.materialmenu.MaterialMenuDrawable;
 
 /**
  * Created by ignacio on 25/05/2015.
@@ -67,7 +66,7 @@ public class MenuActivity extends BarActivity {
         getDrawerLayout().setDrawerListener(drawerToggle);
         getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
 

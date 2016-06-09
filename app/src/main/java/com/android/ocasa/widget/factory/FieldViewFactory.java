@@ -3,7 +3,6 @@ package com.android.ocasa.widget.factory;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.viewmodel.FieldViewModel;
 
@@ -12,11 +11,7 @@ import com.android.ocasa.viewmodel.FieldViewModel;
  */
 public abstract class FieldViewFactory {
 
-    public abstract View createView(ViewGroup container, Field field, boolean isEditMode);
-
     public abstract View createView(ViewGroup container, String value, String label, boolean isEditMode);
-
-    public abstract View createSubView(ViewGroup container, Field field, boolean isEditMode);
 
     public abstract View createSubView(ViewGroup container, FieldViewModel field, boolean isEditMode);
 

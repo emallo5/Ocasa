@@ -54,14 +54,12 @@ public class AlertDialogFragment extends DialogFragment implements DialogInterfa
         String title = getArguments().getString(ARG_TITLE);
         String message = getArguments().getString(ARG_MESSAGE);
 
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.SlideDialog)
+        return new AlertDialog.Builder(getActivity(), R.style.SlideDialog)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("Aceptar", this)
                 .setNegativeButton("Cancelar", this)
                 .create();
-
-        return alertDialog;
     }
 
     @Override

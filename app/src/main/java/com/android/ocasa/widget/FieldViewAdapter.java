@@ -10,6 +10,7 @@ public interface FieldViewAdapter {
     public void setFieldViewActionListener(FieldViewActionListener listener);
     public void setLabel(String label);
     public void setValue(String value) throws FormatException;
+    public void changeLabelVisbility(boolean visibility);
     public String getValue();
 
 }

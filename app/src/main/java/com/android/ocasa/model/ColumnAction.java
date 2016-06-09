@@ -20,6 +20,9 @@ public class ColumnAction {
     public ColumnActionType type;
 
     @DatabaseField
+    private boolean editable;
+
+    @DatabaseField
     private String defaultValue;
 
     @DatabaseField
@@ -57,6 +60,14 @@ public class ColumnAction {
 
     public void setType(ColumnActionType type) {
         this.type = type;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     public String getDefaultValue() {

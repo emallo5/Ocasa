@@ -8,6 +8,7 @@ import com.android.ocasa.R;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.fragment.LoginFragment;
 import com.android.ocasa.fragment.SyncFragment;
+import com.android.ocasa.pickup.LocationsActivity;
 
 /**
  * Created by ignacio on 14/01/16.
@@ -35,6 +36,7 @@ public class LoginActivity extends BaseActivity implements LoginFragment.LoginCa
 
     private void goToNextScreen(){
         startNewActivity(new Intent(this, HomeActivity.class));
+//        startNewActivity(new Intent(this, LocationsActivity.class));
         finish();
     }
 }

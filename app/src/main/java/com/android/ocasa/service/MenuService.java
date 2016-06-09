@@ -3,25 +3,25 @@ package com.android.ocasa.service;
 import android.content.Context;
 
 import com.android.ocasa.BuildConfig;
+
 import com.android.ocasa.dao.ActionDAO;
 import com.android.ocasa.dao.ApplicationDAO;
 import com.android.ocasa.dao.CategoryDAO;
 import com.android.ocasa.dao.ColumnActionDAO;
+import com.android.ocasa.dao.ColumnDAO;
 import com.android.ocasa.dao.TableDAO;
-import com.android.ocasa.http.listener.RequestCallback;
-import com.android.ocasa.http.service.HttpService;
+import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
-import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.service.notification.NotificationManager;
+import com.android.ocasa.http.listener.RequestCallback;
+import com.android.ocasa.http.service.HttpService;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.List;
 
 /**
  * Created by ignacio on 18/01/16.
@@ -100,6 +100,7 @@ public class MenuService {
 
         private void saveActions(Category category){
 
+            ColumnDAO colDAO = new ColumnDAO(getContext());
             ColumnActionDAO columnDAO = new ColumnActionDAO(getContext());
 
             for (Action action : category.getActions()) {
@@ -109,6 +110,7 @@ public class MenuService {
 
                 for (ColumnAction header: action.getColumnsHeader()) {
                     header.setAction(action);
+
                 }
 
                 for (ColumnAction detail: action.getColumnsDetail()) {

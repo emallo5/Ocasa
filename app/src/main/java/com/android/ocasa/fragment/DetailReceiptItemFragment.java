@@ -3,9 +3,7 @@ package com.android.ocasa.fragment;
 import android.os.Bundle;
 import android.support.v4.content.Loader;
 
-import com.android.ocasa.loader.DetailReceiptRecordTaskLoader;
-import com.android.ocasa.loader.DetailReceiptRecordTaskLoaderTest;
-import com.android.ocasa.model.Record;
+import com.android.ocasa.loader.ReceiptItemFormTaskLoader;
 import com.android.ocasa.viewmodel.FormViewModel;
 
 import java.util.ArrayList;
@@ -37,7 +35,7 @@ public class DetailReceiptItemFragment extends FormRecordFragment {
 
     @Override
     public Loader<FormViewModel> onCreateLoader(int id, Bundle args) {
-        return new DetailReceiptRecordTaskLoaderTest(getActivity(),
+        return new ReceiptItemFormTaskLoader(getActivity(),
                 args.getLong(ARG_RECORD_ID),
                 args.getLong(ARG_RECEIPT_ID));
     }

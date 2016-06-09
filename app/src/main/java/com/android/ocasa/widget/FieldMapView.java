@@ -89,6 +89,11 @@ public class FieldMapView extends LinearLayout implements FieldViewAdapter, Icon
     }
 
     @Override
+    public void changeLabelVisbility(boolean visibility) {
+
+    }
+
+    @Override
     public String getValue() {
 
         String latitude = this.latitude.getText().toString();

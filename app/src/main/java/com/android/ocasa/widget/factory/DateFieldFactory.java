@@ -17,20 +17,20 @@ import com.android.ocasa.widget.TextFieldView;
  */
 public class DateFieldFactory extends FieldViewFactory {
 
-    @Override
-    public View createView(ViewGroup container, Field field, boolean isEditMode) {
-
-        FieldDateView dateField =
-                (FieldDateView) createView(container, field.getValue(), field.getColumn().getName(), isEditMode);
-
-        initField(dateField.getField(), field, isEditMode);
-
-        TextView input = dateField.getField().getText();
-        input.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar, 0, 0, 0);
-        input.setCompoundDrawablePadding(container.getContext().getResources().getDimensionPixelSize(R.dimen.medium_padding));
-
-        return dateField;
-    }
+//    @Override
+//    public View createView(ViewGroup container, Field field, boolean isEditMode) {
+//
+//        FieldDateView dateField =
+//                (FieldDateView) createView(container, field.getValue(), field.getColumn().getName(), isEditMode);
+//
+//        initField(dateField.getField(), field, isEditMode);
+//
+//        TextView input = dateField.getField().getText();
+//        input.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar, 0, 0, 0);
+//        input.setCompoundDrawablePadding(container.getContext().getResources().getDimensionPixelSize(R.dimen.medium_padding));
+//
+//        return dateField;
+//    }
 
     @Override
     public View createView(ViewGroup container, String value, String label, boolean isEditMode) {
@@ -41,11 +41,6 @@ public class DateFieldFactory extends FieldViewFactory {
         dateField.setLabel(label);
 
         return dateField;
-    }
-
-    @Override
-    public View createSubView(ViewGroup container, Field field, boolean isEditMode) {
-        return null;
     }
 
     @Override

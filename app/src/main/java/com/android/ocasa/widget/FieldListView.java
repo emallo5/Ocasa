@@ -59,6 +59,11 @@ public class FieldListView extends TextView implements FieldViewAdapter{
     }
 
     @Override
+    public void changeLabelVisbility(boolean visibility) {
+
+    }
+
+    @Override
     public String getValue() {
         return value;
     }

@@ -4,11 +4,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
+import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Receipt;
+import com.android.ocasa.viewmodel.CellViewModel;
+import com.android.ocasa.viewmodel.FieldViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,10 +21,13 @@ import java.util.List;
  */
 public class ReceiptAdapter extends BaseAdapter {
 
-    private List<Receipt> receipts;
+    private List<CellViewModel> receipts;
 
-    public ReceiptAdapter(List<Receipt> receipts) {
+    private int fieldCount;
+
+    public ReceiptAdapter(List<CellViewModel> receipts) {
         this.receipts = receipts;
+        fieldCount = receipts.isEmpty() ? 0 : receipts.get(0).getFields().size();
     }
 
     @Override
@@ -42,31 +50,43 @@ public class ReceiptAdapter extends BaseAdapter {
         RecordHolder holder;
 
         if(view == null){
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_record, viewGroup, false);
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_receipt_header, viewGroup, false);
 
-            holder = new RecordHolder();
-
-            holder.first = (TextView) view.findViewById(R.id.first);
-            holder.second = (TextView) view.findViewById(R.id.second);
-            holder.third = (TextView) view.findViewById(R.id.third);
+            holder = new RecordHolder(view, fieldCount);
 
             view.setTag(holder);
         }else{
             holder = (RecordHolder) view.getTag();
         }
 
-        Receipt receipt = receipts.get(position);
+        CellViewModel receipt = receipts.get(position);
 
-        holder.first.setText(String.valueOf(receipt.getNumber()));
-        holder.second.setText(receipt.getValidityDate());
+        List<FieldViewModel> fields = receipt.getFields();
+
+        for (int index = 0; index < fields.size(); index++){
+            holder.views.get(index).setText(fields.get(index).getValue());
+        }
 
         return view;
     }
 
     static class RecordHolder{
 
-        TextView first;
-        TextView second;
-        TextView third;
+        ArrayList<TextView> views;
+
+        public RecordHolder(View view, int fieldCount){
+
+            views = new ArrayList<>();
+
+            LinearLayout container = (LinearLayout) view.findViewById(R.id.container);
+
+            for (int index = 0; index < fieldCount; index++){
+                TextView text = new TextView(view.getContext());
+                views.add(text);
+                container.addView(text);
+            }
+
+        }
+
     }
 }

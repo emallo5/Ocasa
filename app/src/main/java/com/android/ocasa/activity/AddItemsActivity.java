@@ -22,8 +22,8 @@ public class AddItemsActivity extends BarActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        pushFragment(AddItemsFragment.newInstance(extras.getString(EXTRA_ACTION_ID),
-                extras.getLongArray(EXTRA_EXCLUDE_IDS)), "Items");
+//        pushFragment(AddItemsFragment.newInstance(extras.getString(EXTRA_RECEIPT_ID),
+//                extras.getLongArray(EXTRA_EXCLUDE_IDS)), "Items");
 
     }
 }

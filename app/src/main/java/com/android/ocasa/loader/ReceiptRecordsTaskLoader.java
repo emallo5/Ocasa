@@ -6,15 +6,18 @@ import android.support.v4.content.AsyncTaskLoader;
 import com.android.ocasa.dao.ColumnDAO;
 import com.android.ocasa.dao.FieldDAO;
 import com.android.ocasa.dao.HistoryDAO;
+import com.android.ocasa.dao.ReceiptDAO;
 import com.android.ocasa.dao.ReceiptItemDAO;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.History;
+import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.ReceiptItem;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FieldViewModel;
+import com.android.ocasa.viewmodel.TableViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +25,9 @@ import java.util.List;
 /**
  * Created by Emiliano Mallo on 07/04/16.
  */
-public class ReceiptRecordsTaskLoader extends AsyncTaskLoader<List<CellViewModel>> {
+public class ReceiptRecordsTaskLoader extends AsyncTaskLoader<TableViewModel> {
 
-    private List<CellViewModel> data;
+    private TableViewModel data;
     private long receiptId;
 
     public ReceiptRecordsTaskLoader(Context context, long receiptId) {
@@ -33,9 +36,15 @@ public class ReceiptRecordsTaskLoader extends AsyncTaskLoader<List<CellViewModel
     }
 
     @Override
-    public List<CellViewModel> loadInBackground() {
+    public TableViewModel loadInBackground() {
 
-        List<CellViewModel> cells = new ArrayList<>();
+        TableViewModel table = new TableViewModel();
+
+        Receipt receipt = new ReceiptDAO(getContext()).findById(receiptId);
+
+        table.setName(receipt.getAction().getTable().getName());
+
+//        List<CellViewModel> cells = new ArrayList<>();
 
         ReceiptItemDAO dao = new ReceiptItemDAO(getContext());
 
@@ -48,10 +57,11 @@ public class ReceiptRecordsTaskLoader extends AsyncTaskLoader<List<CellViewModel
             cell.setId(record.getId());
 
             fillCell(cell);
-            cells.add(cell);
+            table.addCell(cell);
+            //cells.add(cell);
         }
 
-        return cells;
+        return table;
     }
 
     private void fillCell(CellViewModel cell){
@@ -80,7 +90,7 @@ public class ReceiptRecordsTaskLoader extends AsyncTaskLoader<List<CellViewModel
     }
 
     @Override
-    public void deliverResult(List<CellViewModel> data) {
+    public void deliverResult(TableViewModel data) {
         this.data = data;
 
         if(isStarted())

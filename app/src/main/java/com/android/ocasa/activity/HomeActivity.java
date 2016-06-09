@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.android.ocasa.core.activity.MenuActivity;
+import com.android.ocasa.core.fragment.RecyclerListFragment;
+import com.android.ocasa.fragment.EditReceiptFragment;
 import com.android.ocasa.fragment.HomeFragment;
 import com.android.ocasa.fragment.MenuFragment;
 import com.android.ocasa.fragment.ReceiptListFragment;
@@ -26,7 +28,7 @@ public class HomeActivity extends MenuActivity implements MenuFragment.OnMenuIte
         if(savedInstanceState != null)
             return;
 
-        pushFragment(HomeFragment.newInstance("100"), "Home");
+        pushFragment(HomeFragment.newInstance("700"), "Home");
         setMenu(Fragment.instantiate(this, MenuFragment.class.getName()));
     }
 
@@ -54,6 +56,7 @@ public class HomeActivity extends MenuActivity implements MenuFragment.OnMenuIte
         selectTable = null;
         selectAction = action;
 
+        //pushFragment(EditReceiptFragment.newInstance(action.getId()), "Receipt");
         pushFragment(ReceiptListFragment.newInstance(action.getId()), "Receipt");
     }
 

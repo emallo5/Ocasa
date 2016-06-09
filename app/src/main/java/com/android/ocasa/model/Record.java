@@ -14,8 +14,17 @@ import java.util.List;
 @DatabaseTable(tableName = "records")
 public class Record {
 
+    static final String STATUS_CREATED = "CREATED";
+    static final String STATUS_UPDATED = "UPDATED";
+
     @DatabaseField(generatedId = true)
     private long id;
+
+    @DatabaseField
+    private String externalId;
+
+    @DatabaseField
+    private String status;
 
     @DatabaseField(foreign = true, foreignAutoRefresh = true, foreignAutoCreate = true)
     private Table table;
@@ -34,6 +43,22 @@ public class Record {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Table getTable() {
@@ -120,5 +145,17 @@ public class Record {
         }
 
         return logicFields;
+    }
+
+    public void updateStatus(){
+        status = STATUS_UPDATED;
+    }
+
+    public boolean isNew(){
+        return status != null && status.equalsIgnoreCase(STATUS_CREATED);
+    }
+
+    public boolean isUpdated(){
+        return status != null && status.equalsIgnoreCase(STATUS_UPDATED);
     }
 }

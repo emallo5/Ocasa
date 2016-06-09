@@ -1,5 +1,6 @@
 package com.android.ocasa.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -7,11 +8,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.ocasa.R;
+import com.android.ocasa.activity.DetailReceiptActivity;
 import com.android.ocasa.adapter.HistoricalAdapter;
+import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.core.fragment.RecyclerListFragment;
+import com.android.ocasa.dao.HistoryDAO;
+import com.android.ocasa.event.ReceiptHistoryClickEvent;
+import com.android.ocasa.event.ReceiptItemEvent;
 import com.android.ocasa.loader.FieldTaskLoader;
 import com.android.ocasa.model.History;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -52,6 +61,29 @@ public class FieldHistoricalFragment extends RecyclerListFragment implements Loa
         list.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         list.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).showLastDivider().build());
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe
+    public void onItemClick(ReceiptHistoryClickEvent event){
+
+        History history = new HistoryDAO(getActivity()).findById(event.getHistoryId());
+
+        Intent intent = new Intent(getActivity(), DetailReceiptActivity.class);
+        intent.putExtra(DetailReceiptActivity.EXTRA_RECEIPT_ID, history.getReceipt().getId());
+        ((BaseActivity) getActivity()).startNewActivity(intent);
+    }
+
 
     @Override
     public Loader<List<History>> onCreateLoader(int id, Bundle args) {

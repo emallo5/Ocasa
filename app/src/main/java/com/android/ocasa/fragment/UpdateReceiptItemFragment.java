@@ -4,10 +4,7 @@ import android.os.Bundle;
 import android.support.v4.content.Loader;
 
 import com.android.ocasa.cache.ReceiptCacheManager;
-import com.android.ocasa.loader.ReceiptRecordTaskLoader;
-import com.android.ocasa.loader.ReceiptRecordTaskLoaderTest;
-import com.android.ocasa.model.Field;
-import com.android.ocasa.model.Record;
+import com.android.ocasa.loader.ActionItemFormTaskLoader;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 
@@ -19,13 +16,13 @@ import java.util.Map;
  */
 public class UpdateReceiptItemFragment extends FormRecordFragment {
 
-    static final String ARG_AVAILABLE_COLUMNS = "available_columns";
+    static final String ARG_ACTION_ID = "receipt_id";
 
-    public static UpdateReceiptItemFragment newInstance(ArrayList<String> availableColumns, long recordId) {
+    public static UpdateReceiptItemFragment newInstance(long recordId, String actionId) {
 
         Bundle args = new Bundle();
-        args.putStringArrayList(ARG_AVAILABLE_COLUMNS, availableColumns);
         args.putLong(ARG_RECORD_ID, recordId);
+        args.putString(ARG_ACTION_ID, actionId);
 
         UpdateReceiptItemFragment fragment = new UpdateReceiptItemFragment();
         fragment.setArguments(args);
@@ -34,9 +31,9 @@ public class UpdateReceiptItemFragment extends FormRecordFragment {
 
     @Override
     public Loader<FormViewModel> onCreateLoader(int id, Bundle args) {
-        return new ReceiptRecordTaskLoaderTest(getActivity(),
+        return new ActionItemFormTaskLoader(getActivity(),
                 args.getLong(ARG_RECORD_ID),
-                args.getStringArrayList(ARG_AVAILABLE_COLUMNS));
+                args.getString(ARG_ACTION_ID));
     }
 
     @Override

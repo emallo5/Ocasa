@@ -12,13 +12,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.ocasa.R;
-import com.android.ocasa.activity.CreateReceiptActivity;
 import com.android.ocasa.activity.DetailReceiptActivity;
+import com.android.ocasa.activity.EditReceiptActivity;
 import com.android.ocasa.adapter.ReceiptAdapter;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.loader.ReceiptsTaskLoader;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Receipt;
+import com.android.ocasa.viewmodel.CellViewModel;
 
 import java.util.List;
 
@@ -100,8 +101,8 @@ public class ReceiptListFragment extends BaseActionFragment{
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), CreateReceiptActivity.class);
-                intent.putExtra(CreateReceiptActivity.EXTRA_ACTION_ID, getArguments().getString(ARG_ACTION_ID));
+                Intent intent = new Intent(getActivity(), EditReceiptActivity.class);
+                intent.putExtra(EditReceiptActivity.EXTRA_ACTION_ID, getArguments().getString(ARG_ACTION_ID));
                 ((BaseActivity) getActivity()).startNewActivity(intent);
             }
         });
@@ -114,15 +115,15 @@ public class ReceiptListFragment extends BaseActionFragment{
         setTitle(data.getName());
     }
 
-    private class ReceiptsCallback implements LoaderManager.LoaderCallbacks<List<Receipt>> {
+    private class ReceiptsCallback implements LoaderManager.LoaderCallbacks<List<CellViewModel>> {
 
         @Override
-        public Loader<List<Receipt>> onCreateLoader(int id, Bundle args) {
+        public Loader<List<CellViewModel>> onCreateLoader(int id, Bundle args) {
             return new ReceiptsTaskLoader(getContext(), args.getString(ARG_ACTION_ID));
         }
 
         @Override
-        public void onLoadFinished(Loader<List<Receipt>> loader, List<Receipt> data) {
+        public void onLoadFinished(Loader<List<CellViewModel>> loader, List<CellViewModel> data) {
 
             if (data == null)
                 return;
@@ -131,7 +132,7 @@ public class ReceiptListFragment extends BaseActionFragment{
         }
 
         @Override
-        public void onLoaderReset(Loader<List<Receipt>> loader) {
+        public void onLoaderReset(Loader<List<CellViewModel>> loader) {
 
         }
     }

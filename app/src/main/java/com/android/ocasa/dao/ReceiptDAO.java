@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Created by Emiliano Mallo on 28/03/16.
+ * Created by Ignacio Oviedo on 28/03/16.
  */
 public class ReceiptDAO extends GenericDAOImpl<Receipt,Long> {
 
@@ -18,7 +18,7 @@ public class ReceiptDAO extends GenericDAOImpl<Receipt,Long> {
 
     public List<Receipt> findForAction(String actionId){
         try {
-            return dao.queryBuilder().where().eq("action_id", actionId).query();
+            return dao.queryBuilder().where().eq("action_id", actionId).and().eq("isConfirmed", true).query();
         } catch (SQLException e) {
             e.printStackTrace();
         }

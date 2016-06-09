@@ -84,6 +84,11 @@ public class FieldPhoneView extends LinearLayout implements FieldViewAdapter, Ic
     }
 
     @Override
+    public void changeLabelVisbility(boolean visibility) {
+
+    }
+
+    @Override
     public String getValue() {
         return field.getInput().getText().toString();
     }

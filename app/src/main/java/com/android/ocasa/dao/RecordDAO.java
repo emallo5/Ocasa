@@ -11,9 +11,7 @@ import com.j256.ormlite.stmt.Where;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.sql.Array;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +20,16 @@ import java.util.List;
  */
 public class RecordDAO extends GenericDAOImpl<Record, Long> {
 
-    public RecordDAO(Context context) {
+    private static RecordDAO instance;
+
+    public static RecordDAO getInstance(Context context){
+        if(instance == null)
+            instance = new RecordDAO(context.getApplicationContext());
+
+        return instance;
+    }
+
+    private RecordDAO(Context context) {
         super(Record.class, context);
     }
 
@@ -30,6 +37,16 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
 
         try {
             return dao.queryBuilder().where().eq("table_id", tableId).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public Record findByExternalId(String id){
+        try {
+            return dao.queryBuilder().where().eq("externalId", id).queryForFirst();
         } catch (SQLException e) {
             e.printStackTrace();
         }

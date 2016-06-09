@@ -20,4 +20,20 @@
         <item name="android:windowExitAnimation">@anim/slide_down_dialog</item>
     </style>
 
+    <style name="Input">
+        <item name="android:textColor">@color/ocasaTextColor</item>
+        <item name="android:textColorHint">@color/ocasaHintColor</item>
+        <item name="android:background">@drawable/input_backgroud</item>
+        <item name="android:padding">@dimen/large_padding</item>
+    </style>
+
+    <style name="InputForm">
+        <item name="android:textColor">@color/ocasaTextColor</item>
+        <item name="android:textColorHint">@color/ocasaHintColor</item>
+        <item name="android:background">@drawable/input_backgroud</item>
+        <item name="android:paddingLeft">@dimen/large_padding</item>
+        <item name="android:paddingBottom">@dimen/medium_padding</item>
+        <item name="android:paddingTop">@dimen/medium_padding</item>
+    </style>
+
 </resources>

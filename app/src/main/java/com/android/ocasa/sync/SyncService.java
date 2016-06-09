@@ -14,6 +14,7 @@ import com.android.ocasa.model.Record;
 import com.android.ocasa.service.MenuService;
 import com.android.ocasa.service.RecordService;
 import com.android.ocasa.service.TableService;
+import com.android.ocasa.service.notification.NotificationManager;
 import com.android.volley.VolleyError;
 
 import java.util.List;
@@ -124,9 +125,10 @@ public class SyncService extends Service {
 
             String tableId = extras.getString(EXTRA_ID);
 
-            List<Record> records = new RecordDAO(SyncService.this).findForTable(tableId);
+            List<Record> records = RecordDAO.getInstance(SyncService.this).findForTable(tableId);
 
             if(records != null && !records.isEmpty()) {
+                NotificationManager.sendBroadcast(SyncService.this, RecordService.RECORD_SYNC_FINISHED_ACTION);
                 finish();
                 return;
             }

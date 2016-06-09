@@ -12,7 +12,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.android.ocasa.activity.DetailRecordActivity;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.event.ReceiptItemEvent;
-import com.android.ocasa.model.Table;
 import com.android.ocasa.service.RecordService;
 import com.android.ocasa.sync.SyncService;
 import com.android.ocasa.viewmodel.TableViewModel;

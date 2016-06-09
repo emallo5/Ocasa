@@ -6,20 +6,33 @@
     android:clickable="true"
     android:padding="@dimen/large_padding">
 
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textStyle="bold"
+        android:layout_marginRight="@dimen/medium_padding"
+        android:layout_centerVertical="true"/>
+
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/number"
+        android:layout_toLeftOf="@+id/delete"
+        android:layout_centerVertical="true"
         android:orientation="vertical"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusable="false"
-        android:text="Eliminar"
-        android:layout_below="@+id/container"
+        android:background="@null"
+        android:src="@android:drawable/ic_menu_delete"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

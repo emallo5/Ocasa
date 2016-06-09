@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <com.android.ocasa.widget.InputFieldView
+            style="@style/InputForm"
+            android:id="@+id/field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/call_button"/>
+
+        <ImageView
+            android:id="@+id/call_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@android:drawable/ic_menu_call"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:padding="@dimen/medium_padding"
+            android:clickable="true"
+            android:background="?android:selectableItemBackground"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</merge>

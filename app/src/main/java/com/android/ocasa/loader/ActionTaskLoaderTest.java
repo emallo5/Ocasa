@@ -6,10 +6,13 @@ import android.support.v4.content.AsyncTaskLoader;
 import com.android.ocasa.dao.ColumnActionDAO;
 import com.android.ocasa.dao.ColumnDAO;
 import com.android.ocasa.dao.FieldDAO;
+import com.android.ocasa.dao.ReceiptDAO;
 import com.android.ocasa.dao.RecordDAO;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.ColumnAction;
+import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
+import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
@@ -22,9 +25,9 @@ import java.util.List;
  */
 public class ActionTaskLoaderTest extends AsyncTaskLoader<FormViewModel> {
 
-    private String actionId;
+    private long actionId;
 
-    public ActionTaskLoaderTest(Context context, String actionId) {
+    public ActionTaskLoaderTest(Context context, long actionId) {
         super(context);
         this.actionId = actionId;
     }
@@ -34,48 +37,58 @@ public class ActionTaskLoaderTest extends AsyncTaskLoader<FormViewModel> {
 
         FormViewModel form = new FormViewModel();
 
-        ColumnActionDAO columnActionDAO = new ColumnActionDAO(getContext());
+        Receipt receipt = new ReceiptDAO(getContext()).findById(actionId);
+        form.setTitle(receipt.getAction().getName());
 
-        List<ColumnAction> columnsHeader = columnActionDAO.
-                findColumnsForActionAndType(actionId, ColumnAction.ColumnActionType.HEADER);
+        form.setId(receipt.getId());
 
-        for (ColumnAction columnAction : columnsHeader){
+        List<Field> headers = new FieldDAO(getContext()).findForReceipt(actionId);
+
+        FieldViewModel number = new FieldViewModel();
+        number.setLabel("Numero comprobante");
+        number.setValue(String.valueOf(receipt.getNumber()));
+
+        //form.addField(number);
+
+        for (Field header : headers){
 
             FieldViewModel field = new FieldViewModel();
-            field.setLabel(columnAction.getColumn().getName());
-            field.setType(columnAction.getColumn().getFieldType());
-            field.setValue(columnAction.getDefaultValue());
-            field.setTag(String.valueOf(columnAction.getColumn().getId()));
+            field.setTag(header.getColumn().getId());
+            field.setLabel(header.getColumn().getName());
+            field.setValue(header.getValue());
 
-            if(columnAction.getColumn().getFieldType() == FieldType.COMBO){
 
-                Column column = columnAction.getColumn();
-
+            if(header.getColumn().getFieldType() == FieldType.COMBO){
+//
+                Column column = header.getColumn();
+//
                 List<Column> relationship = new ColumnDAO(getContext()).findLogicColumnsForTable(column.getRelationship().getId());
-
+//
                 List<FieldViewModel> fields = new ArrayList<>();
-
-                Record record = new RecordDAO(getContext()).findForTableAndValueId(column.getRelationship().getId(), columnAction.getDefaultValue());
-
+//
+                Record record = RecordDAO.getInstance(getContext()).findForTableAndValueId(column.getRelationship().getId(), header.getValue());
+//
                 if(record != null)
                     record.setFields(new FieldDAO(getContext()).findLogicsForRecord(String.valueOf(record.getId())));
 
                 for (Column col : relationship){
 
-                    FieldViewModel subField = new FieldViewModel();
-                    subField.setLabel(col.getName());
-                    subField.setType(col.getFieldType());
-                    subField.setTag(String.valueOf(col.getId()));
+//                    FieldViewModel subField = new FieldViewModel();
+//                    subField.setLabel(col.getName());
+//                    subField.setType(col.getFieldType());
+//                    subField.setTag(String.valueOf(col.getId()));
 
-                    if(record != null)
-                        subField.setValue(record.getFieldForColumn(col.getId()).getValue());
+                    if(record != null) {
+                        //subField.setValue(record.getFieldForColumn(col.getId()).getValue());
+                        field.setValue(record.getFieldForColumn(col.getId()).getValue());
+                    }
 
-                    fields.add(subField);
+//                    fields.add(subField);
                 }
 
                 field.setRelationshipFields(fields);
             }
-
+//
             form.addField(field);
         }
 

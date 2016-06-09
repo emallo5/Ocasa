@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.ocasa.R;
 import com.android.ocasa.activity.AddItemsActivity;
@@ -20,9 +21,11 @@ import com.android.ocasa.activity.UpdateReceiptItemActivity;
 import com.android.ocasa.activity.DetailRecordActivity;
 import com.android.ocasa.adapter.ReceiptItemsAdapter;
 import com.android.ocasa.core.activity.BaseActivity;
+import com.android.ocasa.core.fragment.BaseFragment;
 import com.android.ocasa.event.ReceiptItemDeleteEvent;
 import com.android.ocasa.event.ReceiptItemEvent;
 import com.android.ocasa.loader.RecordsTaskLoaderTest;
+import com.android.ocasa.model.Record;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
@@ -35,15 +38,14 @@ import java.util.List;
 /**
  * Created by Emiliano Mallo on 17/03/16.
  */
-public class ReceiptItemsFragment extends BaseActionFragment{
+public class ReceiptItemsFragment extends BaseFragment{
 
     static final int REQUEST_ADD_ITEMS = 1000;
 
     public interface OnAddItemsListener{
-        void onItemsCountChange(int count);
+        void onItemRemoved(long recordId);
     }
 
-    private FloatingActionButton add;
     private RecyclerView list;
 
     private long[] recordIds;
@@ -54,11 +56,11 @@ public class ReceiptItemsFragment extends BaseActionFragment{
 
     private OnAddItemsListener callback;
 
-    public static ReceiptItemsFragment newInstance(String actionId) {
+    public static ReceiptItemsFragment newInstance() {
 
         Bundle args = new Bundle();
-        args.putString(ARG_ACTION_ID, actionId);
-
+//        args.putString(ARG_ACTION_ID, actionId);
+//
         ReceiptItemsFragment fragment = new ReceiptItemsFragment();
         fragment.setArguments(args);
         return fragment;
@@ -70,7 +72,7 @@ public class ReceiptItemsFragment extends BaseActionFragment{
         super.onAttach(context);
 
         try {
-            callback = (OnAddItemsListener) context;
+            callback = (OnAddItemsListener) getParentFragment();
         }catch (ClassCastException e){
             e.printStackTrace();
         }
@@ -92,17 +94,17 @@ public class ReceiptItemsFragment extends BaseActionFragment{
         list.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
                 .showLastDivider().build());
 
-        add = (FloatingActionButton) view.findViewById(R.id.add);
-
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddItemsActivity.class);
-                intent.putExtra(AddItemsActivity.EXTRA_ACTION_ID, action.getId());
-                intent.putExtra(AddItemsActivity.EXTRA_EXCLUDE_IDS, recordIds);
-                startActivityForResult(intent, 1000);
-            }
-        });
+//        add = (FloatingActionButton) view.findViewById(R.id.add);
+//
+//        add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), AddItemsActivity.class);
+//                intent.putExtra(AddItemsActivity.EXTRA_ACTION_ID, action.getId());
+//                intent.putExtra(AddItemsActivity.EXTRA_EXCLUDE_IDS, recordIds);
+//                startActivityForResult(intent, 1000);
+//            }
+//        });
     }
 
     @Override
@@ -116,7 +118,7 @@ public class ReceiptItemsFragment extends BaseActionFragment{
 
             recordIds = ArrayUtils.addAll(recordIds, extras.getLongArray(DetailRecordActivity.EXTRA_RECORDS_ID));
 
-            callback.onItemsCountChange(recordIds.length);
+//            callback.onItemsCountChange(recordIds.length);
 
             if(getLoaderManager().getLoader(1) == null) {
                 getLoaderManager().initLoader(1, data.getExtras(), new RecordsLoaderCallback());
@@ -134,23 +136,23 @@ public class ReceiptItemsFragment extends BaseActionFragment{
         EventBus.getDefault().register(this);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if(wasPaused){
-            Bundle bundle = new Bundle();
-            bundle.putLongArray(DetailRecordActivity.EXTRA_RECORDS_ID, recordIds);
-            getLoaderManager().restartLoader(1, bundle, recordsCallback);
-            wasPaused = false;
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        wasPaused = true;
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        if(wasPaused){
+//            Bundle bundle = new Bundle();
+//            bundle.putLongArray(DetailRecordActivity.EXTRA_RECORDS_ID, recordIds);
+//            getLoaderManager().restartLoader(1, bundle, recordsCallback);
+//            wasPaused = false;
+//        }
+//    }
+//
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        wasPaused = true;
+//    }
 
     @Override
     public void onStop() {
@@ -162,33 +164,60 @@ public class ReceiptItemsFragment extends BaseActionFragment{
     public void onItemClick(ReceiptItemEvent event){
         Intent intent = new Intent(getActivity(), UpdateReceiptItemActivity.class);
         intent.putExtra(UpdateReceiptItemActivity.EXTRA_RECORD_ID, event.getRecordId());
-        intent.putExtra(UpdateReceiptItemActivity.EXTRA_AVAILABLE_COLUMNS, action.getDetailsComlumIds());
-        ((BaseActivity)getActivity()).startNewActivity(intent);
+//        intent.putExtra(UpdateReceiptItemActivity.EXTRA_ACTION_ID, action.getId());
+//        ((BaseActivity)getActivity()).startNewActivity(intent);
     }
 
     @Subscribe
     public void onItemDeleteClick(ReceiptItemDeleteEvent event){
-        recordIds = ArrayUtils.remove(recordIds, event.getPosition());
-        ((ReceiptItemsAdapter) list.getAdapter()).deleteItem(event.getPosition());
-        callback.onItemsCountChange(recordIds.length);
+        ReceiptItemsAdapter adapter = (ReceiptItemsAdapter) list.getAdapter();
+        adapter.deleteItem(event.getPosition());
+        callback.onItemRemoved(event.getId());
+//        recordIds = ArrayUtils.remove(recordIds, event.getPosition());
+//        ((ReceiptItemsAdapter) list.getAdapter()).deleteItem(event.getPosition());
+//        callback.onItemsCountChange(recordIds.length);
     }
 
     public long[] getRecordIds(){
         return recordIds;
     }
 
+    public void addItem(CellViewModel record){
+        if(list.getAdapter() == null){
+            record.setNumber(1);
+            list.setAdapter(new ReceiptItemsAdapter(record));
+            return;
+        }
+
+        ReceiptItemsAdapter adapter = (ReceiptItemsAdapter) list.getAdapter();
+        adapter.addItem(record);
+        list.scrollToPosition(0);
+    }
+
+    public void addItems(List<CellViewModel> record){
+        if(list.getAdapter() == null){
+            list.setAdapter(new ReceiptItemsAdapter(record));
+            return;
+        }
+
+        ReceiptItemsAdapter adapter = (ReceiptItemsAdapter) list.getAdapter();
+        adapter.addItems(record);
+        list.scrollToPosition(0);
+    }
+
     public class RecordsLoaderCallback implements LoaderManager.LoaderCallbacks<List<CellViewModel>>{
 
         @Override
         public Loader<List<CellViewModel>> onCreateLoader(int id, Bundle args) {
-            return new RecordsTaskLoaderTest(getActivity(), args.getLongArray(DetailRecordActivity.EXTRA_RECORDS_ID));
+            //return new RecordsTaskLoaderTest(getActivity(), args.getLongArray(DetailRecordActivity.EXTRA_RECORDS_ID));
+            return null;
         }
 
         @Override
         public void onLoadFinished(Loader<List<CellViewModel>> loader, List<CellViewModel> data) {
 
-            if(!data.isEmpty())
-                list.setAdapter(new ReceiptItemsAdapter(data));
+//            if(!data.isEmpty())
+//                list.setAdapter(new ReceiptItemsAdapter(data));
         }
 
         @Override

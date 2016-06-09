@@ -25,7 +25,8 @@ public class Field {
     @DatabaseField
     private String value;
 
-    private Record relationship;
+    @DatabaseField(foreign = true)
+    private Receipt receipt;
 
     @ForeignCollectionField(eager = false)
     private Collection<History> historical;
@@ -66,14 +67,6 @@ public class Field {
         return column.getFieldType().format(value);
     }
 
-    public Record getRelationship() {
-        return relationship;
-    }
-
-    public void setRelationship(Record relationship) {
-        this.relationship = relationship;
-    }
-
     public Collection<History> getHistorical() {
         return historical;
     }
@@ -87,5 +80,13 @@ public class Field {
             historical = new ArrayList<>();
 
         historical.add(history);
+    }
+
+    public Receipt getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(Receipt receipt) {
+        this.receipt = receipt;
     }
 }

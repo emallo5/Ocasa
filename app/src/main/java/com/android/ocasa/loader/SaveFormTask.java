@@ -13,8 +13,11 @@ import com.android.ocasa.service.RecordService;
 import com.android.ocasa.service.notification.NotificationManager;
 import com.android.ocasa.sync.SendService;
 import com.android.ocasa.util.DateTimeHelper;
+import com.android.volley.Response;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,13 +45,18 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
 
     private Record updateRecord(Map<String, String> formValues, long recordId, Location lastLocation){
 
-        Record record = new RecordDAO(context).findById(recordId);
+        Record record = RecordDAO.getInstance(context).findById(recordId);
 
-        for (Field field : record.getFields()){
+        List<Field> fields = new ArrayList<>(record.getFields());
+
+        for (int index = 0; index < fields.size(); index++){
+
+            Field field = fields.get(index);
 
             String value = formValues.get(field.getColumn().getId());
 
             if(!value.isEmpty() && !value.equalsIgnoreCase(field.getValue())) {
+                record.updateStatus();
 
                 History history = new History();
                 history.setValue(value);

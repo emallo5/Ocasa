@@ -62,7 +62,7 @@ public class ReceiptTaskLoaderTest extends AsyncTaskLoader<FormViewModel> {
 
                 String value = new ArrayList<>(receipt.getItems()).get(0).getRecord().getFieldForColumn(column.getId()).getValue();
 
-                Record record = new RecordDAO(getContext()).findForTableAndValueId(column.getRelationship().getId(), value);
+                Record record = RecordDAO.getInstance(getContext()).findForTableAndValueId(column.getRelationship().getId(), value);
 
                 if(record != null)
                     record.setFields(new FieldDAO(getContext()).findLogicsForRecord(String.valueOf(record.getId())));

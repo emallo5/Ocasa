@@ -100,9 +100,9 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     }
 
     @Override
-    public void delete(T entity) {
+    public void delete(ID id) {
         try {
-            dao.delete(entity);
+            dao.deleteById(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }

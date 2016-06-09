@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="ocasaLightBlue">#33BDC2</color>
+    <color name="ocasaLightGray">#E5E5E5</color>
+    <color name="ocasaHintColor">#666666</color>
+    <color name="ocasaTextColor">#161616</color>
+    <color name="ocasaInputBackground">#f8f8f8</color>
+    <color name="ocasaInputStroke">#EDEDED</color>
+</resources>

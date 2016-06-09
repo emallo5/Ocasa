@@ -14,7 +14,7 @@ public interface GenericDAO<T , ID> {
     public void update(T entity);
     public void update(Collection<T> entity);
     public void refresh(T entity);
-    public void delete(T entity) throws SQLException;
+    public void delete(ID id) throws SQLException;
     public void deleteAll();
     public T findById(ID id);
     public List<T> findAll();
