@@ -1,19 +1,19 @@
 package com.android.ocasa.adapter;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.util.LongSparseArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
-import com.android.ocasa.event.ReceiptItemEvent;
-import com.android.ocasa.event.RecordLongClickEvent;
+import com.android.ocasa.event.ReceiptItemAddEvent;
 import com.android.ocasa.viewmodel.CellViewModel;
+import com.android.ocasa.viewmodel.FieldViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -52,8 +52,18 @@ public class AddItemsReceiptAdapter extends RecyclerView.Adapter<AddItemsReceipt
         CellViewModel record = records.get(position);
 
         for (int index = 0; index < holder.fields.size(); index++){
+            FieldViewModel field = record.getFields().get(index);
+
             TextView text = holder.fields.get(index);
-            text.setText(record.getFields().get(index).getValue());
+            text.setText(field.getValue());
+
+            if(field.isHighlight()){
+                text.setTypeface(null, Typeface.BOLD);
+                text.setTextSize(18);
+            }else{
+                text.setTypeface(null, Typeface.NORMAL);
+                text.setTextSize(14);
+            }
         }
     }
 
@@ -130,14 +140,11 @@ public class AddItemsReceiptAdapter extends RecyclerView.Adapter<AddItemsReceipt
 
     public static class RecordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        Button add;
-
         ArrayList<TextView> fields;
 
         public RecordViewHolder(View itemView, int fieldCount) {
             super(itemView);
 
-//            add = (Button) itemView.findViewById(R.id.add);
             itemView.setOnClickListener(this);
 
             fields = new ArrayList<>();
@@ -146,6 +153,8 @@ public class AddItemsReceiptAdapter extends RecyclerView.Adapter<AddItemsReceipt
 
             for (int index = 0; index < fieldCount; index++) {
                 TextView text = new TextView(itemView.getContext());
+                text.setTextColor(Color.WHITE);
+
                 fields.add(text);
                 container.addView(text);
             }
@@ -153,7 +162,7 @@ public class AddItemsReceiptAdapter extends RecyclerView.Adapter<AddItemsReceipt
 
         @Override
         public void onClick(View view) {
-            EventBus.getDefault().post(new ReceiptItemEvent(getItemId(), getAdapterPosition()));
+            EventBus.getDefault().post(new ReceiptItemAddEvent(getItemId(), getAdapterPosition()));
         }
     }
 }

@@ -12,6 +12,9 @@ import java.util.Collection;
 @DatabaseTable(tableName = "receipts")
 public class Receipt {
 
+    static final int OPEN_STATE = 1;
+    static final int CLOSE_STATE = 2;
+
     @DatabaseField(generatedId = true)
     private long id;
 
@@ -35,6 +38,13 @@ public class Receipt {
 
     @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private Status status;
+
+    @DatabaseField(defaultValue = "1")
+    private int state;
+
+    @DatabaseField
+    private String createdAt;
+
 
     public Receipt() {
     }
@@ -101,5 +111,25 @@ public class Receipt {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public boolean isOpen(){
+        return state == OPEN_STATE;
+    }
+
+    public void setOpen() {
+        this.state = OPEN_STATE;
+    }
+
+    public void setClose() {
+        this.state = CLOSE_STATE;
     }
 }

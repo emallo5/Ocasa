@@ -3,11 +3,15 @@ package com.android.ocasa.loader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
+import com.android.ocasa.dao.ApplicationDAO;
+import com.android.ocasa.dao.CategoryDAO;
 import com.android.ocasa.dao.ColumnActionDAO;
 import com.android.ocasa.dao.ReceiptDAO;
 import com.android.ocasa.dao.RecordDAO;
 import com.android.ocasa.dao.TableDAO;
 import com.android.ocasa.model.Action;
+import com.android.ocasa.model.Application;
+import com.android.ocasa.model.Category;
 import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Receipt;
@@ -43,6 +47,10 @@ import java.util.List;
 
         TableViewModel tableView = new TableViewModel();
 
+        if(query != null && query.isEmpty()){
+            return tableView;
+        }
+
         Receipt receipt = new ReceiptDAO(getContext()).findById(receiptId);
 
         Action action = receipt.getAction();
@@ -61,9 +69,28 @@ import java.util.List;
         if(table == null)
             return null;
 
+        Category category = new CategoryDAO(getContext()).findById(table.getCategory().getId());
+
+        Application application = new ApplicationDAO(getContext()).findById(category.getApplication().getId());
+
+        tableView.setColor(application.getRecordColor());
+
         List<Record> records = RecordDAO.getInstance(getContext()).findForTableAndQuery(tableId, query, excludeIds);
 
-        for (Record record: filter(records, action)) {
+//        FieldDAO fieldDAO = new FieldDAO(getContext());
+
+//        if(query != null && !query.isEmpty()){
+//            for (int index = 0; index < records.size(); index++){
+//                Record record = records.get(index);
+//                record.setFields(fieldDAO.findFieldsForRecord(String.valueOf(record.getId())));
+//            }
+//        }
+
+        records = filter(records, action);
+
+        for (int index = 0; index < records.size(); index++){ //Record record: records){//filter(records, action)) {
+            Record record = records.get(index);
+
             CellViewModel cell = new CellViewModel();
             cell.setId(record.getId());
 
@@ -100,6 +127,7 @@ import java.util.List;
             fieldViewModel.setTag(field.getColumn().getId());
             fieldViewModel.setLabel(field.getColumn().getName());
             fieldViewModel.setPrimaryKey(field.getColumn().isPrimaryKey());
+            fieldViewModel.setHighlight(field.getColumn().isHighlight());
 
             fieldViewModels.add(fieldViewModel);
         }
@@ -111,7 +139,9 @@ import java.util.List;
 
         List<Record> subList = new ArrayList<>();
 
-        for (Record record : records){
+        for (int index = 0; index < records.size(); index++){
+
+            Record record = records.get(index);
 
             Field field = record.getFieldForColumn(columnId);
 

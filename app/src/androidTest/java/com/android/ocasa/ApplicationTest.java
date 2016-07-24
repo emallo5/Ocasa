@@ -5,10 +5,8 @@ import android.content.Context;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.android.ocasa.http.listener.RequestCallback;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.service.MenuService;
-import com.android.volley.VolleyError;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,25 +38,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     public void testAlbumGetTask() throws InterruptedException {
 
-        Context context = getContext();
-
-        MenuService service = new MenuService(context);
-
-        service.requestMenu(new RequestCallback<Menu>() {
-            @Override
-            public void onSuccess(Menu response) {
-                signal.countDown();
-            }
-
-            @Override
-            public void onError(VolleyError error) {
-                signal.countDown();
-            }
-        });
-
-        signal.await();
-
-        assertTrue("Test", true);
 
     }
 }

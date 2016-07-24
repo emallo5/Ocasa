@@ -1,36 +1,32 @@
 package com.android.ocasa.service;
 
 import android.content.Context;
-import android.net.Uri;
-import android.os.AsyncTask;
 
-import com.android.ocasa.BuildConfig;
 import com.android.ocasa.dao.ActionDAO;
+import com.android.ocasa.dao.ApplicationDAO;
+import com.android.ocasa.dao.CategoryDAO;
+import com.android.ocasa.dao.ColumnActionDAO;
 import com.android.ocasa.dao.ColumnDAO;
 import com.android.ocasa.dao.FieldDAO;
 import com.android.ocasa.dao.HistoryDAO;
 import com.android.ocasa.dao.ReceiptDAO;
 import com.android.ocasa.dao.RecordDAO;
-import com.android.ocasa.httpmodel.TableRecord;
+import com.android.ocasa.dao.TableDAO;
 import com.android.ocasa.model.Action;
+import com.android.ocasa.model.Application;
+import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Column;
+import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.History;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
-import com.android.ocasa.service.notification.NotificationManager;
-import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
-import com.android.ocasa.http.service.HttpService;
-import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,22 +37,10 @@ public class RecordService {
     public static final String RECORD_SYNC_FINISHED_ACTION = "com.android.ocasa.service.RecordService.RECORD_SYNC_FINISHED_ACTION";
     public static final String RECORD_SYNC_ERROR_ACTION = "com.android.ocasa.service.RecordService.RECORD_SYNC_ERROR_ACTION";
 
-    static final String TABLE_PATH = "table";
-    static final String RECORD_PATH = "record";
-
     private Context context;
 
     public RecordService(Context context){
         this.context = context;
-    }
-
-    public void syncRecord(String tableId, GenericRequestCallback<TableRecord> callback){
-
-        HttpService service = HttpService.getInstance(context);
-
-        Gson gson = new GsonBuilder().registerTypeAdapter(Record.class, new TableRecord.RecordDeserializer()).create();
-
-        service.newGetRequest(buildRecordUrl(tableId), TableRecord.class, gson, callback);
     }
 
     public void saveRecord(Record record){
@@ -88,7 +72,15 @@ public class RecordService {
         else
             record = getRecordFromReceipt(recordId, receiptId);
 
+        Table table = new TableDAO(context).findById(record.getTable().getId());
+
+        Category category = new CategoryDAO(context).findById(table.getCategory().getId());
+
+        Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
+
         FormViewModel form = convertRecord(record);
+        form.setTitle(table.getName());
+        form.setColor(application.getRecordColor());
 
         List<Field> fields = new ArrayList<>(record.getFields());
 
@@ -116,11 +108,20 @@ public class RecordService {
         return form;
     }
 
+    public FormViewModel getFromFromRecordAndReceipt(long recordId, long receiptId){
+        Receipt receipt = new ReceiptDAO(context).findById(receiptId);
+
+        return getFormFromRecordAndAction(recordId, receipt.getAction().getId());
+    }
+
     public FormViewModel getFormFromRecordAndAction(long recordId, String action){
 
         Record record = getRecordFromAction(recordId, action);
 
+        Table table = new TableDAO(context).findById(record.getTable().getId());
+
         FormViewModel form = convertRecord(record);
+        form.setTitle(table.getName());
 
         List<Field> fields = new ArrayList<>(record.getFields());
 
@@ -137,6 +138,38 @@ public class RecordService {
             }
 
             form.addField(fieldViewModel);
+        }
+
+        return form;
+    }
+
+    public FormViewModel getFormFromTable(String tableId){
+
+        FormViewModel form = new FormViewModel();
+
+        Table table = new TableDAO(context).findById(tableId);
+        form.setTitle(table.getName());
+
+        Category category = new CategoryDAO(context).findById(table.getCategory().getId());
+
+        Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
+
+        form.setColor(application.getRecordColor());
+
+        List<Column> columns = new ColumnDAO(context).findColumnsForTable(tableId);
+
+        for (int index = 0; index < columns.size(); index++){
+
+            Column column = columns.get(index);
+
+            FieldViewModel field = convertColumn(column);
+
+            if(column.getFieldType() == FieldType.COMBO){
+                field.setRelationshipTable(column.getRelationship().getId());
+                field.setRelationshipFields(getComboColumns(column));
+            }
+
+            form.addField(field);
         }
 
         return form;
@@ -161,6 +194,8 @@ public class RecordService {
 
         Action action = new ActionDAO(context).findById(actionId);
 
+        action.setColumnsDetail(new ColumnActionDAO(context).findColumnsForActionAndType(actionId, ColumnAction.ColumnActionType.DETAIL));
+
         record.setFields(new FieldDAO(context)
                 .findForAvailableColumns(recordId,
                         action.getDetailsComlumIds()));
@@ -175,6 +210,19 @@ public class RecordService {
         form.setId(record.getId());
 
         return form;
+    }
+
+    private FieldViewModel convertColumn(Column column){
+        FieldViewModel fieldViewModel = new FieldViewModel();
+
+        fieldViewModel.setValue("");
+        fieldViewModel.setTag(column.getId());
+        fieldViewModel.setLabel(column.getName());
+        fieldViewModel.setType(column.getFieldType());
+        fieldViewModel.setEditable(true);
+
+        return fieldViewModel;
+
     }
 
     private FieldViewModel convertField(Field field){
@@ -210,100 +258,18 @@ public class RecordService {
         return relationship;
     }
 
-    private String buildRecordUrl(String tableId){
+    private List<FieldViewModel> getComboColumns(Column column){
+        List<FieldViewModel> relationship = new ArrayList<>();
 
-        Uri builtUri = Uri.parse(BuildConfig.BASE_URL)
-                .buildUpon()
-                .appendPath("android")
-                .appendPath(TABLE_PATH)
-                .appendPath(tableId)
-                .appendPath(RECORD_PATH)
-                .appendPath(RECORD_PATH + tableId + ".json").build();
+        List<Column> columns = new ColumnDAO(context).findLogicColumnsForTable(column.getRelationship().getId());
 
-        return builtUri.toString();
+        for (int index = 0; index < columns.size(); index++){
+
+            Column comboColumn= columns.get(index);
+
+            relationship.add(convertColumn(comboColumn));
+        }
+
+        return relationship;
     }
-
-    public static class SaveRecordResponseCallback extends GenericRequestCallback<TableRecord> {
-
-        private Table table;
-
-        public SaveRecordResponseCallback(Context context, String tableId) {
-            super(context);
-            this.table = new Table();
-            this.table.setId(tableId);
-        }
-
-        @Override
-        public void onSuccess(TableRecord response) {
-            super.onSuccess(response);
-
-            saveTableRecord(response);
-        }
-
-        @Override
-        public void onError(VolleyError error) {
-            super.onError(error);
-
-            NotificationManager.sendBroadcast(getContext(), RECORD_SYNC_ERROR_ACTION);
-        }
-
-        private void saveTableRecord(TableRecord tableRecord){
-
-            new AsyncTask<TableRecord, Void, Void>(){
-
-                @Override
-                protected Void doInBackground(TableRecord... tableRecords) {
-
-                    RecordDAO recordDAO = RecordDAO.getInstance(getContext());
-                    recordDAO.deleteForTable(table.getId());
-                    HistoryDAO historyDAO = new HistoryDAO(getContext());
-
-                    FieldDAO dao = new FieldDAO(getContext());
-
-                    for (Record record : tableRecords[0].getRecords()){
-                        record.setTable(table);
-
-                        if(record.isUpdated()){
-                            Record updated = recordDAO.findByExternalId(record.getExternalId());
-                            if(updated != null) {
-                                record.setId(updated.getId());
-                                recordDAO.update(record);
-                            }else{
-                                recordDAO.save(record);
-                            }
-                        }else{
-                            recordDAO.save(record);
-                        }
-
-                        for (Field field : record.getFields()){
-                            field.setRecord(record);
-
-                            History history = new History();
-                            history.setValue(field.getValue());
-                            history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
-                            history.setField(field);
-                            history.setTimeZone(DateTimeHelper.getDeviceTimezone());
-
-                            field.addHistory(history);
-
-                            dao.save(field);
-                            historyDAO.save(history);
-                        }
-                    }
-
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
-
-                    NotificationManager.sendBroadcast(getContext(), RECORD_SYNC_FINISHED_ACTION);
-                }
-            }.execute(tableRecord);
-
-
-        }
-    }
-
 }

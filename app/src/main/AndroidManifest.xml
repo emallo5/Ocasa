@@ -24,7 +24,7 @@
             android:value="barcode" />
 
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".loginflow.LoginFlowActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -34,16 +34,16 @@
         </activity>
 
         <activity
-            android:name=".activity.ForgotPassWordActivity"
+            android:name=".loginflow.password.ForgotPassWordActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".activity.LoginActivity">
+            android:parentActivityName=".loginflow.LoginFlowActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.LoginActivity" />
+                android:value=".loginflow.LoginFlowActivity" />
         </activity>
 
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".home.HomeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
@@ -52,85 +52,58 @@
             android:name=".activity.ReadFieldActvivity"/>
 
         <activity
-            android:name=".activity.DetailRecordActivity"
+            android:name=".record.detail.DetailRecordActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            android:parentActivityName=".activity.HomeActivity">
+            android:parentActivityName=".home.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.HomeActivity" />
+                android:value=".home.HomeActivity" />
         </activity>
 
-        <activity android:name=".activity.CreateReceiptActivity"
+        <activity android:name=".receipt.item.update.UpdateReceiptItemActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustResize"
-            android:parentActivityName=".activity.HomeActivity">
+            android:parentActivityName=".receipt.edit.EditReceiptActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.HomeActivity" />
+                android:value=".receipt.edit.EditReceiptActivity" />
         </activity>
 
-        <activity android:name=".activity.DetailReceiptActivity"
+        <activity android:name=".receipt.item.detail.DetailReceiptItemActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
-            android:parentActivityName=".activity.HomeActivity">
+            android:parentActivityName=".receipt.detail.DetailReceiptActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.HomeActivity" />
-        </activity>
-
-        <activity android:name=".activity.UpdateReceiptItemActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activity.CreateReceiptActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.CreateReceiptActivity" />
-        </activity>
-
-        <activity android:name=".activity.DetailReceiptItemActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activity.DetailReceiptActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.DetailReceiptActivity" />
-        </activity>
-
-        <activity android:name=".activity.AddItemsActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".activity.CreateReceiptActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.CreateReceiptActivity" />
+                android:value=".receipt.detail.DetailReceiptActivity" />
         </activity>
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".activity.EditReceiptActivity"
-            android:parentActivityName=".activity.HomeActivity">
+            android:name=".receipt.header.EditHeaderReceiptActivity"
+            android:parentActivityName=".home.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.HomeActivity" />
+                android:value=".home.HomeActivity" />
         </activity>
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".activity.ReceiptStatusActvity"
-            android:parentActivityName=".activity.CreateReceiptActivity">
+            android:name=".receipt.status.ReceiptStatusActvity"
+            android:parentActivityName=".receipt.edit.EditReceiptActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.CreateReceiptActivity" />
+                android:value=".receipt.edit.EditReceiptActivity" />
         </activity>
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".activity.DetailReceiptStatusActivity"
-            android:parentActivityName=".activity.DetailReceiptActivity">
+            android:name=".record.invoke.InvokeRecordActivity"
+            android:parentActivityName=".record.create.CreateRecordActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.DetailReceiptActivity" />
+                android:value=".record.create.CreateRecordActivity" />
         </activity>
 
 
@@ -141,6 +114,31 @@
         <activity
             android:theme="@style/FilterTheme"
             android:name=".activity.ValidityDateActivity"/>
+
+        <activity android:name=".record.create.CreateRecordActivity"
+            android:parentActivityName=".home.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home.HomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".receipt.edit.EditReceiptActivity"
+            android:parentActivityName=".home.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home.HomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".receipt.detail.DetailReceiptActivity"
+            android:parentActivityName=".home.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home.HomeActivity" />
+        </activity>
+
+        <activity android:name=".sync.SyncActivity"/>
 
         <!--- PICK UP -->
 
@@ -169,13 +167,11 @@
 
         <!--  - - - -  -->
 
-        <service android:name=".sync.SyncService"/>
         <service android:name=".sync.LoginService"/>
         <service android:name=".sync.SendService"/>
 
-        <receiver android:name=".fragment.LoginFragment$LoginReceiver"/>
-        <receiver android:name=".fragment.SyncFragment$SyncReceiver"/>
-        <receiver android:name=".fragment.HomeFragment$RecordSyncReceiver"/>
+        <receiver android:name=".loginflow.login.LoginFragment$LoginReceiver"/>
+        <receiver android:name=".home.HomeFragment$RecordSyncReceiver"/>
 
         <receiver android:name=".receiver.RequestTableReceiver"
             android:exported="false">

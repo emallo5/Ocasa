@@ -39,7 +39,10 @@ public class PickupItemConfirmationDialog extends DialogFragment {
         super.onAttach(activity);
 
         try {
-            callback = (OnConfirmationListener) activity;
+            if(getParentFragment() != null)
+                callback = (OnConfirmationListener) getParentFragment();
+            else
+                callback = (OnConfirmationListener) getActivity();
         }catch (ClassCastException e){
 
         }
@@ -67,7 +70,8 @@ public class PickupItemConfirmationDialog extends DialogFragment {
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                callback.onAdd(getArguments().getString(ARG_CODE));
+                if(callback != null)
+                    callback.onAdd(getArguments().getString(ARG_CODE));
             }
         });
 

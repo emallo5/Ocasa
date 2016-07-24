@@ -16,11 +16,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/action"
+            android:layout_toLeftOf="@+id/date_time_action"
+            android:layout_toStartOf="@+id/date_time_action"
             android:weightSum="2">
 
             <com.android.ocasa.widget.FieldDateView
                 android:id="@+id/date"
+                android:layout_marginEnd="@dimen/medium_padding"
                 android:layout_marginRight="@dimen/medium_padding"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -29,6 +31,7 @@
 
             <com.android.ocasa.widget.FieldTimeView
                 android:id="@+id/time"
+                android:layout_marginStart="@dimen/medium_padding"
                 android:layout_marginLeft="@dimen/medium_padding"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -38,16 +41,15 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/action"
+            android:id="@+id/date_time_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_more"
             android:scaleType="center"
-            android:padding="@dimen/medium_padding"
             android:clickable="true"
-            android:visibility="gone"
             android:background="?android:selectableItemBackground"
             android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"/>
 
     </RelativeLayout>

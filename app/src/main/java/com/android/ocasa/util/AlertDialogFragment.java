@@ -16,19 +16,33 @@ public class AlertDialogFragment extends DialogFragment implements DialogInterfa
 
     static final String ARG_TITLE = "title";
     static final String ARG_MESSAGE = "message";
+    static final String ARG_POSITIVE = "positive";
+    static final String ARG_NEGATIVE = "negative";
+    static final String ARG_NEUTRAL = "neutral";
 
     private OnAlertClickListener callback;
 
     public interface OnAlertClickListener{
-        public void onPosiviteClick();
-        public void onNegativeClick();
+        public void onPosiviteClick(String tag);
+        public void onNeutralClick(String tag);
+        public void onNegativeClick(String tag);
     }
 
     public static AlertDialogFragment newInstance(String title, String message) {
+        return newInstance(title, message, null, null, null);
+    }
+
+    public static AlertDialogFragment newInstance(String title, String message,
+                                                  String positive,
+                                                  String negative,
+                                                  String neutral) {
 
         Bundle args = new Bundle();
         args.putString(ARG_TITLE, title);
         args.putString(ARG_MESSAGE, message);
+        args.putString(ARG_POSITIVE, positive);
+        args.putString(ARG_NEGATIVE, negative);
+        args.putString(ARG_NEUTRAL, neutral);
 
         AlertDialogFragment fragment = new AlertDialogFragment();
         fragment.setArguments(args);
@@ -40,10 +54,13 @@ public class AlertDialogFragment extends DialogFragment implements DialogInterfa
         super.onCreate(savedInstanceState);
 
         try {
-            callback = (OnAlertClickListener) getParentFragment();
+            if(getParentFragment() != null)
+                callback = (OnAlertClickListener) getParentFragment();
+            else
+                callback = (OnAlertClickListener) getActivity();
         }catch (ClassCastException e){
-            throw new ClassCastException(
-                    getParentFragment().getClass().getName() + " must implements OnAlertClickListener");
+//            throw new ClassCastException(
+//                    getParentFragment().getClass().getName() + " must implements OnAlertClickListener");
         }
     }
 
@@ -54,12 +71,22 @@ public class AlertDialogFragment extends DialogFragment implements DialogInterfa
         String title = getArguments().getString(ARG_TITLE);
         String message = getArguments().getString(ARG_MESSAGE);
 
-        return new AlertDialog.Builder(getActivity(), R.style.SlideDialog)
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.SlideDialog)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("Aceptar", this)
-                .setNegativeButton("Cancelar", this)
-                .create();
+                .setNegativeButton(android.R.string.cancel, this);
+
+        if(getArguments().getString(ARG_POSITIVE) != null){
+            builder.setPositiveButton(getArguments().getString(ARG_POSITIVE), this);
+        }else{
+            builder.setPositiveButton(android.R.string.ok, this);
+        }
+
+        if(getArguments().getString(ARG_NEUTRAL) != null){
+            builder.setNeutralButton(getArguments().getString(ARG_NEUTRAL), this);
+        }
+
+        return builder.create();
     }
 
     @Override
@@ -68,9 +95,11 @@ public class AlertDialogFragment extends DialogFragment implements DialogInterfa
         dismiss();
 
         if(i == DialogInterface.BUTTON_POSITIVE){
-            callback.onPosiviteClick();
+            callback.onPosiviteClick(getTag());
         }else if(i == DialogInterface.BUTTON_NEGATIVE){
-            callback.onNegativeClick();
+            callback.onNegativeClick(getTag());
+        }else if(i == DialogInterface.BUTTON_NEUTRAL){
+            callback.onNeutralClick(getTag());
         }
     }
 }

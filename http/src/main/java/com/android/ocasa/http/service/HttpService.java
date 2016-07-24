@@ -35,7 +35,6 @@ public class HttpService {
     public <T> void newGetRequest(String url, Class<T> clazz, Gson gson, RequestCallback<T> callback){
 
         GetRequest<T> request = new GetRequest<T>(url, clazz, gson, new RequestListener<T>(callback));
-
         Volley.newRequestQueue(context).add(request);
     }
 

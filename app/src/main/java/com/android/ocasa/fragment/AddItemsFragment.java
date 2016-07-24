@@ -2,6 +2,7 @@ package com.android.ocasa.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
@@ -10,12 +11,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ActionMode;
 
-import com.android.ocasa.activity.DetailRecordActivity;
+import com.android.ocasa.record.detail.DetailRecordActivity;
 import com.android.ocasa.adapter.AddItemsReceiptAdapter;
 import com.android.ocasa.adapter.RecordAdapterTest;
 import com.android.ocasa.core.fragment.RecyclerListFragment;
-import com.android.ocasa.event.ReceiptItemEvent;
+import com.android.ocasa.event.ReceiptItemAddEvent;
 import com.android.ocasa.loader.ActionRecordTaskLoader;
+import com.android.ocasa.pickup.util.PickupItemConfirmationDialog;
 import com.android.ocasa.viewmodel.TableViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -24,7 +26,8 @@ import org.greenrobot.eventbus.Subscribe;
 /**
  * Created by Emiliano Mallo on 21/03/16.
  */
-public class AddItemsFragment extends RecyclerListFragment implements LoaderManager.LoaderCallbacks<TableViewModel> {
+public class AddItemsFragment extends RecyclerListFragment implements LoaderManager.LoaderCallbacks<TableViewModel>,
+    PickupItemConfirmationDialog.OnConfirmationListener{
 
     static final String ARG_RECEIPT_ID = "receipt_id";
     static final String ARG_SEARCH_QUERY = "search_query";
@@ -37,6 +40,7 @@ public class AddItemsFragment extends RecyclerListFragment implements LoaderMana
     private OnItemAddedListener callback;
 
     public interface OnItemAddedListener{
+        void onNotFoundItem(String code);
         void onItemAdded(long recordId);
     }
 
@@ -66,6 +70,7 @@ public class AddItemsFragment extends RecyclerListFragment implements LoaderMana
         super.onActivityCreated(savedInstanceState);
 
         RecyclerView list = getRecyclerView();
+        list.setBackgroundColor(Color.parseColor("#9E9E9E"));
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
     }
@@ -94,6 +99,13 @@ public class AddItemsFragment extends RecyclerListFragment implements LoaderMana
         if(data == null)
             return;
 
+        if(data.getCells().isEmpty()){
+            callback.onNotFoundItem(getArguments()
+                    .getString(ARG_SEARCH_QUERY));
+            getFragmentManager().beginTransaction().remove(this).commit();
+            return;
+        }
+
         if(data.getCells().size() == 1){
             callback.onItemAdded(data.getCells().get(0).getId());
             getFragmentManager().beginTransaction().remove(this).commit();
@@ -110,7 +122,7 @@ public class AddItemsFragment extends RecyclerListFragment implements LoaderMana
     }
 
     @Subscribe
-    public void onItemClick(ReceiptItemEvent event){
+    public void onItemClick(ReceiptItemAddEvent event){
         AddItemsReceiptAdapter adapter = (AddItemsReceiptAdapter) getAdapter();
         adapter.removeItem(event.getPosition());
 
@@ -164,6 +176,11 @@ public class AddItemsFragment extends RecyclerListFragment implements LoaderMana
 //    }
 
     public void search(String query){
+
+        Loader loader = getLoaderManager().getLoader(0);
+        if(loader != null)
+            loader.cancelLoad();
+
         getArguments().putString(ARG_SEARCH_QUERY, query);
 
         getLoaderManager().restartLoader(0, getArguments(), this);
@@ -219,6 +236,16 @@ public class AddItemsFragment extends RecyclerListFragment implements LoaderMana
         getActivity().finish();
         getActivity().overridePendingTransition(com.android.ocasa.core.R.anim.activity_scale_in,
                 com.android.ocasa.core.R.anim.activity_translatex_out);
+    }
+
+    @Override
+    public void onCancel() {
+
+    }
+
+    @Override
+    public void onAdd(String code) {
+        getFragmentManager().beginTransaction().remove(this).commit();
     }
 
 //    @Override

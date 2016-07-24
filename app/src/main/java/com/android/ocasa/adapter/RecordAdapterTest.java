@@ -1,5 +1,7 @@
 package com.android.ocasa.adapter;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.util.LongSparseArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import com.android.ocasa.R;
 import com.android.ocasa.event.ReceiptItemEvent;
 import com.android.ocasa.event.RecordLongClickEvent;
 import com.android.ocasa.viewmodel.CellViewModel;
+import com.android.ocasa.viewmodel.FieldViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -61,8 +64,18 @@ public class RecordAdapterTest extends RecyclerView.Adapter<RecordAdapterTest.Re
         holder.itemView.setActivated(selectedItems.get(record.getId(), false));
 
         for (int index = 0; index < holder.fields.size(); index++){
+            FieldViewModel field = record.getFields().get(index);
+
             TextView text = holder.fields.get(index);
-            text.setText(record.getFields().get(index).getValue());
+            text.setText(field.getValue());
+
+            if(field.isHighlight()){
+                text.setTypeface(null, Typeface.BOLD);
+                text.setTextSize(18);
+            }else{
+                text.setTypeface(null, Typeface.NORMAL);
+                text.setTextSize(14);
+            }
         }
     }
 
@@ -153,6 +166,8 @@ public class RecordAdapterTest extends RecyclerView.Adapter<RecordAdapterTest.Re
 
             for (int index = 0; index < fieldCount; index++) {
                 TextView text = new TextView(itemView.getContext());
+                text.setTextColor(Color.WHITE);
+
                 fields.add(text);
                 container.addView(text);
             }

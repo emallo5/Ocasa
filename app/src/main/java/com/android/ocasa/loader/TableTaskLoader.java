@@ -3,8 +3,12 @@ package com.android.ocasa.loader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
+import com.android.ocasa.dao.ApplicationDAO;
+import com.android.ocasa.dao.CategoryDAO;
 import com.android.ocasa.dao.RecordDAO;
 import com.android.ocasa.dao.TableDAO;
+import com.android.ocasa.model.Application;
+import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
@@ -47,6 +51,12 @@ public class TableTaskLoader extends AsyncTaskLoader<TableViewModel> {
         if(table == null)
             return null;
 
+        if(table.getCategory() != null) {
+            Category category = new CategoryDAO(getContext()).findById(table.getCategory().getId());
+            Application application = new ApplicationDAO(getContext()).findById(category.getApplication().getId());
+            tableViewModel.setColor(application.getRecordColor());
+        }
+
         tableViewModel.setName(table.getName());
 
         List<Record> records = RecordDAO.getInstance(getContext()).findForTableAndQuery(tableId, query, excludeIds);
@@ -77,6 +87,7 @@ public class TableTaskLoader extends AsyncTaskLoader<TableViewModel> {
             fieldViewModel.setValue(field.getValue());
             fieldViewModel.setTag(field.getColumn().getId());
             fieldViewModel.setLabel(field.getColumn().getName());
+            fieldViewModel.setHighlight(field.getColumn().isHighlight());
 
             fieldViewModels.add(fieldViewModel);
         }

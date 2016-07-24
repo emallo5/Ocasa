@@ -1,5 +1,7 @@
 package com.android.ocasa.httpmodel;
 
+import android.support.design.widget.TabLayout;
+
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.Field;
@@ -21,16 +23,16 @@ import java.util.List;
  */
 public class HttpTable {
 
-    private List<Column> columns;
+    private Table table;
 
     public HttpTable() { }
 
-    public List<Column> getColumns() {
-        return columns;
+    public Table getTable() {
+        return table;
     }
 
-    public void setColumns(List<Column> columns) {
-        this.columns = columns;
+    public void setTable(Table table) {
+        this.table = table;
     }
 
     public static class ColumnDeserializer implements JsonDeserializer<Column> {
@@ -52,6 +54,7 @@ public class HttpTable {
             column.setPrimaryKey(jObject.has("primary_key") && jObject.get("primary_key").getAsBoolean());
             column.setLogic(jObject.has("logic") && jObject.get("logic").getAsBoolean());
             column.setFieldType(FieldType.findTypeByApiName(jObject.get("field_type").getAsString()));
+            column.setHighlight(jObject.has("highlight") && jObject.get("highlight").getAsBoolean());
 
             if(column.getFieldType() == FieldType.COMBO ||
                     column.getFieldType() == FieldType.LIST){

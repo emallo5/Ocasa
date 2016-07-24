@@ -12,8 +12,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/http" />
-            <option value="$PROJECT_DIR$/http/volley" />
           </set>
         </option>
         <option name="myModules">
@@ -21,8 +19,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/http" />
-            <option value="$PROJECT_DIR$/http/volley" />
           </set>
         </option>
       </GradleProjectSettings>

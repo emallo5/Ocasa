@@ -23,6 +23,8 @@ public class FieldViewModel {
 
     private boolean isPrimaryKey;
 
+    private boolean isHighlight;
+
     private List<FieldViewModel> relationshipFields;
 
     public String getTag() {
@@ -87,5 +89,13 @@ public class FieldViewModel {
 
     public void setPrimaryKey(boolean primaryKey) {
         isPrimaryKey = primaryKey;
+    }
+
+    public boolean isHighlight() {
+        return isHighlight;
+    }
+
+    public void setHighlight(boolean highlight) {
+        isHighlight = highlight;
     }
 }

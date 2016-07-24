@@ -1,5 +1,6 @@
 package com.android.ocasa.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
-import com.android.ocasa.model.Field;
-import com.android.ocasa.model.Receipt;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FieldViewModel;
+import com.android.ocasa.viewmodel.ReceiptCellViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +21,11 @@ import java.util.List;
  */
 public class ReceiptAdapter extends BaseAdapter {
 
-    private List<CellViewModel> receipts;
+    private List<ReceiptCellViewModel> receipts;
 
     private int fieldCount;
 
-    public ReceiptAdapter(List<CellViewModel> receipts) {
+    public ReceiptAdapter(List<ReceiptCellViewModel> receipts) {
         this.receipts = receipts;
         fieldCount = receipts.isEmpty() ? 0 : receipts.get(0).getFields().size();
     }
@@ -59,12 +59,19 @@ public class ReceiptAdapter extends BaseAdapter {
             holder = (RecordHolder) view.getTag();
         }
 
-        CellViewModel receipt = receipts.get(position);
+        ReceiptCellViewModel receipt = receipts.get(position);
+
+        if(receipt.isOpen()){
+            view.setBackgroundColor(Color.parseColor("#9E9E9E"));
+        }else{
+            view.setBackgroundColor(Color.TRANSPARENT);
+        }
 
         List<FieldViewModel> fields = receipt.getFields();
 
         for (int index = 0; index < fields.size(); index++){
-            holder.views.get(index).setText(fields.get(index).getValue());
+            FieldViewModel field = fields.get(index);
+            holder.views.get(index).setText(field.getLabel() + ": " + field.getValue());
         }
 
         return view;

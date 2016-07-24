@@ -12,6 +12,8 @@ public class TableViewModel {
 
     private List<CellViewModel> cells;
 
+    private String color;
+
     public TableViewModel(){
         cells = new ArrayList<>();
     }
@@ -30,5 +32,13 @@ public class TableViewModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

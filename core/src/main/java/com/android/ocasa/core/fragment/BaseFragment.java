@@ -1,14 +1,16 @@
 package com.android.ocasa.core.fragment;
 
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.android.ocasa.core.activity.BarActivity;
 import com.android.ocasa.core.activity.BaseActivity;
 
 /**
@@ -16,6 +18,23 @@ import com.android.ocasa.core.activity.BaseActivity;
  */
 public class BaseFragment extends Fragment{
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        view.setFocusableInTouchMode(false);
+        view.requestFocus();
+        view.setOnKeyListener( new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event )
+            {
+                if(keyCode == KeyEvent.KEYCODE_BACK){
+                    return true;
+                }
+                return false;
+            }
+        } );
+    }
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/invoke"
+        android:title="Invocar"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/send"
+        android:title="Enviar"
+        app:showAsAction="always|withText" />
+
+</menu>

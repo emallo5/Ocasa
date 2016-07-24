@@ -13,7 +13,6 @@ import com.android.ocasa.service.RecordService;
 import com.android.ocasa.service.notification.NotificationManager;
 import com.android.ocasa.sync.SendService;
 import com.android.ocasa.util.DateTimeHelper;
-import com.android.volley.Response;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +24,7 @@ import java.util.Map;
  */
 public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
 
-    private Context context;
+    protected Context context;
 
     public SaveFormTask(Context context) {
         this.context = context;
@@ -94,6 +93,7 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
 
         private Map<String, String> values;
         private long recordId;
+        private String tableId;
         private Location lastLocation;
 
         public FormData(Map<String, String> values, long recordId, Location lastLocation){
@@ -110,9 +110,18 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
             return recordId;
         }
 
+        public String getTableId() {
+            return tableId;
+        }
+
+        public void setTableId(String tableId) {
+            this.tableId = tableId;
+        }
+
         public Location getLastLocation() {
             return lastLocation;
         }
+
     }
 
 }

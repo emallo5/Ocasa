@@ -26,7 +26,7 @@ public class Record {
     @DatabaseField
     private String status;
 
-    @DatabaseField(foreign = true, foreignAutoRefresh = true, foreignAutoCreate = true)
+    @DatabaseField(foreign = true)
     private Table table;
 
     @ForeignCollectionField(eager = true)
@@ -34,6 +34,9 @@ public class Record {
 
     @ForeignCollectionField
     private Collection<ReceiptItem> receipts;
+
+    @DatabaseField
+    private String concatValues;
 
     public Record() {}
 
@@ -157,5 +160,22 @@ public class Record {
 
     public boolean isUpdated(){
         return status != null && status.equalsIgnoreCase(STATUS_UPDATED);
+    }
+
+    public void fillConcatValues(){
+        StringBuilder sb = new StringBuilder();
+        for (Field field : fields) {
+            sb.append(field.getValue().toLowerCase());
+        }
+
+        concatValues = sb.toString();
+    }
+
+    public String getConcatValues() {
+        return concatValues;
+    }
+
+    public void setConcatValues(String concatValues) {
+        this.concatValues = concatValues;
     }
 }

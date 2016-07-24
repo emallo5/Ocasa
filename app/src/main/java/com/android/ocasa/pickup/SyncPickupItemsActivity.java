@@ -11,7 +11,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.android.ocasa.R;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.service.RecordService;
-import com.android.ocasa.sync.SyncService;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -44,8 +43,6 @@ public class SyncPickupItemsActivity extends BaseActivity {
         filter = new IntentFilter();
         filter.addAction(RecordService.RECORD_SYNC_FINISHED_ACTION);
         filter.addAction(RecordService.RECORD_SYNC_ERROR_ACTION);
-
-        sync();
     }
 
     @Override
@@ -58,25 +55,6 @@ public class SyncPickupItemsActivity extends BaseActivity {
     public void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
-    }
-
-    private void sync(){
-        syncTable();
-        syncRecords();
-    }
-
-    private void syncTable(){
-        Intent intent = new Intent(this, SyncService.class);
-        intent.putExtra(SyncService.EXTRA_ID, "700");
-        intent.putExtra(SyncService.EXTRA_SYNC, SyncService.TABLE_SYNC);
-        startService(intent);
-    }
-
-    private void syncRecords(){
-        Intent intent = new Intent(this, SyncService.class);
-        intent.putExtra(SyncService.EXTRA_ID, "700");
-        intent.putExtra(SyncService.EXTRA_SYNC, SyncService.RECORD_SYNC);
-        startService(intent);
     }
 
     public class SyncReceiver extends BroadcastReceiver {

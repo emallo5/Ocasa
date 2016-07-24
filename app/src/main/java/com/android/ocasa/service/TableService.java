@@ -1,121 +1,103 @@
 package com.android.ocasa.service;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 
-import com.android.ocasa.BuildConfig;
 import com.android.ocasa.dao.ColumnDAO;
+import com.android.ocasa.dao.FieldDAO;
+import com.android.ocasa.dao.HistoryDAO;
+import com.android.ocasa.dao.RecordDAO;
 import com.android.ocasa.dao.TableDAO;
-import com.android.ocasa.http.listener.RequestCallback;
-import com.android.ocasa.http.service.HttpService;
 import com.android.ocasa.httpmodel.HttpTable;
 import com.android.ocasa.model.Column;
+import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
+import com.android.ocasa.model.History;
+import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
-import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.android.ocasa.util.DateTimeHelper;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by ignacio on 26/01/16.
  */
 public class TableService {
 
-    public static final String DOWNLOAD_TABLE_REQUEST = "com.android.ocasa.service.DOWNLOAD_TABLE_REQUEST";
-
-    static final String TABLE_URL = "/android/table/1/column/";
-
-    static final String TABLE_PATH = "table";
-    static final String COLUMN_PATH = "column";
-
-    private Context context;
-
-    public TableService(Context context){
-        this.context = context;
+    public TableService(){
     }
 
-    public void syncTable(String tableId, RequestCallback<HttpTable> callback){
-        HttpService service = HttpService.getInstance(context);
+    public void saveTable(Context context, HttpTable httpTable){
+        TableDAO tableDAO = new TableDAO(context);
 
-        Gson gson = new GsonBuilder().registerTypeAdapter(Column.class, new HttpTable.ColumnDeserializer()).create();
+        Table table = tableDAO.findById(httpTable.getTable().getId());
 
-        service.newGetRequest(buildColumnUrl(tableId), HttpTable.class, gson, callback);
-    }
-
-    private String buildColumnUrl(String tableId){
-
-        Uri builtUri = Uri.parse(BuildConfig.BASE_URL)
-                .buildUpon()
-                .appendPath("android")
-                .appendPath(TABLE_PATH)
-                .appendPath(tableId)
-                .appendPath(COLUMN_PATH)
-                .appendPath(COLUMN_PATH + tableId + ".json").build();
-
-        return builtUri.toString();
-    }
-
-    public static class SaveTableResponseCallback extends GenericRequestCallback<HttpTable> {
-
-        private Table table;
-
-        public SaveTableResponseCallback(Context context, String tableId) {
-            super(context);
-            this.table = new Table();
-            this.table.setId(tableId);
+        if(table == null){
+            table = new Table();
+            table.setId(httpTable.getTable().getId());
         }
 
-        @Override
-        public void onSuccess(HttpTable response) {
-            super.onSuccess(response);
+        table.setColumns(httpTable.getTable().getColumns());
+        table.setName(httpTable.getTable().getName());
 
-            saveTable(response);
+        tableDAO.save(table);
+
+        ColumnDAO dao = new ColumnDAO(context);
+
+        for (Column column : table.getColumns()){
+            column.setTable(table);
+
+            if(column.getFieldType() == FieldType.COMBO ||
+                    column.getFieldType() == FieldType.LIST){
+                tableDAO.save(column.getRelationship());
+            }
         }
 
-        @Override
-        public void onError(VolleyError error) {
-            super.onError(error);
+        dao.save(table.getColumns());
+
+        RecordDAO recordDAO = RecordDAO.getInstance(context);
+        HistoryDAO historyDAO = new HistoryDAO(context);
+
+        FieldDAO fieldDAO = new FieldDAO(context);
+
+        List<Record> records = new ArrayList<>(httpTable.getTable().getRecords());
+
+        List<Field> fields = new ArrayList<>();
+        List<History> histories = new ArrayList<>();
+
+        for (int index = 0; index <  records.size(); index++){
+
+            Record record = records.get(index);
+
+            record.setTable(table);
+            record.fillConcatValues();
+
+            Record updated = recordDAO.findByExternalId(record.getExternalId());
+            if(updated != null) {
+                record.setId(updated.getId());
+                fieldDAO.deleteFieldsForRecord((int) record.getId());
+            }
+
+            for (Field field : record.getFields()){
+                field.setRecord(record);
+
+                History history = new History();
+                history.setValue(field.getValue());
+                history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
+                history.setField(field);
+                history.setTimeZone(DateTimeHelper.getDeviceTimezone());
+
+                field.addHistory(history);
+
+                fields.add(field);
+                histories.add(history);
+            }
         }
 
-        private void saveTable(HttpTable httpTable){
-
-            new AsyncTask<HttpTable, Void, Void>() {
-
-                @Override
-                protected Void doInBackground(HttpTable... httpTables) {
-
-                    if(httpTables[0].getColumns() == null)
-                        return null;
-
-                    TableDAO tableDAO = new TableDAO(getContext());
-                    ColumnDAO dao = new ColumnDAO(getContext());
-
-                    for (Column column : httpTables[0].getColumns()){
-                        column.setTable(table);
-
-                        if(column.getFieldType() == FieldType.COMBO ||
-                                column.getFieldType() == FieldType.LIST){
-                            tableDAO.save(column.getRelationship());
-
-                            Intent intent = new Intent(DOWNLOAD_TABLE_REQUEST);
-                            intent.putExtra("id", column.getRelationship().getId());
-
-                            getContext().sendBroadcast(intent);
-                        }
-                    }
-
-                    dao.save(httpTables[0].getColumns());
-
-                    //tableDAO.save(table);
-
-                    return null;
-                }
-            }.execute(httpTable);
-
-
-        }
+        recordDAO.save(records);
+        fieldDAO.save(fields);
+        historyDAO.save(histories);
     }
 
 

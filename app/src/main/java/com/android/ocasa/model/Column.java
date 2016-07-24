@@ -37,11 +37,14 @@ public class Column {
     @DatabaseField(dataType = DataType.ENUM_STRING)
     private FieldType fieldType;
 
-    @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
+    @DatabaseField(foreign = true)
     private Table table;
 
     @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private Table relationship;
+
+    @DatabaseField
+    private boolean highlight;
 
     public Column() {}
 
@@ -131,5 +134,13 @@ public class Column {
 
     public void setRelationship(Table relationship) {
         this.relationship = relationship;
+    }
+
+    public boolean isHighlight() {
+        return highlight;
+    }
+
+    public void setHighlight(boolean highlight) {
+        this.highlight = highlight;
     }
 }

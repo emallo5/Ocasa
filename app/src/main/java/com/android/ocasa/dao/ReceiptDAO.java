@@ -5,6 +5,7 @@ import android.content.Context;
 import com.android.ocasa.model.Receipt;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -18,11 +19,18 @@ public class ReceiptDAO extends GenericDAOImpl<Receipt,Long> {
 
     public List<Receipt> findForAction(String actionId){
         try {
-            return dao.queryBuilder().where().eq("action_id", actionId).and().eq("isConfirmed", true).query();
+            return dao.queryBuilder()
+                    .orderBy("createdAt", false)
+                    .where()
+                    .eq("action_id", actionId)
+                    .and()
+                    .eq("isConfirmed", true)
+                    .query();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return null;
     }
+
 }

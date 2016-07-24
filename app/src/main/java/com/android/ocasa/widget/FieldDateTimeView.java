@@ -4,14 +4,16 @@ import android.content.Context;
 import android.nfc.FormatException;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
-import com.android.ocasa.model.FieldType;
 import com.android.ocasa.util.DateTimeHelper;
+import com.android.ocasa.util.IconizedMenu;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -19,7 +21,7 @@ import java.util.Date;
 /**
  * Created by Emiliano Mallo on 09/05/16.
  */
-public class FieldDateTimeView extends LinearLayout implements FieldViewAdapter{
+public class FieldDateTimeView extends LinearLayout implements FieldViewAdapter, IconizedMenu.OnMenuItemClickListener {
 
     private TextView label;
 
@@ -54,13 +56,21 @@ public class FieldDateTimeView extends LinearLayout implements FieldViewAdapter{
 
         dateView = (FieldDateView) findViewById(R.id.date);
         dateView.getLabel().setVisibility(GONE);
+        dateView.getField().getAction().setClickable(false);
         dateView.getField().getAction().setVisibility(GONE);
 
         timeView = (FieldTimeView) findViewById(R.id.time);
         timeView.getLabel().setVisibility(GONE);
+        timeView.getField().getAction().setClickable(false);
         timeView.getField().getAction().setVisibility(GONE);
 
-        action = (ImageView) findViewById(R.id.action);
+        action = (ImageView) findViewById(R.id.date_time_action);
+        action.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showMenu();
+            }
+        });
 
         try {
             Date date = new Date();
@@ -141,5 +151,32 @@ public class FieldDateTimeView extends LinearLayout implements FieldViewAdapter{
 
     public TextView getLabel() {
         return label;
+    }
+
+
+    private void showMenu(){
+        IconizedMenu actionMenu = new IconizedMenu(getContext(), action);
+        actionMenu.setOnMenuItemClickListener(this);
+        MenuInflater inflater = actionMenu.getMenuInflater();
+        inflater.inflate(R.menu.menu_form_field, actionMenu.getMenu());
+        actionMenu.show();
+    }
+
+    public FieldViewActionListener getListener() {
+        return listener;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.history:
+                listener.onHistoryClick(this);
+                break;
+            case R.id.qr_scanner:
+                listener.onQrClick(this);
+                break;
+        }
+
+        return true;
     }
 }

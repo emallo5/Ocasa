@@ -25,6 +25,8 @@ public class Table {
     @ForeignCollectionField
     private Collection<Record> records;
 
+    private List<Column> columns;
+
     public Table() {
     }
 
@@ -58,5 +60,13 @@ public class Table {
 
     public void setRecords(Collection<Record> records) {
         this.records = records;
+    }
+
+    public List<Column> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(List<Column> columns) {
+        this.columns = columns;
     }
 }

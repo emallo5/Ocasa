@@ -3,10 +3,9 @@ package com.android.ocasa.pickup;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.android.ocasa.activity.DetailRecordActivity;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.event.ReceiptItemEvent;
-import com.android.ocasa.fragment.HomeFragment;
+import com.android.ocasa.home.HomeFragment;
 
 /**
  * Created by Emiliano Mallo on 21/04/16.

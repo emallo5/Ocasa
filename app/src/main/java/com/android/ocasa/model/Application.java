@@ -1,5 +1,6 @@
 package com.android.ocasa.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -22,6 +23,14 @@ public class Application {
 
     @ForeignCollectionField(eager = true, maxEagerForeignCollectionLevel = 3)
     private Collection<Category> categories;
+
+    @SerializedName("record_color")
+    @DatabaseField
+    private String recordColor;
+
+    @SerializedName("receipt_color")
+    @DatabaseField
+    private String receiptColor;
 
     public Application() {
     }
@@ -48,5 +57,21 @@ public class Application {
 
     public void setCategories(ArrayList<Category> categories) {
         this.categories = categories;
+    }
+
+    public String getRecordColor() {
+        return recordColor;
+    }
+
+    public void setRecordColor(String recordColor) {
+        this.recordColor = recordColor;
+    }
+
+    public String getReceiptColor() {
+        return receiptColor;
+    }
+
+    public void setReceiptColor(String receiptColor) {
+        this.receiptColor = receiptColor;
     }
 }

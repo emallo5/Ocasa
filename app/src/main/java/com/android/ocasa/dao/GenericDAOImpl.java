@@ -8,6 +8,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -53,7 +54,11 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
         try {
             dao.callBatchTasks(new Callable<Void>() {
                 public Void call() throws SQLException {
-                    for (T entity : entities) {
+
+                    List<T> items = new ArrayList<T>(entities);
+
+                    for (int index = 0; index < entities.size(); index++) {
+                        T entity = items.get(index);
                         dao.createOrUpdate(entity);
                     }
                     return null;

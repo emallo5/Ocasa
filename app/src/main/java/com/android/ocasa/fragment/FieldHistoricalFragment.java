@@ -8,15 +8,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.ocasa.R;
-import com.android.ocasa.activity.DetailReceiptActivity;
 import com.android.ocasa.adapter.HistoricalAdapter;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.core.fragment.RecyclerListFragment;
 import com.android.ocasa.dao.HistoryDAO;
 import com.android.ocasa.event.ReceiptHistoryClickEvent;
-import com.android.ocasa.event.ReceiptItemEvent;
 import com.android.ocasa.loader.FieldTaskLoader;
 import com.android.ocasa.model.History;
+import com.android.ocasa.receipt.detail.DetailReceiptActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import org.greenrobot.eventbus.EventBus;
@@ -83,7 +82,6 @@ public class FieldHistoricalFragment extends RecyclerListFragment implements Loa
         intent.putExtra(DetailReceiptActivity.EXTRA_RECEIPT_ID, history.getReceipt().getId());
         ((BaseActivity) getActivity()).startNewActivity(intent);
     }
-
 
     @Override
     public Loader<List<History>> onCreateLoader(int id, Bundle args) {

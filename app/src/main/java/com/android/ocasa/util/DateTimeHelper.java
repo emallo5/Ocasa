@@ -14,9 +14,9 @@ import java.util.TimeZone;
 public class DateTimeHelper {
 
     static final String TIMEZONE_PATTERN = "Z";
-    static final String DATE_PATTERN = "yyyy/MM/dd";
+    static final String DATE_PATTERN = "dd/MM/yyyy";
     static final String TIME_PATTERN = "HH:mm";
-    static final String DATETIME_PATTERN = "yyyy/MM/dd HH:mm:sss";
+    static final String DATETIME_PATTERN = "dd/MM/yyyy HH:mm";
 
     public static Date parseTime(String time){
 

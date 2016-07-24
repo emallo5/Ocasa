@@ -19,6 +19,7 @@ import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.dao.RecordDAO;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.pickup.util.PickupItemConfirmationDialog;
+import com.android.ocasa.util.InformationDialogFragment;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.w3c.dom.Text;
@@ -34,7 +35,9 @@ import me.dm7.barcodescanner.zbar.ZBarScannerView;
 /**
  * Created by Emiliano Mallo on 21/04/16.
  */
-public class ScannerActivity extends BaseActivity implements ZBarScannerView.ResultHandler, PickupItemConfirmationDialog.OnConfirmationListener {
+public class ScannerActivity extends BaseActivity implements ZBarScannerView.ResultHandler,
+        PickupItemConfirmationDialog.OnConfirmationListener,
+        InformationDialogFragment.OnIformationClickListener{
 
     public static final String EXTRA_RESULT_CODES = "codes";
     public static final String EXTRA_RESULT_CODE = "code";
@@ -179,12 +182,23 @@ public class ScannerActivity extends BaseActivity implements ZBarScannerView.Res
     }
 
     private void handleCode(String code, long recordId){
+
+        if(codes.contains(code)){
+            InformationDialogFragment.newInstance("Codigo ya leido", "El codigo " + code + " ya fue leido!").show(getSupportFragmentManager(), "ConfirmationDialog");
+            return;
+        }
+
         codes.add(code);
         recordIds.add(recordId);
         countView.setText("Codigos leidos: " + codes.size());
         lastCode.setText(code);
         mScannerView.resumeCameraPreview(ScannerActivity.this);
         //deliverResponse(code);
+    }
+
+    @Override
+    public void onCloseDialog() {
+        mScannerView.resumeCameraPreview(ScannerActivity.this);
     }
 
     public class CheckResult{

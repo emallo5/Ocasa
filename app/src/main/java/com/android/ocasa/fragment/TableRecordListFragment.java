@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.ocasa.adapter.RecordAdapterTest;
-import com.android.ocasa.core.fragment.RecyclerListFragment;
+import com.android.ocasa.core.fragment.RecyclerListActionFragment;
 import com.android.ocasa.event.ReceiptItemEvent;
 import com.android.ocasa.loader.TableTaskLoader;
 import com.android.ocasa.viewmodel.TableViewModel;
@@ -20,7 +20,7 @@ import org.greenrobot.eventbus.Subscribe;
 /**
  * Ignacio Oviedo on 15/02/16.
  */
-public abstract class TableRecordListFragment extends RecyclerListFragment implements LoaderManager.LoaderCallbacks<TableViewModel>{
+public abstract class TableRecordListFragment extends RecyclerListActionFragment implements LoaderManager.LoaderCallbacks<TableViewModel>{
 
     public static final String ARG_TABLE_ID = "table_id";
     public static final String ARG_SEARCH_QUERY = "search_query";

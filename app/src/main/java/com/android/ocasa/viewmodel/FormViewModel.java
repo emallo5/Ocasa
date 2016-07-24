@@ -16,6 +16,8 @@ public class FormViewModel {
 
     private List<PairViewModel> status;
 
+    private String color;
+
     public FormViewModel(){
         this.fields = new ArrayList<>();
         this.status = new ArrayList<>();
@@ -63,5 +65,13 @@ public class FormViewModel {
 
     public void setStatus(List<PairViewModel> status) {
         this.status = status;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
