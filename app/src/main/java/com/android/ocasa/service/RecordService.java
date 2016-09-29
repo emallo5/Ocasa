@@ -57,8 +57,19 @@ public class RecordService {
         dao.update(record.getFields());
     }
 
+    public void updateRecord(Record record){
+        RecordDAO.getInstance(context).update(record);
+
+        FieldDAO dao = new FieldDAO(context);
+        dao.update(record.getFields());
+    }
+
     public FormViewModel getFormFromRecord(long recordId){
           return getFormFromRecordAndReceipt(recordId, -1);
+    }
+
+    public Record findById(long recordId){
+        return RecordDAO.getInstance(context).findById(recordId);
     }
 
     public FormViewModel getFormFromRecordAndReceipt(long recordId, long receiptId){
@@ -74,7 +85,14 @@ public class RecordService {
 
         Table table = new TableDAO(context).findById(record.getTable().getId());
 
-        Category category = new CategoryDAO(context).findById(table.getCategory().getId());
+        Category category = table.getCategory();
+
+        if(category == null){
+            Receipt receipt = new ReceiptDAO(context).findById(receiptId);
+            category = new CategoryDAO(context).findById(receipt.getAction().getCategory().getId());
+        }else{
+            category = new CategoryDAO(context).findById(category.getId());
+        }
 
         Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
 
@@ -94,6 +112,7 @@ public class RecordService {
 
             if(history != null && history.getReceipt().getId() == receiptId){
                 fieldViewModel.setValue(history.getValue());
+                field.setValue(history.getValue());
             }
 
             if(field.getColumn().getFieldType() == FieldType.COMBO){
@@ -120,8 +139,13 @@ public class RecordService {
 
         Table table = new TableDAO(context).findById(record.getTable().getId());
 
+        Category category = new CategoryDAO(context).findById(table.getCategory().getId());
+
+        Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
+
         FormViewModel form = convertRecord(record);
         form.setTitle(table.getName());
+        form.setColor(application.getRecordColor());
 
         List<Field> fields = new ArrayList<>(record.getFields());
 
@@ -245,6 +269,9 @@ public class RecordService {
         Column primaryColumn = new ColumnDAO(context).findPrimaryKeyColumnForTable(field.getColumn().getRelationship().getId());
 
         Record record = RecordDAO.getInstance(context).findForColumnAndValue(primaryColumn.getId(), field.getValue());
+
+        if(record == null)
+            return relationship;
 
         List<Field> fields = record.getLogicFields();
 

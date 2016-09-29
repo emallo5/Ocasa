@@ -131,7 +131,8 @@ public enum FieldType {
         public FieldViewFactory getFieldFactory() {
             return new ListFieldFactory();
         }
-    };
+    },
+    SIGNATURE("signature");
 
     private String apiName;
 
@@ -162,6 +163,6 @@ public enum FieldType {
             }
         }
 
-        return null;
+        return FieldType.TEXT;
     }
 }

@@ -1,5 +1,6 @@
 package com.android.ocasa.receipt.item.update;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.Loader;
 
@@ -42,6 +43,7 @@ public class UpdateReceiptItemFragment extends FormFragment {
     @Override
     public void onFormSuccess(FormViewModel form) {
         super.onFormSuccess(form);
+        container.setCardBackgroundColor(Color.parseColor(form.getColor()));
         if(ReceiptCacheManager.getInstance().recordExists(form.getId())){
             fillFromCache();
             return;

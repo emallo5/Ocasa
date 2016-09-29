@@ -7,7 +7,6 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by ignacio on 14/01/16.
@@ -15,21 +14,24 @@ import java.util.List;
 @DatabaseTable(tableName = "applications")
 public class Application {
 
+    @SerializedName("Id")
     @DatabaseField(id = true)
     private String id;
 
+    @SerializedName("Name")
     @DatabaseField
     private String name;
 
+    @SerializedName("Categories")
     @ForeignCollectionField(eager = true, maxEagerForeignCollectionLevel = 3)
     private Collection<Category> categories;
 
     @SerializedName("record_color")
-    @DatabaseField
+    @DatabaseField(defaultValue = "#33BDC2")
     private String recordColor;
 
     @SerializedName("receipt_color")
-    @DatabaseField
+    @DatabaseField(defaultValue = "#33BDC2")
     private String receiptColor;
 
     public Application() {

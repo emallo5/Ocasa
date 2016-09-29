@@ -136,6 +136,10 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         fillFields(form.getFields());
     }
 
+    public void setRecordForm(FormViewModel form){
+        this.record = form;
+    }
+
     public void fillFields(List<FieldViewModel> fields){
         fillFields(fields, false);
     }

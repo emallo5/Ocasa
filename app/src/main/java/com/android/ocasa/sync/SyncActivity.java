@@ -1,12 +1,18 @@
 package com.android.ocasa.sync;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
 
 import com.android.ocasa.R;
+import com.android.ocasa.core.LocationMvpActivity;
 import com.android.ocasa.home.HomeActivity;
 import com.codika.androidmvp.activity.BaseMvpActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -16,10 +22,12 @@ import com.facebook.drawee.view.SimpleDraweeView;
 /**
  * Created by ignacio on 21/06/16.
  */
-public class SyncActivity extends BaseMvpActivity<SyncView, SyncPresenter> implements SyncView{
+public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> implements SyncView{
+
+    static final long FIVE_MINUTES = 1000 * 60 * 5;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_sync);
 
@@ -36,7 +44,22 @@ public class SyncActivity extends BaseMvpActivity<SyncView, SyncPresenter> imple
     @Override
     public void onResume() {
         super.onResume();
-        getPresenter().sync();
+//        getPresenter().sync(0, 0);
+    }
+
+    @Override
+    public void onLocationLoad(Location lastLocation) {
+        super.onLocationLoad(lastLocation);
+
+        double latitude = 0;
+        double longitude = 0;
+
+        if(lastLocation != null){
+            latitude = lastLocation.getLatitude();
+            longitude = lastLocation.getLongitude();
+        }
+
+        getPresenter().sync(latitude, longitude);
     }
 
     @Override
@@ -51,7 +74,21 @@ public class SyncActivity extends BaseMvpActivity<SyncView, SyncPresenter> imple
 
     @Override
     public void onSyncFinish() {
+        setSyncAlarm();
         startActivity(new Intent(this, HomeActivity.class));
         finish();
+    }
+
+    private void setSyncAlarm(){
+
+        Intent syncIntent = new Intent(this, SyncService.class);
+
+        PendingIntent pendingIntent = PendingIntent.getService(this, 0, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + FIVE_MINUTES,
+                FIVE_MINUTES,
+                pendingIntent);
     }
 }

@@ -50,7 +50,16 @@ public class DateFieldFactory extends FieldViewFactory {
 
     @Override
     public View createView(ViewGroup container, FieldViewModel field, boolean isEditMode) {
-        return null;
+        FieldDateView dateField = (FieldDateView) LayoutInflater
+                .from(container.getContext()).inflate(R.layout.field_date, container, false);
+
+        dateField.setLabel(field.getLabel());
+
+        if(isEditMode){
+            dateField.getField().getAction().setVisibility(View.INVISIBLE);
+        }
+
+        return dateField;
     }
 
     public void initField(TextFieldView fieldView, Field field, boolean isEditMode){

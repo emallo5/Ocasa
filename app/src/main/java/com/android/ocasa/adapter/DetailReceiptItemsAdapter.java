@@ -1,5 +1,6 @@
 package com.android.ocasa.adapter;
 
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.android.ocasa.R;
 import com.android.ocasa.event.ReceiptItemDeleteEvent;
 import com.android.ocasa.event.ReceiptItemEvent;
 import com.android.ocasa.viewmodel.CellViewModel;
+import com.android.ocasa.viewmodel.FieldViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -57,8 +59,18 @@ public class DetailReceiptItemsAdapter extends RecyclerView.Adapter<DetailReceip
         holder.number.setText("#" + (getItemCount() - position));
 
         for (int index = 0; index < holder.fields.size(); index++){
+            FieldViewModel field = record.getFields().get(index);
+
             TextView text = holder.fields.get(index);
             text.setText(record.getFields().get(index).getValue());
+
+            if(field.isHighlight()){
+                text.setTypeface(null, Typeface.BOLD);
+                text.setTextSize(18);
+            }else{
+                text.setTypeface(null, Typeface.NORMAL);
+                text.setTextSize(14);
+            }
         }
     }
 

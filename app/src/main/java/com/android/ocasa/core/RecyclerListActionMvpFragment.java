@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 
 import com.android.ocasa.core.fragment.BaseFragment;
+import com.android.ocasa.viewmodel.CellViewModel;
 import com.codika.androidmvp.fragment.BaseMvpFragment;
 import com.codika.androidmvp.presenter.BasePresenter;
 import com.codika.androidmvp.view.BaseView;

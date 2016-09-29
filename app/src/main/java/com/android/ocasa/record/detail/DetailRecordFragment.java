@@ -27,7 +27,6 @@ public class DetailRecordFragment extends FormFragment implements
 
     static final String ARG_RECORD_ID = "record_id";
 
-
     public static DetailRecordFragment newInstance(long recordId) {
 
         Bundle args = new Bundle();

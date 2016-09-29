@@ -15,7 +15,7 @@ public class EditHeaderReceiptPresenter extends FormPresenter {
 
     public void load(String actionId) {
         OcasaService.getInstance()
-                .headerreceipt(actionId)
+                .headerReceipt(actionId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<FormViewModel>() {

@@ -7,6 +7,7 @@ import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.viewmodel.ReceiptFormViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
 import com.codika.androidmvp.presenter.BasePresenter;
+import com.codika.androidmvprx.presenter.BaseRxPresenter;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -15,7 +16,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ignacio on 07/07/16.
  */
-public class BaseReceiptPresenter extends BasePresenter<BaseReceiptView> {
+public class BaseReceiptPresenter extends BaseRxPresenter<BaseReceiptView> {
 
     public BaseReceiptPresenter(){
     }
@@ -46,7 +47,8 @@ public class BaseReceiptPresenter extends BasePresenter<BaseReceiptView> {
 
     public void items(long receiptId){
 
-        OcasaService.getInstance().receiptItems(receiptId)
+        OcasaService.getInstance()
+                .receiptItems(receiptId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<TableViewModel>() {

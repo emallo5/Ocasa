@@ -6,7 +6,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.android.ocasa.adapter.RecordAdapterTest;
+import com.android.ocasa.adapter.RecordAdapter;
 import com.android.ocasa.event.ReceiptItemEvent;
 import com.android.ocasa.viewmodel.TableViewModel;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
@@ -69,9 +69,9 @@ public class TableFragment extends RecyclerListActionMvpFragment<TableView, Tabl
 
         if(getAdapter() == null) {
             setListShown(true);
-            setAdapter(new RecordAdapterTest(table.getCells()));
+            setAdapter(new RecordAdapter(table));
         }else{
-            ((RecordAdapterTest)getAdapter()).refreshItems(table.getCells());
+            ((RecordAdapter)getAdapter()).refreshItems(table);
         }
     }
 

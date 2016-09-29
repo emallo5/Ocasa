@@ -1,7 +1,7 @@
 package com.android.ocasa.fragment;
 
-import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.android.ocasa.R;
 import com.android.ocasa.loader.TableTaskLoader;
-import com.android.ocasa.model.Record;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
 
@@ -60,7 +59,7 @@ public class ComboPickerDialog extends DialogFragment implements LoaderManager.L
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
 
         try {

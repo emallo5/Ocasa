@@ -1,5 +1,6 @@
 package com.android.ocasa.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -12,15 +13,23 @@ import java.util.Collection;
 @DatabaseTable(tableName = "categories")
 public class Category {
 
+    @SerializedName("Id")
     @DatabaseField(id = true)
     private String id;
 
+    @SerializedName("Name")
     @DatabaseField
     private String name;
 
+    @SerializedName("Visible")
+    @DatabaseField
+    private boolean isVisible;
+
+    @SerializedName("Tables")
     @ForeignCollectionField(eager = true)
     private Collection<Table> tables;
 
+    @SerializedName("Actions")
     @ForeignCollectionField(eager = true)
     private Collection<Action> actions;
 
@@ -68,5 +77,13 @@ public class Category {
 
     public void setApplication(Application application) {
         this.application = application;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
     }
 }

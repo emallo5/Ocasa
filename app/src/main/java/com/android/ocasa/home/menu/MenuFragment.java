@@ -7,8 +7,6 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -59,13 +57,6 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     public interface OnMenuItemClickListener{
         void onTableClick(Table table);
         void onActionClick(Action action);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-//        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -123,9 +114,9 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 MenuOptionsAdapter adapter = (MenuOptionsAdapter) list.getAdapter();
 
-                if (adapter.getItemViewType(position) == 2) {
+                if (adapter.getItemViewType(position) == 1) {
                     callback.onTableClick((Table) list.getItemAtPosition(position));
-                }else if(adapter.getItemViewType(position) == 3){
+                }else if(adapter.getItemViewType(position) == 2){
                     callback.onActionClick((Action) list.getItemAtPosition(position));
                 }
             }
@@ -243,7 +234,15 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
 
         appList.setAdapter(new MenuAdapter(applications));
 
-        callback.onTableClick(new ArrayList<>(new ArrayList<>(applications.get(0).getCategories()).get(0).getTables()).get(0));
+        Category category = new ArrayList<>(applications.get(0).getCategories()).get(0);
+
+        List<Table> tables = new ArrayList<>(category.getTables());
+
+        if(tables.size() > 0){
+            callback.onTableClick(tables.get(0));
+        }else{
+            callback.onActionClick(new ArrayList<>(category.getActions()).get(0));
+        }
     }
 
     private void refreshMenuOptions(){

@@ -27,5 +27,4 @@ public class LoginFlowActivity extends BaseActivity implements LoginFragment.Log
         startActivity(new Intent(this, SyncActivity.class));
         finish();
     }
-
 }

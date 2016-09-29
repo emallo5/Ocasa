@@ -1,5 +1,6 @@
 package com.android.ocasa.receipt.item.detail;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.Loader;
 
@@ -50,6 +51,7 @@ public class DetailReceiptItemFragment extends FormFragment {
     @Override
     public void onFormSuccess(FormViewModel form) {
         super.onFormSuccess(form);
+        container.setCardBackgroundColor(Color.parseColor(form.getColor()));
         setTitle(getString(R.string.detail_title, form.getTitle()));
     }
 

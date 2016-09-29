@@ -1,5 +1,7 @@
 package com.android.ocasa.core;
 
+import android.util.Log;
+
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.codika.androidmvp.presenter.BasePresenter;
@@ -12,6 +14,8 @@ import rx.schedulers.Schedulers;
  * Created by ignacio on 11/07/16.
  */
 public class FormPresenter extends BasePresenter<FormView> {
+
+    static final String TAG = "FormPresenter";
 
     public void load(long recordId){
         OcasaService.getInstance()
@@ -26,7 +30,7 @@ public class FormPresenter extends BasePresenter<FormView> {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.v(TAG, e.getMessage());
                     }
 
                     @Override

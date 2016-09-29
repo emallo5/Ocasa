@@ -8,11 +8,15 @@ import java.util.List;
  */
 public class TableViewModel {
 
+    private FormViewModel header;
+
     private String name;
 
     private List<CellViewModel> cells;
 
     private String color;
+
+    private boolean canAddNewRecord;
 
     public TableViewModel(){
         cells = new ArrayList<>();
@@ -40,5 +44,21 @@ public class TableViewModel {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public FormViewModel getHeader() {
+        return header;
+    }
+
+    public void setHeader(FormViewModel header) {
+        this.header = header;
+    }
+
+    public boolean canAddNewRecord() {
+        return canAddNewRecord;
+    }
+
+    public void setCanAddNewRecord(boolean canAddNewRecord) {
+        this.canAddNewRecord = canAddNewRecord;
     }
 }

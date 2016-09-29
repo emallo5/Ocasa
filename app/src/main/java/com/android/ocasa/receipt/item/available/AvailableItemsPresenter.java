@@ -30,8 +30,9 @@ public class AvailableItemsPresenter extends TablePresenter {
                     }
 
                     @Override
-                    public void onNext(TableViewModel tableViewModel) {
-                        getView().onTableLoadSuccess(tableViewModel);
+                    public void onNext(TableViewModel table) {
+                        getView().onTableLoadSuccess(table);
+                        setTable(table);
                     }
                 });
     }

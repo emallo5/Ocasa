@@ -11,6 +11,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.List;
  */
 public class Menu {
 
+    @SerializedName("Applications")
     private List<Application> applications;
 
     public Menu(){ }
@@ -43,14 +45,16 @@ public class Menu {
             Action action = new Action();
             JsonObject jObject = json.getAsJsonObject();
 
-            action.setId(jObject.get("id").getAsString());
-            action.setName(jObject.get("name").getAsString());
 
-            action.setColumnsHeader(parserColumns(jObject.getAsJsonArray("columns_header"), ColumnAction.ColumnActionType.HEADER));
-            action.setColumnsDetail(parserColumns(jObject.getAsJsonArray("columns_detail"), ColumnAction.ColumnActionType.DETAIL));
+            action.setId(jObject.get("Id").getAsString());
+            action.setName(jObject.get("Name").getAsString());
 
             Table table = new Table();
-            table.setId(jObject.get("table_id").getAsString());
+            table.setId(jObject.get("Table_id").getAsString());
+            table.setType(jObject.has("Type") ? jObject.get("Type").getAsString() : "");
+
+            action.setColumnsHeader(parserColumns(table.getId(), jObject.getAsJsonArray("Columns_header"), ColumnAction.ColumnActionType.HEADER));
+            action.setColumnsDetail(parserColumns(table.getId(), jObject.getAsJsonArray("Columns_detail"), ColumnAction.ColumnActionType.DETAIL));
 
             action.setTable(table);
 
@@ -58,7 +62,7 @@ public class Menu {
 
         }
 
-        private List<ColumnAction> parserColumns(JsonArray columns, ColumnAction.ColumnActionType type){
+        private List<ColumnAction> parserColumns(String tableId, JsonArray columns, ColumnAction.ColumnActionType type){
 
             List<ColumnAction> columnsAction = new ArrayList<>();
 
@@ -69,13 +73,13 @@ public class Menu {
                 JsonObject jObject = jColumn.getAsJsonObject();
 
                 Column column = new Column();
-                column.setId(jObject.get("column_id").getAsString());
+                column.setId(tableId + "|" + jObject.get("Column_id").getAsString());
 
                 columnAction.setColumn(column);
 
-                columnAction.setEditable(!jObject.has("editable") || jObject.get("editable").getAsBoolean());
-                columnAction.setDefaultValue(jObject.get("default").getAsString());
-                columnAction.setLastValue(jObject.get("last").getAsString());
+                columnAction.setEditable(!jObject.has("Editable") || jObject.get("Editable").getAsBoolean());
+                columnAction.setDefaultValue(jObject.get("Default").isJsonNull() ? "" : jObject.get("Default").getAsString());
+                columnAction.setLastValue(jObject.get("Last").isJsonNull() ? "" : jObject.get("Last").getAsString());
 
                 columnsAction.add(columnAction);
             }

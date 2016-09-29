@@ -45,7 +45,6 @@ public class Receipt {
     @DatabaseField
     private String createdAt;
 
-
     public Receipt() {
     }
 

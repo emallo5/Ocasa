@@ -2,8 +2,10 @@ package com.android.ocasa.dao;
 
 import android.content.Context;
 
+import com.android.ocasa.model.Column;
 import com.android.ocasa.model.ColumnAction;
 import com.j256.ormlite.stmt.DeleteBuilder;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -20,7 +22,16 @@ public class ColumnActionDAO extends GenericDAOImpl<ColumnAction, Integer> {
     public List<ColumnAction> findColumnsForActionAndType(String actionId, ColumnAction.ColumnActionType type){
 
         try {
-            return dao.queryBuilder().where().eq("action_id", actionId).and().eq("type", type).query();
+            QueryBuilder<ColumnAction, Integer> columnActionBuilder = dao.queryBuilder();
+
+            QueryBuilder<Column, String> columnQueryBuilder = new ColumnDAO(context).getDao().queryBuilder();
+            columnQueryBuilder.orderBy("order", true);
+
+            columnActionBuilder.join(columnQueryBuilder);
+
+            columnActionBuilder.where().eq("action_id", actionId).and().eq("type", type);
+
+            return columnActionBuilder.query();
         } catch (SQLException e) {
             e.printStackTrace();
         }

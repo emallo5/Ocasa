@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion '24.0.2'
 
     defaultConfig {
         applicationId "com.android.ocasa"
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -29,7 +29,7 @@ android {
         dev {
             applicationId "com.android.ocasa.dev"
             resValue "string", "app_name", "Ocasa dev"
-            buildConfigField "String", BASE_URL, "\"http://192.168.25.26/\""
+            buildConfigField "String", BASE_URL, "\"http://wsandroid.ocasa.com/\""
         }
 
         production {
@@ -41,7 +41,7 @@ android {
         local {
             applicationId "com.android.ocasa.local"
             resValue "string", "app_name", "Ocasa Local"
-            buildConfigField "String", BASE_URL, "\"http://172.19.2.17:7878/\""
+            buildConfigField "String", BASE_URL, "\"http://172.19.2.64:7878/\""
         }
     }
 
@@ -59,10 +59,10 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile 'junit:junit:4.12'
     testCompile 'junit:junit:4.12'
-    compile 'com.google.android.gms:play-services-vision:9.2.1'
-    compile 'com.google.android.gms:play-services-maps:9.2.1'
-    compile 'com.google.android.gms:play-services-location:9.2.1'
-    compile 'com.facebook.fresco:fresco:0.9.+'
+    compile 'com.google.android.gms:play-services-vision:9.6.0'
+    compile 'com.google.android.gms:play-services-maps:9.6.0'
+    compile 'com.google.android.gms:play-services-location:9.6.0'
+    compile 'com.facebook.fresco:fresco:0.9.0'
     compile 'com.yqritc:recyclerview-flexibledivider:1.2.4'
     compile 'com.crittercism:crittercism-android-agent:5.5.1'
     compile 'org.greenrobot:eventbus:3.0.0'
@@ -84,4 +84,5 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     compile 'com.sun.mail:android-mail:1.5.5'
     compile 'com.sun.mail:android-activation:1.5.5'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
 }

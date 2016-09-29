@@ -46,6 +46,12 @@ public class Column {
     @DatabaseField
     private boolean highlight;
 
+    @DatabaseField
+    private boolean visible;
+
+    @DatabaseField
+    private String defaultValue;
+
     public Column() {}
 
     public String getId() {
@@ -142,5 +148,21 @@ public class Column {
 
     public void setHighlight(boolean highlight) {
         this.highlight = highlight;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
     }
 }

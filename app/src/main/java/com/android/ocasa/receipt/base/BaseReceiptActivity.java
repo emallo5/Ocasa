@@ -23,9 +23,6 @@ public class BaseReceiptActivity extends BarActivity{
         super.onCreate(savedInstanceState);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        if(savedInstanceState != null)
-            return;
     }
 
     @Override

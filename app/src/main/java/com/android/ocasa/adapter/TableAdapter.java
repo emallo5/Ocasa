@@ -14,7 +14,7 @@ import com.android.ocasa.model.Table;
  */
 public class TableAdapter implements DelegateListAdapter {
 
-    static final int TABLE_TYPE = 2;
+    static final int TABLE_TYPE = 1;
 
     private Table table;
 

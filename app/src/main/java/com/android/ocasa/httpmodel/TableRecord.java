@@ -1,9 +1,7 @@
 package com.android.ocasa.httpmodel;
 
 import com.android.ocasa.model.Column;
-import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.Field;
-import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.Record;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -11,6 +9,9 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.List;
  */
 public class TableRecord {
 
+    @SerializedName("Records")
     private List<Record> records;
 
     public List<Record> getRecords() {
@@ -42,9 +44,9 @@ public class TableRecord {
 
             JsonObject jObject = json.getAsJsonObject();
 
-            record.setExternalId(jObject.has("id") ? jObject.get("id").getAsString() : "");
+            record.setExternalId(jObject.has("Id") ? jObject.get("Id").getAsString() : "");
             record.setStatus(jObject.has("status") ? jObject.get("status").getAsString() : "");
-            record.setFields(parserFields(jObject.getAsJsonArray("fields")));
+            record.setFields(parserFields(jObject.getAsJsonArray("Fields")));
 
             return record;
 
@@ -58,10 +60,10 @@ public class TableRecord {
                 Field field = new Field();
                 JsonObject jObject = jField.getAsJsonObject();
 
-                field.setValue(jObject.get("value").getAsString());
+                field.setValue(jObject.get("Value").getAsString());
 
                 Column column = new Column();
-                column.setId(jObject.get("column_id").getAsString());
+                column.setId(jObject.get("Column_id").getAsString());
 
                 field.setColumn(column);
 
@@ -71,4 +73,34 @@ public class TableRecord {
             return fields;
         }
     }
+
+    public static class RecordSerializer implements JsonSerializer<Record>{
+
+        @Override
+        public JsonElement serialize(Record src, Type typeOfSrc, JsonSerializationContext context) {
+
+            JsonObject jRecord = new JsonObject();
+
+            jRecord.addProperty("Id", src.getExternalId());
+
+            JsonArray jFields = new JsonArray();
+
+            List<Field> fields = new ArrayList<>(src.getFields());
+
+            for (int index = 0; index < fields.size(); index++){
+                Field field = fields.get(index);
+
+                JsonObject jField = new JsonObject();
+                jField.addProperty("Column_id", field.getColumn().getId());
+                jField.addProperty("Value", field.getValue());
+
+                jFields.add(jField);
+            }
+
+            jRecord.add("Fields", jFields);
+
+            return jRecord;
+        }
+    }
 }
+

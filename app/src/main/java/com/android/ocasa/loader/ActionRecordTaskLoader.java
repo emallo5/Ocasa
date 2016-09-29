@@ -69,11 +69,14 @@ import java.util.List;
         if(table == null)
             return null;
 
-        Category category = new CategoryDAO(getContext()).findById(table.getCategory().getId());
+        Category category = table.getCategory();
 
-        Application application = new ApplicationDAO(getContext()).findById(category.getApplication().getId());
+        if(category != null){
+            category = new CategoryDAO(getContext()).findById(category.getId());
+            Application application = new ApplicationDAO(getContext()).findById(category.getApplication().getId());
 
-        tableView.setColor(application.getRecordColor());
+            tableView.setColor(application.getRecordColor());
+        }
 
         List<Record> records = RecordDAO.getInstance(getContext()).findForTableAndQuery(tableId, query, excludeIds);
 
@@ -86,7 +89,7 @@ import java.util.List;
 //            }
 //        }
 
-        records = filter(records, action);
+//        records = filter(records, action);
 
         for (int index = 0; index < records.size(); index++){ //Record record: records){//filter(records, action)) {
             Record record = records.get(index);
@@ -94,7 +97,7 @@ import java.util.List;
             CellViewModel cell = new CellViewModel();
             cell.setId(record.getId());
 
-            fillCell(cell, record.getLogicFields());
+            fillCell(cell, record.getVisibleFields());
             tableView.addCell(cell);
         }
 

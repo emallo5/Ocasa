@@ -52,8 +52,8 @@ public class EditHeaderReceiptFragment extends FormFragment {
 
     @Override
     public void onFormSuccess(FormViewModel form) {
-        super.onFormSuccess(form);
-
+        setRecordForm(form);
+        fillFields(form.getFields(), true);
         container.setCardBackgroundColor(Color.parseColor(form.getColor()));
 
         setTitle("Nuevo " + form.getTitle());

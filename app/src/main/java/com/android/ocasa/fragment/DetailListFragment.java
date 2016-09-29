@@ -6,24 +6,13 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.TextView;
 
-import com.android.ocasa.R;
 import com.android.ocasa.adapter.DetailAdapter;
-import com.android.ocasa.core.fragment.BaseFragment;
 import com.android.ocasa.core.fragment.RecyclerListFragment;
 import com.android.ocasa.loader.DetailListTaskLoader;
-import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Record;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

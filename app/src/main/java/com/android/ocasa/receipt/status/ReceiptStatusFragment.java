@@ -1,5 +1,6 @@
 package com.android.ocasa.receipt.status;
 
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -49,7 +50,7 @@ public class ReceiptStatusFragment extends FormFragment {
     @Override
     public void onFormSuccess(FormViewModel form) {
         setTitle(form.getTitle());
-
+        container.setCardBackgroundColor(Color.parseColor(form.getColor()));
         fillStatus(form.getStatus(), false);
     }
 
@@ -75,12 +76,14 @@ public class ReceiptStatusFragment extends FormFragment {
 
         if(lastLocation != null) {
             TextView location = new TextView(getActivity());
+            location.setTextColor(Color.WHITE);
             location.setText(lastLocation.getLatitude() + " " + lastLocation.getLongitude());
 
             formContainer.addView(location);
         }
 
         TextView time = new TextView(getActivity());
+        time.setTextColor(Color.WHITE);
         time.setText(DateTimeHelper.formatDateTime(new Date()) + " " + DateTimeHelper.getDeviceTimezone());
         formContainer.addView(time);
 

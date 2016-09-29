@@ -68,9 +68,14 @@ public class CreateRecordFragment extends FormFragment {
 
     @Override
     public void onFormSuccess(FormViewModel form) {
+
+        form.getFields().get(0).setValue("");
         form.getFields().get(0).setEditable(true);
-        super.onFormSuccess(form);
+//        super.onFormSuccess(form);
+        setRecordForm(form);
         setTitle("Nuevo " + form.getTitle());
+
+        fillFields(form.getFields(), true);
 
         container.setCardBackgroundColor(Color.parseColor(form.getColor()));
     }

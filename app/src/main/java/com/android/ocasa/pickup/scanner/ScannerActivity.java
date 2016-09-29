@@ -22,11 +22,8 @@ import com.android.ocasa.pickup.util.PickupItemConfirmationDialog;
 import com.android.ocasa.util.InformationDialogFragment;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import me.dm7.barcodescanner.zbar.Result;

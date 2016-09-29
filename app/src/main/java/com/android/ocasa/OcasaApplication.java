@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.android.ocasa.api.OcasaApi;
+import com.android.ocasa.api.RxApiCallAdapterFactory;
 import com.android.ocasa.httpmodel.HttpTable;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.httpmodel.TableRecord;
@@ -18,6 +19,8 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheContextUtils;
+
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -37,7 +40,7 @@ public class OcasaApplication extends Application{
     public void onCreate() {
         super.onCreate();
 
-        api = provideFiviApi();
+        api = provideOcasaApi();
 
         SessionManager.getInstance().init(getSharedPreferences("Session", MODE_PRIVATE));
         OcasaService.getInstance().init(this, api);
@@ -59,12 +62,14 @@ public class OcasaApplication extends Application{
         return api;
     }
 
-    private OcasaApi provideFiviApi() {
+    private OcasaApi provideOcasaApi() {
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+//        httpClient.connectTimeout(1, TimeUnit.MINUTES);
+//        httpClient.readTimeout(1, TimeUnit.MINUTES);
 
         if (BuildConfig.DEBUG)
             httpClient.interceptors().add(logging);
@@ -72,6 +77,7 @@ public class OcasaApplication extends Application{
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Action.class, new Menu.ActionDeserializer())
                 .registerTypeAdapter(Record.class, new TableRecord.RecordDeserializer())
+                .registerTypeAdapter(Record.class, new TableRecord.RecordSerializer())
                 .registerTypeAdapter(Column.class, new HttpTable.ColumnDeserializer())
                 .create();
 
@@ -79,7 +85,7 @@ public class OcasaApplication extends Application{
                 .client(httpClient.build())
                 .baseUrl(BuildConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxApiCallAdapterFactory.create())
                 .build();
 
         return retrofit.create(OcasaApi.class);

@@ -1,14 +1,11 @@
 package com.android.ocasa.adapter;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
-import com.android.ocasa.core.adapter.AdapterItem;
-import com.android.ocasa.core.adapter.DelegateAdapter;
 import com.android.ocasa.core.adapter.DelegateListAdapter;
 import com.android.ocasa.model.Category;
 
@@ -17,7 +14,7 @@ import com.android.ocasa.model.Category;
  */
 public class CategoryAdapter implements DelegateListAdapter{
 
-    static final int CATEGORY_TYPE = 1;
+    static final int CATEGORY_TYPE = 0;
 
     private Category category;
 

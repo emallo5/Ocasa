@@ -34,6 +34,7 @@ public class HomeFragment extends FilterTableFragment {
         super.onActivityCreated(savedInstanceState);
 
         getAction().setImageResource(R.drawable.ic_content_add);
+        getAction().setVisibility(View.GONE);
         getAction().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +57,10 @@ public class HomeFragment extends FilterTableFragment {
     @Override
     public void onTableLoadSuccess(TableViewModel table) {
         super.onTableLoadSuccess(table);
+
+        if(table.canAddNewRecord()){
+            getAction().setVisibility(View.VISIBLE);
+        }
 
         if(table != null){
             ((BaseActivity)getActivity()).getDelegate().getSupportActionBar().setTitle(table.getName());

@@ -10,4 +10,10 @@ import java.util.List;
  */
 public interface EditReceiptView extends BaseReceiptView {
     void onItemsFoundSuccess(List<CellViewModel> items);
+    void onReceiptItemsEmpty();
+    void onReceiptSaveSuccess();
+    void onTakeSignature(String fieldName);
+    void onTakeText(String fieldName);
+    void showProgress();
+    void hideProgress();
 }

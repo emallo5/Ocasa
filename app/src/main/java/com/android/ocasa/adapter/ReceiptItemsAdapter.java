@@ -33,7 +33,7 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
         this.records = new ArrayList<>();
         this.records.add(record);
 
-        fieldCount = records.size() == 0 ? 0 : records.get(0).getFields().size();
+        fieldCount = records.size() == 0 ? 0 : record.getFields().size();
 
         setHasStableIds(true);
     }
@@ -100,6 +100,11 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
     }
 
     public void addItem(CellViewModel cellViewModel) {
+
+        if(fieldCount == 0){
+            fieldCount = cellViewModel.getFields().size();
+        }
+
         records.add(0, cellViewModel);
         cellViewModel.setNumber(records.size());
         notifyItemInserted(0);
@@ -107,8 +112,11 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
 
     public void addItems(List<CellViewModel> cellViewModel) {
         records.addAll(0, cellViewModel);
-//        notifyItemRangeInserted(0, cellViewModel.size());
-        notifyDataSetChanged();
+
+        if(fieldCount == 0) {
+            fieldCount = records.size() == 0 ? 0 : records.get(0).getFields().size();
+        }
+        notifyItemRangeInserted(0, cellViewModel.size());
     }
 
 

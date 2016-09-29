@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class MenuOptionsAdapter extends BaseAdapter {
 
-    static final int ACTION_TYPE = 3;
+    static final int ACTION_TYPE = 2;
 
     private List<DelegateListAdapter> items;
 
@@ -56,6 +56,11 @@ public class MenuOptionsAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         return items.get(i).createView(view, viewGroup, i);
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 3;
     }
 
     @Override

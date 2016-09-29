@@ -1,12 +1,19 @@
 package com.android.ocasa.loginflow.login;
 
-import android.content.BroadcastReceiver;
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.Loader;
+import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,16 +29,16 @@ import android.widget.TextView;
 import com.android.ocasa.R;
 import com.android.ocasa.loginflow.password.ForgotPassWordActivity;
 import com.android.ocasa.core.activity.BaseActivity;
-import com.android.ocasa.core.fragment.BaseFragment;
-import com.android.ocasa.service.UserService;
 import com.android.ocasa.session.SessionManager;
-import com.android.ocasa.sync.LoginService;
 import com.android.ocasa.util.KeyboardUtil;
+import com.codika.androidmvp.fragment.BaseMvpFragment;
 
 /**
  * Created by ignacio on 21/01/16.
  */
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends BaseMvpFragment<LoginView, LoginPresenter> implements LoginView{
+
+    static final int REQUEST_READ_PHONE_STATE = 1000;
 
     private RelativeLayout container;
     private EditText userText;
@@ -42,8 +49,7 @@ public class LoginFragment extends BaseFragment {
 
     private LoginCallback callback;
 
-    private LoginReceiver receiver;
-    private IntentFilter filter;
+    private String deviceId;
 
     public interface LoginCallback{
         void onLogin();
@@ -84,23 +90,46 @@ public class LoginFragment extends BaseFragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onStart() {
+        super.onStart();
+        loadImei();
+    }
 
-        receiver = new LoginReceiver();
-        filter = new IntentFilter(UserService.USER_LOGIN_FINISHED_ACTION);
+    private void loadImei() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE},
+                    REQUEST_READ_PHONE_STATE);
+        }else{
+            TelephonyManager mngr = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+            if (mngr.getDeviceId() != null){
+                deviceId = mngr.getDeviceId();
+            }else{
+                deviceId = Settings.Secure.getString(getActivity().getApplicationContext().getContentResolver(),
+                        Settings.Secure.ANDROID_ID);
+            }
+        }
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, filter);
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if(requestCode == REQUEST_READ_PHONE_STATE){
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                loadImei();
+            }
+        }
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
+    public LoginView getMvpView() {
+        return this;
+    }
+
+    @Override
+    public Loader<LoginPresenter> getPresenterLoader() {
+        return new LoginLoader(getActivity());
     }
 
     private void initControls(View view){
@@ -145,32 +174,51 @@ public class LoginFragment extends BaseFragment {
     private void doLogin(){
         KeyboardUtil.hideKeyboard(getActivity());
 
-        if(validateFields())
-            login();
+        String mail = userText.getText().toString();
+        String password = passwordText.getText().toString();
+
+        getPresenter().login(mail, password, deviceId);
     }
 
-    private boolean validateFields(){
-
-        if(userText.getText().toString().trim().length() == 0){
-            userText.setError(getString(R.string.login_empty_user_message));
-            return false;
-        }
-
-        if(passwordText.getText().toString().trim().length() == 0){
-            passwordText.setError(getString(R.string.login_empty_password_message));
-            return false;
-        }
-
-        return true;
+    @Override
+    public void showEmptyFieldsAlert() {
+        userText.setError(getString(R.string.login_empty_user_message));
+        passwordText.setError(getString(R.string.login_empty_user_message));
     }
 
-    private void login(){
+    @Override
+    public void showInvalidEmail() {
+        userText.setError("Email invalido");
+    }
 
+    @Override
+    public void showProgress() {
         hideContainer();
+    }
 
-        SessionManager.getInstance().saveUser(userText.getText().toString());
+    @Override
+    public void onLoginSuccess() {
+        callback.onLogin();
+    }
 
-        getActivity().startService(new Intent(getActivity(), LoginService.class));
+    @Override
+    public void onLoginError(String error) {
+        showContainer();
+
+        Snackbar.make(getView(), error, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNetworkError() {
+        showContainer();
+
+        Snackbar.make(getView(), "Error de conexión", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Reintentar", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        doLogin();
+                    }
+                }).show();
     }
 
     private void hideContainer(){
@@ -191,16 +239,6 @@ public class LoginFragment extends BaseFragment {
 
         progress.setVisibility(View.GONE);
         container.setVisibility(View.VISIBLE);
-    }
-
-    public class LoginReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            if(intent.getAction().equalsIgnoreCase(UserService.USER_LOGIN_FINISHED_ACTION))
-                callback.onLogin();
-        }
     }
 
 }

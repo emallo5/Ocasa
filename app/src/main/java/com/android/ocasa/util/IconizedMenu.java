@@ -23,11 +23,11 @@ public class IconizedMenu implements MenuBuilder.Callback, MenuPresenter.Callbac
     private OnDismissListener mDismissListener;
 
     /**
-     * Callback interface used to notify the application that the menu has closed.
+     * Callback interface used to notify the application that the applications has closed.
      */
     public interface OnDismissListener {
         /**
-         * Called when the associated menu has been dismissed.
+         * Called when the associated applications has been dismissed.
          *
          * @param menu The PopupMenu that was dismissed.
          */
@@ -47,7 +47,7 @@ public class IconizedMenu implements MenuBuilder.Callback, MenuPresenter.Callbac
         mMenu.setCallback(this);
         mAnchor = anchor;
         mPopup = new MenuPopupHelper(context, mMenu, anchor);
-        mPopup.setCallback(this);
+        mPopup.setPresenterCallback(this);
         mPopup.setForceShowIcon(true);
     }
 
@@ -63,8 +63,8 @@ public class IconizedMenu implements MenuBuilder.Callback, MenuPresenter.Callbac
     }
 
     /**
-     * @return a {@link android.view.MenuInflater} that can be used to inflate menu items from XML into the
-     * menu returned by {@link #getMenu()}.
+     * @return a {@link android.view.MenuInflater} that can be used to inflate applications items from XML into the
+     * applications returned by {@link #getMenu()}.
      *
      * @see #getMenu()
      */
@@ -73,7 +73,7 @@ public class IconizedMenu implements MenuBuilder.Callback, MenuPresenter.Callbac
     }
 
     /**
-     * Inflate a menu resource into this PopupMenu. This is equivalent to calling
+     * Inflate a applications resource into this PopupMenu. This is equivalent to calling
      * popupMenu.getMenuInflater().inflate(menuRes, popupMenu.getMenu()).
      * @param menuRes Menu resource to inflate
      */
@@ -82,7 +82,7 @@ public class IconizedMenu implements MenuBuilder.Callback, MenuPresenter.Callbac
     }
 
     /**
-     * Show the menu popup anchored to the view specified during construction.
+     * Show the applications popup anchored to the view specified during construction.
      * @see #dismiss()
      */
     public void show() {
@@ -90,7 +90,7 @@ public class IconizedMenu implements MenuBuilder.Callback, MenuPresenter.Callbac
     }
 
     /**
-     * Dismiss the menu popup.
+     * Dismiss the applications popup.
      * @see #show()
      */
     public void dismiss() {
@@ -98,7 +98,7 @@ public class IconizedMenu implements MenuBuilder.Callback, MenuPresenter.Callbac
     }
 
     /**
-     * Set a listener that will be notified when the user selects an item from the menu.
+     * Set a listener that will be notified when the user selects an item from the applications.
      *
      * @param listener Listener to notify
      */
@@ -107,7 +107,7 @@ public class IconizedMenu implements MenuBuilder.Callback, MenuPresenter.Callbac
     }
 
     /**
-     * Set a listener that will be notified when this menu is dismissed.
+     * Set a listener that will be notified when this applications is dismissed.
      *
      * @param listener Listener to notify
      */
@@ -144,7 +144,7 @@ public class IconizedMenu implements MenuBuilder.Callback, MenuPresenter.Callbac
             return true;
         }
 
-        // Current menu will be dismissed by the normal helper, submenu will be shown in its place.
+        // Current applications will be dismissed by the normal helper, submenu will be shown in its place.
         new MenuPopupHelper(mContext, subMenu, mAnchor).show();
         return true;
     }
@@ -162,12 +162,12 @@ public class IconizedMenu implements MenuBuilder.Callback, MenuPresenter.Callbac
     }
 
     /**
-     * Interface responsible for receiving menu item click events if the items themselves
+     * Interface responsible for receiving applications item click events if the items themselves
      * do not have individual item click listeners.
      */
     public interface OnMenuItemClickListener {
         /**
-         * This method will be invoked when a menu item is clicked if the item itself did
+         * This method will be invoked when a applications item is clicked if the item itself did
          * not already handle the event.
          *
          * @param item {@link MenuItem} that was clicked

@@ -23,9 +23,9 @@ public class AlertDialogFragment extends DialogFragment implements DialogInterfa
     private OnAlertClickListener callback;
 
     public interface OnAlertClickListener{
-        public void onPosiviteClick(String tag);
-        public void onNeutralClick(String tag);
-        public void onNegativeClick(String tag);
+        void onPosiviteClick(String tag);
+        void onNeutralClick(String tag);
+        void onNegativeClick(String tag);
     }
 
     public static AlertDialogFragment newInstance(String title, String message) {

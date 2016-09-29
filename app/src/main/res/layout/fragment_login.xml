@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/large_padding"
@@ -14,18 +15,18 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_above="@+id/form_container"
+            android:layout_height="match_parent"
             android:scaleType="center"
-            android:src="@drawable/logo_ocasa"/>
+            android:src="@drawable/logo_ocasa"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/form_container"/>
 
         <android.support.v7.widget.CardView
             android:id="@+id/form_container"
-            android:layout_centerInParent="true"
             app:contentPadding="@dimen/large_padding"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -38,8 +39,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:singleLine="true"
-                    android:hint="@string/login_hint_user"/>
+                    android:hint="@string/login_hint_user"
+                    android:maxLines="1" />
 
                 <EditText
                     style="@style/Input"
@@ -49,7 +50,7 @@
                     android:inputType="textPassword"
                     android:layout_marginTop="@dimen/large_padding"
                     android:imeOptions="actionDone"
-                    android:hint="@string/login_hint_password"/>
+                    android:hint="@string/login_hint_password" />
 
                 <Button
                     android:id="@+id/login_button"
@@ -59,7 +60,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:layout_marginTop="@dimen/large_padding"
                     android:background="@drawable/button_background"
-                    android:text="@string/login_button"/>
+                    android:text="@string/login_button" />
 
             </LinearLayout>
 
@@ -71,10 +72,10 @@
             android:layout_height="wrap_content"
             android:text="@string/login_forgot_password_button"
             android:textColor="@color/ocasaLightBlue"
-            android:layout_marginBottom="@dimen/large_padding"
             android:padding="@dimen/medium_padding"
             android:gravity="center"
-            android:layout_alignParentBottom="true"/>
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/form_container" />
 
     </RelativeLayout>
 

@@ -1,13 +1,8 @@
 package com.android.ocasa.httpmodel;
 
-import android.support.design.widget.TabLayout;
-
 import com.android.ocasa.model.Column;
-import com.android.ocasa.model.ColumnAction;
-import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.Table;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -15,25 +10,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ignacio on 26/01/16.
  */
 public class HttpTable {
-
-    private Table table;
-
-    public HttpTable() { }
-
-    public Table getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = table;
-    }
 
     public static class ColumnDeserializer implements JsonDeserializer<Column> {
 
@@ -45,21 +26,27 @@ public class HttpTable {
             Column column = new Column();
             JsonObject jObject = json.getAsJsonObject();
 
-            column.setId(jObject.get("column_id").getAsString());
-            column.setName(jObject.get("name").getAsString());
-            column.setOrder(jObject.get("order").getAsInt());
-            column.setLength(jObject.has("length") ? jObject.get("length").getAsInt() : 0);
-            column.setEditable(jObject.get("editable").getAsBoolean());
-            column.setMandatory(jObject.get("mandatory").getAsBoolean());
-            column.setPrimaryKey(jObject.has("primary_key") && jObject.get("primary_key").getAsBoolean());
-            column.setLogic(jObject.has("logic") && jObject.get("logic").getAsBoolean());
-            column.setFieldType(FieldType.findTypeByApiName(jObject.get("field_type").getAsString()));
-            column.setHighlight(jObject.has("highlight") && jObject.get("highlight").getAsBoolean());
+            column.setId(jObject.get("Column_Id").getAsString());
+            column.setName(jObject.get("Name").getAsString());
+            column.setOrder(jObject.get("Order").getAsInt());
+            column.setLength(jObject.has("Length") ? jObject.get("Length").getAsInt() : 0);
+            column.setEditable(jObject.get("Editable").getAsBoolean());
+            column.setMandatory(jObject.get("Mandatory").getAsBoolean());
+            column.setPrimaryKey(jObject.has("Primary_Key") && jObject.get("Primary_Key").getAsBoolean());
+            column.setLogic(jObject.has("Logic") && jObject.get("Logic").getAsBoolean());
+            column.setVisible(jObject.has("Visible") && jObject.get("Visible").getAsBoolean());
+            column.setFieldType(FieldType.findTypeByApiName(jObject.get("Field_Type").getAsString()));
+            column.setHighlight(jObject.has("Highlight") && jObject.get("Highlight").getAsBoolean());
+            column.setDefaultValue(jObject.has("Default") ? jObject.get("Default").getAsString() : "");
+
+            if(column.isPrimaryKey() || column.getId().contains("cf_0200")){
+                column.setLogic(true);
+            }
 
             if(column.getFieldType() == FieldType.COMBO ||
                     column.getFieldType() == FieldType.LIST){
                 Table table = new Table();
-                table.setId(jObject.get("table_id").getAsString());
+                table.setId(jObject.get("Table_id").getAsString());
 
                 column.setRelationship(table);
             }

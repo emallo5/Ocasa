@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -124,6 +126,7 @@
 
         <activity
             android:name=".receipt.edit.EditReceiptActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".home.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -132,6 +135,7 @@
 
         <activity
             android:name=".receipt.detail.DetailReceiptActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".home.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -143,35 +147,13 @@
         <!--- PICK UP -->
 
         <activity
-            android:name=".pickup.LocationsActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name=".pickup.SyncPickupItemsActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name=".pickup.PickupActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".pickup.LocationsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".pickup.LocationsActivity" />
-        </activity>
-
-        <activity
             android:name=".pickup.scanner.ScannerActivity"
             android:screenOrientation="portrait"/>
 
-        <receiver android:name=".pickup.SyncPickupItemsActivity$SyncReceiver"/>
-
         <!--  - - - -  -->
 
-        <service android:name=".sync.LoginService"/>
+        <service android:name=".sync.SyncService"/>
         <service android:name=".sync.SendService"/>
-
-        <receiver android:name=".loginflow.login.LoginFragment$LoginReceiver"/>
-        <receiver android:name=".home.HomeFragment$RecordSyncReceiver"/>
 
         <receiver android:name=".receiver.RequestTableReceiver"
             android:exported="false">

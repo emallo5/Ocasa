@@ -1,6 +1,9 @@
 package com.android.ocasa.fragment;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.pm.ProviderInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -17,11 +20,9 @@ import android.widget.TextView;
 import com.android.ocasa.R;
 import com.android.ocasa.util.DatePickerDialogFragment;
 import com.android.ocasa.util.DateTimeHelper;
-import com.android.ocasa.util.Filter;
 import com.android.ocasa.util.TimePickerDialogFragment;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by ignacio on 25/02/16.
@@ -38,7 +39,7 @@ public class ValidityDateDialogFragment extends DialogFragment implements DatePi
     private SendFormListener callback;
 
     public interface SendFormListener{
-        public void send(Calendar validityDate);
+        void send(Calendar validityDate);
     }
 
     public static ValidityDateDialogFragment newInstance() {
@@ -51,7 +52,7 @@ public class ValidityDateDialogFragment extends DialogFragment implements DatePi
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
 
         try {

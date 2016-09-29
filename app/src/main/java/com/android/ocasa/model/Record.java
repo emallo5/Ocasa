@@ -1,5 +1,7 @@
 package com.android.ocasa.model;
 
+import android.util.Log;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -102,13 +104,13 @@ public class Record {
             }
         }
 
-        return null;
+        return new ArrayList<>(fields).get(0);
     }
 
     public Field getFieldForColumn(String columnId){
 
         for (Field field : fields){
-            if(field.getColumn().getId().equalsIgnoreCase(columnId)){
+            if(field.getColumn() != null && field.getColumn().getId().equalsIgnoreCase(columnId)){
                 return field;
             }
         }
@@ -144,6 +146,18 @@ public class Record {
 
         for (Field field : fields){
             if(field.getColumn().isLogic())
+                logicFields.add(field);
+        }
+
+        return logicFields;
+    }
+
+    public List<Field> getVisibleFields(){
+
+        List<Field> logicFields = new ArrayList<>();
+
+        for (Field field : fields){
+            if(field.getColumn().isVisible())
                 logicFields.add(field);
         }
 

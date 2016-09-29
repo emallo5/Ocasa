@@ -57,6 +57,9 @@ public class FieldTaskLoader extends AsyncTaskLoader<List<History>> {
 
         Record record = RecordDAO.getInstance(getContext()).findForColumnAndValue(primaryColumn.getId(), history.getValue());
 
+        if(record == null)
+            return;
+
         List<Field> fields = record.getLogicFields();
 
         StringBuilder value = new StringBuilder();

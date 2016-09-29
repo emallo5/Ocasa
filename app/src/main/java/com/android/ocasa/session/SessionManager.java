@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 public class SessionManager {
 
     static final String USER_ID = "_USER_";
+    static final String DEVICE_ID = "_DEVICE_ID_";
 
     private static SessionManager instance;
 
@@ -39,5 +40,15 @@ public class SessionManager {
 
     public boolean isSigned(){
         return preferences.contains(USER_ID);
+    }
+
+    public void saveDeviceId(String deviceId) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(DEVICE_ID, deviceId);
+        editor.apply();
+    }
+
+    public String getDeviceId(){
+        return preferences.getString(DEVICE_ID, "");
     }
 }

@@ -7,7 +7,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.android.ocasa.adapter.RecordAdapterTest;
+import com.android.ocasa.adapter.RecordAdapter;
 import com.android.ocasa.core.fragment.RecyclerListActionFragment;
 import com.android.ocasa.event.ReceiptItemEvent;
 import com.android.ocasa.loader.TableTaskLoader;
@@ -96,9 +96,9 @@ public abstract class TableRecordListFragment extends RecyclerListActionFragment
 
         if(getAdapter() == null) {
             setListShown(true);
-            setAdapter(new RecordAdapterTest(data.getCells()));
+            setAdapter(new RecordAdapter(data));
         }else{
-            ((RecordAdapterTest)getAdapter()).refreshItems(data.getCells());
+            ((RecordAdapter)getAdapter()).refreshItems(data);
         }
     }
 

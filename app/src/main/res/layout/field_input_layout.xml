@@ -13,8 +13,8 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/input"
-            android:textColor="@color/ocasaTextColor"
-            android:textColorHint="@color/ocasaHintColor"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/ocasaLightGray"
             android:singleLine="true"
             android:background="@null"
             android:layout_centerVertical="true"

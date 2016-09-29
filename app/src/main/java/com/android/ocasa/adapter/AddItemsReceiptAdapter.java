@@ -162,7 +162,7 @@ public class AddItemsReceiptAdapter extends RecyclerView.Adapter<AddItemsReceipt
 
         @Override
         public void onClick(View view) {
-            EventBus.getDefault().post(new ReceiptItemAddEvent(getItemId(), getAdapterPosition()));
+            EventBus.getDefault().post(new ReceiptItemAddEvent(getAdapterPosition()));
         }
     }
 }

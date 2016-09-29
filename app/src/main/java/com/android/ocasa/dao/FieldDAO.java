@@ -79,6 +79,26 @@ public class FieldDAO extends GenericDAOImpl<Field, Long> {
         return null;
     }
 
+    public List<Field> findVisiblesForRecord(String recordId){
+
+        try {
+            QueryBuilder<Field, Long> fieldBuilder = dao.queryBuilder();
+
+            QueryBuilder<Column, String> columnBuilder = new ColumnDAO(context).getDao().queryBuilder();
+            columnBuilder.where().eq("visible", true);
+
+            fieldBuilder.join(columnBuilder);
+            fieldBuilder.where().eq("record_id", recordId);
+
+            return fieldBuilder.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
     public List<Field> findForAvailableColumns(long recordId, ArrayList<String> availableColumns){
 
         try {
@@ -105,7 +125,7 @@ public class FieldDAO extends GenericDAOImpl<Field, Long> {
             fieldBuilder.where().eq("receipt_id", receiptId);
 
             QueryBuilder<Column, String> columnBuilder = new ColumnDAO(context).getDao().queryBuilder();
-            columnBuilder.orderBy("id", false);
+            columnBuilder.orderBy("order", true);
 
             fieldBuilder.join(columnBuilder);
 

@@ -44,6 +44,16 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
         setHasStableIds(true);
     }
 
+    public void addItem(CellViewModel item){
+        records.add(0, item);
+        notifyItemInserted(0);
+    }
+
+    public void deleteItem(int position){
+        records.remove(position);
+        notifyItemRemoved(position);
+    }
+
     @Override
     public RecordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new RecordViewHolder(LayoutInflater.from(parent.getContext())
@@ -176,7 +186,7 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
 
         @Override
         public void onClick(View view) {
-            EventBus.getDefault().post(new ReceiptItemAddEvent(getItemId(), getAdapterPosition()));
+            EventBus.getDefault().post(new ReceiptItemAddEvent(getAdapterPosition()));
         }
 
         @Override
