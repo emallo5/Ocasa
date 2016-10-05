@@ -8,6 +8,8 @@ import com.android.ocasa.dao.CategoryDAO;
 import com.android.ocasa.dao.ColumnDAO;
 import com.android.ocasa.dao.FieldDAO;
 import com.android.ocasa.dao.HistoryDAO;
+import com.android.ocasa.dao.LayoutColumnDAO;
+import com.android.ocasa.dao.LayoutDAO;
 import com.android.ocasa.dao.RecordDAO;
 import com.android.ocasa.dao.TableDAO;
 import com.android.ocasa.model.Application;
@@ -16,6 +18,8 @@ import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.History;
+import com.android.ocasa.model.Layout;
+import com.android.ocasa.model.LayoutColumn;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.util.DateTimeHelper;
@@ -38,36 +42,40 @@ public class TableService {
     public TableService(){
     }
 
-    public TableViewModel getRecords(Context context, String tableId, String query, long[] excludeIds){
+    public TableViewModel getRecords(Context context, String layoutId, String query, long[] excludeIds){
 
-        TableViewModel table = getTableViewModel(context, tableId);
+        TableViewModel table = getTableViewModel(context, layoutId);
 
-        List<Record> records = RecordDAO.getInstance(context).findForTableAndQuery(tableId, query, excludeIds);
+        List<Record> records = RecordDAO.getInstance(context).findForTableAndQuery(table.getId(), query, excludeIds);
 
         fillTable(table, records);
 
         return table;
     }
 
-    public TableViewModel getTableViewModel(Context context, String tableId){
+    public TableViewModel getTableViewModel(Context context, String layoutId){
+
         TableViewModel tableViewModel = new TableViewModel();
 
-        Table table = new TableDAO(context).findById(tableId);
+        Layout layout = new LayoutDAO(context).findByExternalId(layoutId);
 
-        if(table == null)
+        if(layout == null)
             return null;
 
-        Category category = new CategoryDAO(context).findById(table.getCategory().getId());
+        Category category = new CategoryDAO(context).findById(layout.getCategory().getId());
 
         Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
 
         FormViewModel header = new FormViewModel();
+
+        Table table = layout.getTable();
 
         FieldViewModel headerField = new FieldViewModel();
         headerField.setValue(table.getFilters());
 
         header.addField(headerField);
 
+        tableViewModel.setId(table.getId());
         tableViewModel.setCanAddNewRecord(table.canAddNewRecord());
         tableViewModel.setHeader(header);
         tableViewModel.setColor(application.getRecordColor());
@@ -111,48 +119,67 @@ public class TableService {
         cell.setFields(fieldViewModels);
     }
 
-    public void saveTable(Context context, Table httpTable){
+    public void saveTable(Context context, Layout response){
 
-        if(httpTable.getId() == null){
+        if(response.getExternalID() == null){
             return;
         }
 
+        LayoutDAO layoutDAO = new LayoutDAO(context);
+        LayoutColumnDAO layoutColumnDAO = new LayoutColumnDAO(context);
+        layoutColumnDAO.deleteForLayout(response.getExternalID());
         TableDAO tableDAO = new TableDAO(context);
 
-        Table table = tableDAO.findById(httpTable.getId());
+//        Layout layout = layoutDAO.findById(response.getExternalID());
+//
+//        if(response == null){
+//            response = new Layout();
+//            response.setId(response.getId());
+//        }
 
-        if(table == null){
-            table = new Table();
-            table.setId(httpTable.getId());
-        }
+        Layout layout = new Layout();
+        layout.setExternalID(response.getExternalID());
+        layout.setColumns(response.getColumns());
 
-        table.setColumns(httpTable.getColumns());
-        table.setName(httpTable.getName());
+        Table table = response.getTable();
 
-        tableDAO.save(table);
+        layout.setTable(table);
+        layoutDAO.save(layout);
 
-        Log.v(TAG, "Save Table " + table.getId() + ", " + table.getName());
+        tableDAO.update(table);
+
+        Log.v(TAG, "Save Table " + layout.getId());
 
         ColumnDAO dao = new ColumnDAO(context);
 
-        for (Column column : table.getColumns()){
-            column.setTable(table);
-            column.setId(table.getId() + "|" + column.getId());
+        List<Column> columns = new ArrayList<>();
+
+        for (LayoutColumn layoutColumn : layout.getColumns()){
+
+            layoutColumn.setLayout(layout);
+            Column column = layoutColumn.getColumn();
+
+            column.addLayout(layoutColumn);
+
+            columns.add(column);
 
             if(column.getFieldType() == FieldType.COMBO ||
                     column.getFieldType() == FieldType.LIST){
-                tableDAO.save(column.getRelationship());
+                layoutDAO.save(column.getRelationship());
+
+                tableDAO.save(column.getRelationship().getTable());
             }
         }
 
-        dao.save(table.getColumns());
+        dao.save(columns);
+        layoutColumnDAO.save(layout.getColumns());
 
         RecordDAO recordDAO = RecordDAO.getInstance(context);
         HistoryDAO historyDAO = new HistoryDAO(context);
 
         FieldDAO fieldDAO = new FieldDAO(context);
 
-        List<Record> records = new ArrayList<>(httpTable.getRecords());
+        List<Record> records = new ArrayList<>(response.getTable().getRecords());
 
         List<Field> fields = new ArrayList<>();
         List<History> histories = new ArrayList<>();
@@ -161,8 +188,8 @@ public class TableService {
 
             Record record = records.get(index);
 
-            record.setExternalId(table.getId() + "|" + record.getExternalId());
-            record.setTable(table);
+            record.setExternalId(record.getExternalId());
+            record.setTable(layout.getTable());
             record.fillConcatValues();
 
             Record updated = recordDAO.findByExternalId(record.getExternalId());
@@ -170,8 +197,6 @@ public class TableService {
                 record.setId(updated.getId());
 
                 for (Field field : record.getFields()){
-
-                    field.getColumn().setId(table.getId() + "|" + field.getColumn().getId());
 
                     Field updateField = updated.getFieldForColumn(field.getColumn().getId());
 
@@ -197,8 +222,6 @@ public class TableService {
             }else{
                 for (Field field : record.getFields()){
                     field.setRecord(record);
-
-                    field.getColumn().setId(table.getId() + "|" + field.getColumn().getId());
 
                     History history = new History();
                     history.setValue(field.getValue());

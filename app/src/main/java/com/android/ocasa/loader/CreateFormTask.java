@@ -4,10 +4,12 @@ import android.content.Context;
 import android.location.Location;
 
 import com.android.ocasa.dao.FieldDAO;
+import com.android.ocasa.dao.LayoutDAO;
 import com.android.ocasa.dao.RecordDAO;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.History;
+import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.service.RecordService;
@@ -39,8 +41,9 @@ public class CreateFormTask extends SaveFormTask {
 
     private Record createRecord(Map<String, String> formValues, String tableId, Location lastLocation){
 
-        Table table = new Table();
-        table.setId(tableId);
+        Layout layout = new LayoutDAO(context).findByExternalId(tableId);
+
+        Table table = layout.getTable();
 
         Record record = new Record();
         record.setTable(table);

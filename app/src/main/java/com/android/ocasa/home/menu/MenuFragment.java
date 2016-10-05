@@ -27,10 +27,16 @@ import com.android.ocasa.adapter.MenuAdapter;
 import com.android.ocasa.adapter.MenuOptionsAdapter;
 import com.android.ocasa.core.activity.MenuActivity;
 import com.android.ocasa.core.listener.RecyclerItemClickListener;
+import com.android.ocasa.home.HomeActivity;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Table;
+import com.android.ocasa.viewmodel.ApplicationViewModel;
+import com.android.ocasa.viewmodel.CategoryViewModel;
+import com.android.ocasa.viewmodel.MenuViewModel;
+import com.android.ocasa.viewmodel.OptionViewModel;
+import com.android.ocasa.viewmodel.TableViewModel;
 import com.codika.androidmvp.fragment.BaseMvpFragment;
 
 import java.util.ArrayList;
@@ -48,15 +54,16 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     private ImageView appsCloseButton;
     private RecyclerView appList;
 
-    private List<Application> applications;
+    private MenuViewModel menu;
 
-    private Application currentApplication;
+    private ApplicationViewModel currentApplication;
 
     private OnMenuItemClickListener callback;
 
     public interface OnMenuItemClickListener{
         void onTableClick(Table table);
         void onActionClick(Action action);
+        void onOptionClick(OptionViewModel option);
     }
 
     @Override
@@ -114,11 +121,12 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 MenuOptionsAdapter adapter = (MenuOptionsAdapter) list.getAdapter();
 
-                if (adapter.getItemViewType(position) == 1) {
-                    callback.onTableClick((Table) list.getItemAtPosition(position));
-                }else if(adapter.getItemViewType(position) == 2){
-                    callback.onActionClick((Action) list.getItemAtPosition(position));
-                }
+                callback.onOptionClick((OptionViewModel) list.getItemAtPosition(position));
+//                if (adapter.getItemViewType(position) == 1) {
+//                    callback.onTableClick((Table) list.getItemAtPosition(position));
+//                }else if(adapter.getItemViewType(position) == 2){
+//                    callback.onActionClick((Action) list.getItemAtPosition(position));
+//                }
             }
         });
 
@@ -133,7 +141,7 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
             @Override
             public void onItemClick(View view, int position, long id) {
                 hideAppList();
-                currentApplication = applications.get(position);
+                currentApplication = menu.getApplications().get(position);
                 refreshMenuOptions();
             }
         }));
@@ -143,7 +151,7 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     @Override
     public void onResume() {
         super.onResume();
-        if(applications == null)
+        if(menu == null)
             getPresenter().menu();
     }
 
@@ -223,33 +231,39 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     }
 
     @Override
-    public void onMenuLoadSuccess(List<Application> applications) {
-        if(applications.isEmpty())
+    public void onMenuLoadSuccess(MenuViewModel menu) {
+        if(menu.getApplications().isEmpty())
             return;
 
-        this.applications = applications;
+        this.menu = menu;
 
-        currentApplication = applications.get(0);
+        currentApplication = menu.getApplications().get(0);
         refreshMenuOptions();
 
-        appList.setAdapter(new MenuAdapter(applications));
+        appList.setAdapter(new MenuAdapter(menu.getApplications()));
 
-        Category category = new ArrayList<>(applications.get(0).getCategories()).get(0);
+        CategoryViewModel category = menu.getApplications().get(0).getCategories().get(0);
 
-        List<Table> tables = new ArrayList<>(category.getTables());
+        List<OptionViewModel> options = category.getOptions();
 
-        if(tables.size() > 0){
-            callback.onTableClick(tables.get(0));
-        }else{
-            callback.onActionClick(new ArrayList<>(category.getActions()).get(0));
+        if(options.size() > 0){
+            callback.onOptionClick(options.get(0));
         }
+
+        ((HomeActivity)getActivity()).openMenu();
+//
+//        if(tables.size() > 0){
+//            callback.onTableClick(tables.get(0));
+//        }else{
+//            callback.onActionClick(new ArrayList<>(category.getActions()).get(0));
+//        }
     }
 
     private void refreshMenuOptions(){
 
-        appName.setText(currentApplication.getName());
+        appName.setText(currentApplication.getTitle());
 
-        list.setAdapter(new MenuOptionsAdapter(new ArrayList<>(currentApplication.getCategories())));
+        list.setAdapter(new MenuOptionsAdapter(currentApplication.getCategories()));
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.android.ocasa.home.menu;
 
 import com.android.ocasa.model.Application;
 import com.android.ocasa.service.OcasaService;
+import com.android.ocasa.viewmodel.MenuViewModel;
 import com.codika.androidmvp.presenter.BasePresenter;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class MenuPresenter extends BasePresenter<MenuView> {
         OcasaService.getInstance().menu()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<List<Application>>() {
+                .subscribe(new Subscriber<MenuViewModel>() {
                     @Override
                     public void onCompleted() {
 
@@ -31,8 +32,8 @@ public class MenuPresenter extends BasePresenter<MenuView> {
                     }
 
                     @Override
-                    public void onNext(List<Application> applications) {
-                        getView().onMenuLoadSuccess(applications);
+                    public void onNext(MenuViewModel menu) {
+                        getView().onMenuLoadSuccess(menu);
                     }
                 });
     }

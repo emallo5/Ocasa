@@ -44,7 +44,7 @@ public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> i
     @Override
     public void onResume() {
         super.onResume();
-//        getPresenter().sync(0, 0);
+        getPresenter().sync(0, 0);
     }
 
     @Override

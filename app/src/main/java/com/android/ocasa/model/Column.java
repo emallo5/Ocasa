@@ -2,7 +2,12 @@ package com.android.ocasa.model;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Ignacio Oviedo on 26/01/16.
@@ -41,7 +46,10 @@ public class Column {
     private Table table;
 
     @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
-    private Table relationship;
+    private Layout relationship;
+
+    @ForeignCollectionField
+    private Collection<LayoutColumn> layouts;
 
     @DatabaseField
     private boolean highlight;
@@ -134,11 +142,11 @@ public class Column {
         this.table = table;
     }
 
-    public Table getRelationship() {
+    public Layout getRelationship() {
         return relationship;
     }
 
-    public void setRelationship(Table relationship) {
+    public void setRelationship(Layout relationship) {
         this.relationship = relationship;
     }
 
@@ -164,5 +172,21 @@ public class Column {
 
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
+    }
+
+    public Collection<LayoutColumn> getLayouts() {
+        return layouts;
+    }
+
+    public void setLayouts(List<LayoutColumn> layouts) {
+        this.layouts = layouts;
+    }
+
+    public void addLayout(LayoutColumn layout){
+        if(layouts == null){
+            layouts = new ArrayList<>();
+        }
+
+        layouts.add(layout);
     }
 }

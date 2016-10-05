@@ -2,6 +2,7 @@ package com.android.ocasa.httpmodel;
 
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.FieldType;
+import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Table;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -45,10 +46,16 @@ public class HttpTable {
 
             if(column.getFieldType() == FieldType.COMBO ||
                     column.getFieldType() == FieldType.LIST){
+
+                Layout relationship = new Layout();
+//                relationship.setId("Combo");
+//
                 Table table = new Table();
                 table.setId(jObject.get("Table_id").getAsString());
 
-                column.setRelationship(table);
+                relationship.setTable(table);
+
+                column.setRelationship(relationship);
             }
 
             return column;

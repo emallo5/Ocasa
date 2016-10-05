@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.android.ocasa.R;
 import com.android.ocasa.model.Application;
+import com.android.ocasa.viewmodel.ApplicationViewModel;
 
 import java.util.List;
 
@@ -16,9 +17,9 @@ import java.util.List;
  */
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuHolder>{
 
-    private List<Application> applications;
+    private List<ApplicationViewModel> applications;
 
-    public MenuAdapter(List<Application> applications) {
+    public MenuAdapter(List<ApplicationViewModel> applications) {
         this.applications = applications;
     }
 
@@ -30,9 +31,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuHolder>{
     @Override
     public void onBindViewHolder(MenuHolder holder, int position) {
 
-        Application app = applications.get(position);
+        ApplicationViewModel app = applications.get(position);
 
-        holder.name.setText(app.getName());
+        holder.name.setText(app.getTitle());
     }
 
     @Override

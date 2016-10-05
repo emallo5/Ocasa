@@ -18,7 +18,7 @@ public class InvokeRecordFragment extends FilterTableFragment {
     public static InvokeRecordFragment newInstance(String tableId) {
 
         Bundle args = new Bundle();
-        args.putString(ARG_TABLE_ID, tableId);
+        args.putString(ARG_LAYOUT_ID, tableId);
 
         InvokeRecordFragment fragment = new InvokeRecordFragment();
         fragment.setArguments(args);

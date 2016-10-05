@@ -18,14 +18,14 @@ public class TablePresenter extends BasePresenter<TableView> {
 
     private TableViewModel table;
 
-    public void load(String tableId){
-        load(tableId, null);
+    public void load(String layoutId){
+        load(layoutId, null);
     }
 
-    public void load(String tableId, String query){
+    public void load(String layoutId, String query){
 
         OcasaService.getInstance()
-                .table(tableId, query, null)
+                .table(layoutId, query, null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<TableViewModel>() {

@@ -3,6 +3,7 @@ package com.android.ocasa.sync;
 import android.util.Log;
 
 import com.android.ocasa.model.ApiError;
+import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.session.SessionPresenter;
@@ -22,7 +23,7 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
 
     private Subscription subscription;
 
-    private AsyncSubject<Table> subject;
+    private AsyncSubject<Layout> subject;
 
     private boolean isSyncing = false;
 
@@ -60,7 +61,7 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
             subscription.unsubscribe();
     }
 
-    private class SyncSubscriber extends SessionSubscriber<Table>{
+    private class SyncSubscriber extends SessionSubscriber<Layout>{
 
         protected SyncSubscriber(SyncPresenter presenter) {
             super(presenter);
@@ -81,7 +82,7 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
         }
 
         @Override
-        public void onNext(Table menu) {
+        public void onNext(Layout menu) {
             Log.v(TAG, "Sync completed");
             getView().onSyncFinish();
         }

@@ -1,5 +1,7 @@
 package com.android.ocasa.model;
 
+import android.support.design.widget.TabLayout;
+
 import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -28,6 +30,9 @@ public class Category {
     @SerializedName("Tables")
     @ForeignCollectionField(eager = true)
     private Collection<Table> tables;
+
+    @ForeignCollectionField(eager = true)
+    private Collection<Layout> layouts;
 
     @SerializedName("Actions")
     @ForeignCollectionField(eager = true)
@@ -85,5 +90,13 @@ public class Category {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public Collection<Layout> getLayouts() {
+        return layouts;
+    }
+
+    public void setLayouts(Collection<Layout> layouts) {
+        this.layouts = layouts;
     }
 }

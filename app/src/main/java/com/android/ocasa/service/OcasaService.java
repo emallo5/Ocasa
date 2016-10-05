@@ -7,6 +7,9 @@ import android.util.Log;
 import com.android.ocasa.api.OcasaApi;
 import com.android.ocasa.dao.ApplicationDAO;
 import com.android.ocasa.dao.ColumnActionDAO;
+import com.android.ocasa.dao.ColumnDAO;
+import com.android.ocasa.dao.LayoutColumnDAO;
+import com.android.ocasa.dao.LayoutDAO;
 import com.android.ocasa.dao.ReceiptDAO;
 import com.android.ocasa.httpmodel.HttpTable;
 import com.android.ocasa.httpmodel.Menu;
@@ -19,6 +22,8 @@ import com.android.ocasa.model.Column;
 import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
+import com.android.ocasa.model.Layout;
+import com.android.ocasa.model.LayoutColumn;
 import com.android.ocasa.model.LoginCredentials;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.ReceiptItem;
@@ -27,6 +32,7 @@ import com.android.ocasa.model.Table;
 import com.android.ocasa.session.SessionManager;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
+import com.android.ocasa.viewmodel.MenuViewModel;
 import com.android.ocasa.viewmodel.ReceiptFormViewModel;
 import com.android.ocasa.viewmodel.ReceiptTableViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
@@ -46,6 +52,7 @@ import rx.functions.Func1;
 import rx.functions.Func2;
 import rx.functions.Func3;
 import rx.functions.Func4;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by ignacio on 07/07/16.
@@ -71,7 +78,10 @@ public class OcasaService {
         return instance;
     }
 
-    public Observable<Table> sync(final double latitude, final double longitude){
+    public Observable<Layout> sync(final double latitude, final double longitude){
+
+        new LayoutColumnDAO(context).deleteAll();
+
         return  applications()
                 .flatMap(new Func1<List<Application>, Observable<Application>>() {
                     @Override
@@ -86,73 +96,88 @@ public class OcasaService {
                         return Observable.from(application.getCategories());
                     }
                 })
-                .flatMap(new Func1<Category, Observable<Table>>() {
+                .flatMap(new Func1<Category, Observable<Layout>>() {
+                             @Override
+                             public Observable<Layout> call(Category category) {
+
+                                 Log.v(TAG, "Start sync category " + category.getId() + ", " + category.getName());
+
+                                 return Observable.from(category.getLayouts());
+                             }
+                         }
+                )
+
+//                        return Observable.zip(Observable.from(category.getActions()).flatMap(new Func1<Action, Observable<Table>>() {
+//                            @Override
+//                            public Observable<Table> call(Action action) {
+//                                return Observable.just(action.getTable());
+//                            }
+//                        }).toList(), Observable.just(category.getLayouts()), new Func2<List<Table>, Collection<Layout>, List<Table>>() {
+//                            @Override
+//                            public List<Table> call(List<Table> tables, Collection<Layout> layouts) {
+//
+//                                for (Layout layout : layouts){
+//                                    tables.add(layout.getTable());
+//                                }
+//
+//                                return tables;
+//                            }
+//                        }).map(new Func1<List<Table>, List<Table>>() {
+//                            @Override
+//                            public List<Table> call(List<Table> tables) {
+//
+//                                Map<String, Table> distinctTables = new HashMap<>();
+//
+//                                for (int index = 0; index < tables.size(); index++){
+//                                    Table table = tables.get(index);
+//
+//                                    distinctTables.put(table.getId(), table);
+//                                }
+//
+//                                return new ArrayList<>(distinctTables.values());
+//                            }
+//                        }).last().flatMap(new Func1<List<Table>, Observable<Table>>() {
+//                            @Override
+//                            public Observable<Table> call(List<Table> tables) {
+//                                return Observable.from(tables);
+//                            }
+//                        });
+//                    }
+
+                .flatMap(new Func1<Layout, Observable<Layout>>() {
                     @Override
-                    public Observable<Table> call(Category category) {
-
-                        Log.v(TAG, "Start sync category " + category.getId() + ", " + category.getName());
-
-                        return Observable.zip(Observable.from(category.getActions()).flatMap(new Func1<Action, Observable<Table>>() {
-                            @Override
-                            public Observable<Table> call(Action action) {
-                                return Observable.just(action.getTable());
-                            }
-                        }).toList(), Observable.just(category.getTables()), new Func2<List<Table>, Collection<Table>, List<Table>>() {
-                            @Override
-                            public List<Table> call(List<Table> tables, Collection<Table> tables2) {
-                                tables.addAll(tables2);
-                                return tables;
-                            }
-                        }).map(new Func1<List<Table>, List<Table>>() {
-                            @Override
-                            public List<Table> call(List<Table> tables) {
-
-                                Map<String, Table> distinctTables = new HashMap<>();
-
-                                for (int index = 0; index < tables.size(); index++){
-                                    Table table = tables.get(index);
-
-                                    distinctTables.put(table.getId(), table);
-                                }
-
-                                return new ArrayList<>(distinctTables.values());
-                            }
-                        }).last().flatMap(new Func1<List<Table>, Observable<Table>>() {
-                            @Override
-                            public Observable<Table> call(List<Table> tables) {
-                                return Observable.from(tables);
-                            }
-                        });
+                    public Observable<Layout> call(Layout layout) {
+                        return tableWithCache(layout, latitude, longitude);
                     }
-                })
-                .flatMap(new Func1<Table, Observable<Table>>() {
+                }).flatMap(new Func1<Layout, Observable<Column>>() {
                     @Override
-                    public Observable<Table> call(Table table) {
-                        return tableWithCache(table, latitude, longitude);
-                    }
-                }).flatMap(new Func1<Table, Observable<Column>>() {
-                    @Override
-                    public Observable<Column> call(Table httpTable) {
+                    public Observable<Column> call(Layout layout) {
 
-                        if(httpTable.getColumns() == null){
+                        if(layout.getColumns() == null){
                             return Observable.empty();
                         }
 
-                        return Observable.from(httpTable.getColumns());
+                        List<Column> columns = new ArrayList<Column>();
+
+                        for (LayoutColumn layoutColumn : layout.getColumns()){
+                            columns.add(layoutColumn.getColumn());
+                        }
+
+                        return Observable.from(columns);
                     }
                 }).filter(new Func1<Column, Boolean>() {
                     @Override
                     public Boolean call(Column column) {
                         return column.getFieldType() == FieldType.COMBO;
                     }
-                }).flatMap(new Func1<Column, Observable<Table>>() {
+                }).flatMap(new Func1<Column, Observable<Layout>>() {
                     @Override
-                    public Observable<Table> call(Column column) {
-                        Table table = column.getRelationship();
+                    public Observable<Layout> call(Column column) {
+                        Layout layout = column.getRelationship();
 
-                        Log.v(TAG, "Start sync combo table " + table.getId());
+                        Log.v(TAG, "Start sync combo Layout " + layout.getId());
 
-                        return tableWithCache(table, latitude, longitude);
+                        return tableWithCache(layout, latitude, longitude);
                     }
                 }).last();
     }
@@ -169,34 +194,40 @@ public class OcasaService {
         });
     }
 
-    public Observable<List<Application>> menu(){
-        return Observable.create(new Observable.OnSubscribe<List<Application>>() {
+    public Observable<MenuViewModel> menu(){
+        return Observable.create(new Observable.OnSubscribe<MenuViewModel>() {
             @Override
-            public void call(Subscriber<? super List<Application>> subscriber) {
+            public void call(Subscriber<? super MenuViewModel> subscriber) {
                 subscriber.onNext(new MenuService().getMenu(context));
                 subscriber.onCompleted();
             }
         });
     }
 
-    public Observable<Table> tableWithCache(Table table, double latitude, double longitude){
+    public Observable<Layout> tableWithCache(Layout layout, final double latitude, double longitude){
 
-        Log.v(TAG, "Start sync table " + table.getId());
+        Log.v(TAG, "Start sync Layout " + layout.getId());
 
         String deviceId = SessionManager.getInstance().getDeviceId();
 
         return Observable.zip(
-                api.columns(table.getId(), deviceId, latitude, longitude)
-                        .onErrorReturn(new Func1<Throwable, Table>() {
+                api.columns(layout.getExternalID() + "|" + layout.getTable().getId(), deviceId, latitude, longitude)
+                        .onErrorReturn(new Func1<Throwable, Layout>() {
                             @Override
-                            public Table call(Throwable throwable) {
+                            public Layout call(Throwable throwable) {
+
+                                Layout layout = new Layout();
+                                layout.setColumns(new ArrayList<LayoutColumn>());
+
                                 Table table = new Table();
                                 table.setId("1");
-                                table.setColumns(new ArrayList<Column>());
-                                return table;
+
+                                layout.setTable(table);
+
+                                return layout;
                             }
                         }),
-                api.records(table.getId(), deviceId, latitude, longitude)
+                api.records(layout.getExternalID() + "|" + layout.getTable().getId(), deviceId, latitude, longitude)
                         .onErrorReturn(new Func1<Throwable, TableRecord>() {
                             @Override
                             public TableRecord call(Throwable throwable) {
@@ -206,17 +237,17 @@ public class OcasaService {
                                 return record;
                             }
                         }),
-                new Func2<Table, TableRecord, Table>() {
+                new Func2<Layout, TableRecord, Layout>() {
                     @Override
-                    public Table call(Table httpTable, TableRecord tableRecord) {
-                        httpTable.setRecords(tableRecord.getRecords());
-                        return httpTable;
+                    public Layout call(Layout layout, TableRecord tableRecord) {
+                        layout.getTable().setRecords(tableRecord.getRecords());
+                        return layout;
                     }
                 })
-                .doOnNext(new Action1<Table>() {
+                .doOnNext(new Action1<Layout>() {
                     @Override
-                    public void call(Table httpTable) {
-                        new TableService().saveTable(context, httpTable);
+                    public void call(Layout layout) {
+                        new TableService().saveTable(context, layout);
                     }
                 });
     }
@@ -338,14 +369,14 @@ public class OcasaService {
         });
     }
 
-    public Observable<TableViewModel> table(String tableId, String query, long[] excludeIds){
+    public Observable<TableViewModel> table(final String layoutId, String query, long[] excludeIds){
 
-        return Observable.zip(Observable.just(tableId),
+        return Observable.zip(Observable.just(layoutId),
                 Observable.just(query),
                 Observable.just(excludeIds), new Func3<String, String, long[], TableViewModel>() {
                     @Override
                     public TableViewModel call(String tableId, String query, long[] excludeIds) {
-                        return new TableService().getRecords(context, tableId, query, excludeIds);
+                        return new TableService().getRecords(context, layoutId, query, excludeIds);
                     }
                 });
     }
@@ -425,6 +456,25 @@ public class OcasaService {
 
         record.setRecords(records);
 
+        api.upload(record, receipt.getAction().getId(), SessionManager.getInstance().getDeviceId(), 0, 0)
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<Receipt>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Receipt receipt) {
+                Log.v(TAG, "Upload Receipt success " + receipt.getNumber());
+            }
+        });
+
         m.setBody(gson.toJson(record));
 
         try {
@@ -439,7 +489,7 @@ public class OcasaService {
     }
 
     public Observable<Menu> login(LoginCredentials credentials) {
-        return api.login(credentials)
+        return api.login(credentials, credentials.getImei())
                 .doOnNext(new Action1<Menu>() {
                     @Override
                     public void call(Menu menu) {

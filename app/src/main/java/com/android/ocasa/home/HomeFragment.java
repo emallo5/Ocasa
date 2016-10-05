@@ -19,10 +19,10 @@ import com.android.ocasa.viewmodel.TableViewModel;
  */
 public class HomeFragment extends FilterTableFragment {
 
-    public static HomeFragment newInstance(String tableId) {
+    public static HomeFragment newInstance(String layoutId) {
 
         Bundle args = new Bundle();
-        args.putString(ARG_TABLE_ID, tableId);
+        args.putString(ARG_LAYOUT_ID, layoutId);
 
         HomeFragment fragment = new HomeFragment();
         fragment.setArguments(args);
@@ -39,7 +39,7 @@ public class HomeFragment extends FilterTableFragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), CreateRecordActivity.class);
-                intent.putExtra(CreateRecordActivity.EXTRA_TABLE_ID, getArguments().getString(ARG_TABLE_ID));
+                intent.putExtra(CreateRecordActivity.EXTRA_TABLE_ID, getArguments().getString(ARG_LAYOUT_ID));
                 startActivity(intent);
             }
         });
@@ -58,9 +58,11 @@ public class HomeFragment extends FilterTableFragment {
     public void onTableLoadSuccess(TableViewModel table) {
         super.onTableLoadSuccess(table);
 
-        if(table.canAddNewRecord()){
-            getAction().setVisibility(View.VISIBLE);
-        }
+//        if(table.canAddNewRecord()){
+//            getAction().setVisibility(View.VISIBLE);
+//        }
+
+        getAction().setVisibility(View.VISIBLE);
 
         if(table != null){
             ((BaseActivity)getActivity()).getDelegate().getSupportActionBar().setTitle(table.getName());

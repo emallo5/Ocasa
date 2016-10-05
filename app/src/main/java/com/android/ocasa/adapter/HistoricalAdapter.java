@@ -10,6 +10,7 @@ import com.android.ocasa.R;
 import com.android.ocasa.event.ReceiptHistoryClickEvent;
 import com.android.ocasa.model.History;
 import com.android.ocasa.model.Receipt;
+import com.android.ocasa.session.SessionManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -52,7 +53,7 @@ public class HistoricalAdapter extends RecyclerView.Adapter<HistoricalAdapter.Hi
 
         holder.date.setText(history.getSystemDate() + " " + history.getTimeZone());
         holder.location.setText("Lat : " + history.getLatitude() + " Lng : " + history.getLongitude());
-        holder.user.setText("Ignacio Oviedo");
+        holder.user.setText(SessionManager.getInstance().getUser());
     }
 
     @Override

@@ -112,7 +112,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         });
     }
 
-    private void showFieldsInfo(){
+    public void showFieldsInfo(){
         for (Map.Entry<String, String> pair : formValues.entrySet()) {
             FieldViewAdapter view = (FieldViewAdapter) container.findViewWithTag(pair.getKey());
             view.changeLabelVisbility(true);

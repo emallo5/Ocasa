@@ -9,6 +9,7 @@ import com.android.ocasa.home.menu.MenuFragment;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.receipt.list.ReceiptListFragment;
+import com.android.ocasa.viewmodel.OptionViewModel;
 
 /**
  * Ignacio Oviedo on 11/01/16.
@@ -17,6 +18,8 @@ public class HomeActivity extends MenuActivity implements MenuFragment.OnMenuIte
 
     private Table selectTable;
     private Action selectAction;
+
+    private String selectOptionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class HomeActivity extends MenuActivity implements MenuFragment.OnMenuIte
 
         setMenu(Fragment.instantiate(this, MenuFragment.class.getName()));
     }
+
 
     @Override
     public void onTableClick(Table table) {
@@ -53,6 +57,23 @@ public class HomeActivity extends MenuActivity implements MenuFragment.OnMenuIte
         selectAction = action;
 
         pushFragment(ReceiptListFragment.newInstance(action.getId()), "Receipt");
+    }
+
+    @Override
+    public void onOptionClick(OptionViewModel option) {
+        closeMenu();
+
+        if(selectOptionId != null && selectOptionId.equals(option.getId())){
+            return;
+        }
+
+        selectOptionId = option.getId();
+
+        if(option.isTable()){
+            pushFragment(HomeFragment.newInstance(option.getId()), "Home");
+        }else{
+            pushFragment(ReceiptListFragment.newInstance(option.getId()), "Receipt");
+        }
     }
 
     @Override

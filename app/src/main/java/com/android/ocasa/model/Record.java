@@ -118,6 +118,21 @@ public class Record {
         return null;
     }
 
+    public Field getFieldForColumnSplit(String columnId){
+
+        String[] id = columnId.split("\\|");
+
+        String searchId = id[id.length -1];
+
+        for (Field field : fields){
+            if(field.getColumn() != null && field.getColumn().getId().contains(searchId)){
+                return field;
+            }
+        }
+
+        return null;
+    }
+
     public Column getColumnForField(int fieldId){
 
         for (Field field : fields){

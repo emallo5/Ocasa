@@ -10,8 +10,11 @@ import com.android.ocasa.httpmodel.HttpTable;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.httpmodel.TableRecord;
 import com.android.ocasa.model.Action;
+import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Column;
+import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Record;
+import com.android.ocasa.model.Table;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.session.SessionManager;
 import com.crittercism.app.Crittercism;
@@ -75,9 +78,11 @@ public class OcasaApplication extends Application{
             httpClient.interceptors().add(logging);
 
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Action.class, new Menu.ActionDeserializer())
+//                .registerTypeAdapter(Action.class, new Menu.ActionDeserializer())
                 .registerTypeAdapter(Record.class, new TableRecord.RecordDeserializer())
                 .registerTypeAdapter(Record.class, new TableRecord.RecordSerializer())
+                .registerTypeAdapter(Layout.class, new Menu.LayoutDeserializer())
+                .registerTypeAdapter(Category.class, new Menu.CategoryDeserializer())
                 .registerTypeAdapter(Column.class, new HttpTable.ColumnDeserializer())
                 .create();
 

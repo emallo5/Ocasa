@@ -53,7 +53,8 @@ public class FieldTaskLoader extends AsyncTaskLoader<List<History>> {
     }
 
     private void fillComboValue(Column column, History history){
-        Column primaryColumn = new ColumnDAO(getContext()).findPrimaryKeyColumnForTable(column.getRelationship().getId());
+        Column primaryColumn = new ColumnDAO(getContext()).findPrimaryKeyColumnForTable(column.getRelationship().getExternalID(),
+                column.getRelationship().getTable().getId());
 
         Record record = RecordDAO.getInstance(getContext()).findForColumnAndValue(primaryColumn.getId(), history.getValue());
 

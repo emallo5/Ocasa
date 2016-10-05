@@ -10,6 +10,8 @@ public class TableViewModel {
 
     private FormViewModel header;
 
+    private String id;
+
     private String name;
 
     private List<CellViewModel> cells;
@@ -60,5 +62,13 @@ public class TableViewModel {
 
     public void setCanAddNewRecord(boolean canAddNewRecord) {
         this.canAddNewRecord = canAddNewRecord;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

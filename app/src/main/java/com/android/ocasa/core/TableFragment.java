@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.Subscribe;
  */
 public class TableFragment extends RecyclerListActionMvpFragment<TableView, TablePresenter> implements TableView{
 
-    public static final String ARG_TABLE_ID = "table_id";
+    public static final String ARG_LAYOUT_ID = "layout_id";
     public static final String ARG_SEARCH_QUERY = "search_query";
 
     @Override
@@ -36,7 +36,7 @@ public class TableFragment extends RecyclerListActionMvpFragment<TableView, Tabl
     @Override
     public void onResume() {
         super.onResume();
-        getPresenter().load(getArguments().getString(ARG_TABLE_ID));
+        getPresenter().load(getArguments().getString(ARG_LAYOUT_ID));
     }
 
     @Override
@@ -81,7 +81,7 @@ public class TableFragment extends RecyclerListActionMvpFragment<TableView, Tabl
     }
 
     public void reloadData(){
-        getPresenter().load(getArguments().getString(ARG_TABLE_ID), getArguments().getString(ARG_SEARCH_QUERY, null));
+        getPresenter().load(getArguments().getString(ARG_LAYOUT_ID), getArguments().getString(ARG_SEARCH_QUERY, null));
     }
 
 }

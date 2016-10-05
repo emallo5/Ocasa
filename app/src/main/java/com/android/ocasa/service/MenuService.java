@@ -6,13 +6,19 @@ import com.android.ocasa.dao.ActionDAO;
 import com.android.ocasa.dao.ApplicationDAO;
 import com.android.ocasa.dao.CategoryDAO;
 import com.android.ocasa.dao.ColumnActionDAO;
+import com.android.ocasa.dao.LayoutDAO;
 import com.android.ocasa.dao.TableDAO;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
 import com.android.ocasa.model.ColumnAction;
+import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Table;
+import com.android.ocasa.viewmodel.ApplicationViewModel;
+import com.android.ocasa.viewmodel.CategoryViewModel;
+import com.android.ocasa.viewmodel.MenuViewModel;
+import com.android.ocasa.viewmodel.OptionViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +37,16 @@ public class MenuService {
             for (Category category : application.getCategories()){
                 category.setApplication(application);
 
+                LayoutDAO layoutDAO = new LayoutDAO(context);
                 TableDAO dao = new TableDAO(context);
 
-                for (Table table : category.getTables()){
-                    table.setVisible(category.getActions().size() == 0);
-                    table.setCategory(category);
+                List<Table> tables = new ArrayList<>();
+
+                for (Layout layout : category.getLayouts()){
+                    Table table = layout.getTable();
+                    tables.add(table);
+//                    table.setVisible(category.getActions().size() == 0);
+//                    table.setCategory(category);
                 }
 
                 if(category.getActions() != null) {
@@ -68,7 +79,8 @@ public class MenuService {
                     actionDAO.save(category.getActions());
                 }
 
-                dao.save(category.getTables());
+                layoutDAO.save(category.getLayouts());
+                dao.save(tables);
             }
 
             CategoryDAO dao = new CategoryDAO(context);
@@ -79,13 +91,18 @@ public class MenuService {
         dao.save(menu.getApplications());
     }
 
-    public List<Application> getMenu(Context context){
+    public MenuViewModel getMenu(Context context){
+
+        MenuViewModel menu = new MenuViewModel();
 
         List<Application> apps = new ApplicationDAO(context).findAll();
 
         for (int index = 0; index < apps.size(); index++) {
 
             Application app = apps.get(index);
+
+            ApplicationViewModel applicationViewModel = new ApplicationViewModel();
+            applicationViewModel.setTitle(app.getName());
 
             List<Category> visibleCategories = new ArrayList<>();
 
@@ -97,21 +114,44 @@ public class MenuService {
                 if (category.isVisible()) {
                     visibleCategories.add(category);
 
+                    CategoryViewModel categoryViewModel = new CategoryViewModel();
+                    categoryViewModel.setTitle(category.getName());
+                    applicationViewModel.addCategory(categoryViewModel);
+
                     List<Table> visibleTables = new ArrayList<>();
 
-                    for (Table table: category.getTables()) {
-                        if(table.isVisible()){
-                            visibleTables.add(table);
+                    if (category.getActions() == null || category.getActions().size() == 0) {
+                        for (Layout layout : category.getLayouts()) {
+//                        if(table.isVisible()){
+//                            visibleTables.add(table);
+//                        }
+
+                            OptionViewModel optionViewModel = new OptionViewModel();
+                            optionViewModel.setTitle(layout.getTable().getName());
+                            optionViewModel.setType(OptionViewModel.TABLE);
+                            optionViewModel.setId(layout.getExternalID());
+                            categoryViewModel.addOption(optionViewModel);
                         }
+                    }
+
+                    for (Action action : category.getActions()) {
+                        OptionViewModel optionViewModel = new OptionViewModel();
+                        optionViewModel.setTitle(action.getName());
+                        optionViewModel.setType(OptionViewModel.ACTION);
+                        optionViewModel.setId(action.getId());
+                        categoryViewModel.addOption(optionViewModel);
                     }
 
                     category.setTables(visibleTables);
                 }
             }
+//            }
 
             app.setCategories((ArrayList<Category>) visibleCategories);
+
+            menu.addApplication(applicationViewModel);
         }
 
-        return apps;
+        return menu;
     }
 }

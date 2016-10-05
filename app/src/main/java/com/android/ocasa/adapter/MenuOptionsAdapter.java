@@ -8,6 +8,8 @@ import com.android.ocasa.core.adapter.DelegateListAdapter;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Table;
+import com.android.ocasa.viewmodel.CategoryViewModel;
+import com.android.ocasa.viewmodel.OptionViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,20 +23,20 @@ public class MenuOptionsAdapter extends BaseAdapter {
 
     private List<DelegateListAdapter> items;
 
-    public MenuOptionsAdapter(List<Category> categories){
+    public MenuOptionsAdapter(List<CategoryViewModel> categories){
 
         items = new ArrayList<>();
 
-        for (Category category : categories){
+        for (CategoryViewModel category : categories){
             items.add(new CategoryAdapter(category));
 
-            for (Table table : category.getTables()){
-                items.add(new TableAdapter(table));
+            for (OptionViewModel options : category.getOptions()){
+                items.add(new TableAdapter(options));
             }
 
-            for (Action action : category.getActions()){
-                items.add(new ActionAdapter(action));
-            }
+//            for (Action action : category.getActions()){
+//                items.add(new ActionAdapter(action));
+//            }
         }
     }
 

@@ -1,5 +1,6 @@
 package com.android.ocasa.widget.factory;
 
+import android.nfc.FormatException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,12 @@ import android.widget.TextView;
 import com.android.ocasa.R;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
+import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.widget.FieldDateView;
 import com.android.ocasa.widget.TextFieldView;
+
+import java.util.Date;
 
 /**
  * Created by ignacio on 01/02/16.
@@ -57,6 +61,14 @@ public class DateFieldFactory extends FieldViewFactory {
 
         if(isEditMode){
             dateField.getField().getAction().setVisibility(View.INVISIBLE);
+        }
+
+        Date date = DateTimeHelper.serverParseDate(field.getValue());
+
+        try {
+            dateField.setValue(DateTimeHelper.formatDate(date));
+        } catch (FormatException e) {
+            e.printStackTrace();
         }
 
         return dateField;

@@ -47,6 +47,11 @@ public class Table {
     @DatabaseField
     private boolean visible;
 
+    private Layout currentLayout;
+
+    @ForeignCollectionField
+    private Collection<Layout> layouts;
+
     public Table() {
     }
 
@@ -116,5 +121,21 @@ public class Table {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public Layout getCurrentLayout() {
+        return currentLayout;
+    }
+
+    public void setCurrentLayout(Layout currentLayout) {
+        this.currentLayout = currentLayout;
+    }
+
+    public Collection<Layout> getLayouts() {
+        return layouts;
+    }
+
+    public void setLayouts(Collection<Layout> layouts) {
+        this.layouts = layouts;
     }
 }

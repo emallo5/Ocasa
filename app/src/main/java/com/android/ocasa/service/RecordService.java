@@ -9,6 +9,7 @@ import com.android.ocasa.dao.ColumnActionDAO;
 import com.android.ocasa.dao.ColumnDAO;
 import com.android.ocasa.dao.FieldDAO;
 import com.android.ocasa.dao.HistoryDAO;
+import com.android.ocasa.dao.LayoutDAO;
 import com.android.ocasa.dao.ReceiptDAO;
 import com.android.ocasa.dao.RecordDAO;
 import com.android.ocasa.dao.TableDAO;
@@ -20,6 +21,7 @@ import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.History;
+import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
@@ -85,20 +87,20 @@ public class RecordService {
 
         Table table = new TableDAO(context).findById(record.getTable().getId());
 
-        Category category = table.getCategory();
+//        Category category = table.getCategory();
 
-        if(category == null){
-            Receipt receipt = new ReceiptDAO(context).findById(receiptId);
-            category = new CategoryDAO(context).findById(receipt.getAction().getCategory().getId());
-        }else{
-            category = new CategoryDAO(context).findById(category.getId());
-        }
+//        if(category == null){
+//            Receipt receipt = new ReceiptDAO(context).findById(receiptId);
+//            category = new CategoryDAO(context).findById(receipt.getAction().getCategory().getId());
+//        }else{
+//            category = new CategoryDAO(context).findById(category.getId());
+//        }
 
-        Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
+//        Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
 
         FormViewModel form = convertRecord(record);
         form.setTitle(table.getName());
-        form.setColor(application.getRecordColor());
+        form.setColor("#33BDC2");
 
         List<Field> fields = new ArrayList<>(record.getFields());
 
@@ -117,7 +119,7 @@ public class RecordService {
 
             if(field.getColumn().getFieldType() == FieldType.COMBO){
 
-                fieldViewModel.setRelationshipTable(field.getColumn().getRelationship().getId());
+                fieldViewModel.setRelationshipTable(field.getColumn().getRelationship().getExternalID());
                 fieldViewModel.setRelationshipFields(getComboFields(field));
             }
 
@@ -157,7 +159,7 @@ public class RecordService {
 
             if(field.getColumn().getFieldType() == FieldType.COMBO){
 
-                fieldViewModel.setRelationshipTable(field.getColumn().getRelationship().getId());
+                fieldViewModel.setRelationshipTable(field.getColumn().getRelationship().getExternalID());
                 fieldViewModel.setRelationshipFields(getComboFields(field));
             }
 
@@ -171,16 +173,18 @@ public class RecordService {
 
         FormViewModel form = new FormViewModel();
 
-        Table table = new TableDAO(context).findById(tableId);
+        Layout layout = new LayoutDAO(context).findByExternalId(tableId);
+
+        Table table = layout.getTable();
         form.setTitle(table.getName());
 
-        Category category = new CategoryDAO(context).findById(table.getCategory().getId());
+//        Category category = new CategoryDAO(context).findById(table.getCategory().getId());
+//
+//        Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
+//
+        form.setColor("#33BDC2");
 
-        Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
-
-        form.setColor(application.getRecordColor());
-
-        List<Column> columns = new ColumnDAO(context).findColumnsForTable(tableId);
+        List<Column> columns = new ColumnDAO(context).findColumnsForLayout(layout.getExternalID(), table.getId());
 
         for (int index = 0; index < columns.size(); index++){
 
@@ -189,7 +193,7 @@ public class RecordService {
             FieldViewModel field = convertColumn(column);
 
             if(column.getFieldType() == FieldType.COMBO){
-                field.setRelationshipTable(column.getRelationship().getId());
+                field.setRelationshipTable(column.getRelationship().getExternalID());
                 field.setRelationshipFields(getComboColumns(column));
             }
 
@@ -266,7 +270,8 @@ public class RecordService {
     private List<FieldViewModel> getComboFields(Field field){
         List<FieldViewModel> relationship = new ArrayList<>();
 
-        Column primaryColumn = new ColumnDAO(context).findPrimaryKeyColumnForTable(field.getColumn().getRelationship().getId());
+        Column primaryColumn = new ColumnDAO(context).findPrimaryKeyColumnForTable(field.getColumn().getRelationship().getExternalID(),
+                field.getColumn().getRelationship().getTable().getId());
 
         Record record = RecordDAO.getInstance(context).findForColumnAndValue(primaryColumn.getId(), field.getValue());
 
@@ -288,7 +293,7 @@ public class RecordService {
     private List<FieldViewModel> getComboColumns(Column column){
         List<FieldViewModel> relationship = new ArrayList<>();
 
-        List<Column> columns = new ColumnDAO(context).findLogicColumnsForTable(column.getRelationship().getId());
+        List<Column> columns = new ColumnDAO(context).findLogicColumnsForTable(column.getRelationship().getExternalID());
 
         for (int index = 0; index < columns.size(); index++){
 

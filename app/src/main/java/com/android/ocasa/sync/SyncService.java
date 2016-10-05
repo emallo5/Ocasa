@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.android.ocasa.httpmodel.HttpTable;
+import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.service.OcasaService;
 
@@ -30,7 +31,7 @@ public class SyncService extends Service {
                 .sync(0, 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<Table>() {
+                .subscribe(new Subscriber<Layout>() {
                     @Override
                     public void onCompleted() {
 
@@ -42,7 +43,7 @@ public class SyncService extends Service {
                     }
 
                     @Override
-                    public void onNext(Table httpTable) {
+                    public void onNext(Layout httpTable) {
                         stopSelf();
                     }
                 });

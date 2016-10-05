@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.android.ocasa.R;
 import com.android.ocasa.core.adapter.DelegateListAdapter;
 import com.android.ocasa.model.Category;
+import com.android.ocasa.viewmodel.CategoryViewModel;
 
 /**
  * Created by ignacio on 10/02/16.
@@ -16,9 +17,9 @@ public class CategoryAdapter implements DelegateListAdapter{
 
     static final int CATEGORY_TYPE = 0;
 
-    private Category category;
+    private CategoryViewModel category;
 
-    public CategoryAdapter(Category category) {
+    public CategoryAdapter(CategoryViewModel category) {
         this.category = category;
     }
 
@@ -38,7 +39,7 @@ public class CategoryAdapter implements DelegateListAdapter{
             holder = (CategoryHolder) convertView.getTag();
         }
 
-        holder.name.setText(category.getName().toUpperCase());
+        holder.name.setText(category.getTitle().toUpperCase());
 
         return convertView;
     }
