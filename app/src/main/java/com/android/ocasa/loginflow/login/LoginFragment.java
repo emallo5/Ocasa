@@ -174,6 +174,8 @@ public class LoginFragment extends BaseMvpFragment<LoginView, LoginPresenter> im
     private void doLogin(){
         KeyboardUtil.hideKeyboard(getActivity());
 
+        loginButton.setEnabled(false);
+
         String mail = userText.getText().toString();
         String password = passwordText.getText().toString();
 
@@ -184,11 +186,15 @@ public class LoginFragment extends BaseMvpFragment<LoginView, LoginPresenter> im
     public void showEmptyFieldsAlert() {
         userText.setError(getString(R.string.login_empty_user_message));
         passwordText.setError(getString(R.string.login_empty_user_message));
+
+        loginButton.setEnabled(true);
     }
 
     @Override
     public void showInvalidEmail() {
         userText.setError("Email invalido");
+
+        loginButton.setEnabled(true);
     }
 
     @Override
@@ -205,12 +211,16 @@ public class LoginFragment extends BaseMvpFragment<LoginView, LoginPresenter> im
     public void onLoginError(String error) {
         showContainer();
 
+        loginButton.setEnabled(true);
+
         Snackbar.make(getView(), error, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNetworkError() {
         showContainer();
+
+        loginButton.setEnabled(true);
 
         Snackbar.make(getView(), "Error de conexión", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Reintentar", new View.OnClickListener() {

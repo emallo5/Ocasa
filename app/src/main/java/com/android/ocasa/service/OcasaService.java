@@ -105,7 +105,12 @@ public class OcasaService {
                                  return Observable.from(category.getLayouts());
                              }
                          }
-                )
+                ).distinct(new Func1<Layout, String>() {
+                    @Override
+                    public String call(Layout layout) {
+                        return layout.getExternalID();
+                    }
+                })
 
 //                        return Observable.zip(Observable.from(category.getActions()).flatMap(new Func1<Action, Observable<Table>>() {
 //                            @Override
@@ -157,7 +162,7 @@ public class OcasaService {
                             return Observable.empty();
                         }
 
-                        List<Column> columns = new ArrayList<Column>();
+                        List<Column> columns = new ArrayList<>();
 
                         for (LayoutColumn layoutColumn : layout.getColumns()){
                             columns.add(layoutColumn.getColumn());
@@ -416,12 +421,12 @@ public class OcasaService {
 
     private void sendMail(Receipt receipt){
 
-        Mail m = new Mail("oviedoignacio91@gmail.com", "Igna1991.");
-
-        String[] toArr = {"oviedoignacio91@gmail.com"};//, "juan.sappracone@ocasa.com"};
-        m.setTo(toArr);
-        m.setFrom("example@example.com");
-        m.setSubject(receipt.getAction().getName());
+//        Mail m = new Mail("oviedoignacio91@gmail.com", "Igna1991.");
+//
+//        String[] toArr = {"oviedoignacio91@gmail.com"};//, "juan.sappracone@ocasa.com"};
+//        m.setTo(toArr);
+//        m.setFrom("example@example.com");
+//        m.setSubject(receipt.getAction().getName());
 
         StringBuilder body = new StringBuilder();
 
@@ -475,17 +480,17 @@ public class OcasaService {
             }
         });
 
-        m.setBody(gson.toJson(record));
-
-        try {
-            if(m.send()) {
-                Log.v("MailApp", "Email sent");
-            } else {
-                Log.v("MailApp", "Could not send email");
-            }
-        } catch(Exception e) {
-            Log.e("MailApp", "Could not send email", e);
-        }
+//        m.setBody(gson.toJson(record));
+//
+//        try {
+//            if(m.send()) {
+//                Log.v("MailApp", "Email sent");
+//            } else {
+//                Log.v("MailApp", "Could not send email");
+//            }
+//        } catch(Exception e) {
+//            Log.e("MailApp", "Could not send email", e);
+//        }
     }
 
     public Observable<Menu> login(LoginCredentials credentials) {

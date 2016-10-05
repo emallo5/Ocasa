@@ -78,7 +78,7 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
             FieldViewModel field = record.getFields().get(index);
 
             TextView text = holder.fields.get(index);
-            text.setText(field.getValue());
+            text.setText(field.getLabel() + ": " + field.getValue());
 
             if(field.isHighlight()){
                 text.setTypeface(null, Typeface.BOLD);

@@ -71,7 +71,7 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
             FieldViewModel field = record.getFields().get(index);
 
             TextView text = holder.fields.get(index);
-            text.setText(record.getFields().get(index).getValue());
+            text.setText(field.getLabel() + ": " + field.getValue());
 
             if(field.isHighlight()){
                 text.setTypeface(null, Typeface.BOLD);

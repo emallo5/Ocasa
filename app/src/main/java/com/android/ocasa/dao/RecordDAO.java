@@ -216,7 +216,7 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
         try {
 
             QueryBuilder<Record, Long> recordQuery = dao.queryBuilder();
-            recordQuery.selectRaw("records.id", "fields.id", "fields.value", "fields.column_id", "columns.logic",  "columns.visible", "columns.primaryKey", "columns.highlight","'columns'.'order'");
+            recordQuery.selectRaw("records.id", "fields.id", "fields.value", "fields.column_id", "columns.logic",  "columns.name", "columns.visible", "columns.primaryKey", "columns.highlight","'columns'.'order'");
             recordQuery.where().eq("table_id", tableId);
 
             QueryBuilder<ReceiptItem, Long> receiptItemQuery = new ReceiptItemDAO(context).getDao().queryBuilder();
@@ -268,9 +268,10 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
                 Column column = new Column();
                 column.setId(resultArray[3]);
                 column.setLogic(Integer.parseInt(resultArray[4]) == 1);
-                column.setVisible(Integer.parseInt(resultArray[5]) == 1);
-                column.setPrimaryKey(Integer.parseInt(resultArray[6]) == 1);
-                column.setHighlight(Integer.parseInt(resultArray[7]) == 1);
+                column.setName(resultArray[5]);
+                column.setVisible(Integer.parseInt(resultArray[6]) == 1);
+                column.setPrimaryKey(Integer.parseInt(resultArray[7]) == 1);
+                column.setHighlight(Integer.parseInt(resultArray[8]) == 1);
 
                 field.setColumn(column);
 

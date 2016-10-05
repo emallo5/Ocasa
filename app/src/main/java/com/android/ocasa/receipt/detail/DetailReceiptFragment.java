@@ -53,6 +53,10 @@ public class DetailReceiptFragment extends BaseReceiptFragment {
     @Override
     public void onLoadContent(ReceiptFormViewModel header) {
         ViewStub stub = (ViewStub) getView().findViewById(R.id.receipt_header_detail_action);
+
+        if(stub == null)
+            return;
+
         stub.inflate();
 
         tableName = (TextView) getView().findViewById(R.id.table_name);

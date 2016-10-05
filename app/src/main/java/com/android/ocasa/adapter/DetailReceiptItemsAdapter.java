@@ -37,7 +37,6 @@ public class DetailReceiptItemsAdapter extends RecyclerView.Adapter<DetailReceip
         setHasStableIds(true);
     }
 
-
     public void refreshItems(List<CellViewModel> records) {
         fieldCount = records.size() == 0 ? 0 : records.get(0).getFields().size();
 
@@ -62,7 +61,7 @@ public class DetailReceiptItemsAdapter extends RecyclerView.Adapter<DetailReceip
             FieldViewModel field = record.getFields().get(index);
 
             TextView text = holder.fields.get(index);
-            text.setText(record.getFields().get(index).getValue());
+            text.setText(field.getLabel() + ": " + field.getValue());
 
             if(field.isHighlight()){
                 text.setTypeface(null, Typeface.BOLD);
@@ -118,7 +117,6 @@ public class DetailReceiptItemsAdapter extends RecyclerView.Adapter<DetailReceip
                 fields.add(text);
                 container.addView(text);
             }
-
         }
 
         @Override

@@ -64,7 +64,8 @@ public class BaseReceiptPresenter extends BaseRxPresenter<BaseReceiptView> {
 
                     @Override
                     public void onNext(TableViewModel table) {
-                        getView().onItemsSuccess(table);
+                        if(isViewAttached())
+                            getView().onItemsSuccess(table);
                     }
                 });
     }

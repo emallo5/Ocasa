@@ -1,12 +1,10 @@
 package com.android.ocasa.core;
 
-import com.android.ocasa.model.Table;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
 import com.codika.androidmvp.presenter.BasePresenter;
 
-import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -19,7 +17,8 @@ public class TablePresenter extends BasePresenter<TableView> {
     private TableViewModel table;
 
     public void load(String layoutId){
-        load(layoutId, null);
+        if(layoutId != null)
+            load(layoutId, null);
     }
 
     public void load(String layoutId, String query){

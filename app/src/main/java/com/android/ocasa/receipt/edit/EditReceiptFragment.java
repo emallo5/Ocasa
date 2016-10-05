@@ -99,6 +99,11 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     @Override
     public void onLoadContent(ReceiptFormViewModel header) {
         ViewStub stub = (ViewStub) getView().findViewById(R.id.receipt_header_edit_action);
+
+        if(stub == null){
+            return;
+        }
+
         stub.inflate();
 
         glass = (ImageView) getView().findViewById(R.id.glass);

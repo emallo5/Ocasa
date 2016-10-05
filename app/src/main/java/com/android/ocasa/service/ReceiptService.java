@@ -240,8 +240,10 @@ public class ReceiptService{
                     subField.setType(col.getFieldType());
                     subField.setTag(String.valueOf(col.getId()));
 
-                    if(record != null)
+                    if(record != null) {
                         subField.setValue(record.getFieldForColumn(col.getId()).getValue());
+                        field.setEditable(false);
+                    }
 
                     fields.add(subField);
                 }

@@ -24,7 +24,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
  */
 public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> implements SyncView{
 
-    static final long FIVE_MINUTES = 1000 * 60 * 5;
+    static final long FIVE_MINUTES = 1000 * 60 * 60;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
