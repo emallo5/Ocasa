@@ -3,12 +3,12 @@ package com.android.ocasa.loader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-import com.android.ocasa.dao.ApplicationDAO;
-import com.android.ocasa.dao.CategoryDAO;
-import com.android.ocasa.dao.ColumnActionDAO;
-import com.android.ocasa.dao.ReceiptDAO;
-import com.android.ocasa.dao.RecordDAO;
-import com.android.ocasa.dao.TableDAO;
+import com.android.ocasa.cache.dao.ApplicationDAO;
+import com.android.ocasa.cache.dao.CategoryDAO;
+import com.android.ocasa.cache.dao.ColumnActionDAO;
+import com.android.ocasa.cache.dao.ReceiptDAO;
+import com.android.ocasa.cache.dao.RecordDAO;
+import com.android.ocasa.cache.dao.TableDAO;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
@@ -78,7 +78,7 @@ import java.util.List;
             tableView.setColor(application.getRecordColor());
         }
 
-        List<Record> records = RecordDAO.getInstance(getContext()).findForTableAndQuery(tableId, query, excludeIds);
+        List<Record> records = new RecordDAO(getContext()).findForTableAndQuery(tableId, query, excludeIds);
 
 //        FieldDAO fieldDAO = new FieldDAO(getContext());
 

@@ -23,7 +23,7 @@ public class Application {
     private String name;
 
     @SerializedName("Categories")
-    @ForeignCollectionField(eager = true, maxEagerForeignCollectionLevel = 3)
+    @ForeignCollectionField(eager = true, maxEagerLevel = 3)
     private Collection<Category> categories;
 
     @SerializedName("record_color")

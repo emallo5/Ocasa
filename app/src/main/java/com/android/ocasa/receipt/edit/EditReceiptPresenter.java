@@ -3,7 +3,7 @@ package com.android.ocasa.receipt.edit;
 import android.location.Location;
 import android.util.Log;
 
-import com.android.ocasa.dao.ReceiptDAO;
+import com.android.ocasa.cache.dao.ReceiptDAO;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Record;
@@ -11,7 +11,6 @@ import com.android.ocasa.receipt.base.BaseReceiptPresenter;
 import com.android.ocasa.receipt.base.BaseReceiptView;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.viewmodel.CellViewModel;
-import com.android.ocasa.viewmodel.FormViewModel;
 
 import java.util.List;
 
@@ -143,12 +142,17 @@ public class EditReceiptPresenter extends BaseReceiptPresenter{
             case SIGNATURE:
                 ((EditReceiptView)getView()).onTakeSignature(column.getName());
                 break;
-            case TEXT:
+            case PHOTO:
+                ((EditReceiptView)getView()).onTakePhoto(column.getName());
+                break;
+            /*case TEXT:
                 ((EditReceiptView)getView()).onTakeText(column.getName());
                 break;
             case COMBO:
                 ((EditReceiptView)getView()).onTakeText(column.getName());
-                break;
+                break;*/
+            default:
+                next();
         }
 
     }

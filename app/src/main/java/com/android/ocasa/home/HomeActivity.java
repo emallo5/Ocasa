@@ -9,12 +9,14 @@ import com.android.ocasa.home.menu.MenuFragment;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.receipt.list.ReceiptListFragment;
+import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.viewmodel.OptionViewModel;
 
 /**
  * Ignacio Oviedo on 11/01/16.
  */
-public class HomeActivity extends MenuActivity implements MenuFragment.OnMenuItemClickListener{
+public class HomeActivity extends MenuActivity implements MenuFragment.OnMenuItemClickListener,
+AlertDialogFragment.OnAlertClickListener{
 
     private Table selectTable;
     private Action selectAction;
@@ -79,6 +81,37 @@ public class HomeActivity extends MenuActivity implements MenuFragment.OnMenuIte
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(isMenuOpen()){
+            closeMenu();
+            return;
+        }
+
+        showExitAlert();
+    }
+
+    private void showExitAlert(){
+        AlertDialogFragment.newInstance("Salir", "Desea salir de la aplicación", "Salir", null, null)
+                .show(getSupportFragmentManager(), "Exit");
+    }
+
+    @Override
+    public void onPosiviteClick(String tag) {
+        finish();
+    }
+
+    @Override
+    public void onNeutralClick(String tag) {
+
+    }
+
+    @Override
+    public void onNegativeClick(String tag) {
 
     }
 }

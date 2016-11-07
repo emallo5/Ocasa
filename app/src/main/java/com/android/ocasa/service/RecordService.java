@@ -2,33 +2,29 @@ package com.android.ocasa.service;
 
 import android.content.Context;
 
-import com.android.ocasa.dao.ActionDAO;
-import com.android.ocasa.dao.ApplicationDAO;
-import com.android.ocasa.dao.CategoryDAO;
-import com.android.ocasa.dao.ColumnActionDAO;
-import com.android.ocasa.dao.ColumnDAO;
-import com.android.ocasa.dao.FieldDAO;
-import com.android.ocasa.dao.HistoryDAO;
-import com.android.ocasa.dao.LayoutDAO;
-import com.android.ocasa.dao.ReceiptDAO;
-import com.android.ocasa.dao.RecordDAO;
-import com.android.ocasa.dao.TableDAO;
+import com.android.ocasa.cache.dao.ActionDAO;
+import com.android.ocasa.cache.dao.ColumnActionDAO;
+import com.android.ocasa.cache.dao.ColumnDAO;
+import com.android.ocasa.cache.dao.FieldDAO;
+import com.android.ocasa.cache.dao.HistoryDAO;
+import com.android.ocasa.cache.dao.LayoutDAO;
+import com.android.ocasa.cache.dao.ReceiptDAO;
+import com.android.ocasa.cache.dao.RecordDAO;
 import com.android.ocasa.model.Action;
-import com.android.ocasa.model.Application;
-import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.Field;
-import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.History;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
+import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,17 +33,10 @@ import java.util.List;
 public class RecordService {
 
     public static final String RECORD_SYNC_FINISHED_ACTION = "com.android.ocasa.service.RecordService.RECORD_SYNC_FINISHED_ACTION";
-    public static final String RECORD_SYNC_ERROR_ACTION = "com.android.ocasa.service.RecordService.RECORD_SYNC_ERROR_ACTION";
 
-    private Context context;
+    public void saveRecord(Context context, Record record){
 
-    public RecordService(Context context){
-        this.context = context;
-    }
-
-    public void saveRecord(Record record){
-
-        RecordDAO.getInstance(context).update(record);
+        new RecordDAO(context).update(record);
 
         HistoryDAO historyDAO = new HistoryDAO(context);
 
@@ -59,50 +48,125 @@ public class RecordService {
         dao.update(record.getFields());
     }
 
-    public void updateRecord(Record record){
-        RecordDAO.getInstance(context).update(record);
+    public void saveRecordsFromTable(Context context, Table table){
 
-        FieldDAO dao = new FieldDAO(context);
-        dao.update(record.getFields());
+        RecordDAO recordDAO = new RecordDAO(context);
+
+        HistoryDAO historyDAO = new HistoryDAO(context);
+
+        FieldDAO fieldDAO = new FieldDAO(context);
+
+        List<Record> records = new ArrayList<>(table.getRecords());
+
+        List<Field> fields = new ArrayList<>();
+        List<History> histories = new ArrayList<>();
+
+        for (int index = 0; index <  records.size(); index++){
+
+            Record record = records.get(index);
+
+            if(table.getId().equalsIgnoreCase("OM_MovilNovedad")){
+
+                Column column = new Column();
+                column.setId("OM_MovilNovedad_cf_0400");
+
+                Field signature = new Field();
+                signature.setColumn(column);
+                signature.setValue("");
+
+                record.getFields().add(signature);
+
+                Column photoColumn = new Column();
+                photoColumn.setId("OM_MovilNovedad_cf_0500");
+
+                Field photo = new Field();
+                photo.setColumn(photoColumn);
+                photo.setValue("");
+
+                record.getFields().add(photo);
+            }
+
+            record.setExternalId(record.getExternalId());
+            record.setTable(table);
+            record.fillConcatValues();
+
+            Record updated = recordDAO.findByExternalId(record.getExternalId());
+
+            if(updated != null){
+                record.setId(updated.getId());
+            }
+
+            for (Field field : record.getFields()){
+                Field newField = newField(record, field, updated != null);
+
+                if(newField != null) {
+                    fields.add(newField);
+
+                    if (newField.getHistorical() != null)
+                        histories.addAll(newField.getHistorical());
+                }
+            }
+        }
+
+        recordDAO.save(records);
+        fieldDAO.save(fields);
+        historyDAO.save(histories);
     }
 
-    public FormViewModel getFormFromRecord(long recordId){
-          return getFormFromRecordAndReceipt(recordId, -1);
+    private History newHistory(Field field){
+        History history = new History();
+        history.setValue(field.getValue());
+        history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
+        history.setField(field);
+        history.setTimeZone(DateTimeHelper.getDeviceTimezone());
+
+        return history;
     }
 
-    public Record findById(long recordId){
-        return RecordDAO.getInstance(context).findById(recordId);
+    private Field newField(Record record, Field field, boolean isUpdated){
+
+        field.setRecord(record);
+
+        if(isUpdated){
+            Field updateField = record.getFieldForColumn(field.getColumn().getId());
+            if(updateField != null && !field.getValue().equalsIgnoreCase(updateField.getValue())) {
+                field.addHistory(newHistory(field));
+                updateField.setValue(field.getValue());
+
+                return updateField;
+            }
+
+            return null;
+        }else{
+            field.addHistory(newHistory(field));
+        }
+
+        return field;
     }
 
-    public FormViewModel getFormFromRecordAndReceipt(long recordId, long receiptId){
+    public FormViewModel getFormFromRecord(Context context, long recordId){
+          return getFormFromRecordAndReceipt(context, recordId, -1);
+    }
 
-        RecordDAO recordDAO = RecordDAO.getInstance(context);
+    public Record findRecord(Context context, long recordId){
+        return new RecordDAO(context).findById(recordId);
+    }
+
+    public FormViewModel getFormFromRecordAndReceipt(Context context, long recordId, long receiptId){
 
         Record record;
 
         if(receiptId == -1)
-            record = recordDAO.findById(recordId);
+            record = findRecord(context, recordId);
         else
-            record = getRecordFromReceipt(recordId, receiptId);
+            record = getRecordFromReceipt(context, recordId, receiptId);
 
-        Table table = new TableDAO(context).findById(record.getTable().getId());
-
-//        Category category = table.getCategory();
-
-//        if(category == null){
-//            Receipt receipt = new ReceiptDAO(context).findById(receiptId);
-//            category = new CategoryDAO(context).findById(receipt.getAction().getCategory().getId());
-//        }else{
-//            category = new CategoryDAO(context).findById(category.getId());
-//        }
-
-//        Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
-
-        FormViewModel form = convertRecord(record);
-        form.setTitle(table.getName());
-        form.setColor("#33BDC2");
+        FormViewModel form = new TableService().getFormForTable(context, record.getTable().getId());
+        form.setId(recordId);
 
         List<Field> fields = new ArrayList<>(record.getFields());
+
+        FieldService service = new FieldService();
 
         for (int index = 0; index < fields.size(); index++){
 
@@ -110,18 +174,11 @@ public class RecordService {
 
             History history = new HistoryDAO(context).findForReceiptAndField(String.valueOf(receiptId), String.valueOf(field.getId()));
 
-            FieldViewModel fieldViewModel = convertField(field);
-
             if(history != null && history.getReceipt().getId() == receiptId){
-                fieldViewModel.setValue(history.getValue());
                 field.setValue(history.getValue());
             }
 
-            if(field.getColumn().getFieldType() == FieldType.COMBO){
-
-                fieldViewModel.setRelationshipTable(field.getColumn().getRelationship().getExternalID());
-                fieldViewModel.setRelationshipFields(getComboFields(field));
-            }
+            FieldViewModel fieldViewModel = service.getFieldFromField(context, field);
 
             form.addField(fieldViewModel);
         }
@@ -129,73 +186,49 @@ public class RecordService {
         return form;
     }
 
-    public FormViewModel getFromFromRecordAndReceipt(long recordId, long receiptId){
+    public FormViewModel getFromFromRecordAndReceipt(Context context, long recordId, long receiptId){
         Receipt receipt = new ReceiptDAO(context).findById(receiptId);
 
-        return getFormFromRecordAndAction(recordId, receipt.getAction().getId());
+        return getFormFromRecordAndAction(context, recordId, receipt.getAction().getId());
     }
 
-    public FormViewModel getFormFromRecordAndAction(long recordId, String action){
+    public FormViewModel getFormFromRecordAndAction(Context context, long recordId, String action){
 
-        Record record = getRecordFromAction(recordId, action);
+        Record record = getRecordFromAction(context, recordId, action);
 
-        Table table = new TableDAO(context).findById(record.getTable().getId());
-
-        Category category = new CategoryDAO(context).findById(table.getCategory().getId());
-
-        Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
-
-        FormViewModel form = convertRecord(record);
-        form.setTitle(table.getName());
-        form.setColor(application.getRecordColor());
+        FormViewModel form = new TableService().getFormForTable(context, record.getTable().getId());
+        form.setId(recordId);
 
         List<Field> fields = new ArrayList<>(record.getFields());
+
+        FieldService service = new FieldService();
 
         for (int index = 0; index < fields.size(); index++){
 
             Field field = fields.get(index);
 
-            FieldViewModel fieldViewModel = convertField(field);
-
-            if(field.getColumn().getFieldType() == FieldType.COMBO){
-
-                fieldViewModel.setRelationshipTable(field.getColumn().getRelationship().getExternalID());
-                fieldViewModel.setRelationshipFields(getComboFields(field));
-            }
-
-            form.addField(fieldViewModel);
+            form.addField(service.getFieldFromField(context, field));
         }
 
         return form;
     }
 
-    public FormViewModel getFormFromTable(String tableId){
-
-        FormViewModel form = new FormViewModel();
+    public FormViewModel getFormFromTable(Context context, String tableId){
 
         Layout layout = new LayoutDAO(context).findByExternalId(tableId);
 
-        Table table = layout.getTable();
-        form.setTitle(table.getName());
+        FormViewModel form = new TableService().getFormForTable(context, layout.getTable().getId());
 
-//        Category category = new CategoryDAO(context).findById(table.getCategory().getId());
-//
-//        Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
-//
-        form.setColor("#33BDC2");
+        List<Column> columns = new ColumnDAO(context)
+                .findColumnsForLayout(layout.getExternalID(), layout.getTable().getId());
 
-        List<Column> columns = new ColumnDAO(context).findColumnsForLayout(layout.getExternalID(), table.getId());
+        FieldService service = new FieldService();
 
         for (int index = 0; index < columns.size(); index++){
 
             Column column = columns.get(index);
 
-            FieldViewModel field = convertColumn(column);
-
-            if(column.getFieldType() == FieldType.COMBO){
-                field.setRelationshipTable(column.getRelationship().getExternalID());
-                field.setRelationshipFields(getComboColumns(column));
-            }
+            FieldViewModel field = service.getFieldFromColumn(context, column);
 
             form.addField(field);
         }
@@ -203,9 +236,9 @@ public class RecordService {
         return form;
     }
 
-    private Record getRecordFromReceipt(long recordId, long receiptId){
+    private Record getRecordFromReceipt(Context context, long recordId, long receiptId){
 
-        Record record = RecordDAO.getInstance(context).findById(recordId);
+        Record record = findRecord(context, recordId);
 
         Receipt receipt = new ReceiptDAO(context).findById(receiptId);
 
@@ -216,9 +249,9 @@ public class RecordService {
         return record;
     }
 
-    private Record getRecordFromAction(long recordId, String actionId){
+    private Record getRecordFromAction(Context context, long recordId, String actionId){
 
-        Record record = RecordDAO.getInstance(context).findById(recordId);
+        Record record = findRecord(context, recordId);
 
         Action action = new ActionDAO(context).findById(actionId);
 
@@ -229,79 +262,5 @@ public class RecordService {
                         action.getDetailsComlumIds()));
 
         return record;
-    }
-
-    private FormViewModel convertRecord(Record record){
-        FormViewModel form = new FormViewModel();
-
-        form.setTitle(record.getTable().getName());
-        form.setId(record.getId());
-
-        return form;
-    }
-
-    private FieldViewModel convertColumn(Column column){
-        FieldViewModel fieldViewModel = new FieldViewModel();
-
-        fieldViewModel.setValue("");
-        fieldViewModel.setTag(column.getId());
-        fieldViewModel.setLabel(column.getName());
-        fieldViewModel.setType(column.getFieldType());
-        fieldViewModel.setEditable(true);
-
-        return fieldViewModel;
-
-    }
-
-    private FieldViewModel convertField(Field field){
-        FieldViewModel fieldViewModel = new FieldViewModel();
-        fieldViewModel.setValue(field.getValue());
-
-        Column column = field.getColumn();
-
-        fieldViewModel.setTag(column.getId());
-        fieldViewModel.setLabel(column.getName());
-        fieldViewModel.setType(column.getFieldType());
-        fieldViewModel.setEditable(column.isEditable());
-
-        return fieldViewModel;
-    }
-
-    private List<FieldViewModel> getComboFields(Field field){
-        List<FieldViewModel> relationship = new ArrayList<>();
-
-        Column primaryColumn = new ColumnDAO(context).findPrimaryKeyColumnForTable(field.getColumn().getRelationship().getExternalID(),
-                field.getColumn().getRelationship().getTable().getId());
-
-        Record record = RecordDAO.getInstance(context).findForColumnAndValue(primaryColumn.getId(), field.getValue());
-
-        if(record == null)
-            return relationship;
-
-        List<Field> fields = record.getLogicFields();
-
-        for (int index = 0; index < fields.size(); index++){
-
-            Field comboField = fields.get(index);
-
-            relationship.add(convertField(comboField));
-        }
-
-        return relationship;
-    }
-
-    private List<FieldViewModel> getComboColumns(Column column){
-        List<FieldViewModel> relationship = new ArrayList<>();
-
-        List<Column> columns = new ColumnDAO(context).findLogicColumnsForTable(column.getRelationship().getExternalID());
-
-        for (int index = 0; index < columns.size(); index++){
-
-            Column comboColumn= columns.get(index);
-
-            relationship.add(convertColumn(comboColumn));
-        }
-
-        return relationship;
     }
 }

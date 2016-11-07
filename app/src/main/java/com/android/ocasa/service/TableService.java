@@ -3,33 +3,28 @@ package com.android.ocasa.service;
 import android.content.Context;
 import android.util.Log;
 
-import com.android.ocasa.dao.ApplicationDAO;
-import com.android.ocasa.dao.CategoryDAO;
-import com.android.ocasa.dao.ColumnDAO;
-import com.android.ocasa.dao.FieldDAO;
-import com.android.ocasa.dao.HistoryDAO;
-import com.android.ocasa.dao.LayoutColumnDAO;
-import com.android.ocasa.dao.LayoutDAO;
-import com.android.ocasa.dao.RecordDAO;
-import com.android.ocasa.dao.TableDAO;
+import com.android.ocasa.cache.dao.ApplicationDAO;
+import com.android.ocasa.cache.dao.CategoryDAO;
+import com.android.ocasa.cache.dao.ColumnDAO;
+import com.android.ocasa.cache.dao.LayoutColumnDAO;
+import com.android.ocasa.cache.dao.LayoutDAO;
+import com.android.ocasa.cache.dao.RecordDAO;
+import com.android.ocasa.cache.dao.TableDAO;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
-import com.android.ocasa.model.History;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.LayoutColumn;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
-import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,11 +37,38 @@ public class TableService {
     public TableService(){
     }
 
+    public Table findTable(Context context, String tableId){
+        return new TableDAO(context).findById(tableId);
+    }
+
+    public FormViewModel getFormForTable(Context context, String tableId){
+
+        FormViewModel form = new FormViewModel();
+
+        Table table = findTable(context, tableId);
+
+        Category category = table.getCategory();
+
+//        if(category == null){
+//            Receipt receipt = new ReceiptDAO(context).findRecord(receiptId);
+//            category = new CategoryDAO(context).findRecord(receipt.getAction().getCategory().getId());
+//        }else{
+//            category = new CategoryDAO(context).findRecord(category.getId());
+//        }
+
+//        Application application = new ApplicationDAO(context).findRecord(category.getApplication().getId());
+
+        form.setTitle(tableId);
+        form.setColor("#33BDC2");
+
+        return form;
+    }
+
     public TableViewModel getRecords(Context context, String layoutId, String query, long[] excludeIds){
 
         TableViewModel table = getTableViewModel(context, layoutId);
 
-        List<Record> records = RecordDAO.getInstance(context).findForTableAndQuery(table.getId(), query, excludeIds);
+        List<Record> records = new RecordDAO(context).findForTableAndQuery(table.getId(), query, excludeIds);
 
         fillTable(table, records);
 
@@ -130,13 +152,6 @@ public class TableService {
         layoutColumnDAO.deleteForLayout(response.getExternalID());
         TableDAO tableDAO = new TableDAO(context);
 
-//        Layout layout = layoutDAO.findById(response.getExternalID());
-//
-//        if(response == null){
-//            response = new Layout();
-//            response.setId(response.getId());
-//        }
-
         Layout layout = new Layout();
         layout.setExternalID(response.getExternalID());
         layout.setColumns(response.getColumns());
@@ -148,11 +163,40 @@ public class TableService {
 
         tableDAO.update(table);
 
-        Log.v(TAG, "Save Table " + layout.getId());
+        Log.v(TAG, "Save Table " + layout.getExternalID());
 
         ColumnDAO dao = new ColumnDAO(context);
 
         List<Column> columns = new ArrayList<>();
+
+        if(layout.getTable().getId().equalsIgnoreCase("OM_MovilNovedad")){
+
+            Column sigature = new Column();
+            sigature.setId("OM_MovilNovedad_cf_0400");
+            sigature.setName("Firma");
+            sigature.setVisible(true);
+            sigature.setLogic(true);
+            sigature.setOrder(11);
+            sigature.setFieldType(FieldType.SIGNATURE);
+
+            LayoutColumn layoutColumn = new LayoutColumn(layout, sigature);
+            sigature.addLayout(layoutColumn);
+
+            layout.getColumns().add(layoutColumn);
+
+            Column photo = new Column();
+            photo.setId("OM_MovilNovedad_cf_0500");
+            photo.setName("Foto");
+            photo.setVisible(true);
+            photo.setLogic(true);
+            photo.setOrder(12);
+            photo.setFieldType(FieldType.PHOTO);
+
+            LayoutColumn photoColumn = new LayoutColumn(layout, photo);
+            photo.addLayout(photoColumn);
+
+            layout.getColumns().add(photoColumn);
+        }
 
         for (LayoutColumn layoutColumn : layout.getColumns()){
 
@@ -163,7 +207,7 @@ public class TableService {
 
             columns.add(column);
 
-            if(column.getFieldType() == FieldType.COMBO ||
+            if(column.isCombo() ||
                     column.getFieldType() == FieldType.LIST){
                 layoutDAO.save(column.getRelationship());
 
@@ -174,71 +218,6 @@ public class TableService {
         dao.save(columns);
         layoutColumnDAO.save(layout.getColumns());
 
-        RecordDAO recordDAO = RecordDAO.getInstance(context);
-        HistoryDAO historyDAO = new HistoryDAO(context);
-
-        FieldDAO fieldDAO = new FieldDAO(context);
-
-        List<Record> records = new ArrayList<>(response.getTable().getRecords());
-
-        List<Field> fields = new ArrayList<>();
-        List<History> histories = new ArrayList<>();
-
-        for (int index = 0; index <  records.size(); index++){
-
-            Record record = records.get(index);
-
-            record.setExternalId(record.getExternalId());
-            record.setTable(layout.getTable());
-            record.fillConcatValues();
-
-            Record updated = recordDAO.findByExternalId(record.getExternalId());
-            if(updated != null) {
-                record.setId(updated.getId());
-
-                for (Field field : record.getFields()){
-
-                    Field updateField = updated.getFieldForColumn(field.getColumn().getId());
-
-                    if(updateField != null && !field.getValue().equalsIgnoreCase(updateField.getValue())) {
-
-                        if(!updateField.getValue().equalsIgnoreCase(field.getValue())) {
-                            History history = new History();
-                            history.setValue(field.getValue());
-                            history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
-                            history.setField(updateField);
-                            history.setTimeZone(DateTimeHelper.getDeviceTimezone());
-
-                            updateField.addHistory(history);
-
-                            histories.add(history);
-                        }
-
-                        fields.add(updateField);
-                        updateField.setValue(field.getValue());
-                    }
-                }
-
-            }else{
-                for (Field field : record.getFields()){
-                    field.setRecord(record);
-
-                    History history = new History();
-                    history.setValue(field.getValue());
-                    history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
-                    history.setField(field);
-                    history.setTimeZone(DateTimeHelper.getDeviceTimezone());
-
-                    field.addHistory(history);
-
-                    fields.add(field);
-                    histories.add(history);
-                }
-            }
-        }
-
-        recordDAO.save(records);
-        fieldDAO.save(fields);
-        historyDAO.save(histories);
+        new RecordService().saveRecordsFromTable(context, response.getTable());
     }
 }

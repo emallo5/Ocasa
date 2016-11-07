@@ -3,10 +3,10 @@ package com.android.ocasa.loader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-import com.android.ocasa.dao.ColumnDAO;
-import com.android.ocasa.dao.FieldDAO;
-import com.android.ocasa.dao.HistoryDAO;
-import com.android.ocasa.dao.RecordDAO;
+import com.android.ocasa.cache.dao.ColumnDAO;
+import com.android.ocasa.cache.dao.FieldDAO;
+import com.android.ocasa.cache.dao.HistoryDAO;
+import com.android.ocasa.cache.dao.RecordDAO;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
@@ -56,7 +56,7 @@ public class FieldTaskLoader extends AsyncTaskLoader<List<History>> {
         Column primaryColumn = new ColumnDAO(getContext()).findPrimaryKeyColumnForTable(column.getRelationship().getExternalID(),
                 column.getRelationship().getTable().getId());
 
-        Record record = RecordDAO.getInstance(getContext()).findForColumnAndValue(primaryColumn.getId(), history.getValue());
+        Record record = new RecordDAO(getContext()).findForColumnAndValue(primaryColumn.getId(), history.getValue());
 
         if(record == null)
             return;

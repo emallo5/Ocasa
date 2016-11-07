@@ -12,8 +12,10 @@ import android.widget.TextView;
 import com.android.ocasa.R;
 import com.android.ocasa.event.ReceiptItemDeleteEvent;
 import com.android.ocasa.event.ReceiptItemEvent;
+import com.android.ocasa.model.Field;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FieldViewModel;
+import com.android.ocasa.widget.FieldViewAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 

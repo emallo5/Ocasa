@@ -1,10 +1,13 @@
 package com.android.ocasa.core;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.nfc.FormatException;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.Loader;
@@ -26,9 +29,12 @@ import com.android.ocasa.fragment.ComboPickerDialog;
 import com.android.ocasa.fragment.FieldHistoricalFragment;
 import com.android.ocasa.fragment.MapFragment;
 import com.android.ocasa.loader.SaveFormTask;
+import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.util.DatePickerDialogFragment;
 import com.android.ocasa.util.DateTimeHelper;
+import com.android.ocasa.util.FieldDetailDialogFragment;
+import com.android.ocasa.util.SignatureDialogFragment;
 import com.android.ocasa.util.TimePickerDialogFragment;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FieldViewModel;
@@ -39,15 +45,23 @@ import com.android.ocasa.widget.FieldDateView;
 import com.android.ocasa.widget.FieldListView;
 import com.android.ocasa.widget.FieldMapView;
 import com.android.ocasa.widget.FieldPhoneView;
+import com.android.ocasa.widget.FieldPhotoView;
+import com.android.ocasa.widget.FieldSignatureView;
 import com.android.ocasa.widget.FieldTimeView;
 import com.android.ocasa.widget.FieldViewActionListener;
 import com.android.ocasa.widget.FieldViewAdapter;
+import com.android.ocasa.widget.SignatureView;
 import com.android.ocasa.widget.factory.FieldViewFactory;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.vision.barcode.Barcode;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,10 +71,12 @@ import java.util.Map;
  */
 public abstract class FormFragment extends LocationMvpFragment<FormView, FormPresenter> implements FormView,
         FieldViewActionListener, TimePickerDialogFragment.OnTimeChangeListener,
-        DatePickerDialogFragment.OnDateChangeListener, ComboPickerDialog.OnComboPickerListener{
+        DatePickerDialogFragment.OnDateChangeListener, ComboPickerDialog.OnComboPickerListener,
+        FieldDetailDialogFragment.OnFieldSaveListener {
 
     static final int REQUEST_QR_SCANNER = 1000;
     static final int REQUEST_MAP = 2000;
+    static final int REQUEST_PHOTO = 3000;
 
     static final String MAP_TAG = "Map";
     static final String DATE_TAG = "Date";
@@ -75,6 +91,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     protected LinearLayout formContainer;
 
     private FloatingActionButton detail;
+
+    private File imageTempFile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -118,7 +136,6 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
             view.changeLabelVisbility(true);
         }
     }
-
 
     @Override
     public FormView getMvpView() {
@@ -197,6 +214,29 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
                 FieldMapView view = (FieldMapView) formContainer.findViewWithTag(columnId);
                 view.setValue(FieldType.MAP.format(location));
             }
+        }else if(requestCode == REQUEST_PHOTO){
+            if(resultCode == Activity.RESULT_OK){
+                try {
+                    Bitmap bmp = (Bitmap) data.getExtras().get("data");
+                    OutputStream stream = new FileOutputStream(imageTempFile);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    stream.flush();
+
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if(imageTempFile.exists()){
+                    FieldViewAdapter view = (FieldViewAdapter) formContainer.findViewWithTag("OM_MovilNovedad_cf_0500");
+
+                    try {
+                        view.setValue(imageTempFile.getName());
+                    } catch (FormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
     }
 
@@ -211,6 +251,43 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
         showFragment("Detail", fragment, "Historical");
     }
+
+    @Override
+    public void onEditSignatureClick(FieldSignatureView view) {
+
+        FieldViewModel field = record.getFieldForTag((String) view.getTag());
+
+        SignatureDialogFragment.newInstance(field.getTag(), field.getLabel(), record.getId())
+                .show(getChildFragmentManager(), "Signature");
+    }
+
+    @Override
+    public void onEditPhotoClick(FieldPhotoView view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            try {
+                imageTempFile = createPhotoFile(getActivity());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            startActivityForResult(takePictureIntent, REQUEST_PHOTO);
+        }
+    }
+
+    public File createPhotoFile(Context ctx) throws IOException {
+
+        String imageFileName = String.valueOf(new Date().getTime());
+        File storageDir = getActivity().getCacheDir();
+
+        if(!storageDir.exists())
+            storageDir.mkdir();
+
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        return image;
+    }
+
 
     @Override
     public void onQrClick(View view) {
@@ -323,7 +400,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
         if(view instanceof FieldDateTimeView){
             try {
-                ((FieldDateTimeView) view).setDate(DateTimeHelper.formatDate(calendar.getTime()));
+                ((FieldDateTimeView) view).setDate(DateTimeHelper.serverFormatDate(calendar.getTime()));
             } catch (FormatException e) {
                 e.printStackTrace();
             }
@@ -331,10 +408,26 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         }
 
         try {
-            view.setValue(DateTimeHelper.formatDate(calendar.getTime()));
+            view.setValue(DateTimeHelper.serverFormatDate(calendar.getTime()));
         } catch (FormatException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onSave(String tag, String value) {
+        FieldViewAdapter view = (FieldViewAdapter) formContainer.findViewWithTag(tag);
+
+        try {
+            view.setValue(value);
+        } catch (FormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onError() {
+
     }
 
     public FormViewModel getRecord(){

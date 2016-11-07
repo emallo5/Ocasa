@@ -3,8 +3,8 @@ package com.android.ocasa.loader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-import com.android.ocasa.dao.FieldDAO;
-import com.android.ocasa.dao.RecordDAO;
+import com.android.ocasa.cache.dao.FieldDAO;
+import com.android.ocasa.cache.dao.RecordDAO;
 import com.android.ocasa.model.Record;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class DetailListTaskLoader extends AsyncTaskLoader<List<Record>> {
     @Override
     public List<Record> loadInBackground() {
 
-        RecordDAO recordDAO = RecordDAO.getInstance(getContext());
+        RecordDAO recordDAO = new RecordDAO(getContext());
 
         List<Record> records = recordDAO.findDetailRecords(tableId, columnId, value);
 

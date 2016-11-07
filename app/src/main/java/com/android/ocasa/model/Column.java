@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Ignacio Oviedo on 26/01/16.
+ * A representation of a Column from Table
  */
 @DatabaseTable(tableName = "columns")
 public class Column {
@@ -42,9 +42,6 @@ public class Column {
     @DatabaseField(dataType = DataType.ENUM_STRING)
     private FieldType fieldType;
 
-    @DatabaseField(foreign = true)
-    private Table table;
-
     @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private Layout relationship;
 
@@ -59,6 +56,7 @@ public class Column {
 
     @DatabaseField
     private String defaultValue;
+
 
     public Column() {}
 
@@ -134,14 +132,6 @@ public class Column {
         this.fieldType = fieldType;
     }
 
-    public Table getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = table;
-    }
-
     public Layout getRelationship() {
         return relationship;
     }
@@ -188,5 +178,9 @@ public class Column {
         }
 
         layouts.add(layout);
+    }
+
+    public boolean isCombo() {
+        return fieldType == FieldType.COMBO;
     }
 }

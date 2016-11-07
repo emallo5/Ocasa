@@ -65,6 +65,13 @@ public class DateTimeHelper {
         return new Date();
     }
 
+    public static String serverFormatDate(Date date){
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(SERVER_DATE_PATTERN, Locale.getDefault());
+
+        return dateFormat.format(date);
+    }
+
     public static String formatDate(Date date){
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault());

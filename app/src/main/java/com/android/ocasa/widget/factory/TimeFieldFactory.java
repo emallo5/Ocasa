@@ -21,9 +21,9 @@ public class TimeFieldFactory extends DateFieldFactory {
 //
 //        dateField.setLabel(field.getColumn().getName());
 //
-//        initField(dateField.getField(), field, isEditMode);
+//        initField(dateField.getFieldFromField(), field, isEditMode);
 //
-//        TextView input = dateField.getField().getText();
+//        TextView input = dateField.getFieldFromField().getText();
 //        input.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clock, 0, 0, 0);
 //        input.setCompoundDrawablePadding(container.getContext().getResources().getDimensionPixelSize(R.dimen.medium_padding));
 //

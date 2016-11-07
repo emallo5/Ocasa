@@ -27,9 +27,9 @@ public class DateFieldFactory extends FieldViewFactory {
 //        FieldDateView dateField =
 //                (FieldDateView) createView(container, field.getValue(), field.getColumn().getName(), isEditMode);
 //
-//        initField(dateField.getField(), field, isEditMode);
+//        initField(dateField.getFieldFromField(), field, isEditMode);
 //
-//        TextView input = dateField.getField().getText();
+//        TextView input = dateField.getFieldFromField().getText();
 //        input.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar, 0, 0, 0);
 //        input.setCompoundDrawablePadding(container.getContext().getResources().getDimensionPixelSize(R.dimen.medium_padding));
 //
@@ -66,7 +66,7 @@ public class DateFieldFactory extends FieldViewFactory {
         Date date = DateTimeHelper.serverParseDate(field.getValue());
 
         try {
-            dateField.setValue(DateTimeHelper.formatDate(date));
+            dateField.setValue(DateTimeHelper.serverFormatDate(date));
         } catch (FormatException e) {
             e.printStackTrace();
         }

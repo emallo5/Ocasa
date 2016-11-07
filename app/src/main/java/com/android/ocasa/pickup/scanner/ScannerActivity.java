@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.android.ocasa.R;
 import com.android.ocasa.core.activity.BaseActivity;
-import com.android.ocasa.dao.RecordDAO;
+import com.android.ocasa.cache.dao.RecordDAO;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.pickup.util.PickupItemConfirmationDialog;
 import com.android.ocasa.util.InformationDialogFragment;
@@ -230,7 +230,7 @@ public class ScannerActivity extends BaseActivity implements ZBarScannerView.Res
 
         @Override
         protected CheckResult doInBackground(String... strings) {
-            Record record = RecordDAO.getInstance(ScannerActivity.this).findForTableAndValueId("700", strings[0]);
+            Record record = new RecordDAO(ScannerActivity.this).findForTableAndValueId("700", strings[0]);
 
             return new CheckResult(record != null, strings[0], record != null ? record.getId() : 0);
         }

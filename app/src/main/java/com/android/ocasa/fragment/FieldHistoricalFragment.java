@@ -11,7 +11,7 @@ import com.android.ocasa.R;
 import com.android.ocasa.adapter.HistoricalAdapter;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.core.fragment.RecyclerListFragment;
-import com.android.ocasa.dao.HistoryDAO;
+import com.android.ocasa.cache.dao.HistoryDAO;
 import com.android.ocasa.event.ReceiptHistoryClickEvent;
 import com.android.ocasa.loader.FieldTaskLoader;
 import com.android.ocasa.model.History;

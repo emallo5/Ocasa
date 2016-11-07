@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24.0.2'
+    compileSdkVersion 'Google Inc.:Google APIs:24'
+    buildToolsVersion '24.0.3'
 
     defaultConfig {
         minSdkVersion 14
@@ -28,4 +28,5 @@ dependencies {
     compile 'com.codikasolutions.android:android-mvp:0.0.4'
     compile 'com.codikasolutions.android:android-mvp-rx:0.0.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }

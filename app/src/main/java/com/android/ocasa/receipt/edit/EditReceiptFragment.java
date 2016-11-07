@@ -1,9 +1,13 @@
 package com.android.ocasa.receipt.edit;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
@@ -23,6 +27,7 @@ import com.android.ocasa.R;
 import com.android.ocasa.adapter.RecieptPagerAdapter;
 import com.android.ocasa.fragment.AddItemsFragment;
 import com.android.ocasa.receipt.item.available.AvailableItemsFragment;
+import com.android.ocasa.receipt.item.detailaction.DetailActionActivity;
 import com.android.ocasa.receipt.item.list.ReceiptItemsFragment;
 import com.android.ocasa.pickup.scanner.ScannerActivity;
 import com.android.ocasa.pickup.util.PickupItemConfirmationDialog;
@@ -30,6 +35,7 @@ import com.android.ocasa.receipt.base.BaseReceiptFragment;
 import com.android.ocasa.receipt.base.BaseReceiptPresenter;
 import com.android.ocasa.receipt.base.BaseReceiptView;
 import com.android.ocasa.util.AlertDialogFragment;
+import com.android.ocasa.util.AppCache;
 import com.android.ocasa.util.FieldDetailDialogFragment;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.util.SignatureDialogFragment;
@@ -43,6 +49,13 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.BufferUnderflowException;
+import java.nio.ByteBuffer;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -54,11 +67,12 @@ import rx.functions.Action1;
  */
 public class EditReceiptFragment extends BaseReceiptFragment implements EditReceiptView,
         OnItemChangeListener, PickupItemConfirmationDialog.OnConfirmationListener,
-        AlertDialogFragment.OnAlertClickListener, FieldDetailDialogFragment.OnFieldSaveListener {
+        AlertDialogFragment.OnAlertClickListener {
 
     static final String TAG = "EditReceiptFragment";
 
     static final int SCANNER_REQUEST_CODE = 1000;
+    static final int PHOTO_REQUEST_CODE = 2000;
 
     public boolean isSaved = false;
 
@@ -214,20 +228,39 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if(resultCode != Activity.RESULT_OK)
+            return;
+
         if(requestCode == SCANNER_REQUEST_CODE){
-            if(resultCode == Activity.RESULT_OK){
-                long[] codes = data.getLongArrayExtra(ScannerActivity.EXTRA_RESULT_CODES);
+            long[] codes = data.getLongArrayExtra(ScannerActivity.EXTRA_RESULT_CODES);
 
-                long[] newCodes = new long[0];
+            long[] newCodes = new long[0];
 
-                for (long code : codes){
-                    if(!ArrayUtils.contains(recordIds, code)) {
-                        recordIds = ArrayUtils.add(recordIds, code);
-                        newCodes = ArrayUtils.add(newCodes, code);
-                    }
+            for (long code : codes){
+                if(!ArrayUtils.contains(recordIds, code)) {
+                    recordIds = ArrayUtils.add(recordIds, code);
+                    newCodes = ArrayUtils.add(newCodes, code);
                 }
+            }
+            ((EditReceiptPresenter)getPresenter()).findItems(getArguments().getLong(ARG_RECEIPT_ID), newCodes);
+        }
 
-                ((EditReceiptPresenter)getPresenter()).findItems(getArguments().getLong(ARG_RECEIPT_ID), newCodes);
+        if(requestCode == PHOTO_REQUEST_CODE){
+
+            try {
+                Bitmap bmp = (Bitmap) data.getExtras().get("data");
+                OutputStream stream = new FileOutputStream(imageTempFile);
+                bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                stream.flush();
+
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if(imageTempFile.exists()){
+                ((EditReceiptPresenter)getPresenter()).updateValue(imageTempFile.getName());
+                ((EditReceiptPresenter)getPresenter()).next();
             }
         }
     }
@@ -282,9 +315,39 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         NavUtils.navigateUpFromSameTask(getActivity());
     }
 
+    private File imageTempFile;
+
+    @Override
+    public void onTakePhoto(String fieldName) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            try {
+                imageTempFile = createPhotoFile(getActivity());
+//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageTempFile));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            startActivityForResult(takePictureIntent, PHOTO_REQUEST_CODE);
+        }
+    }
+
+    public File createPhotoFile(Context ctx) throws IOException {
+
+        String imageFileName = String.valueOf(new Date().getTime());
+        File storageDir = getActivity().getCacheDir();
+
+        if(!storageDir.exists())
+            storageDir.mkdir();
+
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        return image;
+    }
+
     @Override
     public void onTakeSignature(String fieldName) {
-        SignatureDialogFragment.newInstance(fieldName, 1).show(getChildFragmentManager(), "Signature");
+        //SignatureDialogFragment.newInstance(fieldName, 1).show(getChildFragmentManager(), "Signature");
     }
 
     @Override
@@ -362,6 +425,11 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     }
 
     @Override
+    public void onShowSearchResults() {
+        search.requestFocus();
+    }
+
+    @Override
     public void onItemAdded(CellViewModel item) {
         if(ArrayUtils.contains(recordIds, item.getId())){
             return;
@@ -383,8 +451,16 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         search.requestFocus();
         checkSound.start();
 
-        ((EditReceiptPresenter)getPresenter()).checkDetailFields(getArguments().getLong(ARG_RECEIPT_ID), item.getId());
+        goDetailActionScreen(item.getId());
+        //((EditReceiptPresenter)getPresenter()).checkDetailFields(getArguments().getLong(ARG_RECEIPT_ID), item.getId());
 //        ((EditReceiptPresenter)getPresenter()).findItem(getArguments().getLong(ARG_RECEIPT_ID), item.getId());
+    }
+
+    private void goDetailActionScreen(long recordId){
+        Intent intent = new Intent(getActivity(), DetailActionActivity.class);
+        intent.putExtra(DetailActionActivity.EXTRA_RECEIPT_ID, getArguments().getLong(ARG_RECEIPT_ID));
+        intent.putExtra(DetailActionActivity.EXTRA_RECORD_ID, recordId);
+        startActivity(intent);
     }
 
     @Override
@@ -411,17 +487,17 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         this.recordIds = ArrayUtils.addAll(this.recordIds, recordIds);
     }
 
-    @Override
-    public void onSave(String value) {
-//        Toast.makeText(getActivity(), path, Toast.LENGTH_SHORT).show();
-//        ((EditReceiptPresenter)getPresenter()).updateSignature(path, recordId);
-        ((EditReceiptPresenter)getPresenter()).updateValue(value);
-        ((EditReceiptPresenter)getPresenter()).next();
-    }
-
-    @Override
-    public void onError() {
-        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-        ((EditReceiptPresenter)getPresenter()).next();
-    }
+//    @Override
+//    public void onSave(String value) {
+////        Toast.makeText(getActivity(), path, Toast.LENGTH_SHORT).show();
+////        ((EditReceiptPresenter)getPresenter()).updateSignature(path, recordId);
+//        ((EditReceiptPresenter)getPresenter()).updateValue(value);
+//        ((EditReceiptPresenter)getPresenter()).next();
+//    }
+//
+//    @Override
+//    public void onError() {
+//        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+//        ((EditReceiptPresenter)getPresenter()).next();
+//    }
 }

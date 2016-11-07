@@ -6,11 +6,17 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.android.ocasa.model.FieldType;
+import com.android.ocasa.util.DateTimeHelper;
+
+import java.util.Date;
+
 
 /**
  * Created by ignacio on 01/02/16.
  */
 public class FieldDateView extends FormTextFieldView {
+
+    private String value;
 
     public FieldDateView(Context context) {
         this(context, null);
@@ -33,9 +39,19 @@ public class FieldDateView extends FormTextFieldView {
 
     @Override
     public void setValue(String value) throws FormatException {
-        if(!FieldType.DATE.isValidValue(value))
+
+        Date date =  DateTimeHelper.serverParseDate(value);
+
+        if(!FieldType.DATE.isValidValue(DateTimeHelper.formatDate(date)))
             throw new FormatException();
 
-        super.setValue(value);
+        this.value = value;
+
+        getField().getText().setText(DateTimeHelper.formatDate(date));
+    }
+
+    @Override
+    public String getValue() {
+        return value;
     }
 }

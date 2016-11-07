@@ -4,19 +4,18 @@ import android.content.Context;
 import android.location.Location;
 
 import com.android.ocasa.cache.ReceiptCacheManager;
-import com.android.ocasa.dao.ActionDAO;
-import com.android.ocasa.dao.ApplicationDAO;
-import com.android.ocasa.dao.CategoryDAO;
-import com.android.ocasa.dao.ColumnActionDAO;
-import com.android.ocasa.dao.ColumnDAO;
-import com.android.ocasa.dao.FieldDAO;
-import com.android.ocasa.dao.HistoryDAO;
-import com.android.ocasa.dao.LayoutColumnDAO;
-import com.android.ocasa.dao.ReceiptDAO;
-import com.android.ocasa.dao.ReceiptItemDAO;
-import com.android.ocasa.dao.RecordDAO;
-import com.android.ocasa.dao.StatusDAO;
-import com.android.ocasa.dao.TableDAO;
+import com.android.ocasa.cache.dao.ActionDAO;
+import com.android.ocasa.cache.dao.ApplicationDAO;
+import com.android.ocasa.cache.dao.CategoryDAO;
+import com.android.ocasa.cache.dao.ColumnActionDAO;
+import com.android.ocasa.cache.dao.ColumnDAO;
+import com.android.ocasa.cache.dao.FieldDAO;
+import com.android.ocasa.cache.dao.HistoryDAO;
+import com.android.ocasa.cache.dao.ReceiptDAO;
+import com.android.ocasa.cache.dao.ReceiptItemDAO;
+import com.android.ocasa.cache.dao.RecordDAO;
+import com.android.ocasa.cache.dao.StatusDAO;
+import com.android.ocasa.cache.dao.TableDAO;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
@@ -76,37 +75,28 @@ public class ReceiptService{
             field.setLabel(header.getColumn().getName());
             field.setValue(header.getValue());
 
-            if(header.getColumn().getFieldType() == FieldType.COMBO){
+            if(header.getColumn().isCombo()){
 
                 Column column = header.getColumn();
 
-                List<Column> relationship = new ColumnDAO(context).findLogicColumnsForTable(column.getRelationship().getExternalID());
+                List<Column> relationship = new ColumnDAO(context).findLogicColumnsForLayoutAndTable(column.getRelationship().getExternalID(), column.getRelationship().getTable().getId());
 
                 List<FieldViewModel> fields = new ArrayList<>();
 
-                Record record = RecordDAO.getInstance(context).findForTableAndValueId(column.getRelationship().getExternalID(), header.getValue());
+                Record record = new RecordDAO(context).findForTableAndValueId(column.getRelationship().getExternalID(), header.getValue());
 
                 if(record != null)
                     record.setFields(new FieldDAO(context).findLogicsForRecord(String.valueOf(record.getId())));
 
                 for (Column col : relationship){
 
-//                    FieldViewModel subField = new FieldViewModel();
-//                    subField.setLabel(col.getName());
-//                    subField.setType(col.getFieldType());
-//                    subField.setTag(String.valueOf(col.getId()));
-
                     if(record != null) {
-                        //subField.setValue(record.getFieldForColumn(col.getId()).getValue());
                         field.setValue(record.getFieldForColumn(col.getId()).getValue());
                     }
-
-//                    fields.add(subField);
                 }
 
                 field.setRelationshipFields(fields);
             }
-//
             form.addField(field);
         }
 
@@ -164,9 +154,9 @@ public class ReceiptService{
 
                     Column column = headerField.getColumn();
 
-                    List<Column> relationship = new ColumnDAO(context).findLogicColumnsForTable(column.getRelationship().getExternalID());
+                    List<Column> relationship = new ColumnDAO(context).findLogicColumnsForLayoutAndTable(column.getRelationship().getExternalID(), column.getRelationship().getTable().getId());
 
-                    Record record = RecordDAO.getInstance(context).findForTableAndValueId(column.getRelationship().getExternalID(), headerField.getValue());
+                    Record record = new RecordDAO(context).findForTableAndValueId(column.getRelationship().getExternalID(), headerField.getValue());
 
                     if (record != null)
                         record.setFields(new FieldDAO(context).findLogicsForRecord(String.valueOf(record.getId())));
@@ -216,7 +206,7 @@ public class ReceiptService{
             field.setTag(String.valueOf(columnAction.getColumn().getId()));
             field.setEditable(columnAction.isEditable());
 
-            if(columnAction.getColumn().getFieldType() == FieldType.COMBO){
+            if(columnAction.getColumn().isCombo()){
 
                 Layout layout = columnAction.getColumn().getRelationship();
 
@@ -228,7 +218,7 @@ public class ReceiptService{
 
                 List<FieldViewModel> fields = new ArrayList<>();
 
-                Record record = RecordDAO.getInstance(context).findForTableAndValueId(column.getRelationship().getTable().getId(), columnAction.getDefaultValue());
+                Record record = new RecordDAO(context).findForTableAndValueId(column.getRelationship().getTable().getId(), columnAction.getDefaultValue());
 
                 if(record != null)
                     record.setFields(new FieldDAO(context).findLogicsForRecord(String.valueOf(record.getId())));
@@ -287,7 +277,7 @@ public class ReceiptService{
             PairViewModel pair = new PairViewModel();
             pair.setFirstField(field);
 
-            if(header.getColumn().getFieldType() == FieldType.COMBO){
+            if(header.getColumn().isCombo()){
 
                 Column column = header.getColumn();
 
@@ -295,7 +285,7 @@ public class ReceiptService{
 
                 List<FieldViewModel> fields = new ArrayList<>();
 
-                Record record = RecordDAO.getInstance(context).findForTableAndValueId(column.getRelationship().getExternalID(), header.getValue());
+                Record record = new RecordDAO(context).findForTableAndValueId(column.getRelationship().getExternalID(), header.getValue());
 
                 if(record != null)
                     record.setFields(new FieldDAO(context).findLogicsForRecord(String.valueOf(record.getId())));
@@ -332,7 +322,7 @@ public class ReceiptService{
                 fieldViewModel.setValue(columnAction.getLastValue());
                 fieldViewModel.setType(FieldType.TEXT);
 
-                if (columnAction.getColumn().getFieldType() == FieldType.COMBO) {
+                if (columnAction.getColumn().isCombo()) {
 
                     Column column = columnAction.getColumn();
 
@@ -340,7 +330,7 @@ public class ReceiptService{
 
                     List<FieldViewModel> fields = new ArrayList<>();
 
-                    Record record = RecordDAO.getInstance(context).findForTableAndValueId(column.getRelationship().getExternalID(), columnAction.getLastValue());
+                    Record record = new RecordDAO(context).findForTableAndValueId(column.getRelationship().getExternalID(), columnAction.getLastValue());
 
                     if (record != null)
                         record.setFields(new FieldDAO(context).findLogicsForRecord(String.valueOf(record.getId())));
@@ -393,7 +383,7 @@ public class ReceiptService{
 
         Action action = receipt.getAction();
 
-        RecordDAO dao = RecordDAO.getInstance(context);
+        RecordDAO dao = new RecordDAO(context);
 
         List<Record> records = new ArrayList<>();
 
@@ -523,11 +513,13 @@ public class ReceiptService{
 
         List<Record> records = new ArrayList<>();
 
-        RecordDAO recordDAO = RecordDAO.getInstance(context);
+        RecordDAO recordDAO = new RecordDAO(context);
         FieldDAO fieldDAO = new FieldDAO(context);
         ReceiptItemDAO itemDAO = new ReceiptItemDAO(context);
         itemDAO.deleteForReceipt(receipt.getId());
         List<ReceiptItem> items = new ArrayList<>();
+
+        HistoryDAO historyDAO = new HistoryDAO(context);
 
         for (long id : recordIds){
             Record record = recordDAO.findById(id);
@@ -542,24 +534,31 @@ public class ReceiptService{
 
             for (Field headerField : receipt.getHeaderValues()) {
                 Field field = record.getFieldForColumn(headerField.getColumn().getId());
-                field.setValue(headerField.getValue());
+
+                if(field != null)
+                    field.setValue(headerField.getValue());
             }
+
 
             List<History> histories = new ArrayList<>();
 
             for (Field field : record.getFields()) {
 
-                History history = new History();
-                history.setValue(field.getValue());
-                history.setField(field);
-                history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
-                history.setTimeZone(DateTimeHelper.getDeviceTimezone());
-                history.setReceipt(receipt);
+                History history = historyDAO.findForReceiptAndField(String.valueOf(receiptId), String.valueOf(field.getId()));
 
-                histories.add(history);
+                if(history == null || !history.getValue().equalsIgnoreCase(field.getValue())){
+                    history = new History();
+                    history.setValue(field.getValue());
+                    history.setField(field);
+                    history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
+                    history.setTimeZone(DateTimeHelper.getDeviceTimezone());
+                    history.setReceipt(receipt);
+
+                    histories.add(history);
+                }
             }
 
-            new HistoryDAO(context).save(histories);
+            historyDAO.save(histories);
 
             fieldDAO.update(record.getFields());
         }
@@ -602,7 +601,7 @@ public class ReceiptService{
 
         tableView.setColor(application.getRecordColor());
 
-        List<Record> records = RecordDAO.getInstance(context).findAvailablesForTableAndReceipt(tableId, receipt.getId());
+        List<Record> records = new RecordDAO(context).findAvailablesForTableAndReceipt(tableId, receipt.getId());
         //RecordDAO.getInstance(context).findForTableAndQuery(tableId, query, excludeIds);
 
         //records = filter(records, action);

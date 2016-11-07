@@ -2,17 +2,19 @@ package com.android.ocasa.service;
 
 import android.content.Context;
 
-import com.android.ocasa.dao.ActionDAO;
-import com.android.ocasa.dao.ApplicationDAO;
-import com.android.ocasa.dao.CategoryDAO;
-import com.android.ocasa.dao.ColumnActionDAO;
-import com.android.ocasa.dao.LayoutDAO;
-import com.android.ocasa.dao.TableDAO;
+import com.android.ocasa.cache.dao.ActionDAO;
+import com.android.ocasa.cache.dao.ApplicationDAO;
+import com.android.ocasa.cache.dao.CategoryDAO;
+import com.android.ocasa.cache.dao.ColumnActionDAO;
+import com.android.ocasa.cache.dao.LayoutDAO;
+import com.android.ocasa.cache.dao.TableDAO;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
+import com.android.ocasa.model.Column;
 import com.android.ocasa.model.ColumnAction;
+import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.viewmodel.ApplicationViewModel;
@@ -45,8 +47,6 @@ public class MenuService {
                 for (Layout layout : category.getLayouts()){
                     Table table = layout.getTable();
                     tables.add(table);
-//                    table.setVisible(category.getActions().size() == 0);
-//                    table.setCategory(category);
                 }
 
                 if(category.getActions() != null) {
@@ -60,6 +60,42 @@ public class MenuService {
                         for (ColumnAction header: action.getColumnsHeader()) {
                             header.setAction(action);
                         }
+
+                        if(action.getTable().getId().equalsIgnoreCase("OM_MovilNovedad")){
+
+                            Column sigature = new Column();
+                            sigature.setId("OM_MovilNovedad_cf_0400");
+                            sigature.setName("Firma");
+                            sigature.setVisible(true);
+                            sigature.setLogic(true);
+                            sigature.setFieldType(FieldType.SIGNATURE);
+
+                            ColumnAction columnAction = new ColumnAction();
+                            columnAction.setType(ColumnAction.ColumnActionType.DETAIL);
+                            columnAction.setColumn(sigature);
+                            columnAction.setEditable(true);
+                            columnAction.setLastValue("");
+                            columnAction.setDefaultValue("");
+
+                            action.getColumnsDetail().add(columnAction);
+
+                            Column photo = new Column();
+                            photo.setId("OM_MovilNovedad_cf_0500");
+                            photo.setName("Foto");
+                            photo.setVisible(true);
+                            photo.setLogic(true);
+                            photo.setFieldType(FieldType.PHOTO);
+
+                            ColumnAction photoAction = new ColumnAction();
+                            photoAction.setType(ColumnAction.ColumnActionType.DETAIL);
+                            photoAction.setColumn(photo);
+                            photoAction.setEditable(true);
+                            photoAction.setLastValue("");
+                            photoAction.setDefaultValue("");
+
+                            action.getColumnsDetail().add(photoAction);
+                        }
+
 
                         for (ColumnAction detail: action.getColumnsDetail()) {
                             detail.setAction(action);
@@ -104,15 +140,12 @@ public class MenuService {
             ApplicationViewModel applicationViewModel = new ApplicationViewModel();
             applicationViewModel.setTitle(app.getName());
 
-            List<Category> visibleCategories = new ArrayList<>();
-
             List<Category> categories = new ArrayList<>(app.getCategories());
 
             for (int subIndex = 0; subIndex < categories.size(); subIndex++) {
                 Category category = categories.get(subIndex);
 
                 if (category.isVisible()) {
-                    visibleCategories.add(category);
 
                     CategoryViewModel categoryViewModel = new CategoryViewModel();
                     categoryViewModel.setTitle(category.getName());
@@ -122,36 +155,34 @@ public class MenuService {
 
                     if (category.getActions() == null || category.getActions().size() == 0) {
                         for (Layout layout : category.getLayouts()) {
-//                        if(table.isVisible()){
-//                            visibleTables.add(table);
-//                        }
-
-                            OptionViewModel optionViewModel = new OptionViewModel();
-                            optionViewModel.setTitle(layout.getTable().getName());
-                            optionViewModel.setType(OptionViewModel.TABLE);
-                            optionViewModel.setId(layout.getExternalID());
-                            categoryViewModel.addOption(optionViewModel);
+                            categoryViewModel.addOption(newOption(layout.getExternalID(),
+                                    layout.getTable().getName(),
+                                    OptionViewModel.TABLE));
                         }
                     }
 
                     for (Action action : category.getActions()) {
-                        OptionViewModel optionViewModel = new OptionViewModel();
-                        optionViewModel.setTitle(action.getName());
-                        optionViewModel.setType(OptionViewModel.ACTION);
-                        optionViewModel.setId(action.getId());
-                        categoryViewModel.addOption(optionViewModel);
+                        categoryViewModel.addOption(newOption(action.getId(),
+                                action.getName(),
+                                OptionViewModel.ACTION));
                     }
 
                     category.setTables(visibleTables);
                 }
             }
-//            }
-
-            app.setCategories((ArrayList<Category>) visibleCategories);
 
             menu.addApplication(applicationViewModel);
         }
 
         return menu;
+    }
+
+    private OptionViewModel newOption(String id, String title, int type){
+        OptionViewModel newOption = new OptionViewModel();
+        newOption.setId(id);
+        newOption.setTitle(title);
+        newOption.setType(type);
+
+        return newOption;
     }
 }

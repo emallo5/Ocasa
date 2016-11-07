@@ -86,6 +86,8 @@ public class AddItemsFragment extends RecyclerListFragment implements LoaderMana
         if(data == null)
             return;
 
+        callback.onShowSearchResults();
+
         if(data.getCells().isEmpty()){
             callback.onItemNotFound(getArguments()
                     .getString(ARG_SEARCH_QUERY));

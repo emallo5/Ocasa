@@ -8,8 +8,8 @@ import android.support.v4.content.Loader;
 import com.android.ocasa.core.FormFragment;
 import com.android.ocasa.core.FormPresenter;
 import com.android.ocasa.core.activity.BaseActivity;
-import com.android.ocasa.dao.FieldDAO;
-import com.android.ocasa.dao.ReceiptDAO;
+import com.android.ocasa.cache.dao.FieldDAO;
+import com.android.ocasa.cache.dao.ReceiptDAO;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
@@ -52,6 +52,10 @@ public class EditHeaderReceiptFragment extends FormFragment {
 
     @Override
     public void onFormSuccess(FormViewModel form) {
+
+        if(getRecord() != null)
+            return;
+
         setRecordForm(form);
         fillFields(form.getFields(), true);
         container.setCardBackgroundColor(Color.parseColor(form.getColor()));

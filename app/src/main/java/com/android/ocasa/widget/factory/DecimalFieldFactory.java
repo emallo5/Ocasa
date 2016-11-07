@@ -19,7 +19,7 @@ public class DecimalFieldFactory extends TextFieldFactory {
 //
 //        FormInputFieldView textView = (FormInputFieldView) super.createView(container, field, isEditMode);
 //
-//        EditText textField = textView.getField().getInput();
+//        EditText textField = textView.getFieldFromField().getInput();
 //        textField.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 //
 //        return textView;

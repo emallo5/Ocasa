@@ -26,8 +26,11 @@
             android:layout_centerVertical="true"
             android:maxLines="1"
             android:singleLine="true"
+            android:inputType="textVisiblePassword"
             android:layout_toLeftOf="@+id/clear_search"
-            android:layout_toRightOf="@+id/glass">
+            android:layout_toStartOf="@+id/clear_search"
+            android:layout_toRightOf="@+id/glass"
+            android:layout_toEndOf="@+id/glass">
 
             <requestFocus/>
         </EditText>

@@ -82,6 +82,10 @@ public class MenuActivity extends BarActivity {
         getDrawerLayout().openDrawer(GravityCompat.START);
     }
 
+    public boolean isMenuOpen(){
+        return getDrawerLayout().isDrawerOpen(GravityCompat.START);
+    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

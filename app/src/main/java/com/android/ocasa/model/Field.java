@@ -82,6 +82,10 @@ public class Field {
         historical.add(history);
     }
 
+    public boolean isComboField(){
+        return column.isCombo();
+    }
+
     public Receipt getReceipt() {
         return receipt;
     }

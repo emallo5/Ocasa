@@ -108,6 +108,8 @@
                 android:value=".record.create.CreateRecordActivity" />
         </activity>
 
+        <activity android:name=".receipt.item.detailaction.DetailActionActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:theme="@style/FilterTheme"
@@ -117,7 +119,8 @@
             android:theme="@style/FilterTheme"
             android:name=".activity.ValidityDateActivity"/>
 
-        <activity android:name=".record.create.CreateRecordActivity"
+        <activity
+            android:name=".record.create.CreateRecordActivity"
             android:parentActivityName=".home.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -127,6 +130,7 @@
         <activity
             android:name=".receipt.edit.EditReceiptActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
             android:parentActivityName=".home.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -153,7 +157,6 @@
         <!--  - - - -  -->
 
         <service android:name=".sync.SyncService"/>
-        <service android:name=".sync.SendService"/>
 
         <receiver android:name=".receiver.RequestTableReceiver"
             android:exported="false">

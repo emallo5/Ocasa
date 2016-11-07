@@ -7,12 +7,14 @@ import android.view.View;
  */
 public interface FieldViewActionListener {
 
-    public void onHistoryClick(View view);
-    public void onQrClick(View view);
-    public void onMapClick(FieldMapView view);
-    public void onDateClick(FieldDateView view);
-    public void onTimeClick(FieldTimeView view);
-    public void onPhoneClick(FieldPhoneView view);
-    public void onComboClick(FieldComboView view);
-    public void onListClick(FieldListView view);
+    void onHistoryClick(View view);
+    void onQrClick(View view);
+    void onMapClick(FieldMapView view);
+    void onDateClick(FieldDateView view);
+    void onTimeClick(FieldTimeView view);
+    void onPhoneClick(FieldPhoneView view);
+    void onComboClick(FieldComboView view);
+    void onListClick(FieldListView view);
+    void onEditSignatureClick(FieldSignatureView view);
+    void onEditPhotoClick(FieldPhotoView view);
 }

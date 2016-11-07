@@ -9,11 +9,12 @@ import android.support.v4.app.DialogFragment;
 public abstract class FieldDetailDialogFragment extends DialogFragment implements AlertDialogFragment.OnAlertClickListener{
 
     static final String ARG_FIELD_NAME = "field_name";
+    static final String ARG_FIELD_TAG = "field_tag";
 
     private OnFieldSaveListener onFieldSaveListener;
 
     public interface OnFieldSaveListener{
-        void onSave(String value);
+        void onSave(String tag, String value);
         void onError();
     }
 
@@ -38,7 +39,7 @@ public abstract class FieldDetailDialogFragment extends DialogFragment implement
 
     @Override
     public void onPosiviteClick(String tag) {
-        onFieldSaveListener.onSave(getValue());
+        onFieldSaveListener.onSave(getArguments().getString(ARG_FIELD_TAG), getValue());
         dismiss();
     }
 

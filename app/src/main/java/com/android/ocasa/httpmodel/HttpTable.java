@@ -48,7 +48,7 @@ public class HttpTable {
                     column.getFieldType() == FieldType.LIST){
 
                 Layout relationship = new Layout();
-//                relationship.setId("Combo");
+//                relationship.setExternalID("Combo|");
 //
                 Table table = new Table();
                 table.setId(jObject.get("Table_id").getAsString());

@@ -18,7 +18,7 @@ public class IntegerFieldFactory extends TextFieldFactory {
 //
 //        FormInputFieldView textView = (FormInputFieldView) super.createView(container, field, isEditMode);
 //
-//        EditText textField = textView.getField().getInput();
+//        EditText textField = textView.getFieldFromField().getInput();
 //        textField.setInputType(InputType.TYPE_CLASS_NUMBER);
 //
 //        return textView;

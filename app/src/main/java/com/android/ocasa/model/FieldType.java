@@ -9,6 +9,8 @@ import com.android.ocasa.widget.factory.IntegerFieldFactory;
 import com.android.ocasa.widget.factory.ListFieldFactory;
 import com.android.ocasa.widget.factory.MapFieldFactory;
 import com.android.ocasa.widget.factory.PhoneFieldFactory;
+import com.android.ocasa.widget.factory.PhotoFieldFactory;
+import com.android.ocasa.widget.factory.SignatureFieldFactory;
 import com.android.ocasa.widget.factory.TextFieldFactory;
 import com.android.ocasa.widget.factory.TimeFieldFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -113,7 +115,7 @@ public enum FieldType {
         @Override
         public boolean isValidValue(String value) {
 
-            String timePattern = "([0-9]{2})/([0-9]{2})/([0-9]{4})";
+            String timePattern = "([0-9]{4})/([0-9]{2})/([0-9]{2})";
 
             Pattern pattern = Pattern.compile(timePattern);
 
@@ -132,7 +134,18 @@ public enum FieldType {
             return new ListFieldFactory();
         }
     },
-    SIGNATURE("signature");
+    SIGNATURE("signature"){
+        @Override
+        public FieldViewFactory getFieldFactory() {
+            return new SignatureFieldFactory();
+        }
+    },
+    PHOTO("photo"){
+        @Override
+        public FieldViewFactory getFieldFactory() {
+            return new PhotoFieldFactory();
+        }
+    };
 
     private String apiName;
 

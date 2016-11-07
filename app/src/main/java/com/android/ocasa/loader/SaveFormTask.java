@@ -1,17 +1,16 @@
 package com.android.ocasa.loader;
 
 import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
 
-import com.android.ocasa.dao.RecordDAO;
+import com.android.ocasa.cache.dao.RecordDAO;
+import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.History;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.service.RecordService;
 import com.android.ocasa.service.notification.NotificationManager;
-import com.android.ocasa.sync.SendService;
 import com.android.ocasa.util.DateTimeHelper;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
 
     private Record updateRecord(Map<String, String> formValues, long recordId, Location lastLocation){
 
-        Record record = RecordDAO.getInstance(context).findById(recordId);
+        Record record = new RecordDAO(context).findById(recordId);
 
         List<Field> fields = new ArrayList<>(record.getFields());
 
@@ -52,30 +51,34 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
 
             Field field = fields.get(index);
 
-            String value = formValues.get(field.getColumn().getId());
+            Column column = field.getColumn();
 
-            if(!value.isEmpty() && !value.equalsIgnoreCase(field.getValue())) {
-                record.updateStatus();
+            if(column != null) {
+                String value = formValues.get(column.getId());
 
-                History history = new History();
-                history.setValue(value);
-                history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
-                history.setField(field);
+                if (value != null && !value.isEmpty() && !value.equalsIgnoreCase(field.getValue())) {
+                    record.updateStatus();
 
-                if(lastLocation != null) {
-                    history.setLongitude(lastLocation.getLongitude());
-                    history.setLatitude(lastLocation.getLatitude());
+                    History history = new History();
+                    history.setValue(value);
+                    history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
+                    history.setField(field);
+
+                    if (lastLocation != null) {
+                        history.setLongitude(lastLocation.getLongitude());
+                        history.setLatitude(lastLocation.getLatitude());
+                    }
+
+                    history.setTimeZone(DateTimeHelper.getDeviceTimezone());
+
+                    field.addHistory(history);
+
+                    field.setValue(value);
                 }
-
-                history.setTimeZone(DateTimeHelper.getDeviceTimezone());
-
-                field.addHistory(history);
-
-                field.setValue(value);
             }
         }
 
-        new RecordService(context).saveRecord(record);
+        new RecordService().saveRecord(context, record);
 
         return record;
     }
@@ -83,8 +86,6 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-
-        context.startService(new Intent(context, SendService.class));
 
         NotificationManager.sendBroadcast(context, RecordService.RECORD_SYNC_FINISHED_ACTION);
     }

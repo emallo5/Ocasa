@@ -3,20 +3,16 @@ package com.android.ocasa.loader;
 import android.content.Context;
 import android.location.Location;
 
-import com.android.ocasa.dao.FieldDAO;
-import com.android.ocasa.dao.LayoutDAO;
-import com.android.ocasa.dao.RecordDAO;
+import com.android.ocasa.cache.dao.FieldDAO;
+import com.android.ocasa.cache.dao.LayoutDAO;
+import com.android.ocasa.cache.dao.RecordDAO;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
-import com.android.ocasa.model.History;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
-import com.android.ocasa.service.RecordService;
-import com.android.ocasa.util.DateTimeHelper;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -68,7 +64,7 @@ public class CreateFormTask extends SaveFormTask {
         record.setFields(fields);
         record.fillConcatValues();
 
-        RecordDAO.getInstance(context).save(record);
+        new RecordDAO(context).save(record);
         dao.save(fields);
 
         return record;

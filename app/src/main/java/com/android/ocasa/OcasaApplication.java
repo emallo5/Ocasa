@@ -4,8 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.android.ocasa.api.ApiManager;
 import com.android.ocasa.api.OcasaApi;
 import com.android.ocasa.api.RxApiCallAdapterFactory;
+import com.android.ocasa.cache.CacheManager;
 import com.android.ocasa.httpmodel.HttpTable;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.httpmodel.TableRecord;
@@ -17,10 +19,13 @@ import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.session.SessionManager;
+import com.android.ocasa.util.NutraBaseImageDecoder;
 import com.crittercism.app.Crittercism;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheContextUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -45,14 +50,25 @@ public class OcasaApplication extends Application{
 
         api = provideOcasaApi();
 
+        CacheManager cacheManager = new CacheManager(this);
+        ApiManager apiManager = new ApiManager(api);
+
         SessionManager.getInstance().init(getSharedPreferences("Session", MODE_PRIVATE));
-        OcasaService.getInstance().init(this, api);
+
+        OcasaService.getInstance().init(this, apiManager, cacheManager);
 
         Fresco.initialize(this);
 
         Crittercism.initialize(this, getString(R.string.crittercism_appID));
 
         DualCacheContextUtils.setContext(this);
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                //.imageDecoder(new NutraBaseImageDecoder(true))
+                .writeDebugLogs()
+                .build();
+
+        ImageLoader.getInstance().init(config);
     }
 
     @Override

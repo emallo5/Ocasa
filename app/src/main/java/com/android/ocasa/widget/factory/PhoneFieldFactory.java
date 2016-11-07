@@ -24,7 +24,7 @@ public class PhoneFieldFactory extends FieldViewFactory {
 //
 //        text.setLabel(field.getColumn().getName());
 //
-//        EditText textField = text.getField().getInput();
+//        EditText textField = text.getFieldFromField().getInput();
 //        textField.setInputType(InputType.TYPE_CLASS_PHONE);
 //
 //        if(!isEditMode)

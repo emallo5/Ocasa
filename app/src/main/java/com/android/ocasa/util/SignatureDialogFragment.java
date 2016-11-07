@@ -33,9 +33,10 @@ public class SignatureDialogFragment extends FieldDetailDialogFragment {
     private Button save;
 
 
-    public static SignatureDialogFragment newInstance(String fieldName, long recordId) {
+    public static SignatureDialogFragment newInstance(String tag, String fieldName, long recordId) {
 
         Bundle args = new Bundle();
+        args.putString(ARG_FIELD_TAG, tag);
         args.putString(ARG_FIELD_NAME, fieldName);
 
         SignatureDialogFragment fragment = new SignatureDialogFragment();
@@ -96,7 +97,7 @@ public class SignatureDialogFragment extends FieldDetailDialogFragment {
         if(path == null){
             getOnFieldSaveListener().onError();
         }else{
-            getOnFieldSaveListener().onSave(path);
+            getOnFieldSaveListener().onSave(getArguments().getString(ARG_FIELD_TAG), path);
         }
 
         dismiss();

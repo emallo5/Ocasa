@@ -12,6 +12,7 @@ public interface EditReceiptView extends BaseReceiptView {
     void onItemsFoundSuccess(List<CellViewModel> items);
     void onReceiptItemsEmpty();
     void onReceiptSaveSuccess();
+    void onTakePhoto(String fieldName);
     void onTakeSignature(String fieldName);
     void onTakeText(String fieldName);
     void showProgress();

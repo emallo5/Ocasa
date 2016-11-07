@@ -28,7 +28,7 @@ public class TextFieldFactory extends FieldViewFactory {
         formField.setValue(value);
 
         /*if(!isEditMode){
-            formField.getField().getAction().setVisibility(View.INVISIBLE);
+            formField.getFieldFromField().getAction().setVisibility(View.INVISIBLE);
         }*/
 
         return formField;
@@ -49,7 +49,7 @@ public class TextFieldFactory extends FieldViewFactory {
 //                e.printStackTrace();
 //            }
 //
-//        formField.getField().getAction().setVisibility(View.GONE);
+//        formField.getFieldFromField().getAction().setVisibility(View.GONE);
 //
 //        return formField;
 //    }

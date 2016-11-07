@@ -3,7 +3,7 @@ package com.android.ocasa.loader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-import com.android.ocasa.dao.ColumnDAO;
+import com.android.ocasa.cache.dao.ColumnDAO;
 import com.android.ocasa.model.Column;
 
 import java.util.List;
