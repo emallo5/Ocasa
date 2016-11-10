@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
+import com.android.ocasa.model.Layout;
+import com.android.ocasa.model.LayoutColumn;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -48,6 +50,34 @@ public class FieldDAO extends GenericDAOImpl<Field, Long> {
 
             QueryBuilder<Column, String> columnBuilder = new ColumnDAO(context).getDao().queryBuilder();
             columnBuilder.where().eq("visible", true);
+
+            fieldBuilder.join(columnBuilder);
+            fieldBuilder.where().eq("record_id", recordId);
+
+            return fieldBuilder.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<Field> findVisiblesForRecordAndLayout(String recordId, String layoutId){
+
+        try {
+            QueryBuilder<Field, Long> fieldBuilder = dao.queryBuilder();
+
+            QueryBuilder<Column, String> columnBuilder = new ColumnDAO(context).getDao().queryBuilder();
+            columnBuilder.where().eq("visible", true);
+
+            QueryBuilder<LayoutColumn, Long> layoutColumnBuilder = new LayoutColumnDAO(context).getDao().queryBuilder();
+
+            QueryBuilder<Layout, Long> layoutBuilder = new LayoutDAO(context).getDao().queryBuilder();
+            layoutBuilder.where().eq("layout_id", layoutId);
+
+            layoutBuilder.join(layoutColumnBuilder);
+
+            columnBuilder.join(layoutBuilder);
 
             fieldBuilder.join(columnBuilder);
             fieldBuilder.where().eq("record_id", recordId);

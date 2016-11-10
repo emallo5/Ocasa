@@ -176,7 +176,7 @@ public class TableService {
             sigature.setName("Firma");
             sigature.setVisible(true);
             sigature.setLogic(true);
-            sigature.setOrder(11);
+            sigature.setOrder(9998);
             sigature.setFieldType(FieldType.SIGNATURE);
 
             LayoutColumn layoutColumn = new LayoutColumn(layout, sigature);
@@ -189,7 +189,7 @@ public class TableService {
             photo.setName("Foto");
             photo.setVisible(true);
             photo.setLogic(true);
-            photo.setOrder(12);
+            photo.setOrder(9999);
             photo.setFieldType(FieldType.PHOTO);
 
             LayoutColumn photoColumn = new LayoutColumn(layout, photo);

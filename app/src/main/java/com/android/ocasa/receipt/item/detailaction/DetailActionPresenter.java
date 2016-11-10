@@ -18,22 +18,7 @@ import java.util.List;
 public class DetailActionPresenter extends FormPresenter {
 
     public void loadFields(long receiptId){
-        List<Column> detail = OcasaService.getInstance().getDetailColumnsForReceipt(receiptId);
-
-        FormViewModel form = new FormViewModel();
-        form.setColor("#33BDC2");
-
-        for (Column column: detail) {
-            if (column.getFieldType() != FieldType.COMBO) {
-                FieldViewModel field = new FieldViewModel();
-                field.setTag(column.getId());
-                field.setLabel(column.getName());
-                field.setType(column.getFieldType());
-                field.setEditable(column.isEditable());
-
-                form.addField(field);
-            }
-        }
+        FormViewModel form = OcasaService.getInstance().getDetailFormForReceipt(receiptId);
 
         getView().onFormSuccess(form);
     }

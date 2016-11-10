@@ -35,7 +35,7 @@ public class FieldService {
         FieldViewModel fieldViewModel = convertColumn(column);
 
         if(column.isCombo()){
-            fieldViewModel.setRelationshipTable(column.getRelationship().getExternalID());
+            fieldViewModel.setRelationshipTable(column.getRelationship().getTable().getId());
             fieldViewModel.setRelationshipFields(getComboColumns(context, column));
         }
 
@@ -68,7 +68,10 @@ public class FieldService {
     private List<FieldViewModel> getComboColumns(Context context, Column column){
         List<FieldViewModel> relationship = new ArrayList<>();
 
-        List<Column> columns = new ColumnDAO(context).findLogicColumnsForTable(column.getRelationship().getExternalID());
+        List<Column> columns = new ColumnDAO(context)
+                .findLogicColumnsForLayoutAndTable(
+                        column.getRelationship().getExternalID(),
+                        column.getRelationship().getTable().getId());
 
         for (int index = 0; index < columns.size(); index++){
 
