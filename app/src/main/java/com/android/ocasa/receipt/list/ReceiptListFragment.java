@@ -3,6 +3,7 @@ package com.android.ocasa.receipt.list;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,20 +12,27 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.ocasa.R;
+import com.android.ocasa.event.CloseReceiptEvent;
 import com.android.ocasa.receipt.header.EditHeaderReceiptActivity;
 import com.android.ocasa.adapter.ReceiptAdapter;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.receipt.base.BaseReceiptActivity;
 import com.android.ocasa.receipt.detail.DetailReceiptActivity;
 import com.android.ocasa.receipt.edit.EditReceiptActivity;
+import com.android.ocasa.util.AlertDialogFragment;
+import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.viewmodel.ReceiptCellViewModel;
 import com.android.ocasa.viewmodel.ReceiptTableViewModel;
 import com.codika.androidmvp.fragment.BaseMvpFragment;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 /**
  * Created by ignacio on 11/07/16.
  */
-public class ReceiptListFragment extends BaseMvpFragment<ReceiptListView, ReceiptListPresenter> implements ReceiptListView{
+public class ReceiptListFragment extends BaseMvpFragment<ReceiptListView, ReceiptListPresenter> implements ReceiptListView,
+AlertDialogFragment.OnAlertClickListener{
 
     static final String ARG_ACTION_ID = "action_id";
 
@@ -55,9 +63,31 @@ public class ReceiptListFragment extends BaseMvpFragment<ReceiptListView, Receip
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    private long receiptId;
+
+    @Subscribe
+    public void onCloseReceipt(CloseReceiptEvent event){
+        receiptId = event.getReceiptId();
+
+        AlertDialogFragment.newInstance("Contabilizar","¿Esta seguro de contabilizar el comprobante? No podra volver a modificarlo").show(getChildFragmentManager(), "CloseConfirmation");
+
     }
 
     private void initControls(View view){
@@ -120,5 +150,36 @@ public class ReceiptListFragment extends BaseMvpFragment<ReceiptListView, Receip
         setTitle("Listado " + table.getName());
 
         receiptList.setAdapter(new ReceiptAdapter(table.getReceipts()));
+    }
+
+    @Override
+    public void onCloseReceiptSuccess() {
+        hideProgress();
+        getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+    }
+
+    public void showProgress() {
+        ProgressDialogFragment.newInstance("Guardando...").show(getChildFragmentManager(), "Progress");
+    }
+
+    public void hideProgress() {
+        DialogFragment dialog = (DialogFragment) getChildFragmentManager().findFragmentByTag("Progress");
+        if(dialog != null) dialog.dismiss();
+    }
+
+    @Override
+    public void onPosiviteClick(String tag) {
+        showProgress();
+        getPresenter().close(receiptId);
+    }
+
+    @Override
+    public void onNeutralClick(String tag) {
+
+    }
+
+    @Override
+    public void onNegativeClick(String tag) {
+
     }
 }

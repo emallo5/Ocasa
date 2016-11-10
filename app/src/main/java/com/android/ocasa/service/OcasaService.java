@@ -7,6 +7,7 @@ import android.util.Log;
 import com.android.ocasa.api.ApiManager;
 import com.android.ocasa.cache.CacheManager;
 import com.android.ocasa.cache.dao.ColumnActionDAO;
+import com.android.ocasa.cache.dao.ReceiptItemDAO;
 import com.android.ocasa.httpmodel.Archive;
 import com.android.ocasa.httpmodel.MediaBody;
 import com.android.ocasa.httpmodel.Menu;
@@ -359,5 +360,27 @@ public class OcasaService {
 
     public void updateRecord(Record record){
         cacheManager.updateRecord(record);
+    }
+
+    public Observable<Void> closeReceipt(final long receiptId) {
+        return Observable.create(new Observable.OnSubscribe<Void>() {
+            @Override
+            public void call(Subscriber<? super Void> subscriber) {
+
+                ReceiptService service = new ReceiptService();
+
+                Receipt receipt = service.findReceiptById(context, receiptId);
+                receipt.setClose();
+
+                service.updateReceipt(context, receipt);
+
+                receipt.setItems(new ReceiptItemDAO(context).findForReceipt(receipt.getId()));
+
+                upload(receipt);
+
+                subscriber.onNext(null);
+                subscriber.onCompleted();
+            }
+        });
     }
 }

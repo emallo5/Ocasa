@@ -1,17 +1,22 @@
 package com.android.ocasa.adapter;
 
 import android.graphics.Color;
+import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
-import com.android.ocasa.viewmodel.CellViewModel;
+import com.android.ocasa.event.CloseReceiptEvent;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.ReceiptCellViewModel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +66,8 @@ public class ReceiptAdapter extends BaseAdapter {
 
         ReceiptCellViewModel receipt = receipts.get(position);
 
+        holder.id = receipt.getId();
+
         if(receipt.isOpen()){
             view.setBackgroundColor(Color.parseColor("#9E9E9E"));
         }else{
@@ -74,12 +81,22 @@ public class ReceiptAdapter extends BaseAdapter {
             holder.views.get(index).setText(field.getLabel() + ": " + field.getValue());
         }
 
+        if(receipt.isOpen()){
+            holder.more.setVisibility(View.VISIBLE);
+        }else{
+            holder.more.setVisibility(View.GONE);
+        }
+
         return view;
     }
 
-    static class RecordHolder{
+    static class RecordHolder implements View.OnClickListener{
 
         ArrayList<TextView> views;
+
+        ImageView more;
+
+        long id;
 
         public RecordHolder(View view, int fieldCount){
 
@@ -93,6 +110,25 @@ public class ReceiptAdapter extends BaseAdapter {
                 container.addView(text);
             }
 
+            more = (ImageView) view.findViewById(R.id.more);
+            more.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            showMenu();
+        }
+
+        private void showMenu(){
+            PopupMenu popup = new PopupMenu(more.getContext(), more);
+            popup.getMenuInflater().inflate(R.menu.menu_receipt_item, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                public boolean onMenuItemClick(MenuItem item) {
+                    EventBus.getDefault().post(new CloseReceiptEvent(id));
+                    return true;
+                }
+            });
+            popup.show();
         }
 
     }

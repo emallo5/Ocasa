@@ -9,4 +9,5 @@ import com.codika.androidmvp.view.BaseView;
  */
 public interface ReceiptListView extends BaseView{
     void onReceiptsLoadSuccess(ReceiptTableViewModel table);
+    void onCloseReceiptSuccess();
 }

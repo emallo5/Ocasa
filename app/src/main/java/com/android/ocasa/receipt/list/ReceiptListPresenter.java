@@ -37,4 +37,27 @@ public class ReceiptListPresenter extends BasePresenter<ReceiptListView> {
                     }
                 });
     }
+
+    public void close(long receiptId){
+        OcasaService.getInstance()
+                .closeReceipt(receiptId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<Void>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Void aVoid) {
+                        getView().onCloseReceiptSuccess();
+                    }
+                });
+    }
 }

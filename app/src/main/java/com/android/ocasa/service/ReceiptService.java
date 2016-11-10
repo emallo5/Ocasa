@@ -52,10 +52,18 @@ public class ReceiptService{
     public ReceiptService(){
     }
 
+    public Receipt findReceiptById(Context context, long receiptId){
+        return new ReceiptDAO(context).findById(receiptId);
+    }
+
+    public void updateReceipt(Context context, Receipt receipt){
+        new ReceiptDAO(context).update(receipt);
+    }
+
     public ReceiptFormViewModel getHeaderByReceipt(Context context, long receiptId){
         ReceiptFormViewModel form = new ReceiptFormViewModel();
 
-        Receipt receipt = new ReceiptDAO(context).findById(receiptId);
+        Receipt receipt = findReceiptById(context, receiptId);
         form.setTitle(receipt.getAction().getName());
         form.setOpen(receipt.isOpen());
 
@@ -250,7 +258,7 @@ public class ReceiptService{
     public FormViewModel getStatus(Context context, Long receiptId){
         FormViewModel form = new FormViewModel();
 
-        Receipt receipt = new ReceiptDAO(context).findById(receiptId);
+        Receipt receipt = findReceiptById(context, receiptId);
 
         Action action = receipt.getAction();
 
@@ -355,7 +363,7 @@ public class ReceiptService{
     public TableViewModel getItemsByReceipt(Context context, long receiptId){
         TableViewModel table = new TableViewModel();
 
-        Receipt receipt = new ReceiptDAO(context).findById(receiptId);
+        Receipt receipt = findReceiptById(context, receiptId);
 
         table.setName(receipt.getAction().getTable().getName());
 
@@ -379,7 +387,7 @@ public class ReceiptService{
     public List<CellViewModel> findReceiptItems(Context context, long receiptId, long[] recordIds){
         List<CellViewModel> cells = new ArrayList<>();
 
-        Receipt receipt = new ReceiptDAO(context).findById(receiptId);
+        Receipt receipt = findReceiptById(context, receiptId);
 
         Action action = receipt.getAction();
 
