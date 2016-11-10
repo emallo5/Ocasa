@@ -10,22 +10,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9fde587b-9464-4b4a-8281-7d071ae4e4c9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/CacheManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/CacheManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/FieldDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/FieldDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/RecordDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/RecordDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/HttpTable.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/HttpTable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionPresenter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/FieldService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/FieldService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/core.iml" afterPath="$PROJECT_DIR$/core/core.iml" />
-    </list>
+    <list default="true" id="9fde587b-9464-4b4a-8281-7d071ae4e4c9" name="Default" comment="" />
     <ignored path="Ocasa.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -133,7 +118,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/HttpTable.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="345">
-              <caret line="42" column="59" selection-start-line="42" selection-start-column="59" selection-end-line="42" selection-end-column="59" />
+              <caret line="42" column="72" selection-start-line="42" selection-start-column="65" selection-end-line="42" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -7174,7 +7159,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/HttpTable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
-          <caret line="42" column="59" selection-start-line="42" selection-start-column="59" selection-end-line="42" selection-end-column="59" />
+          <caret line="42" column="72" selection-start-line="42" selection-start-column="65" selection-end-line="42" selection-end-column="72" />
           <folding />
         </state>
       </provider>
