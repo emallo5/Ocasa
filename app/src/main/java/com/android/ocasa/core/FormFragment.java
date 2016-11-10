@@ -1,15 +1,19 @@
 package com.android.ocasa.core;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.nfc.FormatException;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -77,6 +81,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     static final int REQUEST_QR_SCANNER = 1000;
     static final int REQUEST_MAP = 2000;
     static final int REQUEST_PHOTO = 3000;
+
+    static final int RC_HANDLE_CAMERA_PERM = 2;
 
     static final String MAP_TAG = "Map";
     static final String DATE_TAG = "Date";
@@ -263,6 +269,32 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
     @Override
     public void onEditPhotoClick(FieldPhotoView view) {
+
+        final String[] permissions = new String[]{Manifest.permission.CAMERA};
+
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.CAMERA)) {
+            requestPermissions(permissions, RC_HANDLE_CAMERA_PERM);
+            return;
+        }
+
+        goTakePhoto();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == RC_HANDLE_CAMERA_PERM) {
+            if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                goTakePhoto();
+            }
+        }
+    }
+
+    private void goTakePhoto(){
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {

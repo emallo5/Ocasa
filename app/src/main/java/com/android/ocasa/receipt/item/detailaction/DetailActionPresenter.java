@@ -29,7 +29,7 @@ public class DetailActionPresenter extends FormPresenter {
                 field.setTag(column.getId());
                 field.setLabel(column.getName());
                 field.setType(column.getFieldType());
-                field.setEditable(true);
+                field.setEditable(column.isEditable());
 
                 form.addField(field);
             }

@@ -40,10 +40,6 @@ public class EditReceiptPresenter extends BaseReceiptPresenter{
         subject = AsyncSubject.create();
     }
 
-    public void findItem(long receiptId, long recordId){
-        findItems(receiptId, new long[]{recordId});
-    }
-
     public void findItems(long receiptId, long[] recordIds){
         OcasaService.getInstance()
                 .findReceiptItems(receiptId, recordIds)
@@ -85,19 +81,6 @@ public class EditReceiptPresenter extends BaseReceiptPresenter{
                 .subscribe(subject);
     }
 
-    public void checkDetailFields(long receiptId, long recordId){
-
-        this.currentRecordId = recordId;
-
-        if(detailColumns == null)
-            detailColumns = OcasaService.getInstance().getDetailColumnsForReceipt(receiptId);
-
-        if(detailColumns.size() >  0){
-            loadDetail();
-        }
-
-    }
-
     public void updateValue(final String value){
 
         OcasaService.getInstance().findRecord(currentRecordId).subscribe(new Subscriber<Record>() {
@@ -121,39 +104,6 @@ public class EditReceiptPresenter extends BaseReceiptPresenter{
                 OcasaService.getInstance().updateRecord(record);
             }
         });
-
-    }
-
-    public void next(){
-        currentColumn += 1;
-        loadDetail();
-    }
-
-    private void loadDetail(){
-
-        if(currentColumn >=  detailColumns.size()){
-            currentColumn = 0;
-            return;
-        }
-
-        Column column = detailColumns.get(currentColumn);
-
-        switch (column.getFieldType()){
-            case SIGNATURE:
-                ((EditReceiptView)getView()).onTakeSignature(column.getName());
-                break;
-            case PHOTO:
-                ((EditReceiptView)getView()).onTakePhoto(column.getName());
-                break;
-            /*case TEXT:
-                ((EditReceiptView)getView()).onTakeText(column.getName());
-                break;
-            case COMBO:
-                ((EditReceiptView)getView()).onTakeText(column.getName());
-                break;*/
-            default:
-                next();
-        }
 
     }
 

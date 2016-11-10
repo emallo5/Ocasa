@@ -3,6 +3,7 @@ package com.android.ocasa.api;
 import com.android.ocasa.httpmodel.MediaBody;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.httpmodel.TableRecord;
+import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.LayoutColumn;
 import com.android.ocasa.model.LoginCredentials;
@@ -13,6 +14,7 @@ import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.session.SessionManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import rx.Observable;
 import rx.functions.Func1;
@@ -42,7 +44,13 @@ public class ApiManager {
                             public Layout call(Throwable throwable) {
 
                                 Layout layout = new Layout();
-                                layout.setColumns(new ArrayList<LayoutColumn>());
+
+                                Column column = new Column();
+                                List<LayoutColumn> columns = new ArrayList<>();
+
+                                columns.add(new LayoutColumn(layout, column));
+
+                                layout.setColumns(columns);
 
                                 Table table = new Table();
                                 table.setId("1");

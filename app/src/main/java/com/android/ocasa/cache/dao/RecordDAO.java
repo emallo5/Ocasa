@@ -63,7 +63,6 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
             QueryBuilder<Column, String> columnDao = new ColumnDAO(context).getDao().queryBuilder();
             recordQuery.orderByRaw("records.id,'columns'.'order'");
 
-
             fieldDao.join(columnDao);
 
             recordQuery.join(fieldDao);
@@ -276,7 +275,7 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
 
             QueryBuilder<Field, Long> fieldDao = new FieldDAO(context).getDao().queryBuilder();
 
-            fieldDao.where().eq("value", id);
+            fieldDao.where().eq("value", id + " ");
 
             QueryBuilder<Column, String> columnDao = new ColumnDAO(context).getDao().queryBuilder();
 

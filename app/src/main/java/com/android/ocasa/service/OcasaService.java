@@ -99,9 +99,9 @@ public class OcasaService {
                     @Override
                     public Observable<Column> call(Layout layout) {
 
-                        if(layout.getColumns() == null){
-                            return Observable.empty();
-                        }
+//                        if(layout.getColumns() == null || layout.getColumns().isEmpty()){
+//                            return Observable.<Column>empty().defaultIfEmpty(new Column());
+//                        }
 
                         List<Column> columns = new ArrayList<>();
 

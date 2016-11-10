@@ -28,6 +28,8 @@ public class FieldPhotoView extends RelativeLayout implements FieldViewAdapter{
     private ImageView photo;
     private ImageView edit;
 
+    private String imagePath;
+
     public FieldPhotoView(Context context) {
         this(context, null);
     }
@@ -74,6 +76,8 @@ public class FieldPhotoView extends RelativeLayout implements FieldViewAdapter{
             return;
         }
 
+        imagePath = value;
+
         File file = new File(getContext().getCacheDir(), value);
 
         ImageLoader.getInstance().displayImage("file://" + file.getPath(), photo);
@@ -86,6 +90,6 @@ public class FieldPhotoView extends RelativeLayout implements FieldViewAdapter{
 
     @Override
     public String getValue() {
-        return null;
+        return imagePath;
     }
 }

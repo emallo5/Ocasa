@@ -11,130 +11,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9fde587b-9464-4b4a-8281-7d071ae4e4c9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/ic_edit_photo-web.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/ic_edit_signature-web.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_edit_photo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_edit_signature.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_edit_photo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_edit_signature.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_edit_photo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_edit_signature.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_edit_photo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_edit_signature.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_edit_photo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_edit_signature.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/effects_Google_Inc__Google_APIs_24.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/maps_Google_Inc__Google_APIs_24.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/ormlite_android_5_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/ormlite_core_5_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/universal_image_loader_1_9_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/usb_Google_Inc__Google_APIs_24.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/ApiManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/CacheManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/Archive.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/MediaBody.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/RecordArchive.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionFragment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionLoader.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionPresenter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/FieldService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/AppCache.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/MediaUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/NutraBaseImageDecoder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldPhotoView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldSignatureView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/PhotoFieldFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/SignatureFieldFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_action.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/field_photo.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/field_photo_layout.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/field_signature.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/field_signature_layout.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/ormlite_android_4_48.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/ormlite_core_4_48.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/UserService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/sync/SendService.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_base_9_6_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_maps_9_6_1.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_basement_9_6_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_location_9_6_1.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_location_9_6_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_basement_9_6_1.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_maps_9_6_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_base_9_6_1.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_tasks_9_6_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_tasks_9_6_1.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_vision_9_6_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_vision_9_6_1.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/ActionDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/ActionDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/ApplicationDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/ApplicationDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/CategoryDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/CategoryDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/ColumnActionDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/ColumnActionDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/ColumnDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/ColumnDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/FieldDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/FieldDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/GenericDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/GenericDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/GenericDAOImpl.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/GenericDAOImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/HistoryDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/HistoryDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/LayoutColumnDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/LayoutColumnDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/LayoutDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/LayoutDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/ReceiptDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/ReceiptDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/ReceiptItemDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/ReceiptItemDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/RecordDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/RecordDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/StatusDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/StatusDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/dao/TableDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/TableDAO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/database/DatabaseHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/database/DatabaseHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/mockable-android-24.jar" afterPath="$PROJECT_DIR$/build/generated/mockable-android-24.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/OcasaApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/OcasaApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/adapter/ReceiptItemsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/adapter/ReceiptItemsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/OcasaApi.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/OcasaApi.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/ApiManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/ApiManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/RecordDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/RecordDAO.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/fragment/AddItemsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/fragment/AddItemsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/fragment/FieldHistoricalFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/fragment/FieldHistoricalFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/home/HomeActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/home/HomeActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/HttpTable.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/HttpTable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/ActionRecordTaskLoader.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/ActionRecordTaskLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/ColumnTaskLoader.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/ColumnTaskLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/CreateFormTask.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/CreateFormTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/DetailListTaskLoader.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/DetailListTaskLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/FieldTaskLoader.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/FieldTaskLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/SaveFormTask.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/SaveFormTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/TableTaskLoader.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/TableTaskLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Application.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Application.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Column.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Column.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Field.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Field.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/FieldType.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/FieldType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Record.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Record.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Table.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Table.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/pickup/scanner/ScannerActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/pickup/scanner/ScannerActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptPresenter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/OnItemChangeListener.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/OnItemChangeListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/header/EditHeaderReceiptFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/header/EditHeaderReceiptFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionPresenter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/DateTimeHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/DateTimeHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/FieldDetailDialogFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/FieldDetailDialogFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/SignatureDialogFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/SignatureDialogFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldDateView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldDateView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldViewActionListener.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldViewActionListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/DateFieldFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/DateFieldFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/DecimalFieldFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/DecimalFieldFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/IntegerFieldFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/IntegerFieldFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/PhoneFieldFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/PhoneFieldFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/TextFieldFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/TextFieldFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/TimeFieldFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/TimeFieldFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/receipt_edit_search.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/receipt_edit_search.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldPhotoView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldPhotoView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build.gradle" afterPath="$PROJECT_DIR$/core/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/core.iml" afterPath="$PROJECT_DIR$/core/core.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/android/ocasa/core/activity/MenuActivity.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/android/ocasa/core/activity/MenuActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/http/volley/build.gradle" afterPath="$PROJECT_DIR$/http/volley/build.gradle" />
     </list>
     <ignored path="Ocasa.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -169,105 +58,104 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="OcasaService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="142">
+              <caret line="216" column="32" selection-start-line="216" selection-start-column="32" selection-end-line="216" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CacheManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/CacheManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="202">
+              <caret line="210" column="52" selection-start-line="210" selection-start-column="52" selection-end-line="210" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="TableService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
+            <state relative-caret-position="187">
+              <caret line="70" column="55" selection-start-line="70" selection-start-column="55" selection-end-line="70" selection-end-column="55" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MenuService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java">
+      <file leaf-file-name="RecordDAO.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/RecordDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+            <state relative-caret-position="82">
+              <caret line="78" column="27" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReceiptService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java">
+      <file leaf-file-name="HomeFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/home/HomeFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="567" column="0" selection-start-line="567" selection-start-column="0" selection-end-line="567" selection-end-column="0" />
+            <state relative-caret-position="105">
+              <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#1203#1558#0" expanded="true" />
+                <element signature="e#1557#1558#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FormFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java">
+      <file leaf-file-name="FilterTableFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FilterTableFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="421" column="0" selection-start-line="421" selection-start-column="0" selection-end-line="421" selection-end-column="0" />
+            <state relative-caret-position="105">
+              <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SaveFormTask.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/SaveFormTask.java">
+      <file leaf-file-name="TableFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/TableFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+            <state relative-caret-position="210">
+              <caret line="38" column="23" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditReceiptFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptFragment.java">
+      <file leaf-file-name="TablePresenter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/TablePresenter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+            <state relative-caret-position="247">
+              <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditReceiptPresenter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptPresenter.java">
+      <file leaf-file-name="DetailActionFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+            <state relative-caret-position="147">
+              <caret line="36" column="53" selection-start-line="36" selection-start-column="53" selection-end-line="36" selection-end-column="53" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OcasaService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java">
+      <file leaf-file-name="DetailActionPresenter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionPresenter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="348" column="26" selection-start-line="348" selection-start-column="26" selection-end-line="348" selection-end-column="26" />
-              <folding>
-                <element signature="e#12806#12807#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReceiptItemsPresenter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/list/ReceiptItemsPresenter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseReceiptPresenter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/base/BaseReceiptPresenter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="37">
-              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state relative-caret-position="164">
+              <caret line="20" column="63" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -5067,7 +4955,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="5898907559435" />
+        <entry key="$PROJECT_DIR$" value="5903309132411" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -5663,8 +5551,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/adapter/ReceiptItemsAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionView.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_action.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/field_signature.xml" />
@@ -5676,10 +5562,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/SignatureDialogFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldViewActionListener.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/field_photo_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldPhotoView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Table.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Field.java" />
@@ -5693,7 +5576,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/CreateFormTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/FieldTaskLoader.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/RecordDAO.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/TableTaskLoader.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/ActionRecordTaskLoader.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/pickup/scanner/ScannerActivity.java" />
@@ -5710,18 +5592,24 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/MediaUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/MediaBody.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/RecordArchive.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/ApiManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldPhotoView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/ApiManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/RecordDAO.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="67" />
-    <option name="y" value="24" />
+    <option name="y" value="-4" />
     <option name="width" value="1299" />
-    <option name="height" value="744" />
+    <option name="height" value="772" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -5758,9 +5646,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -5839,77 +5726,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="widget" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="receipt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="receipt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="list" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -5936,36 +5753,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="item" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="receipt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="item" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="list" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -6025,7 +5812,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="available" />
+              <option name="myItemId" value="detail" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -6047,86 +5834,13 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="receipt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="edit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="receipt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="httpmodel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ocasa" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
+              <option name="myItemId" value="home" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -6144,7 +5858,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../SnapShot" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi" />
-    <property name="device.picker.selection" value="9885f73743344b3856" />
+    <property name="device.picker.selection" value="Nexus_5_API_23" />
     <property name="UI_DESIGNER_EDITOR_MODE.NlPaletteManager-NlPreviewForm.SHOW" value="false" />
     <property name="UI_DESIGNER_EDITOR_MODE.NlPaletteManager-NlEditorPanel.WIDTH" value="292" />
     <property name="UI_DESIGNER_EDITOR_MODE.NlPropertiesWindowManager-NlEditorPanel.WIDTH" value="108" />
@@ -6650,19 +6364,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="24" width="1299" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="67" y="-4" width="1299" height="772" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31683958" sideWeight="0.122180454" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5258064" sideWeight="0.51875496" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2564516" sideWeight="0.481245" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21451613" sideWeight="0.481245" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find Sample Code" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8145161" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37580645" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21612903" sideWeight="0.49720672" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -6673,8 +6388,8 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32741934" sideWeight="0.49720672" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960895" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5258064" sideWeight="0.51875496" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3272147" sideWeight="0.87781954" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36552274" sideWeight="0.87781954" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21290323" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960895" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -6788,12 +6503,6 @@
           <line>53</line>
           <properties />
           <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptPresenter.java</url>
-          <line>91</line>
-          <properties />
-          <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loginflow/login/LoginPresenter.java</url>
@@ -6917,19 +6626,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java</url>
-          <line>248</line>
+          <line>254</line>
           <properties />
           <option name="timeStamp" value="190" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java</url>
-          <line>315</line>
+          <line>347</line>
           <properties />
           <option name="timeStamp" value="200" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptFragment.java</url>
-          <line>454</line>
+          <line>374</line>
           <properties />
           <option name="timeStamp" value="203" />
         </line-breakpoint>
@@ -6940,26 +6649,8 @@
           <option name="timeStamp" value="215" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptFragment.java</url>
-          <line>325</line>
-          <properties />
-          <option name="timeStamp" value="217" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptFragment.java</url>
-          <line>260</line>
-          <properties />
-          <option name="timeStamp" value="218" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptFragment.java</url>
-          <line>336</line>
-          <properties />
-          <option name="timeStamp" value="219" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java</url>
-          <line>217</line>
+          <line>223</line>
           <properties />
           <option name="timeStamp" value="222" />
         </line-breakpoint>
@@ -7001,7 +6692,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptPresenter.java</url>
-          <line>73</line>
+          <line>69</line>
           <properties />
           <option name="timeStamp" value="258" />
         </line-breakpoint>
@@ -7025,7 +6716,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java</url>
-          <line>421</line>
+          <line>453</line>
           <properties />
           <option name="timeStamp" value="262" />
         </line-breakpoint>
@@ -7043,7 +6734,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java</url>
-          <line>233</line>
+          <line>239</line>
           <properties />
           <option name="timeStamp" value="267" />
         </line-breakpoint>
@@ -7065,6 +6756,48 @@
           <properties />
           <option name="timeStamp" value="272" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java</url>
+          <line>101</line>
+          <properties />
+          <option name="timeStamp" value="274" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java</url>
+          <line>125</line>
+          <properties />
+          <option name="timeStamp" value="275" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java</url>
+          <line>182</line>
+          <properties />
+          <option name="timeStamp" value="276" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/RecordDAO.java</url>
+          <line>289</line>
+          <properties />
+          <option name="timeStamp" value="277" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java</url>
+          <line>272</line>
+          <properties />
+          <option name="timeStamp" value="278" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java</url>
+          <line>287</line>
+          <properties />
+          <option name="timeStamp" value="279" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/CacheManager.java</url>
+          <line>229</line>
+          <properties />
+          <option name="timeStamp" value="280" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-field">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/fragment/DetailListFragment.java</url>
           <line>36</line>
@@ -7072,258 +6805,15 @@
           <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="273" />
+      <option name="time" value="281" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Layout.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/LayoutColumn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Column.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/HttpTable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="52" column="42" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loginflow/LoginFlowActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="21" column="52" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loginflow/login/LoginFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1425">
-          <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/home/HomeFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="51" column="61" selection-start-line="51" selection-start-column="61" selection-end-line="51" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/record/detail/DetailRecordActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="25" column="41" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/home/HomeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="76" column="29" selection-start-line="76" selection-start-column="29" selection-end-line="76" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/header/EditHeaderReceiptFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="26" column="38" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Table.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Record.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="71" column="18" selection-start-line="71" selection-start-column="13" selection-end-line="71" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/sync/SyncPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="39" column="17" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/OcasaApiSubscriber.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/OcasaApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="93" column="19" selection-start-line="92" selection-start-column="18" selection-end-line="93" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2569#2570#0" expanded="false" />
-            <element signature="e#2595#2596#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/OcasaApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/TableTaskLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/list/ReceiptItemsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-339">
-          <caret line="83" column="44" selection-start-line="83" selection-start-column="44" selection-end-line="83" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/RecordDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="290" column="0" selection-start-line="290" selection-start-column="0" selection-end-line="290" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/ColumnDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="64" column="57" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Field.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="31" column="40" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/GenericDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="52" column="29" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/list/ReceiptListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="93" column="83" selection-start-line="93" selection-start-column="58" selection-end-line="93" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/ReceiptDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/list/ReceiptListPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/CacheManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="117" column="50" selection-start-line="117" selection-start-column="50" selection-end-line="117" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldPhotoView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldViewAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldSignatureView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
           <caret line="82" column="64" selection-start-line="82" selection-start-column="8" selection-end-line="82" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7331,9 +6821,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -7341,7 +6828,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7349,7 +6835,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7357,13 +6842,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="394">
           <caret line="41" column="30" selection-start-line="41" selection-start-column="30" selection-end-line="41" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#492#493#0" expanded="false" />
-            <element signature="e#523#524#0" expanded="false" />
-            <element signature="e#578#579#0" expanded="false" />
-            <element signature="e#618#619#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -7375,27 +6853,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Receipt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/ApiManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/RxApiCallAdapterFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
           <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7407,59 +6868,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.3/2e57a219582a72557a8353443edf4fce79a55c4/rxjava-1.1.3-sources.jar!/rx/functions/Func1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
+        <state relative-caret-position="1620">
           <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="421" column="0" selection-start-line="421" selection-start-column="0" selection-end-line="421" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/loader/SaveFormTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
+        <state relative-caret-position="930">
           <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#790#791#0" expanded="false" />
+            <element signature="e#828#829#0" expanded="false" />
+            <element signature="e#3134#3135#0" expanded="false" />
+            <element signature="e#3171#3172#0" expanded="false" />
+            <element signature="e#3208#3209#0" expanded="false" />
+            <element signature="e#3247#3248#0" expanded="false" />
+            <element signature="e#3285#3286#0" expanded="false" />
+            <element signature="e#3323#3324#0" expanded="false" />
+            <element signature="e#3373#3374#0" expanded="false" />
+            <element signature="e#3419#3420#0" expanded="false" />
+            <element signature="e#3464#3465#0" expanded="false" />
+            <element signature="e#3507#3508#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/base/BaseReceiptPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
+        <state relative-caret-position="210">
           <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1110#1111#0" expanded="false" />
+            <element signature="e#1188#1189#0" expanded="false" />
+            <element signature="e#1867#1868#0" expanded="false" />
+            <element signature="e#1945#1946#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -7467,35 +6916,469 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/FieldPhotoView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="78" column="26" selection-start-line="78" selection-start-column="26" selection-end-line="78" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/sync/SyncPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#773#774#0" expanded="false" />
+            <element signature="e#820#821#0" expanded="false" />
+            <element signature="e#1711#1712#0" expanded="false" />
+            <element signature="e#1751#1752#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.3/2e57a219582a72557a8353443edf4fce79a55c4/rxjava-1.1.3-sources.jar!/rx/functions/Func1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.3/2e57a219582a72557a8353443edf4fce79a55c4/rxjava-1.1.3-sources.jar!/rx/Observable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="1282" column="36" selection-start-line="1282" selection-start-column="36" selection-end-line="1282" selection-end-column="36" />
+          <folding>
+            <element signature="e#64222#64223#0" expanded="false" />
+            <element signature="e#64281#64282#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/ReceiptDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#319#320#0" expanded="false" />
+            <element signature="e#364#365#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/viewmodel/FieldViewModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#516#517#0" expanded="false" />
+            <element signature="e#542#543#0" expanded="false" />
+            <element signature="e#580#581#0" expanded="false" />
+            <element signature="e#610#611#0" expanded="false" />
+            <element signature="e#642#643#0" expanded="false" />
+            <element signature="e#670#671#0" expanded="false" />
+            <element signature="e#712#713#0" expanded="false" />
+            <element signature="e#746#747#0" expanded="false" />
+            <element signature="e#778#779#0" expanded="false" />
+            <element signature="e#806#807#0" expanded="false" />
+            <element signature="e#848#849#0" expanded="false" />
+            <element signature="e#882#883#0" expanded="false" />
+            <element signature="e#916#917#0" expanded="false" />
+            <element signature="e#943#944#0" expanded="false" />
+            <element signature="e#986#987#0" expanded="false" />
+            <element signature="e#1018#1019#0" expanded="false" />
+            <element signature="e#1062#1063#0" expanded="false" />
+            <element signature="e#1102#1103#0" expanded="false" />
+            <element signature="e#1261#1262#0" expanded="false" />
+            <element signature="e#1294#1295#0" expanded="false" />
+            <element signature="e#1343#1344#0" expanded="false" />
+            <element signature="e#1380#1381#0" expanded="false" />
+            <element signature="e#1439#1440#0" expanded="false" />
+            <element signature="e#1480#1481#0" expanded="false" />
+            <element signature="e#1659#1660#0" expanded="false" />
+            <element signature="e#1694#1695#0" expanded="false" />
+            <element signature="e#1747#1748#0" expanded="false" />
+            <element signature="e#1788#1789#0" expanded="false" />
+            <element signature="e#1824#1825#0" expanded="false" />
+            <element signature="e#1858#1859#0" expanded="false" />
+            <element signature="e#1909#1910#0" expanded="false" />
+            <element signature="e#1948#1949#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/viewmodel/FormViewModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="20" column="27" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/database/DatabaseHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/ApiManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="57" column="41" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#822#823#0" expanded="false" />
+            <element signature="e#852#853#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/FieldType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1170#1171#0" expanded="false" />
+            <element signature="e#1222#1223#0" expanded="false" />
+            <element signature="e#1935#1936#0" expanded="false" />
+            <element signature="e#1989#1990#0" expanded="false" />
+            <element signature="e#2089#2090#0" expanded="false" />
+            <element signature="e#2145#2146#0" expanded="false" />
+            <element signature="e#2246#2247#0" expanded="false" />
+            <element signature="e#2302#2303#0" expanded="false" />
+            <element signature="e#2397#2398#0" expanded="false" />
+            <element signature="e#2450#2451#0" expanded="false" />
+            <element signature="e#2812#2813#0" expanded="false" />
+            <element signature="e#2865#2866#0" expanded="false" />
+            <element signature="e#3232#3233#0" expanded="false" />
+            <element signature="e#3289#3290#0" expanded="false" />
+            <element signature="e#3682#3683#0" expanded="false" />
+            <element signature="e#3736#3737#0" expanded="false" />
+            <element signature="e#3827#3828#0" expanded="false" />
+            <element signature="e#3880#3881#0" expanded="false" />
+            <element signature="e#3985#3986#0" expanded="false" />
+            <element signature="e#4043#4044#0" expanded="false" />
+            <element signature="e#4140#4141#0" expanded="false" />
+            <element signature="e#4194#4195#0" expanded="false" />
+            <element signature="e#4260#4261#0" expanded="false" />
+            <element signature="e#4296#4297#0" expanded="false" />
+            <element signature="e#4344#4345#0" expanded="false" />
+            <element signature="e#4371#4372#0" expanded="false" />
+            <element signature="e#4412#4413#0" expanded="false" />
+            <element signature="e#4451#4452#0" expanded="false" />
+            <element signature="e#4491#4492#0" expanded="false" />
+            <element signature="e#4519#4520#0" expanded="false" />
+            <element signature="e#4567#4568#0" expanded="false" />
+            <element signature="e#4612#4613#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/widget/factory/FieldViewFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="15" column="38" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/model/Receipt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1261#1262#0" expanded="false" />
+            <element signature="e#1286#1287#0" expanded="false" />
+            <element signature="e#1320#1321#0" expanded="false" />
+            <element signature="e#1348#1349#0" expanded="false" />
+            <element signature="e#1378#1379#0" expanded="false" />
+            <element signature="e#1407#1408#0" expanded="false" />
+            <element signature="e#1448#1449#0" expanded="false" />
+            <element signature="e#1484#1485#0" expanded="false" />
+            <element signature="e#1533#1534#0" expanded="false" />
+            <element signature="e#1561#1562#0" expanded="false" />
+            <element signature="e#1620#1621#0" expanded="false" />
+            <element signature="e#1654#1655#0" expanded="false" />
+            <element signature="e#1687#1688#0" expanded="false" />
+            <element signature="e#1716#1717#0" expanded="false" />
+            <element signature="e#1760#1761#0" expanded="false" />
+            <element signature="e#1796#1797#0" expanded="false" />
+            <element signature="e#1835#1836#0" expanded="false" />
+            <element signature="e#1870#1871#0" expanded="false" />
+            <element signature="e#1926#1927#0" expanded="false" />
+            <element signature="e#1974#1975#0" expanded="false" />
+            <element signature="e#2024#2025#0" expanded="false" />
+            <element signature="e#2059#2060#0" expanded="false" />
+            <element signature="e#2210#2211#0" expanded="false" />
+            <element signature="e#2244#2245#0" expanded="false" />
+            <element signature="e#2295#2296#0" expanded="false" />
+            <element signature="e#2334#2335#0" expanded="false" />
+            <element signature="e#2367#2368#0" expanded="false" />
+            <element signature="e#2396#2397#0" expanded="false" />
+            <element signature="e#2440#2441#0" expanded="false" />
+            <element signature="e#2476#2477#0" expanded="false" />
+            <element signature="e#2512#2513#0" expanded="false" />
+            <element signature="e#2544#2545#0" expanded="false" />
+            <element signature="e#2594#2595#0" expanded="false" />
+            <element signature="e#2636#2637#0" expanded="false" />
+            <element signature="e#2666#2667#0" expanded="false" />
+            <element signature="e#2708#2709#0" expanded="false" />
+            <element signature="e#2737#2738#0" expanded="false" />
+            <element signature="e#2776#2777#0" expanded="false" />
+            <element signature="e#2806#2807#0" expanded="false" />
+            <element signature="e#2846#2847#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-24/android/view/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="19239" column="22" selection-start-line="19239" selection-start-column="22" selection-end-line="19239" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/support-fragment/24.2.1/support-fragment-24.2.1-sources.jar!/android/support/v4/app/Fragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="1333" column="16" selection-start-line="1333" selection-start-column="16" selection-end-line="1333" selection-end-column="16" />
+          <folding>
+            <element signature="e#51323#51324#0" expanded="false" />
+            <element signature="e#51351#51352#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/OnItemChangeListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="12" column="32" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1037#1038#0" expanded="false" />
+            <element signature="e#1064#1065#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="1275">
+          <caret line="107" column="5" selection-start-line="107" selection-start-column="5" selection-end-line="107" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1053#1054#0" expanded="false" />
+            <element signature="e#1100#1101#0" expanded="false" />
+            <element signature="e#1612#1613#0" expanded="false" />
+            <element signature="e#1690#1691#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="567" column="0" selection-start-line="567" selection-start-column="0" selection-end-line="567" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/fragment/FieldHistoricalFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="54" column="62" selection-start-line="54" selection-start-column="62" selection-end-line="54" selection-end-column="62" />
+          <folding>
+            <element signature="e#1690#1726#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/header/EditHeaderReceiptFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="44" column="54" selection-start-line="44" selection-start-column="54" selection-end-line="44" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/header/EditHeaderReceiptPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="220" column="66" selection-start-line="220" selection-start-column="66" selection-end-line="220" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/pickup/scanner/ScannerActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="112" column="5" selection-start-line="99" selection-start-column="2" selection-end-line="112" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/LocationMvpFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="278" column="9" selection-start-line="278" selection-start-column="9" selection-end-line="278" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="36" column="53" selection-start-line="36" selection-start-column="53" selection-end-line="36" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="20" column="63" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/home/HomeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+          <folding>
+            <element signature="e#1203#1558#0" expanded="true" />
+            <element signature="e#1557#1558#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FilterTableFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/TableFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="38" column="23" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/TablePresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="348" column="26" selection-start-line="348" selection-start-column="26" selection-end-line="348" selection-end-column="26" />
-          <folding>
-            <element signature="e#12806#12807#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="142">
+          <caret line="216" column="32" selection-start-line="216" selection-start-column="32" selection-end-line="216" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/CacheManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="210" column="52" selection-start-line="210" selection-start-column="52" selection-end-line="210" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="70" column="55" selection-start-line="70" selection-start-column="55" selection-end-line="70" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/RecordDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="78" column="27" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>

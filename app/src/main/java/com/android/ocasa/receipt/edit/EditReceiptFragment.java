@@ -1,13 +1,9 @@
 package com.android.ocasa.receipt.edit;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
@@ -35,27 +31,15 @@ import com.android.ocasa.receipt.base.BaseReceiptFragment;
 import com.android.ocasa.receipt.base.BaseReceiptPresenter;
 import com.android.ocasa.receipt.base.BaseReceiptView;
 import com.android.ocasa.util.AlertDialogFragment;
-import com.android.ocasa.util.AppCache;
-import com.android.ocasa.util.FieldDetailDialogFragment;
 import com.android.ocasa.util.ProgressDialogFragment;
-import com.android.ocasa.util.SignatureDialogFragment;
-import com.android.ocasa.util.TextDialogFragment;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.viewmodel.ReceiptFormViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
-import com.android.ocasa.widget.SignatureView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.BufferUnderflowException;
-import java.nio.ByteBuffer;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -72,7 +56,6 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     static final String TAG = "EditReceiptFragment";
 
     static final int SCANNER_REQUEST_CODE = 1000;
-    static final int PHOTO_REQUEST_CODE = 2000;
 
     public boolean isSaved = false;
 
@@ -142,10 +125,6 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         tabs.setupWithViewPager(pager);
 
         setListeners();
-
-//        if(header.isOpen()){
-//            getPresenter().items(header.getId());
-//        }
     }
 
     private void setListeners(){
@@ -244,25 +223,6 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
             }
             ((EditReceiptPresenter)getPresenter()).findItems(getArguments().getLong(ARG_RECEIPT_ID), newCodes);
         }
-
-        if(requestCode == PHOTO_REQUEST_CODE){
-
-            try {
-                Bitmap bmp = (Bitmap) data.getExtras().get("data");
-                OutputStream stream = new FileOutputStream(imageTempFile);
-                bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                stream.flush();
-
-                stream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            if(imageTempFile.exists()){
-                ((EditReceiptPresenter)getPresenter()).updateValue(imageTempFile.getName());
-                ((EditReceiptPresenter)getPresenter()).next();
-            }
-        }
     }
 
     @Override
@@ -313,46 +273,6 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     @Override
     public void onReceiptSaveSuccess() {
         NavUtils.navigateUpFromSameTask(getActivity());
-    }
-
-    private File imageTempFile;
-
-    @Override
-    public void onTakePhoto(String fieldName) {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            try {
-                imageTempFile = createPhotoFile(getActivity());
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageTempFile));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            startActivityForResult(takePictureIntent, PHOTO_REQUEST_CODE);
-        }
-    }
-
-    public File createPhotoFile(Context ctx) throws IOException {
-
-        String imageFileName = String.valueOf(new Date().getTime());
-        File storageDir = getActivity().getCacheDir();
-
-        if(!storageDir.exists())
-            storageDir.mkdir();
-
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-
-        return image;
-    }
-
-    @Override
-    public void onTakeSignature(String fieldName) {
-        //SignatureDialogFragment.newInstance(fieldName, 1).show(getChildFragmentManager(), "Signature");
-    }
-
-    @Override
-    public void onTakeText(String fieldName) {
-        TextDialogFragment.newInstance(fieldName).show(getChildFragmentManager(), "Text");
     }
 
     @Override
