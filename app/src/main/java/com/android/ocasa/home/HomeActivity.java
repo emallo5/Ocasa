@@ -3,12 +3,16 @@ package com.android.ocasa.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.android.ocasa.R;
 import com.android.ocasa.core.activity.MenuActivity;
 import com.android.ocasa.home.menu.MenuFragment;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.receipt.list.ReceiptListFragment;
+import com.android.ocasa.settings.SettingsActivity;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.viewmodel.OptionViewModel;
 
@@ -113,5 +117,22 @@ AlertDialogFragment.OnAlertClickListener{
     @Override
     public void onNegativeClick(String tag) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.settings){
+            startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

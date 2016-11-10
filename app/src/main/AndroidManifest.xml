@@ -146,7 +146,13 @@
                 android:value=".home.HomeActivity" />
         </activity>
 
-        <activity android:name=".sync.SyncActivity"/>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".sync.SyncActivity"/>
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".settings.SettingsActivity"/>
 
         <!--- PICK UP -->
 

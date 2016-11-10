@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 import com.android.ocasa.R;

@@ -2,10 +2,20 @@ package com.android.ocasa.cache;
 
 import android.content.Context;
 
+import com.android.ocasa.cache.dao.ActionDAO;
 import com.android.ocasa.cache.dao.ApplicationDAO;
+import com.android.ocasa.cache.dao.CategoryDAO;
 import com.android.ocasa.cache.dao.ColumnActionDAO;
+import com.android.ocasa.cache.dao.ColumnDAO;
+import com.android.ocasa.cache.dao.FieldDAO;
+import com.android.ocasa.cache.dao.HistoryDAO;
 import com.android.ocasa.cache.dao.LayoutColumnDAO;
+import com.android.ocasa.cache.dao.LayoutDAO;
 import com.android.ocasa.cache.dao.ReceiptDAO;
+import com.android.ocasa.cache.dao.ReceiptItemDAO;
+import com.android.ocasa.cache.dao.RecordDAO;
+import com.android.ocasa.cache.dao.StatusDAO;
+import com.android.ocasa.cache.dao.TableDAO;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Column;
@@ -17,6 +27,7 @@ import com.android.ocasa.service.MenuService;
 import com.android.ocasa.service.ReceiptService;
 import com.android.ocasa.service.RecordService;
 import com.android.ocasa.service.TableService;
+import com.android.ocasa.session.SessionManager;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.viewmodel.MenuViewModel;
@@ -243,5 +254,34 @@ public class CacheManager {
 
     public void updateRecord(Record record){
         new RecordService().saveRecord(context, record);
+    }
+
+    public Observable<Void> cleanDb(final Context context) {
+
+        return Observable.create(new Observable.OnSubscribe<Void>() {
+            @Override
+            public void call(Subscriber<? super Void> subscriber) {
+
+                new ApplicationDAO(context).deleteAll();
+                new CategoryDAO(context).deleteAll();
+                new TableDAO(context).deleteAll();
+                new ReceiptDAO(context).deleteAll();
+                new RecordDAO(context).deleteAll();
+                new FieldDAO(context).deleteAll();
+                new LayoutColumnDAO(context).deleteAll();
+                new ColumnDAO(context).deleteAll();
+                new ColumnActionDAO(context).deleteAll();
+                new LayoutDAO(context).deleteAll();
+                new HistoryDAO(context).deleteAll();
+                new ReceiptItemDAO(context).deleteAll();
+                new StatusDAO(context).deleteAll();
+                new ActionDAO(context).deleteAll();
+
+                SessionManager.getInstance().cleanSession();
+
+                subscriber.onNext(null);
+                subscriber.onCompleted();
+            }
+        });
     }
 }

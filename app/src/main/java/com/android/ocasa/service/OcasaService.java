@@ -360,4 +360,8 @@ public class OcasaService {
     public void updateRecord(Record record){
         cacheManager.updateRecord(record);
     }
+
+    public Observable<Void> logout() {
+        return cacheManager.cleanDb(context);
+    }
 }
