@@ -457,7 +457,10 @@ public class ReceiptService{
 
     private void fillCell(Context context, long receiptId, CellViewModel cell){
 
-        List<Field> fields = new FieldDAO(context).findVisiblesForRecord(String.valueOf(cell.getId()));
+        Receipt receipt = new ReceiptDAO(context).findById(receiptId);
+
+        List<Field> fields = new FieldDAO(context)
+                .findVisiblesForRecordAndLayout(String.valueOf(cell.getId()), receipt.getAction().getId());
 
         List<FieldViewModel> fieldViewModels = new ArrayList<>();
 

@@ -23,12 +23,14 @@ import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
+import com.android.ocasa.service.FieldService;
 import com.android.ocasa.service.MenuService;
 import com.android.ocasa.service.ReceiptService;
 import com.android.ocasa.service.RecordService;
 import com.android.ocasa.service.TableService;
 import com.android.ocasa.session.SessionManager;
 import com.android.ocasa.viewmodel.CellViewModel;
+import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.viewmodel.MenuViewModel;
 import com.android.ocasa.viewmodel.ReceiptFormViewModel;
@@ -236,9 +238,10 @@ public class CacheManager {
                 });
     }
 
-    public List<Column> getDetailColumnsForReceipt(long receiptId){
+    public FormViewModel getDetailColumnsForReceipt(long receiptId){
 
-        List<Column> columns = new ArrayList<>();
+        FormViewModel form = new FormViewModel();
+        form.setColor("#33BDC2");
 
         Receipt receipt = new ReceiptDAO(context).findById(receiptId);
 
@@ -246,10 +249,16 @@ public class CacheManager {
                 .findColumnsForActionAndType(receipt.getAction().getId(), ColumnAction.ColumnActionType.DETAIL);
 
         for (ColumnAction columnAction : detailColumns){
-            columns.add(columnAction.getColumn());
+
+            Column column = columnAction.getColumn();
+
+            FieldViewModel fieldViewModel = new FieldService().getFieldFromColumn(context, column);
+            fieldViewModel.setEditable(true);
+
+            form.addField(fieldViewModel);
         }
 
-        return columns;
+        return form;
     }
 
     public void updateRecord(Record record){

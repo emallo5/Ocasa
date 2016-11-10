@@ -353,7 +353,7 @@ public class OcasaService {
                 });
     }
 
-    public List<Column> getDetailColumnsForReceipt(long receiptId){
+    public FormViewModel getDetailFormForReceipt(long receiptId){
         return cacheManager.getDetailColumnsForReceipt(receiptId);
     }
 
