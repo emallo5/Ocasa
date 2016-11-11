@@ -417,7 +417,7 @@ public class ReceiptService{
         filterRecords.addAll(records);
 
         for (ColumnAction columnAction : action.getColumnsHeader()){
-            if(columnAction.getLastValue() != null){
+            if(columnAction.getLastValue() != null && !columnAction.getLastValue().isEmpty()){
                 List<Record> aux = applySubFilter(filterRecords, columnAction.getColumn().getId(), columnAction.getLastValue());
                 filterRecords.clear();
                 filterRecords.addAll(aux);
@@ -618,7 +618,7 @@ public class ReceiptService{
         List<Record> records = new RecordDAO(context).findAvailablesForTableAndReceipt(tableId, receipt.getId());
         //RecordDAO.getInstance(context).findForTableAndQuery(tableId, query, excludeIds);
 
-        //records = filter(records, action);
+        records = filter(records, action);
 
         for (int index = 0; index < records.size(); index++){ //Record record: records){//filter(records, action)) {
             Record record = records.get(index);

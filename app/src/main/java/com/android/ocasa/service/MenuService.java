@@ -58,6 +58,11 @@ public class MenuService {
                         columnDAO.deleteForActionId(action.getId());
 
                         for (ColumnAction header: action.getColumnsHeader()) {
+
+                            if(header.getColumn().getId().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0101")){
+                                header.setLastValue("0");
+                            }
+
                             header.setAction(action);
                         }
 
