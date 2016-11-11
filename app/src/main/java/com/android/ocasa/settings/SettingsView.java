@@ -9,4 +9,7 @@ import com.codika.androidmvp.view.BaseView;
 public interface SettingsView extends BaseView{
     void onSyncSuccess();
     void onLogoutSuccess();
+    void canLogout();
+    void needUpload();
+    void onUploadSuccess();
 }

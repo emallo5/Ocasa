@@ -94,6 +94,38 @@ public class MenuService {
                             photoAction.setDefaultValue("");
 
                             action.getColumnsDetail().add(photoAction);
+
+                            Column photo1 = new Column();
+                            photo1.setId("OM_MovilNovedad_cf_0600");
+                            photo1.setName("Foto 2");
+                            photo1.setVisible(true);
+                            photo1.setLogic(true);
+                            photo1.setFieldType(FieldType.PHOTO);
+
+                            ColumnAction photoAction1 = new ColumnAction();
+                            photoAction1.setType(ColumnAction.ColumnActionType.DETAIL);
+                            photoAction1.setColumn(photo1);
+                            photoAction1.setEditable(true);
+                            photoAction1.setLastValue("");
+                            photoAction1.setDefaultValue("");
+
+                            action.getColumnsDetail().add(photoAction1);
+
+                            Column photo2 = new Column();
+                            photo2.setId("OM_MovilNovedad_cf_0700");
+                            photo2.setName("Foto");
+                            photo2.setVisible(true);
+                            photo2.setLogic(true);
+                            photo2.setFieldType(FieldType.PHOTO);
+
+                            ColumnAction photoAction2 = new ColumnAction();
+                            photoAction2.setType(ColumnAction.ColumnActionType.DETAIL);
+                            photoAction2.setColumn(photo2);
+                            photoAction2.setEditable(true);
+                            photoAction2.setLastValue("");
+                            photoAction2.setDefaultValue("");
+
+                            action.getColumnsDetail().add(photoAction2);
                         }
 
 

@@ -387,4 +387,28 @@ public class OcasaService {
             }
         });
     }
+
+    public Observable<List<Receipt>> checkCloseReceipts() {
+        return Observable.create(new Observable.OnSubscribe<List<Receipt>>() {
+            @Override
+            public void call(Subscriber<? super List<Receipt>> subscriber) {
+
+                List<Receipt> opens = new ReceiptService().getOpenReceipts(context);
+
+                subscriber.onNext(opens);
+                subscriber.onCompleted();
+            }
+        });
+    }
+
+    public Observable<Boolean> uploadReceipts(final List<Receipt> uploadReceipts) {
+        return Observable.from(uploadReceipts).flatMap(new Func1<Receipt, Observable<Boolean>>() {
+            @Override
+            public Observable<Boolean> call(Receipt receipt) {
+                upload(receipt);
+
+                return Observable.just(true);
+            }
+        }).last();
+    }
 }

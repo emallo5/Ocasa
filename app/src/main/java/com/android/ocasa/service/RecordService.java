@@ -84,6 +84,24 @@ public class RecordService {
                 photo.setValue("");
 
                 record.getFields().add(photo);
+
+                Column photoColumn1 = new Column();
+                photoColumn1.setId("OM_MovilNovedad_cf_0600");
+
+                Field photo1 = new Field();
+                photo1.setColumn(photoColumn1);
+                photo1.setValue("");
+
+                record.getFields().add(photo1);
+
+                Column photoColumn2 = new Column();
+                photoColumn2.setId("OM_MovilNovedad_cf_0700");
+
+                Field photo2 = new Field();
+                photo2.setColumn(photoColumn2);
+                photo2.setValue("");
+
+                record.getFields().add(photo2);
             }
 
             record.setExternalId(record.getExternalId());

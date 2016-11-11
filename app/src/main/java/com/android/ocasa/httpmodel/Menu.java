@@ -261,7 +261,7 @@ public class Menu {
                 column.setHighlight(jObject.has("Highlight") && jObject.get("Highlight").getAsBoolean());
                 column.setDefaultValue(jObject.has("Default") ? jObject.get("Default").getAsString() : "");
 
-                if(column.isPrimaryKey() || column.getId().contains("cf_0200")){
+                if(column.isPrimaryKey() || column.getId().contains("CF_0200")){
                     column.setLogic(true);
                 }
 

@@ -32,4 +32,15 @@ public class ReceiptDAO extends GenericDAOImpl<Receipt,Long> {
         return null;
     }
 
+    public List<Receipt> findOpens(){
+        try {
+            return dao.queryBuilder().where().eq("state", 1).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
 }

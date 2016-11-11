@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.ocasa.R;
 import com.android.ocasa.loginflow.LoginFlowActivity;
+import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.codika.androidmvp.activity.BaseMvpActivity;
 
@@ -21,7 +22,8 @@ import com.codika.androidmvp.activity.BaseMvpActivity;
  * Created by ignacio on 10/11/16.
  */
 
-public class SettingsActivity extends BaseMvpActivity<SettingsView, SettingsPresenter> implements SettingsView{
+public class SettingsActivity extends BaseMvpActivity<SettingsView, SettingsPresenter> implements SettingsView,
+AlertDialogFragment.OnAlertClickListener{
 
     private Button logout;
     private Button sync;
@@ -52,8 +54,7 @@ public class SettingsActivity extends BaseMvpActivity<SettingsView, SettingsPres
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showLogoutProgress();
-                getPresenter().logout();
+                getPresenter().checkLogout();
             }
         });
 
@@ -114,6 +115,25 @@ public class SettingsActivity extends BaseMvpActivity<SettingsView, SettingsPres
         goLoginScreen();
     }
 
+    @Override
+    public void canLogout() {
+        showLogoutProgress();
+        getPresenter().logout();
+    }
+
+    @Override
+    public void needUpload() {
+        AlertDialogFragment
+                .newInstance("Hay comprobantes sin sincronizar", "Desea contabilizarlos?")
+                .show(getSupportFragmentManager(), "Alert");
+    }
+
+    @Override
+    public void onUploadSuccess() {
+        showLogoutProgress();
+        getPresenter().logout();
+    }
+
     private void goLoginScreen(){
         Intent loginIntent = new Intent(this, LoginFlowActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
@@ -129,5 +149,20 @@ public class SettingsActivity extends BaseMvpActivity<SettingsView, SettingsPres
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPosiviteClick(String tag) {
+        getPresenter().uploadReceipts();
+    }
+
+    @Override
+    public void onNeutralClick(String tag) {
+
+    }
+
+    @Override
+    public void onNegativeClick(String tag) {
+
     }
 }

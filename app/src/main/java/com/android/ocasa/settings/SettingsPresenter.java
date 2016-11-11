@@ -1,8 +1,11 @@
 package com.android.ocasa.settings;
 
 import com.android.ocasa.model.Layout;
+import com.android.ocasa.model.Receipt;
 import com.android.ocasa.service.OcasaService;
 import com.codika.androidmvprx.presenter.BaseRxPresenter;
+
+import java.util.List;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -14,6 +17,60 @@ import rx.schedulers.Schedulers;
 
 public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
 
+    private List<Receipt> uploadReceipts;
+
+    public void checkLogout(){
+        OcasaService.getInstance()
+                .checkCloseReceipts()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<List<Receipt>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<Receipt> receipts) {
+                        if(receipts == null || receipts.isEmpty()){
+                            getView().canLogout();
+                            return;
+                        }
+
+                        uploadReceipts = receipts;
+
+                        getView().needUpload();
+                    }
+                });
+    }
+
+    public void uploadReceipts(){
+        OcasaService.getInstance()
+                .uploadReceipts(uploadReceipts)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<Boolean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        getView().onUploadSuccess();
+                    }
+                });
+    }
 
     public void logout(){
         OcasaService.getInstance()

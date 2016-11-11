@@ -374,10 +374,10 @@ public class ReceiptService{
         for (ReceiptItem item: records) {
             Record record = item.getRecord();
 
-            CellViewModel cell = new CellViewModel();
+            CellViewModel cell = createCell(context, record.getId(), receiptId);
+            ;
             cell.setId(record.getId());
 
-            fillCell(context, receiptId, cell);
             table.addCell(cell);
         }
 
@@ -402,10 +402,9 @@ public class ReceiptService{
         }
 
         for (Record record: filter(records, action)) {
-            CellViewModel cell = new CellViewModel();
-            cell.setId(record.getId());
+            CellViewModel cell = createCell(context, record.getId(), receiptId);
 
-            fillCell(cell, record.getLogicFields());
+
             cells.add(cell);
         }
 
@@ -428,23 +427,23 @@ public class ReceiptService{
         return filterRecords;
     }
 
-    public void fillCell(CellViewModel cell, List<Field> fields){
-
-        List<FieldViewModel> fieldViewModels = new ArrayList<>();
-
-        for (Field field : fields){
-            FieldViewModel fieldViewModel = new FieldViewModel();
-            fieldViewModel.setValue(field.getValue());
-            fieldViewModel.setTag(field.getColumn().getId());
-            fieldViewModel.setLabel(field.getColumn().getName());
-            fieldViewModel.setPrimaryKey(field.getColumn().isPrimaryKey());
-            fieldViewModel.setHighlight(field.getColumn().isHighlight());
-
-            fieldViewModels.add(fieldViewModel);
-        }
-
-        cell.setFields(fieldViewModels);
-    }
+//    public void createCell(CellViewModel cell, List<Field> fields){
+//
+//        List<FieldViewModel> fieldViewModels = new ArrayList<>();
+//
+//        for (Field field : fields){
+//            FieldViewModel fieldViewModel = new FieldViewModel();
+//            fieldViewModel.setValue(field.getValue());
+//            fieldViewModel.setTag(field.getColumn().getId());
+//            fieldViewModel.setLabel(field.getColumn().getName());
+//            fieldViewModel.setPrimaryKey(field.getColumn().isPrimaryKey());
+//            fieldViewModel.setHighlight(field.getColumn().isHighlight());
+//
+//            fieldViewModels.add(fieldViewModel);
+//        }
+//
+//        cell.setFields(fieldViewModels);
+//    }
 
     public List<Record> applySubFilter(List<Record> records, String columnId, String value){
 
@@ -462,8 +461,10 @@ public class ReceiptService{
         return subList;
     }
 
+    private CellViewModel createCell(Context context, long recordId, long receiptId){
 
-    private void fillCell(Context context, long receiptId, CellViewModel cell){
+        CellViewModel cell = new CellViewModel();
+        cell.setId(recordId);
 
         Receipt receipt = findReceiptById(context, receiptId);
 
@@ -490,6 +491,8 @@ public class ReceiptService{
         }
 
         cell.setFields(fieldViewModels);
+
+        return cell;
     }
 
     public Receipt updateReceiptItems(Context context, Long receiptId, long[] recordIds, Location lastLocation, Boolean close){
@@ -620,13 +623,18 @@ public class ReceiptService{
         for (int index = 0; index < records.size(); index++){ //Record record: records){//filter(records, action)) {
             Record record = records.get(index);
 
-            CellViewModel cell = new CellViewModel();
-            cell.setId(record.getId());
+            CellViewModel cell = createCell(context, record.getId(), receiptId);
 
-            fillCell(cell, record.getVisibleFields());
             tableView.addCell(cell);
         }
 
         return tableView;
+    }
+
+    public List<Receipt> getOpenReceipts(Context context) {
+
+        ReceiptDAO receiptDAO = new ReceiptDAO(context);
+
+        return receiptDAO.findOpens();
     }
 }

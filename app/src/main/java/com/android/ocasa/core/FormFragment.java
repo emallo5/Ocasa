@@ -100,6 +100,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
     private File imageTempFile;
 
+    private String currentPhotoTag;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -234,7 +236,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
                 }
 
                 if(imageTempFile.exists()){
-                    FieldViewAdapter view = (FieldViewAdapter) formContainer.findViewWithTag("OM_MovilNovedad_cf_0500");
+                    FieldViewAdapter view = (FieldViewAdapter) formContainer.findViewWithTag(currentPhotoTag);
 
                     try {
                         view.setValue(imageTempFile.getName());
@@ -269,6 +271,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
     @Override
     public void onEditPhotoClick(FieldPhotoView view) {
+
+        currentPhotoTag = (String) view.getTag();
 
         final String[] permissions = new String[]{Manifest.permission.CAMERA};
 
