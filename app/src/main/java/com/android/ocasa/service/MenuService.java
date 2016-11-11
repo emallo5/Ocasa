@@ -126,6 +126,22 @@ public class MenuService {
                             photoAction2.setDefaultValue("");
 
                             action.getColumnsDetail().add(photoAction2);
+
+                            Column photo3 = new Column();
+                            photo3.setId("OM_MovilNovedad_cf_0800");
+                            photo3.setName("Foto");
+                            photo3.setVisible(true);
+                            photo3.setLogic(true);
+                            photo3.setFieldType(FieldType.PHOTO);
+
+                            ColumnAction photoAction3 = new ColumnAction();
+                            photoAction3.setType(ColumnAction.ColumnActionType.DETAIL);
+                            photoAction3.setColumn(photo2);
+                            photoAction3.setEditable(true);
+                            photoAction3.setLastValue("");
+                            photoAction3.setDefaultValue("");
+
+                            action.getColumnsDetail().add(photoAction3);
                         }
 
 

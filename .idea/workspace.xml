@@ -6,24 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9fde587b-9464-4b4a-8281-7d071ae4e4c9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/mockable-Google-Inc.-Google-APIs-24.jar" afterPath="$PROJECT_DIR$/build/generated/mockable-Google-Inc.-Google-APIs-24.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/mockable-android-24.jar" afterPath="$PROJECT_DIR$/build/generated/mockable-android-24.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/FieldDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/FieldDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/GenericDAOImpl.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/GenericDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/ReceiptDAO.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/cache/dao/ReceiptDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/Menu.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/httpmodel/Menu.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsPresenter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/core.iml" afterPath="$PROJECT_DIR$/core/core.iml" />
     </list>
     <ignored path="Ocasa.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -58,11 +44,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="OcasaService.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="OcasaService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-27">
-              <caret line="315" column="38" selection-start-line="315" selection-start-column="33" selection-end-line="315" selection-end-column="38" />
+            <state relative-caret-position="2433">
+              <caret line="335" column="31" selection-start-line="335" selection-start-column="31" selection-end-line="335" selection-end-column="31" />
               <folding>
                 <element signature="e#2492#2857#0" expanded="true" />
                 <element signature="e#2856#2857#0" expanded="true" />
@@ -125,7 +111,7 @@
       <file leaf-file-name="FieldService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/FieldService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
+            <state relative-caret-position="-706">
               <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
               <folding />
             </state>
@@ -135,18 +121,18 @@
       <file leaf-file-name="RecordService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-691">
-              <caret line="90" column="25" selection-start-line="90" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+            <state relative-caret-position="403">
+              <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TableService.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TableService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="208" column="43" selection-start-line="208" selection-start-column="43" selection-end-line="208" selection-end-column="43" />
+            <state relative-caret-position="313">
+              <caret line="228" column="36" selection-start-line="228" selection-start-column="36" selection-end-line="228" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -155,8 +141,8 @@
       <file leaf-file-name="MenuService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-43">
-              <caret line="81" column="38" selection-start-line="81" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+            <state relative-caret-position="238">
+              <caret line="130" column="63" selection-start-line="130" selection-start-column="63" selection-end-line="130" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -198,7 +184,7 @@
       <file leaf-file-name="ReceiptService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3">
+            <state relative-caret-position="8085">
               <caret line="581" column="0" selection-start-line="581" selection-start-column="0" selection-end-line="581" selection-end-column="0" />
               <folding />
             </state>
@@ -5641,11 +5627,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java" />
       </list>
     </option>
   </component>
@@ -6665,7 +6651,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java</url>
-          <line>237</line>
+          <line>244</line>
           <properties />
           <option name="timeStamp" value="86" />
         </line-breakpoint>
@@ -6719,7 +6705,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java</url>
-          <line>163</line>
+          <line>179</line>
           <properties />
           <option name="timeStamp" value="138" />
         </line-breakpoint>
@@ -6773,7 +6759,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java</url>
-          <line>181</line>
+          <line>188</line>
           <properties />
           <option name="timeStamp" value="215" />
         </line-breakpoint>
@@ -6887,7 +6873,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java</url>
-          <line>250</line>
+          <line>257</line>
           <properties />
           <option name="timeStamp" value="288" />
         </line-breakpoint>
@@ -7303,50 +7289,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3">
-          <caret line="581" column="0" selection-start-line="581" selection-start-column="0" selection-end-line="581" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/FieldService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-43">
-          <caret line="81" column="38" selection-start-line="81" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="208" column="43" selection-start-line="208" selection-start-column="43" selection-end-line="208" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-691">
-          <caret line="90" column="25" selection-start-line="90" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-27">
-          <caret line="315" column="38" selection-start-line="315" selection-start-column="33" selection-end-line="315" selection-end-column="38" />
+        <state relative-caret-position="2433">
+          <caret line="335" column="31" selection-start-line="335" selection-start-column="31" selection-end-line="335" selection-end-column="31" />
           <folding>
             <element signature="e#2492#2857#0" expanded="true" />
             <element signature="e#2856#2857#0" expanded="true" />
@@ -7387,6 +7333,46 @@
             <element signature="e#14562#14794#0" expanded="true" />
             <element signature="e#14793#14794#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/ReceiptService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8085">
+          <caret line="581" column="0" selection-start-line="581" selection-start-column="0" selection-end-line="581" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/RecordService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/MenuService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="130" column="63" selection-start-line="130" selection-start-column="63" selection-end-line="130" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/FieldService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-706">
+          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/TableService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="228" column="36" selection-start-line="228" selection-start-column="36" selection-end-line="228" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -222,6 +222,19 @@ public class TableService {
             photo2.addLayout(photoColumn2);
 
             layout.getColumns().add(photoColumn2);
+
+            Column photo3 = new Column();
+            photo3.setId("OM_MovilNovedad_cf_0800");
+            photo3.setName("Foto 4");
+            photo3.setVisible(true);
+            photo3.setLogic(true);
+            photo3.setOrder(10002);
+            photo3.setFieldType(FieldType.PHOTO);
+
+            LayoutColumn photoColumn3 = new LayoutColumn(layout, photo3);
+            photo3.addLayout(photoColumn3);
+
+            layout.getColumns().add(photoColumn3);
         }
 
         for (LayoutColumn layoutColumn : layout.getColumns()){
