@@ -73,11 +73,11 @@ public class FieldDAO extends GenericDAOImpl<Field, Long> {
             QueryBuilder<LayoutColumn, Long> layoutColumnBuilder = new LayoutColumnDAO(context).getDao().queryBuilder();
 
             QueryBuilder<Layout, Long> layoutBuilder = new LayoutDAO(context).getDao().queryBuilder();
-            layoutBuilder.where().eq("layout_id", layoutId);
+            layoutBuilder.where().eq("externalID", layoutId);
 
-            layoutBuilder.join(layoutColumnBuilder);
+            layoutColumnBuilder.join(layoutBuilder);
 
-            columnBuilder.join(layoutBuilder);
+            columnBuilder.join(layoutColumnBuilder);
 
             fieldBuilder.join(columnBuilder);
             fieldBuilder.where().eq("record_id", recordId);
