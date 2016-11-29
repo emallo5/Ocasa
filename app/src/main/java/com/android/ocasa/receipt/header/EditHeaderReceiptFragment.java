@@ -63,6 +63,10 @@ public class EditHeaderReceiptFragment extends FormFragment {
         setTitle("Nuevo " + form.getTitle());
 
         showFieldsInfo();
+
+        if(form.getFields().isEmpty()){
+            onSaveButtonClick();
+        }
     }
 
     @Override

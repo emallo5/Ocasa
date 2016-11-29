@@ -64,6 +64,12 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
     public void onBindViewHolder(RecordViewHolder holder, int position) {
         CellViewModel record = records.get(position);
 
+        if(position % 2 == 0){
+            holder.itemView.setBackgroundColor(Color.LTGRAY);
+        }else{
+            holder.itemView.setBackgroundColor(Color.WHITE);
+        }
+
         if(record.isNew()){
             holder.status.setImageResource(R.drawable.ic_new_record);
         }else if(record.isUpdated()){
@@ -80,13 +86,13 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
             TextView text = holder.fields.get(index);
             text.setText(field.getLabel() + ": " + field.getValue());
 
-            if(field.isHighlight()){
-                text.setTypeface(null, Typeface.BOLD);
-                text.setTextSize(18);
-            }else{
-                text.setTypeface(null, Typeface.NORMAL);
-                text.setTextSize(14);
-            }
+//            if(field.isHighlight()){
+//                text.setTypeface(null, Typeface.BOLD);
+//                text.setTextSize(18);
+//            }else{
+//                text.setTypeface(null, Typeface.NORMAL);
+//                text.setTextSize(14);
+//            }
         }
     }
 
@@ -177,7 +183,8 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
 
             for (int index = 0; index < fieldCount; index++) {
                 TextView text = new TextView(itemView.getContext());
-                text.setTextColor(Color.WHITE);
+                text.setTextColor(Color.BLACK);
+                text.setTypeface(null, Typeface.BOLD);
 
                 fields.add(text);
                 container.addView(text);

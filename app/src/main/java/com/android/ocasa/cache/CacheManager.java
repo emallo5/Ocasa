@@ -20,6 +20,7 @@ import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.ColumnAction;
+import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
@@ -238,7 +239,7 @@ public class CacheManager {
                 });
     }
 
-    public FormViewModel getDetailColumnsForReceipt(long receiptId){
+    public FormViewModel getDetailColumnsForReceipt(long recordId, long receiptId){
 
         FormViewModel form = new FormViewModel();
         form.setColor("#33BDC2");
@@ -248,12 +249,21 @@ public class CacheManager {
         List<ColumnAction> detailColumns =  new ColumnActionDAO(context)
                 .findColumnsForActionAndType(receipt.getAction().getId(), ColumnAction.ColumnActionType.DETAIL);
 
+
+        Record record = new RecordService().findRecord(context, recordId);
+
         for (ColumnAction columnAction : detailColumns){
 
             Column column = columnAction.getColumn();
 
             FieldViewModel fieldViewModel = new FieldService().getFieldFromColumn(context, column);
-            fieldViewModel.setEditable(true);
+            fieldViewModel.setEditable(column.isEditable());
+
+            Field field = record.getFieldForColumn(column.getId());
+
+            if(field != null){
+                fieldViewModel.setValue(field.getValue());
+            }
 
             form.addField(fieldViewModel);
         }

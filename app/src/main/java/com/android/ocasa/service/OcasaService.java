@@ -354,8 +354,8 @@ public class OcasaService {
                 });
     }
 
-    public FormViewModel getDetailFormForReceipt(long receiptId){
-        return cacheManager.getDetailColumnsForReceipt(receiptId);
+    public FormViewModel getDetailFormForReceipt(long recordId, long receiptId){
+        return cacheManager.getDetailColumnsForReceipt(recordId, receiptId);
     }
 
     public void updateRecord(Record record){

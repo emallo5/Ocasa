@@ -436,7 +436,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
         if(view instanceof FieldDateTimeView){
             try {
-                ((FieldDateTimeView) view).setDate(DateTimeHelper.serverFormatDate(calendar.getTime()));
+                ((FieldDateTimeView) view).setDate(DateTimeHelper.formatDate(calendar.getTime()));
             } catch (FormatException e) {
                 e.printStackTrace();
             }
@@ -444,7 +444,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         }
 
         try {
-            view.setValue(DateTimeHelper.serverFormatDate(calendar.getTime()));
+            view.setValue(DateTimeHelper.formatDate(calendar.getTime()));
         } catch (FormatException e) {
             e.printStackTrace();
         }

@@ -8,7 +8,7 @@
         android:layout_toLeftOf="@+id/action"
         android:layout_toStartOf="@+id/action"
         android:background="@null"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:singleLine="true"
         android:gravity="center_vertical"
         android:layout_centerVertical="true"

@@ -2,6 +2,7 @@ package com.android.ocasa.receipt.item.detailaction;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
 
 import com.android.ocasa.core.FormFragment;
@@ -34,13 +35,14 @@ public class DetailActionFragment extends FormFragment{
     @Override
     public void onResume() {
         super.onResume();
-        ((DetailActionPresenter)getPresenter()).loadFields(getArguments().getLong(ARG_RECEIPT_ID));
+        ((DetailActionPresenter)getPresenter()).loadFields(getArguments().getLong(ARG_RECORD_ID), getArguments().getLong(ARG_RECEIPT_ID));
     }
 
     @Override
     public void onFormSuccess(FormViewModel form) {
         super.onFormSuccess(form);
-        container.setCardBackgroundColor(Color.parseColor(form.getColor()));
+        container.setCardBackgroundColor(Color.WHITE);
+        showFieldsInfo();
     }
 
     @Override

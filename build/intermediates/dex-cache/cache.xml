@@ -3,588 +3,588 @@
 
     <item
         is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/me.dm7.barcodescanner/core/1.8.4/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="af8d42f1f020e936b8cd9f5cb6c75993194895a3">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/me.dm7.barcodescanner-core-1.8.4_3b989408c5b9cacc56f89b390aba42a2c77cce12/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-animated-vector-drawable-24.2.1_707b3aff6ca5eaae90591d5d9e6cce5c8f3877bb/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.6.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="eccaaa9ffa6bb4bfbd2e870f01aaf69655d353be">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.6.1_ddc7929ac397ba40f59f6becba34ebd6ce3dae8f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-recyclerview-v7-24.2.1_1840166b5fc4e1f1eb2a2b18825cbed7baf63c02/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.4/129874135e6081269ace2312092031558865de12/bolts-android-1.1.4.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="129874135e6081269ace2312092031558865de12">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/bolts-android-1.1.4_d822675794505d97d20b7801d9252df99f267d5f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.3/5a1aef6a9d56efb473b8be6b66689077e7317c45/rxjava-1.1.3.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="5a1aef6a9d56efb473b8be6b66689077e7317c45">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/rxjava-1.1.3_33193d592bece09860729d35daed6451a5fe3c76/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/9.6.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="79f521967ad7f49b34748db89df02852c2b2f87b">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.google.android.gms-play-services-location-9.6.1_144a16497425f00a545efe6bac02ebf38967133e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-appcompat-v7-24.2.1_ab5435a0db09c810a3bd1fcb02d963145e74820e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.4.0/d6a66c7a5f01cf500377bd669507a08cfeba882a/jackson-annotations-2.4.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="d6a66c7a5f01cf500377bd669507a08cfeba882a">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/jackson-annotations-2.4.0_c70642a0fe061f4dcd23330e39acd4340a9dd417/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.crittercism/crittercism-android-agent/5.5.1/9c7d76508b90a4c5a0093e48b6d8ab15c7084bbf/crittercism-android-agent-5.5.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="9c7d76508b90a4c5a0093e48b6d8ab15c7084bbf">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/crittercism-android-agent-5.5.1_7dc053637518887b69ce749e9afd84fa08b6d994/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/0.9.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="39bd9f893c75eac9e76559cc4e96af6e417afdc5">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.facebook.fresco-imagepipeline-base-0.9.0_bf2bb429dfdf4615e4048f72dac50a8e685f656b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/9.6.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="0cae6511c5705869cacf199f8abb0ea84cd10157">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.google.android.gms-play-services-vision-9.6.1_7ebfeccfae89583b7179fe051d2f527f7b14f2c3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/logging-interceptor/3.2.0/a56f28d5b7fab623c6c1d2afa08dd496d873ac21/logging-interceptor-3.2.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="a56f28d5b7fab623c6c1d2afa08dd496d873ac21">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/logging-interceptor-3.2.0_14134d141b7f0073ca893f420e9ef83ddfbe35c0/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.4/5fe28b9518e58819180a43a850fbc0dd24b7c050/commons-lang3-3.4.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="5fe28b9518e58819180a43a850fbc0dd24b7c050">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/commons-lang3-3.4_ef928cf1070bcd2b050bff51d02533a6bb7a0aca/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-multidex-1.0.1_47e57802c1df3ce4132bdcb8308dd1e20c985023/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/Android/Sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha8/constraint-layout-solver-1.0.0-alpha8.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="80c371a4fd5e1b77f0e3a25b171356878543ffdd">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/constraint-layout-solver-1.0.0-alpha8_fd72c84e37df9c88191bc07e9b80ebbcbfd5ccbf/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support.constraint/constraint-layout/1.0.0-alpha8/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="0e753ea8d0a2dea270da7d96a7d6e9d2e9c10f94">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support.constraint-constraint-layout-1.0.0-alpha8_dcd5a8aba5e34b909fd1fdb65150316a2cfc4c6e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/internal_impl-24.2.1_f66ba05f3a6d49986d9536e88bee07d20bafcaac/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.2/43eeae0b9fb087bb3194ba59ab63a38a32fbf3e/retrofit-2.0.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="043eeae0b9fb087bb3194ba59ab63a38a32fbf3e">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/retrofit-2.0.2_7fc2a2fc624f671fbf921b39e793cc1264309e3a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/support-annotations-24.2.1_2ff5a03924546450724b26dc84a550e2f250bafe/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-support-core-utils-24.2.1_0995dcc68f0f47bf5e6400809c17c944358e87a3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.6.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="af7582c6b327449c6d32518e6a10307860b7b5d6">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.google.android.gms-play-services-base-9.6.1_f13bad161f334b4200aba79f8632974c1f53a274/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.j256.ormlite/ormlite-core/5.0/3382b8260646dd334a1b9c1b3d412fcb73d8b21/ormlite-core-5.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="03382b8260646dd334a1b9c1b3d412fcb73d8b21">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/ormlite-core-5.0_f7ce7d007d727fa54dd8cb362f20b00e46fab1e2/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.6.1/b9d63507329a7178e026fc334f87587ee5070ac5/gson-2.6.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="b9d63507329a7178e026fc334f87587ee5070ac5">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/gson-2.6.1_d07266a800c5fed8188b46fa2b360877f0f10839/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/incremental-runtime-classes/dev/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="3e4ecaa38b8824902dacc00db7febdc083c2ed42">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/instant-run_13d47113917d60d59be3212917dfde176231f664/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/adapter-rxjava/2.0.0/bf61256d9868ea053e24d77669c55c80db375c15/adapter-rxjava-2.0.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="bf61256d9868ea053e24d77669c55c80db375c15">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/adapter-rxjava-2.0.0_d0aca5061c36348241380cb70f833eaae7be797d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.codikasolutions.android/android-mvp/0.0.4/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="ee788948b205d90098d20b2bac2d02b7e2c47e50">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.codikasolutions.android-android-mvp-0.0.4_cd9ce3d5a66339fd5d3a23a6569881f579098a15/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/0.9.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="57528b5deee77bfa2188fc279fd45066366f17f5">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.facebook.fresco-imagepipeline-0.9.0_ec31571619aab326c02c8ab34df03c96c91042dd/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.2/ceb72830d95c512b4b300a38f29febc85bdf6e4b/jackson-core-2.4.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="ceb72830d95c512b4b300a38f29febc85bdf6e4b">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/jackson-core-2.4.2_449b87ce6f781306a80f3d8b37aeee17feec0ff5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-support-core-ui-24.2.1_424e421badfa0674b1b1b0b5a8b64252f493baf7/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-support-compat-24.2.1_1a6b08e9cd9e1f2305bc0fae1c1fb23116dc2e15/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/9.6.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="62ff84124b89177abc0c27f3e38c9732f2d41617">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.google.android.gms-play-services-maps-9.6.1_c7a83fe03c58e138c366538a15c488d3f1499d5b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/library-2.4.0_bc197f14df2256e7f1c47f6dc53cb04614396323/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/0.9.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="3158c15bb0ae97575debdb40cfcd8f0f9f244526">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.facebook.fresco-drawee-0.9.0_cd3152664aa0a709fbbe5571493dcaf773a80942/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.sun.mail/android-mail/1.5.5/53a2f927b235acb565dbe9314ececfb7e6d43020/android-mail-1.5.5.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="53a2f927b235acb565dbe9314ececfb7e6d43020">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/android-mail-1.5.5_aa9f182b45fd12a696b6f675713dc942d7526b71/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.yqritc/recyclerview-flexibledivider/1.2.4/jars/classes.jar"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.yqritc\recyclerview-flexibledivider\1.2.4\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
         sha1="ebf6b1bcf0c8d7fc197a27e6bb915cb32ba7c303">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.yqritc-recyclerview-flexibledivider-1.2.4_2f52f8d33a5cb588c3a45a30035a017458e7f4fd/classes.dex" />
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.yqritc-recyclerview-flexibledivider-1.2.4_aca2d3ba0196c9397c59ab934e5b74af8d9168b5\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-support-vector-drawable-24.2.1_cfe08fca70d2ae3153a4f6425dd5904781f545a3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.4.2/8e31266a272ad25ac4c089734d93e8d811652c1f/jackson-databind-2.4.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="8e31266a272ad25ac4c089734d93e8d811652c1f">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/jackson-databind-2.4.2_3caa85fa75f5084db8873eb08fb9f218fe162b5a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.0.2/f8d87f15b94b8d74e7ccf61d7eedb558811cdb30/converter-gson-2.0.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="f8d87f15b94b8d74e7ccf61d7eedb558811cdb30">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/converter-gson-2.0.2_f52154f86571c2b13ab13a557fde0aec755631c7/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-support-v4-24.2.1_7081774da7077ef3c50cefd1ee2357ba9024d499/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/me.dm7.barcodescanner/zbar/1.8.4/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="535ee75e6cf4460071fdddd93eb1101e4281294f">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/me.dm7.barcodescanner-zbar-1.8.4_09ab8d92049c47586c5e6ac01bb50c6477388b0a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/0.9.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="ca51025f4a58fc7fb6cfaa85e7d09b7ae47e6187">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.facebook.fresco-fresco-0.9.0_55592b2c503ef0cbed552fc5452d19acb5ff32aa/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.sun.mail/android-activation/1.5.5/5442d5e05808145434b750c9f8a0c3f537383c5a/android-activation-1.5.5.jar"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.sun.mail\android-activation\1.5.5\5442d5e05808145434b750c9f8a0c3f537383c5a\android-activation-1.5.5.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
         sha1="5442d5e05808145434b750c9f8a0c3f537383c5a">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/android-activation-1.5.5_673dceb18e19f97157596bcf566e0bcf18fe214a/classes.dex" />
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\android-activation-1.5.5_bbaa93df7d9467a9a21904f777a91465718d41e7\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.2.0/f7873a2ebde246a45c2a8d6f3247108b4c88a879/okhttp-3.2.0.jar"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\converter-gson\2.0.2\f8d87f15b94b8d74e7ccf61d7eedb558811cdb30\converter-gson-2.0.2.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="f7873a2ebde246a45c2a8d6f3247108b4c88a879">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okhttp-3.2.0_85df7d790aa114e15dfc7c193529d94ac7ff4971/classes.dex" />
+        sha1="f8d87f15b94b8d74e7ccf61d7eedb558811cdb30">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\converter-gson-2.0.2_08f14f6f97c129c39ddb2368fcda8c439fe2a8b4\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.j256.ormlite/ormlite-android/5.0/1f065373aeef355dd9e2fd9854efd5ed4d54f6d/ormlite-android-5.0.jar"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.4.0\d6a66c7a5f01cf500377bd669507a08cfeba882a\jackson-annotations-2.4.0.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="01f065373aeef355dd9e2fd9854efd5ed4d54f6d">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/ormlite-android-5.0_a57749c7afce07808717127f5a6974845e606cba/classes.dex" />
+        sha1="d6a66c7a5f01cf500377bd669507a08cfeba882a">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\jackson-annotations-2.4.0_a028664bf8d5a034a1b690ebb2fdcf2cb7723514\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/internal_impl-24.2.1_0936754568f9c01b2394aa785ab974807e9df0fc/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/internal_impl-24.2.1_c18089fcdaf02b8bd31c4c8c8197b9be2487a258/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="98476622f10715998eacf9240d6b479f12c66143">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/okio-1.6.0_e3918cfd1717fda63c7150e6b2433263576300a5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.codikasolutions.android/android-mvp-rx/0.0.4/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="be7662b371ab78cd90b251043c2599e23a27bbdd">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.codikasolutions.android-android-mvp-rx-0.0.4_bfad1af17b8d54bd4b333f45c748c4d92c35a154/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="867dad63c33388ff8c7644b236579355036d075f">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/internal_impl-24.2.1_95f42d61aa75bcdd41a821d87ec6bd32c513be29/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.jakewharton/disklrucache/2.0.2/93b399470e72c0bc8cb52379943b63c9aa586cd8/disklrucache-2.0.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="93b399470e72c0bc8cb52379943b63c9aa586cd8">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/disklrucache-2.0.2_fb5fab754e57723fce4e2ef931150474987de75d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="c5e6490573cd2cc8018417f60ddd251138b6ed61">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-cardview-v7-24.2.1_2db9da035f3c0657e9dcfdaecfb0007bb48b0b13/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.jakewharton.rxbinding/rxbinding/0.4.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="ffc09f4e5bdebe068e5101f587dadc42b60fbfe4">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.jakewharton.rxbinding-rxbinding-0.4.0_573fa121a482a8bc91267f1d30d3acb3d74d3096/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/design/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-design-24.2.1_1e63db0d15c937c89d3bcb99afde910006b820f6/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-support-fragment-24.2.1_6f0e77332d26ad2034d46c8b4b71bb42f9959907/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/internal_impl-24.2.1_38bb906451770d5f83e097996d82067bca806330/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/io.reactivex/rxandroid/1.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="d4c4b83de2f6412072d2a29b1b7a5b03edaad5ff">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/io.reactivex-rxandroid-1.1.0_426a1e4b7cd056f4676b01b35f87d51aaf58b7c3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.vincentbrison.openlibraries.android/dualcache/2.2.2/b7931a6e91d3988f27a872b5a1677df90399eb01/dualcache-2.2.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="b7931a6e91d3988f27a872b5a1677df90399eb01">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/dualcache-2.2.2_6a48cea1bdbf08ef7091bb53176a0cd5f12b751e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/incremental-classes/dev/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="8d3b1e1a3a67897fdc15bf636e9f9117fc33ab9d">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/instant-run-bootstrap_8aa4111373e17bf88aaeadbb27c187e01b0f3d0e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/0.9.0/jars/classes.jar"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.facebook.fresco\fbcore\0.9.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
         sha1="4ee95617ab850030c51486d02bc9d207b14419c6">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.facebook.fresco-fbcore-0.9.0_db8a230b31dbb7c475ca1368c32a9bb0e36678ee/classes.dex" />
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.facebook.fresco-fbcore-0.9.0_3f0e9cc92529a4e0783264644c4cf5e9bf87161d\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.4.2\ceb72830d95c512b4b300a38f29febc85bdf6e4b\jackson-core-2.4.2.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.android.support-support-media-compat-24.2.1_8780d8aa4f14b1157a46bbe8a73706c0ca7647c4/classes.dex" />
+        sha1="ceb72830d95c512b4b300a38f29febc85bdf6e4b">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\jackson-core-2.4.2_3281d51e767d269a2171c7d498f218db37dbedda\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/me.dm7.barcodescanner/zbar/1.8.4/jars/libs/zbar.jar"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\me.dm7.barcodescanner\core\1.8.4\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="af8d42f1f020e936b8cd9f5cb6c75993194895a3">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\me.dm7.barcodescanner-core-1.8.4_b3744190f84ff71cbe0134ecf3c1e636eb6a3c30\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\internal_impl-24.2.1_39c0d38979057122587cf04a6fe122345e65d04f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\me.dm7.barcodescanner\zbar\1.8.4\jars\libs\zbar.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
         sha1="6b963fd8297b9b963fbb0afb0b18a11ed9044f78">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/zbar_782a9b44254146735fb82ea29198ea8b6117d090/classes.dex" />
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\zbar_3435e890cbfb850be200aea9eef883f8f4da77d8\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.6.1/jars/classes.jar"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.codikasolutions.android\android-mvp-rx\0.0.4\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="4a36600281a648769411ef642c331851732bf29e">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/com.google.android.gms-play-services-tasks-9.6.1_15bf82405b2f84033e5524ab8ece133bcee7dae6/classes.dex" />
+        sha1="be7662b371ab78cd90b251043c2599e23a27bbdd">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.codikasolutions.android-android-mvp-rx-0.0.4_b95eda20308127a110c5e787ec5854e0564fcbd6\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/com.nostra13.universalimageloader/universal-image-loader/1.9.5/442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375/universal-image-loader-1.9.5.jar"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\internal_impl-24.2.1_ddd31deb7a95166e614f564f8d64beb52cf8d26f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\me.dm7.barcodescanner\zbar\1.8.4\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="535ee75e6cf4460071fdddd93eb1101e4281294f">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\me.dm7.barcodescanner-zbar-1.8.4_08ab51181346d90d5f9b10962494d11810245a19\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-recyclerview-v7-24.2.1_bf47978b8eecaf1ae17e85f3740c1a13cd4efbae\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.jakewharton\disklrucache\2.0.2\93b399470e72c0bc8cb52379943b63c9aa586cd8\disklrucache-2.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="93b399470e72c0bc8cb52379943b63c9aa586cd8">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\disklrucache-2.0.2_ac7e68bfe26718bccc3ff9fe01214c01e51a461a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="62ff84124b89177abc0c27f3e38c9732f2d41617">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.google.android.gms-play-services-maps-9.6.1_2e6d23661d6abcbc20d8ac94e60192a9d543426b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.6.1\b9d63507329a7178e026fc334f87587ee5070ac5\gson-2.6.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b9d63507329a7178e026fc334f87587ee5070ac5">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\gson-2.6.1_16098c379a0ce8f1f96231e7a234a2516085c6f1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.vincentbrison.openlibraries.android\dualcache\2.2.2\b7931a6e91d3988f27a872b5a1677df90399eb01\dualcache-2.2.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b7931a6e91d3988f27a872b5a1677df90399eb01">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\dualcache-2.2.2_f60f2e553e9825416e64cb72530b3e723e0e4b5d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.4\5fe28b9518e58819180a43a850fbc0dd24b7c050\commons-lang3-3.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5fe28b9518e58819180a43a850fbc0dd24b7c050">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\commons-lang3-3.4_7767ae860c0cc8f589cb61d2542a4402713c16b2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.5\442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375\universal-image-loader-1.9.5.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
         sha1="442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/universal-image-loader-1.9.5_e82085443f718658e1ce3b9bf7f831fcaeaaebe6/classes.dex" />
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\universal-image-loader-1.9.5_f5726b238007c0c2ec5fee1c968b4de51d42c866\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/ignacio/.gradle/caches/modules-2/files-2.1/org.greenrobot/eventbus/3.0.0/ddd99896e9569eaababbe81b35d80e1b91c4ad85/eventbus-3.0.0.jar"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.6.0\98476622f10715998eacf9240d6b479f12c66143\okio-1.6.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\okio-1.6.0_09b49b038a1a95011c04c4686e5921ebfe43892c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-support-core-utils-24.2.1_d098dc57eebea31e763bcb1001bd8b0c5057884e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\support-annotations-24.2.1_24519d9b8c68e751a08d35a97e728e2b3cf35ebf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.facebook.fresco\fresco\0.9.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="ca51025f4a58fc7fb6cfaa85e7d09b7ae47e6187">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.facebook.fresco-fresco-0.9.0_86fd839e003aebd5cb2844aa195618ab709c95bf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\logging-interceptor\3.2.0\a56f28d5b7fab623c6c1d2afa08dd496d873ac21\logging-interceptor-3.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="a56f28d5b7fab623c6c1d2afa08dd496d873ac21">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\logging-interceptor-3.2.0_8be34d0da732e9d780e042fd73b98d3f75ed3014\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-multidex-1.0.1_6134de95b7b3a35a359ed4223a53902050978a2c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="c5e6490573cd2cc8018417f60ddd251138b6ed61">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-cardview-v7-24.2.1_517d78d01c8a3270069fb9d3e6220305687d2f46\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="4a36600281a648769411ef642c331851732bf29e">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.google.android.gms-play-services-tasks-9.6.1_e6eb4bf9bf0a7465cd6afcb94d3ac57ea3d3c907\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.0.2\43eeae0b9fb087bb3194ba59ab63a38a32fbf3e\retrofit-2.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="043eeae0b9fb087bb3194ba59ab63a38a32fbf3e">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\retrofit-2.0.2_749d14feea953aec9c56ca8b38acb4897ba8b73c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\internal_impl-24.2.1_a2d34962daea5dcaacc5b6be72a655d436cf3630\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.0-alpha8\constraint-layout-solver-1.0.0-alpha8.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="80c371a4fd5e1b77f0e3a25b171356878543ffdd">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\constraint-layout-solver-1.0.0-alpha8_79361776cc8fd391fd8a20c82ad91f3d5150eacc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.2.1_3c03e2c57432c1f0fe947dd09ee0503ad2c2eb81\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.facebook.fresco\drawee\0.9.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="3158c15bb0ae97575debdb40cfcd8f0f9f244526">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.facebook.fresco-drawee-0.9.0_c1e974f36746001a1ed612af0bcf23235611fcbe\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.jakewharton.rxbinding\rxbinding\0.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="ffc09f4e5bdebe068e5101f587dadc42b60fbfe4">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.jakewharton.rxbinding-rxbinding-0.4.0_b7a6e2a121801dc2ce5b2cd2bb05a51fa762ef3c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\internal_impl-24.2.1_5abc3ccd57e1ce3e0cb413e2f0bbfdc1d3c25b3f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\library-2.4.0_bbb8106b34b65c2d1c336e37624d0a11e4569473\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.2.0\f7873a2ebde246a45c2a8d6f3247108b4c88a879\okhttp-3.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="f7873a2ebde246a45c2a8d6f3247108b4c88a879">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\okhttp-3.2.0_5ce8cbfdaa7904f4f764a9788f223fa58ee6604b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-support-vector-drawable-24.2.1_706c6700984990ab9d3b9ad190b3204c18b3bbe4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-support-v4-24.2.1_f6d7148567d4b6367a634a391708a66b675e73be\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\incremental-classes\dev\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="c6619e6bbf5b6528dfcd2bc68c85e0f296a09f01">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\instant-run-bootstrap_b7c2cafd27746dbca2fcbb796933819366c86ec5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.4.2\8e31266a272ad25ac4c089734d93e8d811652c1f\jackson-databind-2.4.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8e31266a272ad25ac4c089734d93e8d811652c1f">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\jackson-databind-2.4.2_95466545622bb953423ea291f02e61ef1e3f613a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-support-media-compat-24.2.1_6f5a30e305ce0ebd7fab63ce41b6121b2284794a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-support-compat-24.2.1_ed9dce3d202ba7998f4f04576d4e699010635991\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-support-fragment-24.2.1_0119211b62ab2b1dba0b58ffe6a2e80e15ebca74\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-appcompat-v7-24.2.1_b62d4e2badf91a38b032a23be90cd784cb81c1fa\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\internal_impl-24.2.1_68500ada45f1ab68e19eab03244fd6544d049431\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.codikasolutions.android\android-mvp\0.0.4\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="ee788948b205d90098d20b2bac2d02b7e2c47e50">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.codikasolutions.android-android-mvp-0.0.4_6a7f2244166ebe163f4bda8a82dba4c8a7f21be7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.j256.ormlite\ormlite-core\5.0\3382b8260646dd334a1b9c1b3d412fcb73d8b21\ormlite-core-5.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="03382b8260646dd334a1b9c1b3d412fcb73d8b21">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\ormlite-core-5.0_a866de71b2b06156c56f281601a1c2e92dae9f52\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="79f521967ad7f49b34748db89df02852c2b2f87b">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.google.android.gms-play-services-location-9.6.1_3cee83fbdaf74138b5fb7b4b36ae5a1d71bd7eba\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-support-core-ui-24.2.1_52d557b40e767425a6f41ea0a983fc9d25e61f04\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\adapter-rxjava\2.0.0\bf61256d9868ea053e24d77669c55c80db375c15\adapter-rxjava-2.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="bf61256d9868ea053e24d77669c55c80db375c15">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\adapter-rxjava-2.0.0_c47108691af1a3c2dfcc24e400bc363d804faa75\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-base\0.9.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="39bd9f893c75eac9e76559cc4e96af6e417afdc5">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.facebook.fresco-imagepipeline-base-0.9.0_289a436e6562cca49fcaea13a01770ca080918c7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\io.reactivex\rxjava\1.1.3\5a1aef6a9d56efb473b8be6b66689077e7317c45\rxjava-1.1.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5a1aef6a9d56efb473b8be6b66689077e7317c45">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\rxjava-1.1.3_7345c7628884c86d8d39e20c757bfcce0588e842\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.1.4\129874135e6081269ace2312092031558865de12\bolts-android-1.1.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="129874135e6081269ace2312092031558865de12">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\bolts-android-1.1.4_1ca885ed236b9cf5d8d845a65c8edf44c53c1354\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="eccaaa9ffa6bb4bfbd2e870f01aaf69655d353be">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.google.android.gms-play-services-basement-9.6.1_c6f92c80d8697109ed684ec5cf76dc7002b19f53\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="af7582c6b327449c6d32518e6a10307860b7b5d6">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.google.android.gms-play-services-base-9.6.1_4ef3f20c6b229b692506f58731b699b70d60eed9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\io.reactivex\rxandroid\1.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d4c4b83de2f6412072d2a29b1b7a5b03edaad5ff">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\io.reactivex-rxandroid-1.1.0_f4c0ddb1f7e2460fe00d092303134f1374876059\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.j256.ormlite\ormlite-android\5.0\1f065373aeef355dd9e2fd9854efd5ed4d54f6d\ormlite-android-5.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="01f065373aeef355dd9e2fd9854efd5ed4d54f6d">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\ormlite-android-5.0_7cfcb69fadad116d7354c7af345557628ac34543\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\9.6.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0cae6511c5705869cacf199f8abb0ea84cd10157">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.google.android.gms-play-services-vision-9.6.1_a3f8d98544a8936c578bd44f44d1042a3c1d0083\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline\0.9.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="57528b5deee77bfa2188fc279fd45066366f17f5">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.facebook.fresco-imagepipeline-0.9.0_27f83a13b8a9663f3c168dd7884a5bae5a3104f3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\incremental-runtime-classes\dev\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="ccf7cdbccc5ffd7495120963afe31b6462e86ae7">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\instant-run_cc6cd824d654fbdd58f18e290ab945402df2d944\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\org.greenrobot\eventbus\3.0.0\ddd99896e9569eaababbe81b35d80e1b91c4ad85\eventbus-3.0.0.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
         sha1="ddd99896e9569eaababbe81b35d80e1b91c4ad85">
-        <dex dex="/home/ignacio/AndroidStudioProjects/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/eventbus-3.0.0_969ae2d9e4a5b88439ad3b042de7966bd522bfb5/classes.dex" />
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\eventbus-3.0.0_0cd24331abbfa07cd6e99e6412568882f0c0ef7f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.crittercism\crittercism-android-agent\5.5.1\9c7d76508b90a4c5a0093e48b6d8ab15c7084bbf\crittercism-android-agent-5.5.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9c7d76508b90a4c5a0093e48b6d8ab15c7084bbf">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\crittercism-android-agent-5.5.1_b95265fb4e163423bcd7a927a591d372e55506ac\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\.gradle\caches\modules-2\files-2.1\com.sun.mail\android-mail\1.5.5\53a2f927b235acb565dbe9314ececfb7e6d43020\android-mail-1.5.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="53a2f927b235acb565dbe9314ececfb7e6d43020">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\android-mail-1.5.5_b2dce665c71d070b73cbc25e7f7c0fb6477f250a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support.constraint\constraint-layout\1.0.0-alpha8\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0e753ea8d0a2dea270da7d96a7d6e9d2e9c10f94">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support.constraint-constraint-layout-1.0.0-alpha8_d7f65915f47d9b5d422db4cc12ec5a3fb301cf3d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\exploded-aar\com.android.support\design\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="C:\Users\Ignacio\AndroidStudioProjects\Ocasa\app\build\intermediates\transforms\dex\dev\debug\folders\1000\10\com.android.support-design-24.2.1_2c56c21bf8730eaced83ef7f3ab3fd43640838dd\classes.dex" />
     </item>
 
 </items>

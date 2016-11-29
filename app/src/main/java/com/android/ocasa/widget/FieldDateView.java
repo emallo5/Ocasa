@@ -40,7 +40,7 @@ public class FieldDateView extends FormTextFieldView {
     @Override
     public void setValue(String value) throws FormatException {
 
-        Date date =  DateTimeHelper.serverParseDate(value);
+        Date date =  DateTimeHelper.parseDate(value);
 
         if(!FieldType.DATE.isValidValue(DateTimeHelper.formatDate(date)))
             throw new FormatException();

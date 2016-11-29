@@ -66,7 +66,7 @@ public class DateFieldFactory extends FieldViewFactory {
         Date date = DateTimeHelper.serverParseDate(field.getValue());
 
         try {
-            dateField.setValue(DateTimeHelper.serverFormatDate(date));
+            dateField.setValue(DateTimeHelper.formatDate(date));
         } catch (FormatException e) {
             e.printStackTrace();
         }

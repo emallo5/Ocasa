@@ -17,8 +17,8 @@ import java.util.List;
 
 public class DetailActionPresenter extends FormPresenter {
 
-    public void loadFields(long receiptId){
-        FormViewModel form = OcasaService.getInstance().getDetailFormForReceipt(receiptId);
+    public void loadFields(long recordId, long receiptId){
+        FormViewModel form = OcasaService.getInstance().getDetailFormForReceipt(recordId, receiptId);
 
         getView().onFormSuccess(form);
     }

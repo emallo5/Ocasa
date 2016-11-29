@@ -4,6 +4,7 @@ import com.android.ocasa.httpmodel.MediaBody;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.httpmodel.TableRecord;
 import com.android.ocasa.model.Column;
+import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.LayoutColumn;
 import com.android.ocasa.model.LoginCredentials;
@@ -61,12 +62,72 @@ public class ApiManager {
                             }
                         }),
                 api.records(layout.getExternalID() + "|" + layout.getTable().getId(), deviceId, latitude, longitude)
+//                        .map(new Func1<TableRecord, TableRecord>() {
+//                            @Override
+//                            public TableRecord call(TableRecord tableRecord) {
+//
+//                                if(tableRecord.getRecords() == null){
+//                                    List<Record> records = new ArrayList<Record>();
+//
+//                                    Record rec = new Record();
+//                                    rec.setExternalId("1");
+//
+//                                    Column clave = new Column();
+//                                    clave.setId("OM_MOVILNOVEDAD_CLAVE");
+//
+//                                    Field field = new Field();
+//                                    field.setValue("1");
+//                                    field.setColumn(clave);
+//
+//                                    Column equipo = new Column();
+//                                    equipo.setId("OM_MOVILNOVEDAD_C_0012");
+//
+//                                    Field field1 = new Field();
+//                                    field1.setValue("Equipo");
+//                                    field1.setColumn(equipo);
+//
+//                                    List<Field> fields = new ArrayList<Field>();
+//
+//                                    fields.add(field);
+//                                    fields.add(field1);
+//
+//                                    rec.setFields(fields);
+//
+//                                    records.add(rec);
+//
+//                                    tableRecord.setRecords(records);
+//                                }
+//
+//                                return tableRecord;
+//                            }
+//                        })
                         .onErrorReturn(new Func1<Throwable, TableRecord>() {
                             @Override
                             public TableRecord call(Throwable throwable) {
 
                                 TableRecord record = new TableRecord();
-                                record.setRecords(new ArrayList<Record>());
+
+                                List<Record> records = new ArrayList<Record>();
+
+                                Record rec = new Record();
+                                rec.setExternalId("1");
+
+                                Column clave = new Column();
+                                clave.setId("OM_MOVILNOVEDAD_CLAVE");
+
+                                Field field = new Field();
+                                field.setValue("1");
+                                field.setColumn(clave);
+
+                                List<Field> fields = new ArrayList<Field>();
+
+                                fields.add(field);
+
+                                rec.setFields(fields);
+
+                                records.add(rec);
+
+                                record.setRecords(records);
                                 return record;
                             }
                         }),

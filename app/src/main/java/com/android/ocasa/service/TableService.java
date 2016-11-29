@@ -174,7 +174,7 @@ public class TableService {
             Column sigature = new Column();
             sigature.setId("OM_MovilNovedad_cf_0400");
             sigature.setName("Firma");
-            sigature.setVisible(true);
+            sigature.setVisible(false);
             sigature.setLogic(true);
             sigature.setOrder(9998);
             sigature.setFieldType(FieldType.SIGNATURE);
@@ -187,7 +187,7 @@ public class TableService {
             Column photo = new Column();
             photo.setId("OM_MovilNovedad_cf_0500");
             photo.setName("Foto");
-            photo.setVisible(true);
+            photo.setVisible(false);
             photo.setLogic(true);
             photo.setOrder(9999);
             photo.setFieldType(FieldType.PHOTO);
@@ -200,7 +200,7 @@ public class TableService {
             Column photo1 = new Column();
             photo1.setId("OM_MovilNovedad_cf_0600");
             photo1.setName("Foto 2");
-            photo1.setVisible(true);
+            photo1.setVisible(false);
             photo1.setLogic(true);
             photo1.setOrder(10000);
             photo1.setFieldType(FieldType.PHOTO);
@@ -213,7 +213,7 @@ public class TableService {
             Column photo2 = new Column();
             photo2.setId("OM_MovilNovedad_cf_0700");
             photo2.setName("Foto 3");
-            photo2.setVisible(true);
+            photo2.setVisible(false);
             photo2.setLogic(true);
             photo2.setOrder(10001);
             photo2.setFieldType(FieldType.PHOTO);
@@ -226,7 +226,7 @@ public class TableService {
             Column photo3 = new Column();
             photo3.setId("OM_MovilNovedad_cf_0800");
             photo3.setName("Foto 4");
-            photo3.setVisible(true);
+            photo3.setVisible(false);
             photo3.setLogic(true);
             photo3.setOrder(10002);
             photo3.setFieldType(FieldType.PHOTO);

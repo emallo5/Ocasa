@@ -75,7 +75,7 @@ public class AvailableItemsFragment extends TableFragment {
             ((AvailableItemsAdapter)getAdapter()).refreshItems(table.getCells());
         }
 
-        getRecyclerView().setBackgroundColor(Color.parseColor(table.getColor()));
+        getRecyclerView().setBackgroundColor(Color.WHITE);
     }
 
     @Subscribe
