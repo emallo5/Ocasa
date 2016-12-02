@@ -51,7 +51,7 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
 
     public void deleteItem(int position){
         records.remove(position);
-        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
     @Override

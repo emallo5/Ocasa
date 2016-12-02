@@ -1,6 +1,8 @@
 package com.android.ocasa.widget.factory;
 
+import android.content.Context;
 import android.nfc.FormatException;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,6 +107,9 @@ public class TextFieldFactory extends FieldViewFactory {
             formField.getField().getInput().setEnabled(false);
             formField.getField().getAction().setVisibility(View.GONE);
         }
+
+        // agrego para poder ver los campos
+        formField.getField().getInput().setTextColor(ContextCompat.getColor(container.getContext(), R.color.material_blue_grey_800));
 
         if(isEditMode){
             formField.getField().getAction().setVisibility(View.GONE);
