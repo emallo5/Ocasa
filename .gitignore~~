@@ -24,6 +24,12 @@ proguard/
 # Log Files
 *.log
 
+<<<<<<< HEAD
+.idea/
+.app/
+=======
 .app/
 .idea/
 
+.idea/libraries/
+>>>>>>> cmabios_test_ocasa

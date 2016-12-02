@@ -1,6 +1,7 @@
 package com.android.ocasa.widget;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -121,5 +122,15 @@ public class FieldComboView extends RelativeLayout implements FieldViewAdapter, 
         }
 
         return true;
+    }
+
+    public void setUneditableValue (String value) {
+        TextView tv = (TextView) findViewById(R.id.value);
+        if (value.isEmpty())
+            tv.setVisibility(GONE);
+        else {
+            tv.setText(value);
+            tv.setVisibility(VISIBLE);
+        }
     }
 }

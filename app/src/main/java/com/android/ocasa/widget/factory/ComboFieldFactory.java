@@ -40,6 +40,9 @@ public class ComboFieldFactory extends FieldViewFactory {
 
         text.setEnabled(field.isEditable());
 
+        if (!field.isEditable())
+            text.setUneditableValue(field.getValue());
+
         if(isEditMode)
             text.getAction().setVisibility(View.GONE);
 

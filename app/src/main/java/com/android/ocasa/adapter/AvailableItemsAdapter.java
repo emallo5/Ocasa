@@ -51,7 +51,7 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
 
     public void deleteItem(int position){
         records.remove(position);
-        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -81,10 +81,16 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
         holder.itemView.setActivated(selectedItems.get(record.getId(), false));
 
         for (int index = 0; index < holder.fields.size(); index++){
-            FieldViewModel field = record.getFields().get(index);
 
+            FieldViewModel field = record.getFields().get(index);
             TextView text = holder.fields.get(index);
-            text.setText(field.getLabel() + ": " + field.getValue());
+            if(field.isEditable() == false) {
+                text.setText(field.getLabel() + ": " + field.getValue());
+                text.setVisibility(View.VISIBLE);
+            }else
+            {
+                text.setVisibility(View.GONE);
+            }
 
 //            if(field.isHighlight()){
 //                text.setTypeface(null, Typeface.BOLD);

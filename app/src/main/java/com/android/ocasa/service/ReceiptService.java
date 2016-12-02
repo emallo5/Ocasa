@@ -486,7 +486,7 @@ public class ReceiptService{
             fieldViewModel.setValue(field.getValue());
             fieldViewModel.setLabel(field.getColumn().getName());
             fieldViewModel.setHighlight(field.getColumn().isHighlight());
-
+            fieldViewModel.setEditable(field.getColumn().isEditable());
             fieldViewModels.add(fieldViewModel);
         }
 
