@@ -1,5 +1,7 @@
 package com.android.ocasa.receipt.item.detailaction;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +10,7 @@ import android.support.v4.content.Loader;
 import com.android.ocasa.core.FormFragment;
 import com.android.ocasa.core.FormPresenter;
 import com.android.ocasa.loader.SaveFormTask;
+import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 
@@ -68,6 +71,8 @@ public class DetailActionFragment extends FormFragment{
 
         save(data);
 
+        getActivity().setResult(Activity.RESULT_OK,
+                new Intent().putExtra(EditReceiptFragment.RECORD_ID, getArguments().getLong(ARG_RECORD_ID)));
         getActivity().finish();
     }
 }

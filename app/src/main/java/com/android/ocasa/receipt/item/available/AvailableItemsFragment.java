@@ -81,9 +81,11 @@ public class AvailableItemsFragment extends TableFragment {
     @Subscribe
     public void onItemClick(ReceiptItemAddEvent event) {
         itemCallback.onItemAdded(getPresenter().getItemAtPosition(event.getPosition()));
+    }
 
+    public void removeitem(long id) {
         AvailableItemsAdapter adapter = (AvailableItemsAdapter) getAdapter();
-        adapter.deleteItem(event.getPosition());
+        adapter.deleteItem(id);
     }
 
     public void addItem(CellViewModel item){

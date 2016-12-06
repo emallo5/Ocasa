@@ -56,6 +56,8 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     static final String TAG = "EditReceiptFragment";
 
     static final int SCANNER_REQUEST_CODE = 1000;
+    static final int DETAIL_ACTION_CODE = 1001;
+    public static final String RECORD_ID = "record_id";
 
     public boolean isSaved = false;
 
@@ -68,6 +70,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     private CardView searchResultsContainer;
 
     private long[] recordIds;
+    private CellViewModel currentRecordEditing = null;
 
     private MediaPlayer checkSound;
     private MediaPlayer errorSound;
@@ -210,6 +213,27 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         if(resultCode != Activity.RESULT_OK)
             return;
 
+        if (requestCode == DETAIL_ACTION_CODE) {
+
+            long itemId = data.getExtras().getLong(RECORD_ID);
+
+            if (currentRecordEditing == null || currentRecordEditing.getId() != itemId)
+                return;
+
+            recordIds = ArrayUtils.add(recordIds, itemId);
+
+            searchResultsContainer.setVisibility(View.GONE);
+
+            RecieptPagerAdapter adapter = (RecieptPagerAdapter) pager.getAdapter();
+            ReceiptItemsFragment receiptFrag = (ReceiptItemsFragment) adapter.getItem(0);
+            receiptFrag.addItem(currentRecordEditing);
+
+            AvailableItemsFragment availFrag = (AvailableItemsFragment) adapter.getItem(1);
+            availFrag.removeitem(itemId);
+
+            currentRecordEditing = null;
+        }
+
         if(requestCode == SCANNER_REQUEST_CODE){
             long[] codes = data.getLongArrayExtra(ScannerActivity.EXTRA_RESULT_CODES);
 
@@ -351,36 +375,30 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
     @Override
     public void onItemAdded(CellViewModel item) {
+
         if(ArrayUtils.contains(recordIds, item.getId())){
             return;
         }
 
-        if(pager.getCurrentItem() == 1){
+        if (pager.getCurrentItem() == 1) {
             pager.setCurrentItem(0, true);
         }
-
-        recordIds = ArrayUtils.add(recordIds, item.getId());
-
-        searchResultsContainer.setVisibility(View.GONE);
-
-        RecieptPagerAdapter adapter = (RecieptPagerAdapter) pager.getAdapter();
-        ReceiptItemsFragment frag = (ReceiptItemsFragment) adapter.getItem(0);
-        frag.addItem(item);
 
         search.setText("");
         search.requestFocus();
         checkSound.start();
 
+        currentRecordEditing = item;
         goDetailActionScreen(item.getId());
         //((EditReceiptPresenter)getPresenter()).checkDetailFields(getArguments().getLong(ARG_RECEIPT_ID), item.getId());
 //        ((EditReceiptPresenter)getPresenter()).findItem(getArguments().getLong(ARG_RECEIPT_ID), item.getId());
     }
 
-    private void goDetailActionScreen(long recordId){
+    private void goDetailActionScreen(long recordId) {
         Intent intent = new Intent(getActivity(), DetailActionActivity.class);
         intent.putExtra(DetailActionActivity.EXTRA_RECEIPT_ID, getArguments().getLong(ARG_RECEIPT_ID));
         intent.putExtra(DetailActionActivity.EXTRA_RECORD_ID, recordId);
-        startActivity(intent);
+        startActivityForResult(intent, DETAIL_ACTION_CODE);
     }
 
     @Override

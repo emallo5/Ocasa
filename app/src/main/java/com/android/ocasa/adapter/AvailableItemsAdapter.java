@@ -54,6 +54,16 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
         notifyDataSetChanged();
     }
 
+    public void deleteItem(long id) {
+
+        for (int i=0; i<records.size(); i++) {
+            if (id == records.get(i).getId()) {
+                records.remove(i);
+                break;
+            }
+        }
+    }
+
     @Override
     public RecordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new RecordViewHolder(LayoutInflater.from(parent.getContext())
