@@ -30,4 +30,10 @@ public class DetailReceiptActivity extends BaseReceiptActivity {
         menu.findItem(R.id.save).setVisible(false);
         return super.onPrepareOptionsMenu(menu);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

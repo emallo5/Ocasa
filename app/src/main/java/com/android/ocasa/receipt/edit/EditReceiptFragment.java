@@ -57,7 +57,8 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
     static final int SCANNER_REQUEST_CODE = 1000;
     static final int DETAIL_ACTION_CODE = 1001;
-    public static final String RECORD_ID = "record_id";
+
+    public static final String RECORD_DATA = "record_data";
 
     public boolean isSaved = false;
 
@@ -215,7 +216,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
         if (requestCode == DETAIL_ACTION_CODE) {
 
-            long itemId = data.getExtras().getLong(RECORD_ID);
+            long itemId = data.getExtras().getLong(RECORD_DATA);
 
             if (currentRecordEditing == null || currentRecordEditing.getId() != itemId)
                 return;

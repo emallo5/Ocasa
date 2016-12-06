@@ -72,7 +72,9 @@ public class DetailActionFragment extends FormFragment{
         save(data);
 
         getActivity().setResult(Activity.RESULT_OK,
-                new Intent().putExtra(EditReceiptFragment.RECORD_ID, getArguments().getLong(ARG_RECORD_ID)));
+                new Intent().putExtra(EditReceiptFragment.RECORD_DATA, getArguments().getLong(ARG_RECORD_ID)));
         getActivity().finish();
     }
+
+
 }
