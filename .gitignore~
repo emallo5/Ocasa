@@ -26,3 +26,5 @@ proguard/
 
 .app/
 .idea/
+
+.idea/libraries/
