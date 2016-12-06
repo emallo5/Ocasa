@@ -29,7 +29,7 @@ android {
         dev {
             applicationId "com.android.ocasa.dev"
             resValue "string", "app_name", "Ocasa dev"
-            buildConfigField "String", BASE_URL, "\"http://ws.ocasa.com/\""
+            buildConfigField "String", BASE_URL, "\"http://ws.ocasa.com/wsandroid/\""
         }
 
         production {

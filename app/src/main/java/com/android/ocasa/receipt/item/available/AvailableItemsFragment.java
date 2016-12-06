@@ -86,6 +86,7 @@ public class AvailableItemsFragment extends TableFragment {
     public void removeitem(long id) {
         AvailableItemsAdapter adapter = (AvailableItemsAdapter) getAdapter();
         adapter.deleteItem(id);
+        adapter.notifyDataSetChanged();
     }
 
     public void addItem(CellViewModel item){

@@ -108,6 +108,8 @@ public class RecordService {
                 photo2.setColumn(photoColumn2);
                 photo2.setValue("");
 
+                record.getFields().add(photo2);
+
                 Column photoColumn3 = new Column();
                 photoColumn3.setId("OM_MovilNovedad_cf_0800");
                 photoColumn3.setVisible(false);

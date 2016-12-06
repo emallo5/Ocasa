@@ -302,23 +302,23 @@ public class OcasaService {
         });
 
         MediaBody body = new MediaBody();
-        if(!mediaFiles.get(0).getValue().isEmpty()) {
-
-            File file = new File(context.getCacheDir(), mediaFiles.get(0).getValue());
-
-            RecordArchive recordArchive = new RecordArchive();
-            recordArchive.setId(mediaFiles.get(0).getRecord().getExternalId());
-
-            Archive archive = new Archive();
-            archive.setType("image/jpg");
-            archive.setBase("base64");
-
-            archive.setData(MediaUtils.convertMediaToBase64(file.getPath()));
-
-            recordArchive.addArchive(archive);
-
-            body.addRecordArchive(recordArchive);
-        }
+//        if(!mediaFiles.get(0).getValue().isEmpty()) {
+//
+//            File file = new File(context.getCacheDir(), mediaFiles.get(0).getValue());
+//
+//            RecordArchive recordArchive = new RecordArchive();
+//            recordArchive.setId(mediaFiles.get(0).getRecord().getExternalId());
+//
+//            Archive archive = new Archive();
+//            archive.setType("image/jpg");
+//            archive.setBase("base64");
+//
+//            archive.setData(MediaUtils.convertMediaToBase64(file.getPath()));
+//
+//            recordArchive.addArchive(archive);
+//
+//            body.addRecordArchive(recordArchive);
+//        }
 
 
         for (Field media : mediaFiles){

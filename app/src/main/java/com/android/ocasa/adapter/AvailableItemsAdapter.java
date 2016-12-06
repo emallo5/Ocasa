@@ -46,7 +46,7 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
 
     public void addItem(CellViewModel item){
         records.add(0, item);
-        notifyItemInserted(0);
+        notifyDataSetChanged();
     }
 
     public void deleteItem(int position){

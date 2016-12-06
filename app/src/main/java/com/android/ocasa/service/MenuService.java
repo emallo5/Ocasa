@@ -118,7 +118,7 @@ public class MenuService {
 
                             Column photo2 = new Column();
                             photo2.setId("OM_MovilNovedad_cf_0700");
-                            photo2.setName("Foto");
+                            photo2.setName("Foto 3");
                             photo2.setVisible(false);
                             photo2.setLogic(true);
                             photo2.setFieldType(FieldType.PHOTO);
@@ -134,14 +134,14 @@ public class MenuService {
 
                             Column photo3 = new Column();
                             photo3.setId("OM_MovilNovedad_cf_0800");
-                            photo3.setName("Foto");
+                            photo3.setName("Foto 4");
                             photo3.setVisible(false);
                             photo3.setLogic(true);
                             photo3.setFieldType(FieldType.PHOTO);
 
                             ColumnAction photoAction3 = new ColumnAction();
                             photoAction3.setType(ColumnAction.ColumnActionType.DETAIL);
-                            photoAction3.setColumn(photo2);
+                            photoAction3.setColumn(photo3);
                             photoAction3.setEditable(true);
                             photoAction3.setLastValue("");
                             photoAction3.setDefaultValue("");

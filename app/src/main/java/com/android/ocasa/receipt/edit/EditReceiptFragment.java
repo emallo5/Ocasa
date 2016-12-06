@@ -33,6 +33,7 @@ import com.android.ocasa.receipt.base.BaseReceiptView;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.viewmodel.CellViewModel;
+import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.viewmodel.ReceiptFormViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
@@ -221,9 +222,19 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
             if (currentRecordEditing == null || currentRecordEditing.getId() != itemId)
                 return;
 
+            if (pager.getCurrentItem() == 1) {
+                pager.setCurrentItem(0, true);
+            }
+
             recordIds = ArrayUtils.add(recordIds, itemId);
 
             searchResultsContainer.setVisibility(View.GONE);
+
+            for (FieldViewModel field : currentRecordEditing.getFields()) {
+                if (field.isEditable()) {
+                    field.setValue(data.getExtras().getString(field.getLabel()));
+                }
+            }
 
             RecieptPagerAdapter adapter = (RecieptPagerAdapter) pager.getAdapter();
             ReceiptItemsFragment receiptFrag = (ReceiptItemsFragment) adapter.getItem(0);
@@ -379,10 +390,6 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
         if(ArrayUtils.contains(recordIds, item.getId())){
             return;
-        }
-
-        if (pager.getCurrentItem() == 1) {
-            pager.setCurrentItem(0, true);
         }
 
         search.setText("");

@@ -36,5 +36,6 @@ public class DetailActionActivity extends BarActivity{
 
     @Override
     public void onBackPressed() {
+        finish();
     }
 }
