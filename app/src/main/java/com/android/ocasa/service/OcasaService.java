@@ -282,7 +282,7 @@ public class OcasaService {
 
         record.setRecords(records);
 
-        apiManager.upload(record, receipt.getAction().getId(), SessionManager.getInstance().getDeviceId(), 0, 0)
+        apiManager.upload(record, receipt.getAction().getId() + "|" + receipt.getAction().getTable().getId(), SessionManager.getInstance().getDeviceId(), 0, 0)
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<Receipt>() {
             @Override
