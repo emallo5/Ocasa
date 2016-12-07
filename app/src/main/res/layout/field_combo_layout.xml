@@ -16,15 +16,6 @@
         android:layout_toLeftOf="@+id/action"
         android:layout_alignParentLeft="true" >
 
-        <TextView
-            android:id="@+id/value"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/material_blue_grey_800"
-            android:visibility="gone"
-            android:background="@null"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
     </LinearLayout>
 
     <ImageView

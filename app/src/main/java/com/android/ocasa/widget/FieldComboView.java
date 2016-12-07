@@ -123,14 +123,4 @@ public class FieldComboView extends RelativeLayout implements FieldViewAdapter, 
 
         return true;
     }
-
-    public void setUneditableValue (String value) {
-        TextView tv = (TextView) findViewById(R.id.value);
-        if (value.isEmpty())
-            tv.setVisibility(GONE);
-        else {
-            tv.setText(value);
-            tv.setVisibility(VISIBLE);
-        }
-    }
 }

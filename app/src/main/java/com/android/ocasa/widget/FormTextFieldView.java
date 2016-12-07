@@ -2,6 +2,7 @@ package com.android.ocasa.widget;
 
 import android.content.Context;
 import android.nfc.FormatException;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -71,6 +72,7 @@ public class FormTextFieldView extends LinearLayout implements FieldViewAdapter,
     @Override
     public void setValue(String value) throws FormatException{
         this.field.getText().setText(value);
+        this.field.getText().setTextColor(ContextCompat.getColor(getContext(), R.color.material_blue_grey_800));
     }
 
     @Override

@@ -8,14 +8,18 @@ import android.support.v4.content.Loader;
 import android.view.View;
 
 import com.android.ocasa.adapter.AvailableItemsAdapter;
+import com.android.ocasa.cache.dao.ReceiptItemDAO;
 import com.android.ocasa.core.TableFragment;
 import com.android.ocasa.core.TablePresenter;
 import com.android.ocasa.event.ReceiptItemAddEvent;
+import com.android.ocasa.model.ReceiptItem;
 import com.android.ocasa.receipt.edit.OnItemChangeListener;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
 
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
 
 /**
  * Created by ignacio on 19/05/16.
@@ -64,9 +68,20 @@ public class AvailableItemsFragment extends TableFragment {
 
     @Override
     public void onTableLoadSuccess(TableViewModel table) {
-
         if(table == null)
             return;
+
+        ReceiptItemDAO dao = new ReceiptItemDAO (getContext());
+        List<ReceiptItem> items = dao.findAll();
+
+        for (ReceiptItem item : items) {
+            for (int i=0; i<table.getCells().size(); i++) {
+                if (table.getCells().get(i).getId() == item.getRecord().getId()) {
+                    table.getCells().remove(i);
+                    break;
+                }
+            }
+        }
 
         if(getAdapter() == null) {
             setListShown(true);
