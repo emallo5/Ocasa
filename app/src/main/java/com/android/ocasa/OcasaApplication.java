@@ -2,6 +2,7 @@ package com.android.ocasa;
 
 import android.app.Application;
 import android.content.Context;
+import android.location.Location;
 import android.support.multidex.MultiDex;
 
 import com.android.ocasa.api.ApiManager;
@@ -43,6 +44,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class OcasaApplication extends Application{
 
     private OcasaApi api;
+    private Location mylocation;
 
     @Override
     public void onCreate() {
@@ -110,5 +112,13 @@ public class OcasaApplication extends Application{
                 .build();
 
         return retrofit.create(OcasaApi.class);
+    }
+
+    public void setLocation (Location location) {
+        mylocation = location;
+    }
+
+    public Location getLocation() {
+        return mylocation;
     }
 }

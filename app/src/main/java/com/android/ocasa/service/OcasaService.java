@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
+import com.android.ocasa.OcasaApplication;
 import com.android.ocasa.api.ApiManager;
 import com.android.ocasa.cache.CacheManager;
 import com.android.ocasa.cache.dao.ColumnActionDAO;
@@ -282,7 +283,11 @@ public class OcasaService {
 
         record.setRecords(records);
 
-        apiManager.upload(record, receipt.getAction().getId() + "|" + receipt.getAction().getTable().getId(), SessionManager.getInstance().getDeviceId(), 0, 0)
+        Location location = ((OcasaApplication) context).getLocation();
+        apiManager.upload(record, receipt.getAction().getId() + "|" + receipt.getAction().getTable().getId(),
+                SessionManager.getInstance().getDeviceId(),
+                location != null ? location.getLatitude() : 0,
+                location != null ? location.getLongitude() : 0)
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<Receipt>() {
             @Override

@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import com.android.ocasa.OcasaApplication;
 import com.codika.androidmvp.fragment.BaseMvpFragment;
 import com.codika.androidmvp.presenter.BasePresenter;
 import com.codika.androidmvp.view.BaseView;
@@ -79,6 +80,7 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
                             Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         } else {
             lastLocation = LocationServices.FusedLocationApi.getLastLocation(apiClient);
+            ((OcasaApplication) getActivity().getApplicationContext()).setLocation(lastLocation);
         }
     }
 
