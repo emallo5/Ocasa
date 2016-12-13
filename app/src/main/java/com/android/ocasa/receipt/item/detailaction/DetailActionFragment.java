@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.android.ocasa.core.FormFragment;
 import com.android.ocasa.core.FormPresenter;
 import com.android.ocasa.loader.SaveFormTask;
+import com.android.ocasa.model.FieldType;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
@@ -72,7 +73,7 @@ public class DetailActionFragment extends FormFragment{
 
             FieldViewModel field = fields.get(index);
 
-            if (index > 2) {
+            if (field.isEditable() || field.getType() == FieldType.SIGNATURE || field.getType() == FieldType.PHOTO) {
                 FieldViewFactory factory = field.getType().getFieldFactory();
                 View view = factory.createView(formContainer, field, isEditMode);
 
