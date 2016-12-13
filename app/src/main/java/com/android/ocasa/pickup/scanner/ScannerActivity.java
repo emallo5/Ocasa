@@ -163,8 +163,16 @@ public class ScannerActivity extends BaseActivity implements ZBarScannerView.Res
 
         checkSound.start();
         //handleCode(rawResult.getContents());
-        new CheckExistTask().execute(rawResult.getContents());
+        // saco esta linea de la task, y directamente retorno el valor leido para ponerlo en el search
+//        new CheckExistTask().execute(rawResult.getContents());
+        returnData(rawResult.getContents());
+    }
 
+    private void returnData(String id) {
+        Intent data = new Intent();
+        data.putExtra(EXTRA_RESULT_CODES, id);
+        setResult(RESULT_OK, data);
+        finish();
     }
 
     @Override
@@ -186,11 +194,12 @@ public class ScannerActivity extends BaseActivity implements ZBarScannerView.Res
         }
 
         codes.add(code);
+        recordIds.clear();
         recordIds.add(recordId);
         countView.setText("Codigos leidos: " + codes.size());
         lastCode.setText(code);
-        mScannerView.resumeCameraPreview(ScannerActivity.this);
-        //deliverResponse(code);
+//        mScannerView.resumeCameraPreview(ScannerActivity.this);
+        deliverResponse(code);
     }
 
     @Override

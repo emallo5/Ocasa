@@ -135,7 +135,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     private void setListeners(){
 
         RxTextView.textChanges(search)
-                .debounce(400, TimeUnit.MILLISECONDS)
+                .debounce(700, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<CharSequence>() {
                     @Override
@@ -246,18 +246,22 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
             currentRecordEditing = null;
         }
 
-        if(requestCode == SCANNER_REQUEST_CODE){
-            long[] codes = data.getLongArrayExtra(ScannerActivity.EXTRA_RESULT_CODES);
+        if(requestCode == SCANNER_REQUEST_CODE) {
+            // *** saco el codigo que busca los resultados del lector de barras y lo cambio por codigo que pone en el search
+            // *** el unico valor leido !
 
-            long[] newCodes = new long[0];
+//            long[] codes = data.getLongArrayExtra(ScannerActivity.EXTRA_RESULT_CODES);
+//            long[] newCodes = new long[0];
+//
+//            for (long code : codes){
+//                if(!ArrayUtils.contains(recordIds, code)) {
+//                    recordIds = ArrayUtils.add(recordIds, code);
+//                    newCodes = ArrayUtils.add(newCodes, code);
+//                }
+//            }
+//            ((EditReceiptPresenter)getPresenter()).findItems(getArguments().getLong(ARG_RECEIPT_ID), newCodes);
 
-            for (long code : codes){
-                if(!ArrayUtils.contains(recordIds, code)) {
-                    recordIds = ArrayUtils.add(recordIds, code);
-                    newCodes = ArrayUtils.add(newCodes, code);
-                }
-            }
-            ((EditReceiptPresenter)getPresenter()).findItems(getArguments().getLong(ARG_RECEIPT_ID), newCodes);
+            search.setText(data.getStringExtra(ScannerActivity.EXTRA_RESULT_CODES));
         }
     }
 
