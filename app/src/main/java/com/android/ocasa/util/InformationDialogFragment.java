@@ -44,8 +44,7 @@ public class InformationDialogFragment extends DialogFragment implements DialogI
             else
                 callback = (OnIformationClickListener) getActivity();
         }catch (ClassCastException e){
-            throw new ClassCastException(
-                    getParentFragment().getClass().getName() + " must implements OnAlertClickListener");
+            throw new ClassCastException(getParentFragment().getClass().getName() + " must implements OnAlertClickListener");
         }
     }
 

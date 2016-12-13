@@ -100,6 +100,9 @@ public class AvailableItemsFragment extends TableFragment {
 
     public void removeitem(long id) {
         AvailableItemsAdapter adapter = (AvailableItemsAdapter) getAdapter();
+
+        if (adapter == null) return;
+
         adapter.deleteItem(id);
         adapter.notifyDataSetChanged();
     }

@@ -25,6 +25,10 @@ public class FieldViewModel {
 
     private boolean isHighlight;
 
+    private boolean isVisible;
+
+    private boolean mandatory;
+
     private List<FieldViewModel> relationshipFields;
 
     public String getTag() {
@@ -97,5 +101,21 @@ public class FieldViewModel {
 
     public void setHighlight(boolean highlight) {
         isHighlight = highlight;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
+
+    public boolean isMandatory() {
+        return mandatory;
+    }
+
+    public void setMandatory(boolean mandatory) {
+        this.mandatory = mandatory;
     }
 }

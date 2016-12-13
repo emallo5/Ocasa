@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import com.android.ocasa.R;
 import com.android.ocasa.core.activity.BarActivity;
+import com.android.ocasa.util.InformationDialogFragment;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.widget.FieldViewAdapter;
 import com.android.ocasa.widget.factory.FieldViewFactory;
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by ignacio on 24/10/16.
  */
 
-public class DetailActionActivity extends BarActivity{
+public class DetailActionActivity extends BarActivity implements InformationDialogFragment.OnIformationClickListener {
     public static final String EXTRA_RECEIPT_ID = "_receipt_id_";
     public static final String EXTRA_RECORD_ID = "_record_id_";
 
@@ -37,5 +38,14 @@ public class DetailActionActivity extends BarActivity{
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    public void showDialog (String title, String message) {
+        InformationDialogFragment.newInstance(title, message).show(getSupportFragmentManager(), "ConfirmationDialog");
+    }
+
+    @Override
+    public void onCloseDialog() {
+
     }
 }

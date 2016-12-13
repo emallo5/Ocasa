@@ -48,7 +48,7 @@ public class SignatureDialogFragment extends FieldDetailDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NO_TITLE,  R.style.SlideDialog);
-        setCancelable(false);
+        setCancelable(true);
     }
 
     @Nullable
@@ -67,7 +67,7 @@ public class SignatureDialogFragment extends FieldDetailDialogFragment {
 
     private void initControls(View view){
         title = (TextView) view.findViewById(R.id.signature_title);
-        title.setText("Ingrese " + getArguments().getString(ARG_FIELD_NAME) );
+        title.setText(getArguments().getString(ARG_FIELD_NAME) );
         signature = (SignatureView) view.findViewById(R.id.signature);
         clean = (Button) view.findViewById(R.id.signature_clean);
         save = (Button) view.findViewById(R.id.signature_save);

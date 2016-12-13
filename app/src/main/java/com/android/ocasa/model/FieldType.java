@@ -1,5 +1,7 @@
 package com.android.ocasa.model;
 
+import android.location.Location;
+
 import com.android.ocasa.widget.factory.ComboFieldFactory;
 import com.android.ocasa.widget.factory.DateFieldFactory;
 import com.android.ocasa.widget.factory.DateTimeFieldFactory;
@@ -37,12 +39,12 @@ public enum FieldType {
         @Override
         public String format(Object value) {
 
-            LatLng location = (LatLng) value;
+            Location location = (Location) value;
 
             DecimalFormat df = new DecimalFormat("##.######", new DecimalFormatSymbols(Locale.US));
 
-            String longitude = df.format(location.longitude);
-            String latitude = df.format(location.latitude);
+            String longitude = df.format(location.getLongitude());
+            String latitude = df.format(location.getLatitude());
 
             return String.format("%s,%s",latitude,longitude);
         }

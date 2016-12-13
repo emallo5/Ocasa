@@ -102,6 +102,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
     private String currentPhotoTag;
 
+    protected String mapTag = "";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,6 +160,15 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     @Override
     public void onFormSuccess(FormViewModel form) {
         record = form;
+
+        // saco el valor de MAP a mano porque es visible pero no tiene que mostrarse, lo agrego en getFormValues()
+        for (int i=form.getFields().size() - 1; i>-1; i--) {
+            if (form.getFields().get(i).getType() == FieldType.MAP) {
+                mapTag = form.getFields().get(i).getTag();
+                form.getFields().remove(i);
+            }
+        }
+
         fillFields(form.getFields());
     }
 
@@ -499,7 +510,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
     public abstract void onSaveButtonClick();
 
-    public void save(SaveFormTask.FormData formData){
+    public void save(SaveFormTask.FormData formData) {
 
         new SaveFormTask(getActivity()).execute(formData);
 

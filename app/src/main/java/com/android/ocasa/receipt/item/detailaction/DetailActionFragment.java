@@ -16,6 +16,7 @@ import com.android.ocasa.core.FormPresenter;
 import com.android.ocasa.loader.SaveFormTask;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
+import com.android.ocasa.util.InformationDialogFragment;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.widget.FieldViewAdapter;
@@ -73,7 +74,17 @@ public class DetailActionFragment extends FormFragment{
 
             FieldViewModel field = fields.get(index);
 
-            if (field.isEditable() || field.getType() == FieldType.SIGNATURE || field.getType() == FieldType.PHOTO) {
+            if (!field.isEditable() && field.isVisible()) {
+                TextView text = new TextView(getContext());
+                text.setTextColor(Color.BLACK);
+                text.setTypeface(null, Typeface.BOLD);
+                text.setBackgroundColor(Color.LTGRAY);
+
+                text.setText(field.getLabel() + ": " + field.getValue());
+                text.setVisibility(View.VISIBLE);
+
+                formContainer.addView(text);
+            } else {
                 FieldViewFactory factory = field.getType().getFieldFactory();
                 View view = factory.createView(formContainer, field, isEditMode);
 
@@ -85,16 +96,6 @@ public class DetailActionFragment extends FormFragment{
                     adapter.setFieldViewActionListener(this);
                     formContainer.addView(view);
                 }
-            } else {
-                TextView text = new TextView(getContext());
-                text.setTextColor(Color.BLACK);
-                text.setTypeface(null, Typeface.BOLD);
-                text.setBackgroundColor(Color.LTGRAY);
-
-                text.setText(field.getLabel() + ": " + field.getValue());
-                text.setVisibility(View.VISIBLE);
-
-                formContainer.addView(text);
             }
         }
     }
@@ -108,14 +109,38 @@ public class DetailActionFragment extends FormFragment{
     public void onSaveButtonClick() {
         Map<String, String> values = getFormValues();
 
+        if (validateMandatory(values)) return;
+
         getActivity().setResult(Activity.RESULT_OK, createIntentData(values));
 
+//        values.put(mapTag, FieldType.MAP.format(getLastLocation()));
         SaveFormTask.FormData data =
                 new SaveFormTask.FormData(values,
                         getArguments().getLong(ARG_RECORD_ID),
                         getLastLocation());
 
         save(data);
+    }
+
+    private boolean validateMandatory(Map<String, String> values) {
+
+        for (FieldViewModel field : fields) {
+            if (field.isMandatory()) {
+                if (values.get(field.getTag()) == null || values.get(field.getTag()).isEmpty()) {
+                    ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + field.getLabel() + "' es obligatorio");
+                    return true;
+                }
+            }
+        }
+
+        if (values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z4")) {
+            if (values.get("OM_MovilNovedad_cf_0400") == null) {
+                ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private Intent createIntentData(Map<String, String> values) {
