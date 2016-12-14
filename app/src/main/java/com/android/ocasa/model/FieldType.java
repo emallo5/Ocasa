@@ -37,7 +37,7 @@ public enum FieldType {
         }
 
         @Override
-        public String format(Object value) {
+            public String format(Object value) {
 
             Location location = (Location) value;
 

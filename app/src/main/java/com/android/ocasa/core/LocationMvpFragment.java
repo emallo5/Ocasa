@@ -18,6 +18,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.Locale;
+
 /**
  * Created by ignacio on 11/07/16.
  */
@@ -94,6 +96,11 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
     }
 
     public Location getLastLocation() {
+        if (lastLocation == null) {
+            lastLocation = new Location("dummyprovider");
+            lastLocation.setLatitude(0);
+            lastLocation.setLongitude(0);
+        }
         return lastLocation;
     }
 

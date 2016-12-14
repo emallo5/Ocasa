@@ -117,7 +117,8 @@ public class DetailActionFragment extends FormFragment{
 
         getActivity().setResult(Activity.RESULT_OK, createIntentData(values));
 
-//        values.put(mapTag, FieldType.MAP.format(getLastLocation()));
+        // agrego un elemento al diccionario con el valor del location
+        values.put(mapTag, FieldType.MAP.format(getLastLocation()));
         SaveFormTask.FormData data =
                 new SaveFormTask.FormData(values,
                         getArguments().getLong(ARG_RECORD_ID),
