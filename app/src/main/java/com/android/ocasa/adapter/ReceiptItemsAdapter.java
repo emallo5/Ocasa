@@ -87,8 +87,9 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
 
     public void deleteItem(int position){
         records.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(0, position);
+        notifyDataSetChanged();
+//        notifyItemRemoved(position);
+//        notifyItemRangeChanged(0, position);
     }
 
     @Override

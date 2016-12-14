@@ -66,6 +66,7 @@ public class DetailActionFragment extends FormFragment{
         if(formContainer.getChildCount() > 0)
             return;
 
+        // saco esta linea para poder fillearlos aca mismo para cambiar la vista de los editable=false
 //        super.fillFields(fields, isEditMode);
         if(formContainer.getChildCount() > 1)
             formContainer.removeAllViewsInLayout();
@@ -85,6 +86,9 @@ public class DetailActionFragment extends FormFragment{
 
                 formContainer.addView(text);
             } else {
+
+                field.setValue("");  // se supone que si veo aca el formulario, estan vacios los datos! **********
+
                 FieldViewFactory factory = field.getType().getFieldFactory();
                 View view = factory.createView(formContainer, field, isEditMode);
 

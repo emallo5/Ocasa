@@ -60,7 +60,7 @@ public class EditHeaderReceiptFragment extends FormFragment {
         fillFields(form.getFields(), true);
         container.setCardBackgroundColor(Color.parseColor(form.getColor()));
 
-        setTitle("Nuevo " + form.getTitle());
+        setTitle("Nueva " + form.getTitle());
 
         showFieldsInfo();
 
