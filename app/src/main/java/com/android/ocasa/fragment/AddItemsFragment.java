@@ -95,7 +95,7 @@ public class AddItemsFragment extends RecyclerListFragment implements LoaderMana
             return;
         }
 
-        if(data.getCells().size() == 1){
+        if(data.getCells().size() == 1) {
             callback.onItemAdded(data.getCells().get(0));
             getFragmentManager().beginTransaction().remove(this).commit();
             return;

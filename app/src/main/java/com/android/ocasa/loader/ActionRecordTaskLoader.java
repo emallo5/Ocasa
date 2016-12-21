@@ -6,6 +6,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import com.android.ocasa.cache.dao.ApplicationDAO;
 import com.android.ocasa.cache.dao.CategoryDAO;
 import com.android.ocasa.cache.dao.ColumnActionDAO;
+import com.android.ocasa.cache.dao.FieldDAO;
 import com.android.ocasa.cache.dao.ReceiptDAO;
 import com.android.ocasa.cache.dao.RecordDAO;
 import com.android.ocasa.cache.dao.TableDAO;
@@ -80,6 +81,8 @@ import java.util.List;
 
         List<Record> records = new RecordDAO(getContext()).findForTableAndQuery(tableId, query, excludeIds);
 
+        List<Field> fields = new FieldDAO(getContext())
+                .findVisiblesForRecordAndLayout(String.valueOf(records.get(0).getId()), receipt.getAction().getId());
 //        FieldDAO fieldDAO = new FieldDAO(getContext());
 
 //        if(query != null && !query.isEmpty()){
@@ -97,14 +100,14 @@ import java.util.List;
             CellViewModel cell = new CellViewModel();
             cell.setId(record.getId());
 
-            fillCell(cell, record.getVisibleFields());
+            fillCell(cell, fields);
             tableView.addCell(cell);
         }
 
         return tableView;
     }
 
-    private List<Record> filter(List<Record> records, Action action){
+    private List<Record> filter(List<Record> records, Action action) {
 
         List<Record> filterRecords = new ArrayList<>();
         filterRecords.addAll(records);

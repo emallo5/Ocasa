@@ -62,6 +62,7 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
 
             QueryBuilder<Column, String> columnDao = new ColumnDAO(context).getDao().queryBuilder();
             recordQuery.orderByRaw("records.id,'columns'.'order'");
+            recordQuery.groupByRaw("fields.id"); // agregadaaaa
 
             fieldDao.join(columnDao);
 

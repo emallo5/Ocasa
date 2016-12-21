@@ -61,7 +61,7 @@ public class AvailableItemsFragment extends TableFragment {
     public void onResume() {
         super.onResume();
         if(getAdapter() == null && !loadingData) {
-            ((EditReceiptFragment) getParentFragment()).showProgressCustom("Cargando...");
+//            ((EditReceiptFragment) getParentFragment()).showProgressCustom("Cargando...");
             ((AvailableItemsPresenter) getPresenter()).load(getArguments().getLong(ARG_RECEIPT_ID));
             loadingData = true;
         }
@@ -79,18 +79,6 @@ public class AvailableItemsFragment extends TableFragment {
 
         loadingData = false;
 
-//        ReceiptItemDAO dao = new ReceiptItemDAO (getContext());
-//        List<ReceiptItem> items = dao.findAll();
-//
-//        for (ReceiptItem item : items) {
-//            for (int i=0; i<table.getCells().size(); i++) {
-//                if (table.getCells().get(i).getId() == item.getRecord().getId()) {
-//                    table.getCells().remove(i);
-//                    break;
-//                }
-//            }
-//        }
-
         if(getAdapter() == null) {
             setListShown(true);
             setAdapter(new AvailableItemsAdapter(table.getCells()));
@@ -100,7 +88,7 @@ public class AvailableItemsFragment extends TableFragment {
 
         getRecyclerView().setBackgroundColor(Color.WHITE);
 
-        ((EditReceiptFragment) getParentFragment()).hideProgress();
+//        ((EditReceiptFragment) getParentFragment()).hideProgress();
     }
 
     @Subscribe
