@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * Created by ignacio on 24/10/16.
  */
-public class DetailActionFragment extends FormFragment{
+public class DetailActionFragment extends FormFragment {
 
     static String ARG_RECEIPT_ID = "receipt_id";
     static String ARG_RECORD_ID = "record_id";
@@ -119,6 +119,7 @@ public class DetailActionFragment extends FormFragment{
 
         // agrego un elemento al diccionario con el valor del location
         values.put(mapTag, FieldType.MAP.format(getLastLocation()));
+
         SaveFormTask.FormData data =
                 new SaveFormTask.FormData(values,
                         getArguments().getLong(ARG_RECORD_ID),
@@ -131,7 +132,8 @@ public class DetailActionFragment extends FormFragment{
 
         for (FieldViewModel field : fields) {
             if (field.isMandatory()) {
-                if (values.get(field.getTag()) == null || values.get(field.getTag()).isEmpty()) {
+                if (values.get(field.getTag()) == null || values.get(field.getTag()).isEmpty() ||
+                        values.get(field.getTag()).equals(SELECT_OPTION)) {
                     ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + field.getLabel() + "' es obligatorio");
                     return true;
                 }

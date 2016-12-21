@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.ocasa.R;
+import com.android.ocasa.core.FormFragment;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.widget.FieldComboView;
@@ -42,6 +43,9 @@ public class ComboFieldFactory extends FieldViewFactory {
 
         if(isEditMode)
             text.getAction().setVisibility(View.GONE);
+
+        // lo saco porque el historial pincha
+        text.getAction().setVisibility(View.GONE);
 
         for (FieldViewModel subField : field.getRelationshipFields()){
 

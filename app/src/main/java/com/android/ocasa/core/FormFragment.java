@@ -89,6 +89,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     static final String TIME_TAG = "Time";
     static final String COMBO_TAG = "Combo";
 
+    public static final String SELECT_OPTION = "Seleccionar...";
+
     protected Map<String, String> formValues;
 
     private FormViewModel record;
@@ -161,7 +163,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     public void onFormSuccess(FormViewModel form) {
         record = form;
 
-        // saco el valor de MAP a mano porque es visible pero no tiene que mostrarse, lo agrego en getFormValues()
+        // saco el valor de MAP a mano porque es visible pero no tiene que mostrarse,
+        // lo agrego en el onSaveButtonClick() del hijo
         for (int i=form.getFields().size() - 1; i>-1; i--) {
             if (form.getFields().get(i).getType() == FieldType.MAP) {
                 mapTag = form.getFields().get(i).getTag();

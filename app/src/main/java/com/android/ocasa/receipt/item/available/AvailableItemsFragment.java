@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.View;
 
 import com.android.ocasa.adapter.AvailableItemsAdapter;
@@ -13,6 +14,7 @@ import com.android.ocasa.core.TableFragment;
 import com.android.ocasa.core.TablePresenter;
 import com.android.ocasa.event.ReceiptItemAddEvent;
 import com.android.ocasa.model.ReceiptItem;
+import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.receipt.edit.OnItemChangeListener;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
@@ -29,6 +31,7 @@ public class AvailableItemsFragment extends TableFragment {
     static final String ARG_RECEIPT_ID = "receipt_id";
 
     private OnItemChangeListener itemCallback;
+    private boolean loadingData = false;
 
     public static AvailableItemsFragment newInstance(long receiptId) {
 
@@ -57,8 +60,11 @@ public class AvailableItemsFragment extends TableFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(getAdapter() == null)
-            ((AvailableItemsPresenter)getPresenter()).load(getArguments().getLong(ARG_RECEIPT_ID));
+        if(getAdapter() == null && !loadingData) {
+            ((EditReceiptFragment) getParentFragment()).showProgressCustom("Cargando...");
+            ((AvailableItemsPresenter) getPresenter()).load(getArguments().getLong(ARG_RECEIPT_ID));
+            loadingData = true;
+        }
     }
 
     @Override
@@ -70,6 +76,8 @@ public class AvailableItemsFragment extends TableFragment {
     public void onTableLoadSuccess(TableViewModel table) {
         if(table == null)
             return;
+
+        loadingData = false;
 
         ReceiptItemDAO dao = new ReceiptItemDAO (getContext());
         List<ReceiptItem> items = dao.findAll();
@@ -91,6 +99,8 @@ public class AvailableItemsFragment extends TableFragment {
         }
 
         getRecyclerView().setBackgroundColor(Color.WHITE);
+
+        ((EditReceiptFragment) getParentFragment()).hideProgress();
     }
 
     @Subscribe

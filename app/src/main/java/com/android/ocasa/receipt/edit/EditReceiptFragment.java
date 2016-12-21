@@ -317,7 +317,13 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
     @Override
     public void showProgress() {
-        ProgressDialogFragment.newInstance("Guardando...").show(getChildFragmentManager(), "Progress");
+        showProgressCustom("Guardando...");
+    }
+
+    public void showProgressCustom(String message) {
+        ProgressDialogFragment pdf = ProgressDialogFragment.newInstance(message);
+        pdf.setCancelable(false);
+        pdf.show(getChildFragmentManager(), "Progress");
     }
 
     @Override
@@ -352,7 +358,12 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     }
 
     private void showSaveAlert(){
-        AlertDialogFragment.newInstance("Guardar","¿Desea guardar los cambios?", "Guardar", null, "Contabilizar").show(getChildFragmentManager(), "SaveConfirmation");
+//        AlertDialogFragment.newInstance("Guardar","¿Desea guardar los cambios?", "Guardar", null, "Contabilizar")
+//                .show(getChildFragmentManager(), "SaveConfirmation");
+
+        AlertDialogFragment dialog = AlertDialogFragment
+                .newInstance("Guardar", "¿Desea guardar los cambios?");
+        dialog.show(getChildFragmentManager(), "SaveConfirmation");
     }
 
     @Override
@@ -376,7 +387,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
     }
 
-    private void save(boolean close){
+    private void save(boolean close) {
         isSaved = true;
 
         FormViewModel receiptHeader = getReceiptHeader();

@@ -1,6 +1,7 @@
 package com.android.ocasa.receipt.list;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.viewmodel.ReceiptTableViewModel;
@@ -38,7 +39,8 @@ public class ReceiptListPresenter extends BasePresenter<ReceiptListView> {
                 });
     }
 
-    public void close(long receiptId){
+    public void close(final long receiptId) {
+
         OcasaService.getInstance()
                 .closeReceipt(receiptId)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -46,16 +48,15 @@ public class ReceiptListPresenter extends BasePresenter<ReceiptListView> {
                 .subscribe(new Subscriber<Void>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
 
                     @Override
                     public void onNext(Void aVoid) {
+                        OcasaService.getInstance().updateReceiptClosed(receiptId);
                         getView().onCloseReceiptSuccess();
                     }
                 });

@@ -77,9 +77,9 @@ public class DetailReceiptFragment extends BaseReceiptFragment {
 
     @Subscribe
     public void onItemClick(ReceiptItemEvent event){
-        Intent intent = new Intent(getActivity(), DetailReceiptItemActivity.class);
-        intent.putExtra(DetailReceiptItemActivity.EXTRA_RECORD_ID, event.getRecordId());
-        intent.putExtra(DetailReceiptItemActivity.EXTRA_RECEIPT_ID, getArguments().getLong(ARG_RECEIPT_ID));
-        ((BaseActivity)getActivity()).startNewActivity(intent);
+//        Intent intent = new Intent(getActivity(), DetailReceiptItemActivity.class);
+//        intent.putExtra(DetailReceiptItemActivity.EXTRA_RECORD_ID, event.getRecordId());
+//        intent.putExtra(DetailReceiptItemActivity.EXTRA_RECEIPT_ID, getArguments().getLong(ARG_RECEIPT_ID));
+//        ((BaseActivity)getActivity()).startNewActivity(intent);
     }
 }

@@ -105,8 +105,9 @@ public class TextFieldFactory extends FieldViewFactory {
 
         if(!field.isEditable()) {
             formField.getField().getInput().setEnabled(false);
-            formField.getField().getAction().setVisibility(View.GONE);
         }
+        // esto estaba en el if de aca arriba pero como no suma, y molesta segun ellos (a veces pincha) lo saco mejor
+        formField.getField().getAction().setVisibility(View.GONE);
 
         // agrego para poder ver los campos
         formField.getField().getInput().setTextColor(ContextCompat.getColor(container.getContext(), R.color.material_blue_grey_800));

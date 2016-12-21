@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.ocasa.R;
 import com.android.ocasa.event.CloseReceiptEvent;
@@ -143,13 +144,24 @@ AlertDialogFragment.OnAlertClickListener{
     }
 
     @Override
-    public void onReceiptsLoadSuccess(ReceiptTableViewModel table) {
+    public void onReceiptsLoadSuccess (ReceiptTableViewModel table) {
         if (table == null)
             return;
 
         setTitle("Listado " + table.getName());
 
         receiptList.setAdapter(new ReceiptAdapter(table.getReceipts()));
+
+        syncReceipts();
+    }
+
+    private void syncReceipts() {
+        for (ReceiptCellViewModel receipt : ((ReceiptAdapter) receiptList.getAdapter()).getReceipts()) {
+            if (receipt.isOpen()) {
+                showProgress();
+                getPresenter().close(receipt.getId());
+            }
+        }
     }
 
     @Override

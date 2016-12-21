@@ -2,6 +2,7 @@ package com.android.ocasa.service;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 
 import com.android.ocasa.cache.ReceiptCacheManager;
 import com.android.ocasa.cache.dao.ActionDAO;
@@ -623,6 +624,7 @@ public class ReceiptService{
         for (int index = 0; index < records.size(); index++){ //Record record: records){//filter(records, action)) {
             Record record = records.get(index);
 
+            Log.v("FLOW", "ITEM: " + index);
             CellViewModel cell = createCell(context, record.getId(), receiptId);
 
             tableView.addCell(cell);

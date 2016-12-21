@@ -244,7 +244,7 @@ public class OcasaService {
                 });
     }
 
-    private void upload(Receipt receipt){
+    private void upload(final Receipt receipt) {
 
         TableRecord record = new TableRecord();
 
@@ -306,27 +306,10 @@ public class OcasaService {
             }
         });
 
+
         MediaBody body = new MediaBody();
-//        if(!mediaFiles.get(0).getValue().isEmpty()) {
-//
-//            File file = new File(context.getCacheDir(), mediaFiles.get(0).getValue());
-//
-//            RecordArchive recordArchive = new RecordArchive();
-//            recordArchive.setId(mediaFiles.get(0).getRecord().getExternalId());
-//
-//            Archive archive = new Archive();
-//            archive.setType("image/jpg");
-//            archive.setBase("base64");
-//
-//            archive.setData(MediaUtils.convertMediaToBase64(file.getPath()));
-//
-//            recordArchive.addArchive(archive);
-//
-//            body.addRecordArchive(recordArchive);
-//        }
 
-
-        for (Field media : mediaFiles){
+        for (Field media : mediaFiles) {
 
             if(media!=null && media.getValue()!=null && !media.getValue().isEmpty()) {
 
@@ -357,14 +340,15 @@ public class OcasaService {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
                     }
 
                     @Override
                     public void onNext(String s) {
-
                     }
                 });
+
+
     }
 
     public Observable<Menu> login(LoginCredentials credentials) {
@@ -399,7 +383,7 @@ public class OcasaService {
                 Receipt receipt = service.findReceiptById(context, receiptId);
                 receipt.setClose();
 
-                service.updateReceipt(context, receipt);
+//                service.updateReceipt(context, receipt);
 
                 receipt.setItems(new ReceiptItemDAO(context).findForReceipt(receipt.getId()));
 
@@ -409,6 +393,15 @@ public class OcasaService {
                 subscriber.onCompleted();
             }
         });
+    }
+
+    // TODO: tengo que llamar a este metodo cuando ESTE SEGURO de que ambos hilos del Upload fueron exitosos!!
+
+    public void updateReceiptClosed (long receiptId) {
+        ReceiptService service = new ReceiptService();
+        Receipt receipt = service.findReceiptById(context, receiptId);
+        receipt.setClose();
+        service.updateReceipt(context, receipt);
     }
 
     public Observable<List<Receipt>> checkCloseReceipts() {

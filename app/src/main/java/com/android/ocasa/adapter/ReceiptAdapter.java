@@ -90,6 +90,10 @@ public class ReceiptAdapter extends BaseAdapter {
         return view;
     }
 
+    public List<ReceiptCellViewModel> getReceipts() {
+        return receipts;
+    }
+
     static class RecordHolder implements View.OnClickListener{
 
         ArrayList<TextView> views;
