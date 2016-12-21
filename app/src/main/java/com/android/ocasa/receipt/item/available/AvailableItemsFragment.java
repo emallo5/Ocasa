@@ -79,17 +79,17 @@ public class AvailableItemsFragment extends TableFragment {
 
         loadingData = false;
 
-        ReceiptItemDAO dao = new ReceiptItemDAO (getContext());
-        List<ReceiptItem> items = dao.findAll();
-
-        for (ReceiptItem item : items) {
-            for (int i=0; i<table.getCells().size(); i++) {
-                if (table.getCells().get(i).getId() == item.getRecord().getId()) {
-                    table.getCells().remove(i);
-                    break;
-                }
-            }
-        }
+//        ReceiptItemDAO dao = new ReceiptItemDAO (getContext());
+//        List<ReceiptItem> items = dao.findAll();
+//
+//        for (ReceiptItem item : items) {
+//            for (int i=0; i<table.getCells().size(); i++) {
+//                if (table.getCells().get(i).getId() == item.getRecord().getId()) {
+//                    table.getCells().remove(i);
+//                    break;
+//                }
+//            }
+//        }
 
         if(getAdapter() == null) {
             setListShown(true);

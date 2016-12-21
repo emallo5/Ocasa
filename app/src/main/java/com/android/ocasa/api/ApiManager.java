@@ -2,6 +2,7 @@ package com.android.ocasa.api;
 
 import com.android.ocasa.httpmodel.MediaBody;
 import com.android.ocasa.httpmodel.Menu;
+import com.android.ocasa.httpmodel.Response;
 import com.android.ocasa.httpmodel.TableRecord;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
@@ -144,7 +145,7 @@ public class ApiManager {
         return api.upload(table, actionId, deviceId, latitude, longitude);
     }
 
-    public Observable<String> uploadImage(String tableId, MediaBody body, String deviceId){
+    public Observable<Response> uploadImage(String tableId, MediaBody body, String deviceId){
         return api.uploadImage(body, tableId, deviceId);
     }
 }

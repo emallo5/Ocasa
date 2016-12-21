@@ -56,7 +56,6 @@ public class ReceiptListPresenter extends BasePresenter<ReceiptListView> {
 
                     @Override
                     public void onNext(Void aVoid) {
-                        OcasaService.getInstance().updateReceiptClosed(receiptId);
                         getView().onCloseReceiptSuccess();
                     }
                 });

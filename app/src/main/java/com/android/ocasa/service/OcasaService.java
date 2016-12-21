@@ -13,6 +13,7 @@ import com.android.ocasa.httpmodel.Archive;
 import com.android.ocasa.httpmodel.MediaBody;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.httpmodel.RecordArchive;
+import com.android.ocasa.httpmodel.Response;
 import com.android.ocasa.httpmodel.TableRecord;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
@@ -246,7 +247,7 @@ public class OcasaService {
 
     private void upload(final Receipt receipt) {
 
-        TableRecord record = new TableRecord();
+        final TableRecord record = new TableRecord();
 
         List<Record> records = new ArrayList<>();
 
@@ -283,28 +284,7 @@ public class OcasaService {
 
         record.setRecords(records);
 
-        Location location = ((OcasaApplication) context).getLocation();
-        apiManager.upload(record, receipt.getAction().getId() + "|" + receipt.getAction().getTable().getId(),
-                SessionManager.getInstance().getDeviceId(),
-                location != null ? location.getLatitude() : 0,
-                location != null ? location.getLongitude() : 0)
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<Receipt>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(Receipt receipt) {
-                Log.v(TAG, "Upload Receipt success " + receipt.getNumber());
-            }
-        });
+        // aca iba el upload de la api.. lo meto en el onNext() de las imagenes
 
 
         MediaBody body = new MediaBody();
@@ -332,7 +312,7 @@ public class OcasaService {
 
         apiManager.uploadImage(receipt.getAction().getTable().getId(), body, SessionManager.getInstance().getDeviceId())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<String>() {
+                .subscribe(new Subscriber<Response>() {
                     @Override
                     public void onCompleted() {
 
@@ -344,11 +324,32 @@ public class OcasaService {
                     }
 
                     @Override
-                    public void onNext(String s) {
+                    public void onNext(Response s) {
+
+                        if (s.getStatus() != 0) return;
+
+                        apiManager.upload(record, receipt.getAction().getId() + "|" + receipt.getAction().getTable().getId(),
+                                SessionManager.getInstance().getDeviceId(), 0, 0)
+                                .subscribeOn(Schedulers.io())
+                                .subscribe(new Subscriber<Receipt>() {
+                                    @Override
+                                    public void onCompleted() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(Receipt rec) {
+                                        Log.v(TAG, " -> Upload Receipt success: " + receipt.getNumber());
+                                        OcasaService.getInstance().updateReceiptClosed(receipt.getId());
+                                    }
+                                });
                     }
                 });
-
-
     }
 
     public Observable<Menu> login(LoginCredentials credentials) {

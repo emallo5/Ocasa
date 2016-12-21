@@ -2,6 +2,7 @@ package com.android.ocasa.api;
 
 import com.android.ocasa.httpmodel.MediaBody;
 import com.android.ocasa.httpmodel.Menu;
+import com.android.ocasa.httpmodel.Response;
 import com.android.ocasa.httpmodel.TableRecord;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.LoginCredentials;
@@ -34,5 +35,5 @@ public interface OcasaApi {
     Observable<Receipt> upload(@Body TableRecord records, @Query("id") String actionId, @Query("imei") String imei, @Query("lat") double latitude, @Query("lng") double longitude);
 
     @POST("Images.ashx/{table_id}/file")
-    Observable<String> uploadImage(@Body MediaBody media, @Path("table_id") String tableId, @Query("imei") String imei);
+    Observable<Response> uploadImage(@Body MediaBody media, @Path("table_id") String tableId, @Query("imei") String imei);
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,9 @@ import com.codika.androidmvp.fragment.BaseMvpFragment;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ignacio on 11/07/16.
  */
@@ -39,6 +43,7 @@ AlertDialogFragment.OnAlertClickListener{
 
     private ListView receiptList;
     private FloatingActionButton addButton;
+    private ArrayList<Long> uploadingIds = new ArrayList<>();
 
     public static ReceiptListFragment newInstance(String actionId) {
 
@@ -156,10 +161,16 @@ AlertDialogFragment.OnAlertClickListener{
     }
 
     private void syncReceipts() {
-        for (ReceiptCellViewModel receipt : ((ReceiptAdapter) receiptList.getAdapter()).getReceipts()) {
+
+        for (int i=0; i<((ReceiptAdapter) receiptList.getAdapter()).getReceipts().size(); i++) {
+
+            ReceiptCellViewModel receipt = ((ReceiptAdapter) receiptList.getAdapter()).getReceipts().get(i);
             if (receipt.isOpen()) {
-                showProgress();
-                getPresenter().close(receipt.getId());
+                if (!uploadingIds.contains(receipt.getId())) {
+                    showProgress();
+                    uploadingIds.add(receipt.getId());
+                    getPresenter().close(receipt.getId());
+                }
             }
         }
     }
@@ -182,6 +193,7 @@ AlertDialogFragment.OnAlertClickListener{
     @Override
     public void onPosiviteClick(String tag) {
         showProgress();
+        uploadingIds.add(receiptId);
         getPresenter().close(receiptId);
     }
 

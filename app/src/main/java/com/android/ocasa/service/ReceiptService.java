@@ -621,13 +621,23 @@ public class ReceiptService{
 
         records = filter(records, action);
 
-        for (int index = 0; index < records.size(); index++){ //Record record: records){//filter(records, action)) {
+// tomo los que fueron usados para filtrar mas adelante..
+        ReceiptItemDAO dao = new ReceiptItemDAO (context);
+        List<ReceiptItem> items = dao.findAll();
+        ArrayList<Long> excludeIds = new ArrayList<>();
+        for (ReceiptItem item : items)
+            excludeIds.add(item.getRecord().getId());
+
+
+        for (int index = 0; index < records.size(); index++) { //Record record: records){//filter(records, action)) {
             Record record = records.get(index);
 
-            Log.v("FLOW", "ITEM: " + index);
-            CellViewModel cell = createCell(context, record.getId(), receiptId);
-
-            tableView.addCell(cell);
+// aca filtro los items q estan NO disponibles
+            if (!excludeIds.contains(record.getId())) {
+                Log.v("FLOW", "ITEM: " + index);
+                CellViewModel cell = createCell(context, record.getId(), receiptId);
+                tableView.addCell(cell);
+            }
         }
 
         return tableView;
