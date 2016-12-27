@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
+import com.android.ocasa.OcasaApplication;
 import com.android.ocasa.cache.ReceiptCacheManager;
 import com.android.ocasa.cache.dao.ActionDAO;
 import com.android.ocasa.cache.dao.ApplicationDAO;
@@ -373,12 +374,7 @@ public class ReceiptService{
         List<ReceiptItem> records = dao.findForReceipt(receiptId);
 
         for (ReceiptItem item: records) {
-            Record record = item.getRecord();
-
-            CellViewModel cell = createCell(context, record.getId(), receiptId);
-            ;
-            cell.setId(record.getId());
-
+            CellViewModel cell = createCell(context, item.getRecord().getId(), receipt);
             table.addCell(cell);
         }
 
@@ -398,12 +394,11 @@ public class ReceiptService{
 
         for (long recordId: recordIds) {
             Record record = dao.findById(recordId);
-
             records.add(record);
         }
 
         for (Record record: filter(records, action)) {
-            CellViewModel cell = createCell(context, record.getId(), receiptId);
+            CellViewModel cell = createCell(context, record.getId(), receipt);
 
 
             cells.add(cell);
@@ -462,30 +457,28 @@ public class ReceiptService{
         return subList;
     }
 
-    private CellViewModel createCell(Context context, long recordId, long receiptId){
+    private CellViewModel createCell(Context context, long recordId, Receipt receipt) {
 
         CellViewModel cell = new CellViewModel();
         cell.setId(recordId);
-
-        Receipt receipt = findReceiptById(context, receiptId);
 
         List<Field> fields = new FieldDAO(context)
                 .findVisiblesForRecordAndLayout(String.valueOf(cell.getId()), receipt.getAction().getId());
 
         List<FieldViewModel> fieldViewModels = new ArrayList<>();
 
-        HistoryDAO historyDAO = new HistoryDAO(context);
+//        HistoryDAO historyDAO = new HistoryDAO(context);
 
         for (Field field : fields){
 
             if (field.getColumn().getFieldType() != FieldType.MAP &&
                     field.getColumn().getFieldType() != FieldType.DATE) {
 
-                History history = historyDAO.findForReceiptAndField(String.valueOf(receiptId), String.valueOf(field.getId()));
-
-                if (history != null && history.getReceipt().getId() == receiptId) {
-                    field.setValue(history.getValue());
-                }
+//                History history = historyDAO.findForReceiptAndField(String.valueOf(receipt.getId()), String.valueOf(field.getId()));
+//
+//                if (history != null && history.getReceipt().getId() == receipt.getId()) {
+//                    field.setValue(history.getValue());
+//                }
 
                 FieldViewModel fieldViewModel = new FieldViewModel();
                 fieldViewModel.setValue(field.getValue());
@@ -590,15 +583,14 @@ public class ReceiptService{
         return receipt;
     }
 
-    public TableViewModel getAvailableItems(Context context, Long receiptId, String query){
+    public TableViewModel getAvailableItems(Context context, Long receiptId, String query) {
         TableViewModel tableView = new TableViewModel();
 
-        if(query != null && query.isEmpty()){
+        if (query != null && query.isEmpty()) {
             return tableView;
         }
 
         Receipt receipt = new ReceiptDAO(context).findById(receiptId);
-
         Action action = receipt.getAction();
 
         tableView.setName(action.getTable().getName());
@@ -607,32 +599,24 @@ public class ReceiptService{
                 findColumnsForActionAndType(action.getId(), ColumnAction.ColumnActionType.HEADER));
 
         TableDAO tableDAO = new TableDAO(context);
-
         String tableId = action.getTable().getId();
-
         Table table = tableDAO.findById(tableId);
-
-        if(table == null)
-            return null;
+        if(table == null) return null;
 
         Category category = new CategoryDAO(context).findById(action.getCategory().getId());
-
         Application application = new ApplicationDAO(context).findById(category.getApplication().getId());
 
         tableView.setColor(application.getRecordColor());
 
         List<Record> records = new RecordDAO(context).findAvailablesForTableAndReceipt(tableId, receipt.getId());
-        //RecordDAO.getInstance(context).findForTableAndQuery(tableId, query, excludeIds);
 
         records = filter(records, action);
 
-// tomo los que fueron usados para filtrar mas adelante..
-        ReceiptItemDAO dao = new ReceiptItemDAO (context);
+        ReceiptItemDAO dao = new ReceiptItemDAO (context); // tomo los que fueron cargados, para filtrarlos mas adelante
         List<ReceiptItem> items = dao.findAll();
         ArrayList<Long> excludeIds = new ArrayList<>();
         for (ReceiptItem item : items)
             excludeIds.add(item.getRecord().getId());
-
 
         for (int index = 0; index < records.size(); index++) { //Record record: records){//filter(records, action)) {
             Record record = records.get(index);
@@ -640,12 +624,41 @@ public class ReceiptService{
 // aca filtro los items q estan NO disponibles
             if (!excludeIds.contains(record.getId())) {
                 Log.v("FLOW", "ITEM: " + index);
-                CellViewModel cell = createCell(context, record.getId(), receiptId);
+                CellViewModel cell = createCell(record.getId(), receipt, context);
                 tableView.addCell(cell);
             }
+
+            if (!((OcasaApplication) context.getApplicationContext()).availableItemsLoading) return null;
         }
 
         return tableView;
+    }
+
+    private CellViewModel createCell(long recordId, Receipt receipt, Context context) {
+
+        List<Field> fields = new FieldDAO(context).findVisiblesForRecordAndLayout(String.valueOf(recordId), receipt.getAction().getId());
+
+        CellViewModel cell = new CellViewModel();
+        cell.setId(recordId);
+
+        List<FieldViewModel> fieldViewModels = new ArrayList<>();
+
+        for (Field field : fields) {
+            if (field.getColumn().getFieldType() != FieldType.MAP &&
+                    field.getColumn().getFieldType() != FieldType.DATE) {
+
+                FieldViewModel fieldViewModel = new FieldViewModel();
+                fieldViewModel.setValue(field.getValue());
+                fieldViewModel.setLabel(field.getColumn().getName());
+                fieldViewModel.setHighlight(field.getColumn().isHighlight());
+                fieldViewModel.setEditable(field.getColumn().isEditable());
+                fieldViewModels.add(fieldViewModel);
+            }
+        }
+
+        cell.setFields(fieldViewModels);
+
+        return cell;
     }
 
     public List<Receipt> getOpenReceipts(Context context) {

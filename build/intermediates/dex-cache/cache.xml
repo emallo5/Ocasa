@@ -106,7 +106,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="01c9848d320544bfbdf5ac708aa6c0a2796b9135">
+        sha1="2e6fb7396dc7a94b3c2846589c0eea1750148dfe">
         <dex dex="/home/ignacio/AndroidStudioProjects/ocasa_nando/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/instant-run_7ce44345eaba8f7b0050f45999b268135e3a76be/classes.dex" />
     </item>
     <item
@@ -376,7 +376,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="e75c7858e9fcb51e24f7b3b0f78e0fb62f99f4ee">
+        sha1="67b62c76d4fce128ff36e73ed0f3ea3b1d52fd7e">
         <dex dex="/home/ignacio/AndroidStudioProjects/ocasa_nando/Ocasa/app/build/intermediates/transforms/dex/dev/debug/folders/1000/10/instant-run-bootstrap_90fc2e499a2dc70c27fe3ba2d9be7e15951d3130/classes.dex" />
     </item>
     <item

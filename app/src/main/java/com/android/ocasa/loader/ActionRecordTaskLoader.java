@@ -82,6 +82,8 @@ import java.util.List;
 
         List<Record> records = new RecordDAO(getContext()).findForTableAndQuery(tableId, query, excludeIds);
 
+        if (records.size() == 0) return tableView;
+
         List<Field> fields = new FieldDAO(getContext())
                 .findVisiblesForRecordAndLayout(String.valueOf(records.get(0).getId()), receipt.getAction().getId());
 

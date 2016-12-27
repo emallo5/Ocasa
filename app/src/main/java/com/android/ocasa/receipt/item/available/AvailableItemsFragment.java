@@ -8,6 +8,7 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
 
+import com.android.ocasa.OcasaApplication;
 import com.android.ocasa.adapter.AvailableItemsAdapter;
 import com.android.ocasa.cache.dao.ReceiptItemDAO;
 import com.android.ocasa.core.TableFragment;
@@ -63,11 +64,16 @@ public class AvailableItemsFragment extends TableFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(getAdapter() == null && !loadingData) {
-//            ((EditReceiptFragment) getParentFragment()).showProgressCustom("Cargando...");
+        if(getAdapter() == null) {
             ((AvailableItemsPresenter) getPresenter()).load(getArguments().getLong(ARG_RECEIPT_ID));
-            loadingData = true;
+            ((OcasaApplication) getActivity().getApplicationContext()).availableItemsLoading = true;
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((OcasaApplication) getActivity().getApplicationContext()).availableItemsLoading = false;
     }
 
     @Override

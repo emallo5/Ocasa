@@ -46,6 +46,8 @@ public class OcasaApplication extends Application{
     private OcasaApi api;
     private Location mylocation;
 
+    public boolean availableItemsLoading = false;
+
     @Override
     public void onCreate() {
         super.onCreate();

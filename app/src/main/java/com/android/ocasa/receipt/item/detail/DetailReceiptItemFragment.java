@@ -39,8 +39,7 @@ public class DetailReceiptItemFragment extends FormFragment {
     public void onStart() {
         super.onStart();
         ((DetailReceiptItemPresenter)getPresenter())
-                .load(getArguments().getLong(ARG_RECORD_ID),
-                        getArguments().getLong(ARG_RECEIPT_ID));
+                .load(getArguments().getLong(ARG_RECORD_ID), getArguments().getLong(ARG_RECEIPT_ID));
     }
 
     @Override
