@@ -15,6 +15,7 @@ import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
 import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.Field;
+import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
@@ -83,18 +84,8 @@ import java.util.List;
 
         List<Field> fields = new FieldDAO(getContext())
                 .findVisiblesForRecordAndLayout(String.valueOf(records.get(0).getId()), receipt.getAction().getId());
-//        FieldDAO fieldDAO = new FieldDAO(getContext());
 
-//        if(query != null && !query.isEmpty()){
-//            for (int index = 0; index < records.size(); index++){
-//                Record record = records.get(index);
-//                record.setFields(fieldDAO.findFieldsForRecord(String.valueOf(record.getId())));
-//            }
-//        }
-
-//        records = filter(records, action);
-
-        for (int index = 0; index < records.size(); index++){ //Record record: records){//filter(records, action)) {
+        for (int index = 0; index < records.size(); index++) { //Record record: records){//filter(records, action)) {
             Record record = records.get(index);
 
             CellViewModel cell = new CellViewModel();
@@ -127,15 +118,22 @@ import java.util.List;
 
         List<FieldViewModel> fieldViewModels = new ArrayList<>();
 
-        for (Field field : fields){
-            FieldViewModel fieldViewModel = new FieldViewModel();
-            fieldViewModel.setValue(field.getValue());
-            fieldViewModel.setTag(field.getColumn().getId());
-            fieldViewModel.setLabel(field.getColumn().getName());
-            fieldViewModel.setPrimaryKey(field.getColumn().isPrimaryKey());
-            fieldViewModel.setHighlight(field.getColumn().isHighlight());
+        for (Field field : fields) {
 
-            fieldViewModels.add(fieldViewModel);
+            // FILTRO CAPOS DE MAP Y FECHA
+            if (field.getColumn().getFieldType() != FieldType.MAP &&
+                    field.getColumn().getFieldType() != FieldType.DATE) {
+
+                FieldViewModel fieldViewModel = new FieldViewModel();
+                fieldViewModel.setValue(field.getValue());
+                fieldViewModel.setTag(field.getColumn().getId());
+                fieldViewModel.setLabel(field.getColumn().getName());
+                fieldViewModel.setPrimaryKey(field.getColumn().isPrimaryKey());
+                fieldViewModel.setHighlight(field.getColumn().isHighlight());
+                fieldViewModel.setEditable(field.getColumn().isEditable());
+
+                fieldViewModels.add(fieldViewModel);
+            }
         }
 
         cell.setFields(fieldViewModels);

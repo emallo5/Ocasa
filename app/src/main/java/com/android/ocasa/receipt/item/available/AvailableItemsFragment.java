@@ -23,6 +23,9 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
+import rx.Subscriber;
+import rx.Subscription;
+
 /**
  * Created by ignacio on 19/05/16.
  */

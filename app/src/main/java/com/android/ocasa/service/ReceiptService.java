@@ -477,18 +477,23 @@ public class ReceiptService{
         HistoryDAO historyDAO = new HistoryDAO(context);
 
         for (Field field : fields){
-            History history = historyDAO.findForReceiptAndField(String.valueOf(receiptId), String.valueOf(field.getId()));
 
-            if(history != null && history.getReceipt().getId() == receiptId){
-                field.setValue(history.getValue());
+            if (field.getColumn().getFieldType() != FieldType.MAP &&
+                    field.getColumn().getFieldType() != FieldType.DATE) {
+
+                History history = historyDAO.findForReceiptAndField(String.valueOf(receiptId), String.valueOf(field.getId()));
+
+                if (history != null && history.getReceipt().getId() == receiptId) {
+                    field.setValue(history.getValue());
+                }
+
+                FieldViewModel fieldViewModel = new FieldViewModel();
+                fieldViewModel.setValue(field.getValue());
+                fieldViewModel.setLabel(field.getColumn().getName());
+                fieldViewModel.setHighlight(field.getColumn().isHighlight());
+                fieldViewModel.setEditable(field.getColumn().isEditable());
+                fieldViewModels.add(fieldViewModel);
             }
-
-            FieldViewModel fieldViewModel = new FieldViewModel();
-            fieldViewModel.setValue(field.getValue());
-            fieldViewModel.setLabel(field.getColumn().getName());
-            fieldViewModel.setHighlight(field.getColumn().isHighlight());
-            fieldViewModel.setEditable(field.getColumn().isEditable());
-            fieldViewModels.add(fieldViewModel);
         }
 
         cell.setFields(fieldViewModels);
