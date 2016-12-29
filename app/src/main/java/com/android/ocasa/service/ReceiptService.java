@@ -645,7 +645,7 @@ public class ReceiptService{
 
         for (Field field : fields) {
             if (field.getColumn().getFieldType() != FieldType.MAP &&
-                    field.getColumn().getFieldType() != FieldType.DATE) {
+                    field.getColumn().getFieldType() != FieldType.DATE) {   // saco estos campos de la vista AvailableItems!
 
                 FieldViewModel fieldViewModel = new FieldViewModel();
                 fieldViewModel.setValue(field.getValue());

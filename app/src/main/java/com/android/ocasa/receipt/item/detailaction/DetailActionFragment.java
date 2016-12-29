@@ -90,7 +90,7 @@ public class DetailActionFragment extends FormFragment {
                 formContainer.addView(text);
             } else {
 
-                field.setValue("");  // se supone que si veo aca el formulario, estan vacios los datos! **********
+                field.setValue("");  // se supone que si veo aca el formulario, estan vacios los datos!
 
                 FieldViewFactory factory = field.getType().getFieldFactory();
                 View view = factory.createView(formContainer, field, isEditMode);
@@ -120,7 +120,8 @@ public class DetailActionFragment extends FormFragment {
 
         getActivity().setResult(Activity.RESULT_OK, createIntentData(values));
 
-        // agrego un elemento al diccionario con el valor del location y la fecha
+        // agrego dos elementos al diccionario con el valor de location y hora...
+        // fue sacado en el onFormSucces() del padre
         Calendar cal = new GregorianCalendar();
         Date date = cal.getTime();
         values.put(mapTag, FieldType.MAP.format(getLastLocation()));
