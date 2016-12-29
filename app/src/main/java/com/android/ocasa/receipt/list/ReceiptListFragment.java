@@ -15,12 +15,14 @@ import android.widget.Toast;
 
 import com.android.ocasa.R;
 import com.android.ocasa.event.CloseReceiptEvent;
+import com.android.ocasa.model.Receipt;
 import com.android.ocasa.receipt.header.EditHeaderReceiptActivity;
 import com.android.ocasa.adapter.ReceiptAdapter;
 import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.receipt.base.BaseReceiptActivity;
 import com.android.ocasa.receipt.detail.DetailReceiptActivity;
 import com.android.ocasa.receipt.edit.EditReceiptActivity;
+import com.android.ocasa.service.ReceiptService;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.viewmodel.ReceiptCellViewModel;
@@ -192,9 +194,16 @@ AlertDialogFragment.OnAlertClickListener{
 
     @Override
     public void onPosiviteClick(String tag) {
-        showProgress();
-        uploadingIds.add(receiptId);
-        getPresenter().close(receiptId);
+
+        ReceiptService service = new ReceiptService();
+        Receipt receipt = service.findReceiptById(getContext(), receiptId);
+
+        if (receipt.isOpen()) {
+            uploadingIds.add(receiptId);
+            getPresenter().close(receiptId);
+            showProgress();
+        } else
+            getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
     }
 
     @Override

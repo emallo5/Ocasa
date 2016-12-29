@@ -397,7 +397,6 @@ public class OcasaService {
     }
 
     // TODO: tengo que llamar a este metodo cuando ESTE SEGURO de que ambos hilos del Upload fueron exitosos!!
-
     public void updateReceiptClosed (long receiptId) {
         ReceiptService service = new ReceiptService();
         Receipt receipt = service.findReceiptById(context, receiptId);

@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.ocasa.BuildConfig;
 import com.android.ocasa.R;
 import com.android.ocasa.adapter.MenuAdapter;
 import com.android.ocasa.adapter.MenuOptionsAdapter;
@@ -259,9 +260,10 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
 //        }
     }
 
-    private void refreshMenuOptions(){
+    private void refreshMenuOptions() {
 
-        appName.setText(currentApplication.getTitle());
+        String versionName = BuildConfig.VERSION_NAME;
+        appName.setText(currentApplication.getTitle() + " v" + versionName);
 
         list.setAdapter(new MenuOptionsAdapter(currentApplication.getCategories()));
     }

@@ -3,7 +3,9 @@ package com.android.ocasa.receipt.list;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.ocasa.model.Receipt;
 import com.android.ocasa.service.OcasaService;
+import com.android.ocasa.service.ReceiptService;
 import com.android.ocasa.viewmodel.ReceiptTableViewModel;
 import com.codika.androidmvp.presenter.BasePresenter;
 
