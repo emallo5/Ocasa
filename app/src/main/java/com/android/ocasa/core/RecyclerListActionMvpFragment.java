@@ -44,7 +44,7 @@ public abstract class RecyclerListActionMvpFragment<V extends BaseView, P extend
 
         mList = (RecyclerView) view.findViewById(R.id.list);
         mProgress = (ProgressBar) view.findViewById(R.id.progress);
-        mFloatingActionButton = (FloatingActionButton) view.findViewById(R.id.action);
+        mFloatingActionButton = (FloatingActionButton) view.findViewById(R.id.faction);
     }
 
     public FloatingActionButton getAction(){
