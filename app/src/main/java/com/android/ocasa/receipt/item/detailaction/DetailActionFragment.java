@@ -23,6 +23,9 @@ import com.android.ocasa.widget.FieldViewAdapter;
 import com.android.ocasa.widget.factory.FieldViewFactory;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -117,7 +120,9 @@ public class DetailActionFragment extends FormFragment {
 
         getActivity().setResult(Activity.RESULT_OK, createIntentData(values));
 
-        // agrego un elemento al diccionario con el valor del location
+        // agrego un elemento al diccionario con el valor del location y la fecha
+        Calendar cal = new GregorianCalendar();
+        Date date = cal.getTime();
         values.put(mapTag, FieldType.MAP.format(getLastLocation()));
 
         SaveFormTask.FormData data =

@@ -96,8 +96,6 @@ public class AvailableItemsFragment extends TableFragment {
         }
 
         getRecyclerView().setBackgroundColor(Color.WHITE);
-
-//        ((EditReceiptFragment) getParentFragment()).hideProgress();
     }
 
     @Subscribe

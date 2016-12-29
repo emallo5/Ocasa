@@ -9,15 +9,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.ocasa.adapter.AddItemsReceiptAdapter;
+import com.android.ocasa.cache.dao.ReceiptItemDAO;
 import com.android.ocasa.core.fragment.RecyclerListFragment;
 import com.android.ocasa.event.ReceiptItemAddEvent;
 import com.android.ocasa.loader.ActionRecordTaskLoader;
+import com.android.ocasa.model.ReceiptItem;
 import com.android.ocasa.pickup.util.PickupItemConfirmationDialog;
 import com.android.ocasa.receipt.edit.OnItemChangeListener;
 import com.android.ocasa.viewmodel.TableViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
 
 /**
  * Created by Ignacio Oviedo on 21/03/16.
@@ -87,6 +91,17 @@ public class AddItemsFragment extends RecyclerListFragment implements LoaderMana
             return;
 
         callback.onShowSearchResults();
+
+        ReceiptItemDAO dao = new ReceiptItemDAO (getContext()); // tomo los que fueron cargados, para filtrarlos mas adelante
+        List<ReceiptItem> items = dao.findAll();
+
+        // saco los que ya fueron procesados
+        for (ReceiptItem item : items)
+            for (int i=0; i < data.getCells().size(); i++)
+                if (item.getRecord().getId() == data.getCells().get(i).getId()) {
+                    data.getCells().remove(i);
+                    break;
+                }
 
         if(data.getCells().isEmpty()){
             callback.onItemNotFound(getArguments()
