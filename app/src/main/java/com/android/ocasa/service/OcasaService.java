@@ -105,7 +105,6 @@ public class OcasaService {
 //                        if(layout.getColumns() == null || layout.getColumns().isEmpty()){
 //                            return Observable.<Column>empty().defaultIfEmpty(new Column());
 //                        }
-
                         List<Column> columns = new ArrayList<>();
 
                         for (LayoutColumn layoutColumn : layout.getColumns()){
