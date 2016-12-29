@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
+import android.widget.Toast;
 
 import com.android.ocasa.R;
 import com.android.ocasa.core.LocationMvpActivity;
@@ -45,6 +46,11 @@ public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> i
     public void onResume() {
         super.onResume();
         getPresenter().sync(0, 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Por favor espere...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
