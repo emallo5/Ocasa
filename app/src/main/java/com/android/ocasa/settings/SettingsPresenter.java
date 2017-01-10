@@ -1,8 +1,11 @@
 package com.android.ocasa.settings;
 
+import android.content.Context;
+
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.service.OcasaService;
+import com.android.ocasa.util.ConnectionUtil;
 import com.codika.androidmvprx.presenter.BaseRxPresenter;
 
 import java.util.List;
@@ -49,7 +52,13 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
                 });
     }
 
-    public void uploadReceipts(){
+    public void uploadReceipts(Context context) {
+
+        if (!ConnectionUtil.isInternetAvailable(context)) {
+            getView().notConnection();
+            return;
+        }
+
         OcasaService.getInstance()
                 .uploadReceipts(uploadReceipts)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -62,7 +71,7 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
                     }
 
                     @Override

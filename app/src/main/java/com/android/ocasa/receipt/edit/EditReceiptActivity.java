@@ -42,7 +42,7 @@ public class EditReceiptActivity extends BaseReceiptActivity implements AlertDia
 
     private void showAlert() {
         AlertDialogFragment dialog = AlertDialogFragment
-                .newInstance("Salir", "¿Desea descartar los cambios?");
+                .newInstance("¡ATENCION!", "¿Seguro que desea salir sin ENVIAR los datos?");
 
         dialog.show(getSupportFragmentManager(), "Dialog");
     }

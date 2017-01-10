@@ -1,3 +1,4 @@
+
 # Built application files
 *.apk
 *.ap_
@@ -26,4 +27,5 @@ proguard/
 
 .app/
 .idea/
+*.iml
 

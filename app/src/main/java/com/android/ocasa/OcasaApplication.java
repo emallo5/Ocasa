@@ -44,7 +44,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class OcasaApplication extends Application{
 
     private OcasaApi api;
-    private Location mylocation;
 
     public boolean availableItemsLoading = false;
 
@@ -116,11 +115,4 @@ public class OcasaApplication extends Application{
         return retrofit.create(OcasaApi.class);
     }
 
-    public void setLocation (Location location) {
-        mylocation = location;
-    }
-
-    public Location getLocation() {
-        return mylocation;
-    }
 }

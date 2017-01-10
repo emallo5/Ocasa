@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.android.ocasa.R;
 import com.android.ocasa.loginflow.LoginFlowActivity;
 import com.android.ocasa.util.AlertDialogFragment;
+import com.android.ocasa.util.ConnectionUtil;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.codika.androidmvp.activity.BaseMvpActivity;
 
@@ -130,6 +131,11 @@ AlertDialogFragment.OnAlertClickListener{
 
     @Override
     public void onUploadSuccess() {
+        if (!ConnectionUtil.isInternetAvailable(this)) {
+            notConnection();
+            return;
+        }
+
         showLogoutProgress();
         getPresenter().logout();
     }
@@ -138,6 +144,11 @@ AlertDialogFragment.OnAlertClickListener{
         Intent loginIntent = new Intent(this, LoginFlowActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
+    }
+
+    @Override
+    public void notConnection() {
+        Toast.makeText(this, "Chequee su conexión a Internet", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -153,7 +164,7 @@ AlertDialogFragment.OnAlertClickListener{
 
     @Override
     public void onPosiviteClick(String tag) {
-        getPresenter().uploadReceipts();
+        getPresenter().uploadReceipts(this);
     }
 
     @Override
