@@ -10,20 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8135455d-d75e-4783-a23b-322fa84722f7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/ConnectionUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/OcasaApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/OcasaApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/LocationMvpFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/LocationMvpFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/edit/EditReceiptActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsPresenter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/core.iml" afterPath="$PROJECT_DIR$/core/core.iml" />
     </list>
     <ignored path="Ocasa.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -58,11 +47,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SettingsActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SettingsActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="141" column="0" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
+            <state relative-caret-position="165">
+              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding>
                 <element signature="docComment;class#SettingsActivity#0" expanded="false" />
                 <element signature="method#onCreate#0;class#SettingsActivity#0" expanded="false" />
@@ -80,67 +69,6 @@
                 <element signature="method#onNeutralClick#0;class#SettingsActivity#0" expanded="false" />
                 <element signature="method#onNegativeClick#0;class#SettingsActivity#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SettingsPresenter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsPresenter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="57" column="38" selection-start-line="57" selection-start-column="38" selection-end-line="57" selection-end-column="38" />
-              <folding>
-                <element signature="docComment;class#SettingsPresenter#0" expanded="false" />
-                <element signature="method#checkLogout#0;class#SettingsPresenter#0" expanded="false" />
-                <element signature="method#onCompleted#0;class#828:1485" expanded="false" />
-                <element signature="method#onError#0;class#828:1485" expanded="false" />
-                <element signature="method#onCompleted#0;class#1895:2355" expanded="false" />
-                <element signature="e#2104#2105#0" expanded="true" />
-                <element signature="e#2171#2172#0" expanded="true" />
-                <element signature="e#2261#2262#0" expanded="true" />
-                <element signature="e#2336#2337#0" expanded="true" />
-                <element signature="method#logout#0;class#SettingsPresenter#0" expanded="false" />
-                <element signature="method#sync#0;class#SettingsPresenter#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OcasaService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/service/OcasaService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-869">
-              <caret line="247" column="0" selection-start-line="247" selection-start-column="0" selection-end-line="247" selection-end-column="0" />
-              <folding>
-                <element signature="method#init#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#getInstance#0;class#OcasaService#0" expanded="false" />
-                <element signature="e#3600#3691#0" expanded="false" />
-                <element signature="method#categories#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#receiptHeader#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#receiptItems#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#findReceiptItems#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#receiptsByAction#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#findRecord#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#recordForm#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#headerReceipt#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#receiptItem#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#updateReceiptItem#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#receiptStatus#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#table#0;class#OcasaService#0" expanded="false" />
-                <element signature="class#12647:13376" expanded="false" />
-                <element signature="method#closeReceipt#0;class#OcasaService#0" expanded="false" />
-                <element signature="method#updateReceiptClosed#0;class#OcasaService#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ApiException.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/api/ApiException.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -163,17 +91,17 @@
       <file leaf-file-name="LocationMvpFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/LocationMvpFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+            <state relative-caret-position="62">
+              <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
               <folding>
                 <element signature="docComment;class#LocationMvpFragment#0" expanded="false" />
                 <element signature="method#onCreate#0;class#LocationMvpFragment#0" expanded="false" />
                 <element signature="method#buildGoogleApiClient#0;class#LocationMvpFragment#0" expanded="false" />
                 <element signature="method#onStart#0;class#LocationMvpFragment#0" expanded="false" />
                 <element signature="method#onStop#0;class#LocationMvpFragment#0" expanded="false" />
-                <element signature="method#onRequestPermissionsResult#0;class#LocationMvpFragment#0" expanded="false" />
                 <element signature="e#3526#3527#0" expanded="true" />
                 <element signature="e#3565#3566#0" expanded="true" />
+                <element signature="method#createLocationRequest#0;class#LocationMvpFragment#0" expanded="false" />
                 <element signature="method#onConnectionFailed#0;class#LocationMvpFragment#0" expanded="false" />
                 <element signature="method#loadDummyLocation#0;class#LocationMvpFragment#0" expanded="false" />
                 <element signature="method#showFragment#0;class#LocationMvpFragment#0" expanded="false" />
@@ -183,11 +111,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FormFragment.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FormFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="334" column="0" selection-start-line="334" selection-start-column="0" selection-end-line="334" selection-end-column="0" />
+            <state relative-caret-position="91">
+              <caret line="313" column="0" selection-start-line="313" selection-start-column="0" selection-end-line="313" selection-end-column="0" />
               <folding>
                 <element signature="docComment;class#FormFragment#0" expanded="false" />
                 <element signature="method#onRequestPermissionsResult#0;class#FormFragment#0" expanded="false" />
@@ -5327,9 +5255,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/LocationMvpFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/util/ConnectionUtil.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsPresenter.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsActivity.java" />
       </list>
     </option>
   </component>
@@ -5383,6 +5311,38 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ocasa" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ocasa" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ocasa" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -5395,7 +5355,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../PanningView" />
-    <property name="device.picker.selection" value="16021521650080" />
+    <property name="device.picker.selection" value="T09290UIY5" />
     <property name="DEBUGGABLE_DEVICE" value="emulator-5554" />
     <property name="DEBUGGABLE_PROCESS" value="com.android.ocasa.dev" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
@@ -5716,7 +5676,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="24" width="1299" height="744" extended-state="6" />
+    <frame x="67" y="24" width="1299" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -6063,39 +6023,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="334" column="0" selection-start-line="334" selection-start-column="0" selection-end-line="334" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#FormFragment#0" expanded="false" />
-            <element signature="method#onRequestPermissionsResult#0;class#FormFragment#0" expanded="false" />
-            <element signature="method#goTakePhoto#0;class#FormFragment#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/LocationMvpFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#LocationMvpFragment#0" expanded="false" />
-            <element signature="method#onCreate#0;class#LocationMvpFragment#0" expanded="false" />
-            <element signature="method#buildGoogleApiClient#0;class#LocationMvpFragment#0" expanded="false" />
-            <element signature="method#onStart#0;class#LocationMvpFragment#0" expanded="false" />
-            <element signature="method#onStop#0;class#LocationMvpFragment#0" expanded="false" />
-            <element signature="method#onRequestPermissionsResult#0;class#LocationMvpFragment#0" expanded="false" />
-            <element signature="e#3526#3527#0" expanded="true" />
-            <element signature="e#3565#3566#0" expanded="true" />
-            <element signature="method#onConnectionFailed#0;class#LocationMvpFragment#0" expanded="false" />
-            <element signature="method#loadDummyLocation#0;class#LocationMvpFragment#0" expanded="false" />
-            <element signature="method#showFragment#0;class#LocationMvpFragment#0" expanded="false" />
-            <element signature="method#showDialog#0;class#LocationMvpFragment#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.3/2e57a219582a72557a8353443edf4fce79a55c4/rxjava-1.1.3-sources.jar!/rx/Observer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="455">
@@ -6109,19 +6036,6 @@
         <state relative-caret-position="426">
           <caret line="666" column="0" selection-start-line="666" selection-start-column="0" selection-end-line="666" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#DetailActionFragment#0" expanded="false" />
-            <element signature="method#onResume#0;class#DetailActionFragment#0" expanded="false" />
-            <element signature="method#fillFields#0;class#DetailActionFragment#0" expanded="false" />
-            <element signature="method#getPresenterLoader#0;class#DetailActionFragment#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -6154,7 +6068,7 @@
         <state relative-caret-position="134">
           <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding>
-            <element signature="e#1589#1590#0" expanded="true" />
+            <element signature="e#1589#1590#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -6172,8 +6086,8 @@
         <state relative-caret-position="134">
           <caret line="8758" column="0" selection-start-line="8758" selection-start-column="0" selection-end-line="8758" selection-end-column="0" />
           <folding>
-            <element signature="e#10690#11877#0" expanded="true" />
-            <element signature="e#11876#11877#0" expanded="true" />
+            <element signature="e#10690#11877#0" expanded="false" />
+            <element signature="e#11876#11877#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -6183,8 +6097,8 @@
         <state relative-caret-position="284">
           <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
           <folding>
-            <element signature="e#1453#3417#0" expanded="true" />
-            <element signature="e#3416#3417#0" expanded="true" />
+            <element signature="e#1453#3417#0" expanded="false" />
+            <element signature="e#3416#3417#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -6258,10 +6172,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="57" column="38" selection-start-line="57" selection-start-column="38" selection-end-line="57" selection-end-column="38" />
+        <state relative-caret-position="270">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
           <folding>
             <element signature="docComment;class#SettingsPresenter#0" expanded="false" />
             <element signature="method#checkLogout#0;class#SettingsPresenter#0" expanded="false" />
@@ -6278,18 +6200,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/settings/SettingsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="141" column="0" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
+        <state relative-caret-position="165">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding>
             <element signature="docComment;class#SettingsActivity#0" expanded="false" />
             <element signature="method#onCreate#0;class#SettingsActivity#0" expanded="false" />
@@ -6306,6 +6220,52 @@
             <element signature="method#onOptionsItemSelected#0;class#SettingsActivity#0" expanded="false" />
             <element signature="method#onNeutralClick#0;class#SettingsActivity#0" expanded="false" />
             <element signature="method#onNegativeClick#0;class#SettingsActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/receipt/item/detailaction/DetailActionFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;class#DetailActionFragment#0" expanded="false" />
+            <element signature="method#onResume#0;class#DetailActionFragment#0" expanded="false" />
+            <element signature="method#fillFields#0;class#DetailActionFragment#0" expanded="false" />
+            <element signature="method#getPresenterLoader#0;class#DetailActionFragment#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/LocationMvpFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;class#LocationMvpFragment#0" expanded="false" />
+            <element signature="method#onCreate#0;class#LocationMvpFragment#0" expanded="false" />
+            <element signature="method#buildGoogleApiClient#0;class#LocationMvpFragment#0" expanded="false" />
+            <element signature="method#onStart#0;class#LocationMvpFragment#0" expanded="false" />
+            <element signature="method#onStop#0;class#LocationMvpFragment#0" expanded="false" />
+            <element signature="e#3526#3527#0" expanded="true" />
+            <element signature="e#3565#3566#0" expanded="true" />
+            <element signature="method#createLocationRequest#0;class#LocationMvpFragment#0" expanded="false" />
+            <element signature="method#onConnectionFailed#0;class#LocationMvpFragment#0" expanded="false" />
+            <element signature="method#loadDummyLocation#0;class#LocationMvpFragment#0" expanded="false" />
+            <element signature="method#showFragment#0;class#LocationMvpFragment#0" expanded="false" />
+            <element signature="method#showDialog#0;class#LocationMvpFragment#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/ocasa/core/FormFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="313" column="0" selection-start-line="313" selection-start-column="0" selection-end-line="313" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;class#FormFragment#0" expanded="false" />
+            <element signature="method#onRequestPermissionsResult#0;class#FormFragment#0" expanded="false" />
+            <element signature="method#goTakePhoto#0;class#FormFragment#0" expanded="false" />
           </folding>
         </state>
       </provider>
