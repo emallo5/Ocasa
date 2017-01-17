@@ -73,16 +73,21 @@ public class AlertDialogFragment extends DialogFragment implements DialogInterfa
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.SlideDialog)
                 .setTitle(title)
-                .setMessage(message)
-                .setNegativeButton(android.R.string.cancel, this);
+                .setMessage(message);
 
-        if(getArguments().getString(ARG_POSITIVE) != null){
+        if (getArguments().getString(ARG_NEGATIVE) != null) {
+            builder.setNegativeButton(getArguments().getString(ARG_NEGATIVE), this);
+        } else {
+            builder.setNegativeButton(android.R.string.cancel, this);
+        }
+
+        if (getArguments().getString(ARG_POSITIVE) != null) {
             builder.setPositiveButton(getArguments().getString(ARG_POSITIVE), this);
-        }else{
+        } else {
             builder.setPositiveButton(android.R.string.ok, this);
         }
 
-        if(getArguments().getString(ARG_NEUTRAL) != null){
+        if (getArguments().getString(ARG_NEUTRAL) != null) {
             builder.setNeutralButton(getArguments().getString(ARG_NEUTRAL), this);
         }
 

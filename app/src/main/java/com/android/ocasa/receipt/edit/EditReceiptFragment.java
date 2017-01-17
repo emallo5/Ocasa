@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
@@ -24,6 +25,7 @@ import com.android.ocasa.adapter.RecieptPagerAdapter;
 import com.android.ocasa.fragment.AddItemsFragment;
 import com.android.ocasa.receipt.item.available.AvailableItemsFragment;
 import com.android.ocasa.receipt.item.detailaction.DetailActionActivity;
+import com.android.ocasa.receipt.item.detailaction.DetailActionFragment;
 import com.android.ocasa.receipt.item.list.ReceiptItemsFragment;
 import com.android.ocasa.pickup.scanner.ScannerActivity;
 import com.android.ocasa.pickup.util.PickupItemConfirmationDialog;
@@ -61,7 +63,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
     public static final String RECORD_DATA = "record_data";
 
-    public boolean isSaved = false;
+    public boolean readyToExit = false;
 
     private ImageView glass;
     private EditText search;
@@ -244,6 +246,9 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
             availFrag.removeitem(itemId);
 
             currentRecordEditing = null;
+
+            if (data.getExtras().getBoolean(DetailActionFragment.EXIT_POD))
+                readyToExit = true;
         }
 
         if(requestCode == SCANNER_REQUEST_CODE) {
@@ -262,6 +267,15 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 //            ((EditReceiptPresenter)getPresenter()).findItems(getArguments().getLong(ARG_RECEIPT_ID), newCodes);
 
             search.setText(data.getStringExtra(ScannerActivity.EXTRA_RESULT_CODES));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (readyToExit) {
+            readyToExit = false;
+            save(false);
         }
     }
 
@@ -357,7 +371,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         return super.onOptionsItemSelected(item);
     }
 
-    private void showSaveAlert(){
+    private void showSaveAlert() {
 //        AlertDialogFragment.newInstance("Guardar","¿Desea guardar los cambios?", "Guardar", null, "Contabilizar")
 //                .show(getChildFragmentManager(), "SaveConfirmation");
 
@@ -388,8 +402,6 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     }
 
     private void save(boolean close) {
-        isSaved = true;
-
         FormViewModel receiptHeader = getReceiptHeader();
 
         ((EditReceiptPresenter)getPresenter()).saveReceipt(receiptHeader.getId(), recordIds, getLastLocation(), close);

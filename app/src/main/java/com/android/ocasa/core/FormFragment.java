@@ -288,13 +288,19 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
         currentPhotoTag = (String) view.getTag();
 
-        final String[] permissions = new String[]{Manifest.permission.CAMERA};
+        final String[] permissions = new String[] { Manifest.permission.CAMERA };
 
-        if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                Manifest.permission.CAMERA)) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(permissions, RC_HANDLE_CAMERA_PERM);
             return;
         }
+
+//        if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+//                Manifest.permission.CAMERA)) {
+//            requestPermissions(permissions, RC_HANDLE_CAMERA_PERM);
+//            return;
+//        }
 
         goTakePhoto();
     }

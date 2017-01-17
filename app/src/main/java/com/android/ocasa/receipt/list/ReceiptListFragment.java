@@ -110,15 +110,15 @@ AlertDialogFragment.OnAlertClickListener{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                ReceiptCellViewModel receiptViewModel = (ReceiptCellViewModel) receiptList.getItemAtPosition(i);
+//                ReceiptCellViewModel receiptViewModel = (ReceiptCellViewModel) receiptList.getItemAtPosition(i);
 
                 Intent intent;
 
-                if(receiptViewModel.isOpen()){
-                    intent = new Intent(getActivity(), EditReceiptActivity.class);
-                }else{
+//                if (receiptViewModel.isOpen()) {
+//                    intent = new Intent(getActivity(), EditReceiptActivity.class);
+//                } else {
                     intent = new Intent(getActivity(), DetailReceiptActivity.class);
-                }
+//                }
 
                 intent.putExtra(BaseReceiptActivity.EXTRA_RECEIPT_ID, l);
                 ((BaseActivity) getActivity()).startNewActivity(intent);
@@ -164,7 +164,7 @@ AlertDialogFragment.OnAlertClickListener{
 
     private void syncReceipts() {
 
-        for (int i=0; i<((ReceiptAdapter) receiptList.getAdapter()).getReceipts().size(); i++) {
+        for (int i=0; i < ((ReceiptAdapter) receiptList.getAdapter()).getReceipts().size(); i++) {
 
             ReceiptCellViewModel receipt = ((ReceiptAdapter) receiptList.getAdapter()).getReceipts().get(i);
             if (receipt.isOpen()) {
@@ -184,7 +184,7 @@ AlertDialogFragment.OnAlertClickListener{
     }
 
     public void showProgress() {
-        ProgressDialogFragment.newInstance("Guardando...").show(getChildFragmentManager(), "Progress");
+        ProgressDialogFragment.newInstance("Enviando...").show(getChildFragmentManager(), "Progress");
     }
 
     public void hideProgress() {
