@@ -2,6 +2,7 @@ package com.android.ocasa.receipt.list;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.Loader;
@@ -79,6 +80,7 @@ AlertDialogFragment.OnAlertClickListener{
     @Override
     public void onResume() {
         super.onResume();
+        uploadingIds.clear();
         getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
     }
 
@@ -104,7 +106,7 @@ AlertDialogFragment.OnAlertClickListener{
         addButton = (FloatingActionButton) view.findViewById(R.id.add);
     }
 
-    private void setListeners(){
+    private void setListeners() {
 
         receiptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -180,11 +182,19 @@ AlertDialogFragment.OnAlertClickListener{
     @Override
     public void onCloseReceiptSuccess() {
         hideProgress();
-        getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+
+        Handler h = new Handler();
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+            }
+        };
+        h.postDelayed(r, 2000);
     }
 
     public void showProgress() {
-        ProgressDialogFragment.newInstance("Enviando...").show(getChildFragmentManager(), "Progress");
+        ProgressDialogFragment.newInstance("Sincronizando...").show(getChildFragmentManager(), "Progress");
     }
 
     public void hideProgress() {

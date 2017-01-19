@@ -1,6 +1,7 @@
 package com.android.ocasa.receipt.edit;
 
 import android.location.Location;
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.android.ocasa.cache.dao.ReceiptDAO;
@@ -67,7 +68,7 @@ public class EditReceiptPresenter extends BaseReceiptPresenter{
 
     public void saveReceipt(long id, long[] recordsIds, Location lastLocation, boolean close){
 
-        if(recordsIds == null || recordsIds.length == 0){
+        if(recordsIds == null || recordsIds.length == 0) {
             ((EditReceiptView)getView()).onReceiptItemsEmpty();
             return;
         }

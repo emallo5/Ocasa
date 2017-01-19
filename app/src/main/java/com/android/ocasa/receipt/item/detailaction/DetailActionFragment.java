@@ -113,7 +113,7 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
 
     @Override
     public void onSaveButtonClick() {
-        AlertDialogFragment.newInstance("Continuar", "¿Desea solo guardar?", "Guardar y Salir", "Guardar", null)
+        AlertDialogFragment.newInstance("Continuar", "¿Desea solo guardar?", "Guardar y Enviar", "Guardar", null)
                 .show(getChildFragmentManager(), "CloseConfirmation");
     }
 

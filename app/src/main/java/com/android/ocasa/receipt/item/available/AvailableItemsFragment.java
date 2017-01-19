@@ -88,12 +88,11 @@ public class AvailableItemsFragment extends TableFragment {
 
         loadingData = false;
 
-        if(getAdapter() == null) {
+        if (getAdapter() == null) {
             setListShown(true);
             setAdapter(new AvailableItemsAdapter(table.getCells()));
-        }else{
-            ((AvailableItemsAdapter)getAdapter()).refreshItems(table.getCells());
         }
+        else ((AvailableItemsAdapter)getAdapter()).refreshItems(table.getCells());
 
         getRecyclerView().setBackgroundColor(Color.WHITE);
     }

@@ -1,5 +1,6 @@
 package com.android.ocasa.loader;
 
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -88,6 +89,9 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
         super.onPostExecute(aVoid);
 
         NotificationManager.sendBroadcast(context, RecordService.RECORD_SYNC_FINISHED_ACTION);
+
+        ((Activity) context).onBackPressed();
+
     }
 
     public static class FormData{

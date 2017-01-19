@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.nfc.FormatException;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -521,10 +522,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
     public void save(SaveFormTask.FormData formData) {
 
+        Toast.makeText(getContext(), "Guardando...", Toast.LENGTH_SHORT).show();
         new SaveFormTask(getActivity()).execute(formData);
 
-        Toast.makeText(getContext(), "Enviando...", Toast.LENGTH_SHORT).show();
-
-        getActivity().onBackPressed();
     }
 }
