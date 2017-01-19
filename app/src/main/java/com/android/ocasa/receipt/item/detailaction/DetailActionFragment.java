@@ -68,8 +68,7 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
         if(formContainer.getChildCount() > 0)
             return;
 
-        // saco esta linea para poder fillearlos aca mismo para cambiar la vista de los editable=false
-//        super.fillFields(fields, isEditMode);
+//        super.fillFields(fields, isEditMode);   hago el fill a mano para cambiar los editable=false
         if(formContainer.getChildCount() > 1)
             formContainer.removeAllViewsInLayout();
 
@@ -89,8 +88,7 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
                 formContainer.addView(text);
             } else {
 
-                field.setValue("");  // se supone que si veo aca el formulario, estan vacios los datos!
-
+                field.setValue("");  // vacio los datos que pueden haber quedado sucios
                 FieldViewFactory factory = field.getType().getFieldFactory();
                 View view = factory.createView(formContainer, field, isEditMode);
 
@@ -124,10 +122,10 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
 
         getActivity().setResult(Activity.RESULT_OK, createIntentData(values, exit));
 
-        // agrego dos elementos al diccionario con el valor de location y hora...
-        // fue sacado en el onFormSucces() del padre
+        // agrego los elementos de map y hora. Fueron sacados en el onFormSucces() del padre
         Calendar cal = new GregorianCalendar();
         Date date = cal.getTime();
+//        values.put(timeTag, date.toString());
         values.put(mapTag, FieldType.MAP.format(getLastLocation()));
 
         SaveFormTask.FormData data =

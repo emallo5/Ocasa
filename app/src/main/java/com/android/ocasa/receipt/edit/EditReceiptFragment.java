@@ -404,7 +404,6 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
     private void save(boolean close) {
         FormViewModel receiptHeader = getReceiptHeader();
-
         ((EditReceiptPresenter)getPresenter()).saveReceipt(receiptHeader.getId(), recordIds, getLastLocation(), close);
     }
 
@@ -461,17 +460,4 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         this.recordIds = ArrayUtils.addAll(this.recordIds, recordIds);
     }
 
-//    @Override
-//    public void onSave(String value) {
-////        Toast.makeText(getActivity(), path, Toast.LENGTH_SHORT).show();
-////        ((EditReceiptPresenter)getPresenter()).updateSignature(path, recordId);
-//        ((EditReceiptPresenter)getPresenter()).updateValue(value);
-//        ((EditReceiptPresenter)getPresenter()).next();
-//    }
-//
-//    @Override
-//    public void onError() {
-//        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-//        ((EditReceiptPresenter)getPresenter()).next();
-//    }
 }

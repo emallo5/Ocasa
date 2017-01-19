@@ -3,6 +3,7 @@ package com.android.ocasa.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.PopupMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -128,8 +129,9 @@ AlertDialogFragment.OnAlertClickListener{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.settings){
+        if (item.getItemId() == R.id.settings) {
             startActivity(new Intent(this, SettingsActivity.class));
+
             return true;
         }
 

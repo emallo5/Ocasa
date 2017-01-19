@@ -35,7 +35,6 @@ public class AvailableItemsFragment extends TableFragment {
     static final String ARG_RECEIPT_ID = "receipt_id";
 
     private OnItemChangeListener itemCallback;
-    private boolean loadingData = false;
 
     public static AvailableItemsFragment newInstance(long receiptId) {
 
@@ -85,8 +84,6 @@ public class AvailableItemsFragment extends TableFragment {
     public void onTableLoadSuccess(TableViewModel table) {
         if(table == null)
             return;
-
-        loadingData = false;
 
         if (getAdapter() == null) {
             setListShown(true);

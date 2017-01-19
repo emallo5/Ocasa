@@ -1,7 +1,9 @@
 package com.android.ocasa.loginflow.login;
 
+import android.os.Build;
 import android.util.Log;
 
+import com.android.ocasa.BuildConfig;
 import com.android.ocasa.api.OcasaApiSubscriber;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.model.ApiError;
@@ -54,6 +56,8 @@ public class LoginPresenter extends BaseRxPresenter<LoginView> {
         credentials.setUser(email);
         credentials.setPassword(password);
         credentials.setImei(deviceId);
+        credentials.setAndroidVersion(String.valueOf(android.os.Build.VERSION.SDK_INT));
+        credentials.setAppVersion(BuildConfig.VERSION_NAME);
 
         SessionManager.getInstance().saveDeviceId(deviceId);
 
