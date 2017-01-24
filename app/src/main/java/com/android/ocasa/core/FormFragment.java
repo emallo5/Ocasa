@@ -165,7 +165,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     public void onFormSuccess(FormViewModel form) {
         record = form;
 
-        // saco el valor de MAP a mano porque es visible pero no tiene que mostrarse, lo agrego en el saveAndExit() del hijo
+        // saco el valor de MAP y TIME a mano porque es visible pero no tiene que mostrarse, lo agrego en el saveAndExit() del hijo
         for (int i=form.getFields().size() - 1; i>-1; i--) {
             if (form.getFields().get(i).getType() == FieldType.MAP) {
                 mapTag = form.getFields().get(i).getTag();

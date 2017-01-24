@@ -164,6 +164,8 @@
 
         <service android:name=".sync.SyncService"/>
 
+        <service android:name=".sync.SyncIntentSerivce" />
+
         <receiver android:name=".receiver.RequestTableReceiver"
             android:exported="false">
             <intent-filter>

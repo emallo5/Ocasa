@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.ocasa.R;
 import com.android.ocasa.loginflow.LoginFlowActivity;
+import com.android.ocasa.sync.SyncIntentSerivce;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConnectionUtil;
 import com.android.ocasa.util.ProgressDialogFragment;
@@ -119,6 +120,7 @@ AlertDialogFragment.OnAlertClickListener{
     @Override
     public void canLogout() {
         showLogoutProgress();
+        stopSyncService();
         getPresenter().logout();
     }
 
@@ -137,7 +139,12 @@ AlertDialogFragment.OnAlertClickListener{
         }
 
         showLogoutProgress();
+        stopSyncService();
         getPresenter().logout();
+    }
+
+    private void stopSyncService() {
+        stopService(new Intent(this, SyncIntentSerivce.class));
     }
 
     private void goLoginScreen(){

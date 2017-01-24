@@ -126,8 +126,8 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
         RecieptPagerAdapter adapter = new RecieptPagerAdapter(getChildFragmentManager(),
                 getResources().getStringArray(R.array.create_receipt_tabs));
-        adapter.addFragment(ReceiptItemsFragment.newInstance(getArguments().getLong(ARG_RECEIPT_ID)));
         adapter.addFragment(AvailableItemsFragment.newInstance(getArguments().getLong(ARG_RECEIPT_ID)));
+        adapter.addFragment(ReceiptItemsFragment.newInstance(getArguments().getLong(ARG_RECEIPT_ID)));
 
         pager.setAdapter(adapter);
         tabs.setupWithViewPager(pager);
@@ -225,10 +225,6 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
             if (currentRecordEditing == null || currentRecordEditing.getId() != itemId)
                 return;
 
-            if (pager.getCurrentItem() == 1) {
-                pager.setCurrentItem(0, true);
-            }
-
             recordIds = ArrayUtils.add(recordIds, itemId);
 
             searchResultsContainer.setVisibility(View.GONE);
@@ -240,10 +236,10 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
             }
 
             RecieptPagerAdapter adapter = (RecieptPagerAdapter) pager.getAdapter();
-            ReceiptItemsFragment receiptFrag = (ReceiptItemsFragment) adapter.getItem(0);
+            ReceiptItemsFragment receiptFrag = (ReceiptItemsFragment) adapter.getItem(1);
             receiptFrag.addItem(currentRecordEditing);
 
-            AvailableItemsFragment availFrag = (AvailableItemsFragment) adapter.getItem(1);
+            AvailableItemsFragment availFrag = (AvailableItemsFragment) adapter.getItem(0);
             availFrag.removeitem(itemId);
 
             currentRecordEditing = null;
@@ -293,7 +289,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         }
 
         RecieptPagerAdapter adapter = (RecieptPagerAdapter) pager.getAdapter();
-        ReceiptItemsFragment frag = (ReceiptItemsFragment) adapter.getItem(0);
+        ReceiptItemsFragment frag = (ReceiptItemsFragment) adapter.getItem(1);
         frag.addItems(table.getCells());
     }
 
@@ -311,7 +307,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     public void onItemsFoundSuccess(List<CellViewModel> items) {
         if(items != null && !items.isEmpty()) {
             RecieptPagerAdapter adapter = (RecieptPagerAdapter) pager.getAdapter();
-            ReceiptItemsFragment frag = (ReceiptItemsFragment) adapter.getItem(0);
+            ReceiptItemsFragment frag = (ReceiptItemsFragment) adapter.getItem(1);
             frag.addItems(items);
 
             search.setText("");
@@ -443,7 +439,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         recordIds = ArrayUtils.removeElement(recordIds, item.getId());
 
         RecieptPagerAdapter adapter = (RecieptPagerAdapter) pager.getAdapter();
-        AvailableItemsFragment frag = (AvailableItemsFragment) adapter.getItem(1);
+        AvailableItemsFragment frag = (AvailableItemsFragment) adapter.getItem(0);
         frag.addItem(item);
     }
 

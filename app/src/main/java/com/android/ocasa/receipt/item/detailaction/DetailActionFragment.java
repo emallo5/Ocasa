@@ -15,6 +15,7 @@ import com.android.ocasa.loader.SaveFormTask;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.util.AlertDialogFragment;
+import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.widget.FieldViewAdapter;
@@ -111,8 +112,10 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
 
     @Override
     public void onSaveButtonClick() {
-        AlertDialogFragment.newInstance("Continuar", "¿Desea solo guardar?", "Guardar y Enviar", "Guardar", null)
-                .show(getChildFragmentManager(), "CloseConfirmation");
+//        AlertDialogFragment.newInstance("Continuar", "¿Desea solo guardar?", "Guardar y Enviar", "Guardar", null)
+//                .show(getChildFragmentManager(), "CloseConfirmation");
+
+        saveAndExit(true);
     }
 
     public void saveAndExit(boolean exit) {
@@ -123,15 +126,10 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
         getActivity().setResult(Activity.RESULT_OK, createIntentData(values, exit));
 
         // agrego los elementos de map y hora. Fueron sacados en el onFormSucces() del padre
-        Calendar cal = new GregorianCalendar();
-        Date date = cal.getTime();
-//        values.put(timeTag, date.toString());
+        values.put(timeTag, DateTimeHelper.formatTime(new Date()));
         values.put(mapTag, FieldType.MAP.format(getLastLocation()));
 
-        SaveFormTask.FormData data =
-                new SaveFormTask.FormData(values,
-                        getArguments().getLong(ARG_RECORD_ID),
-                        getLastLocation());
+        SaveFormTask.FormData data = new SaveFormTask.FormData(values, getArguments().getLong(ARG_RECORD_ID), getLastLocation());
 
         save(data);
     }

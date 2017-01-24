@@ -122,9 +122,9 @@ import java.util.List;
 
         for (Field field : fields) {
 
-            // FILTRO CAPOS DE MAP Y FECHA
+            // FILTRO CAPOS DE MAP Y TIME
             if (field.getColumn().getFieldType() != FieldType.MAP &&
-                    field.getColumn().getFieldType() != FieldType.DATE) {
+                    field.getColumn().getFieldType() != FieldType.TIME) {
 
                 FieldViewModel fieldViewModel = new FieldViewModel();
                 fieldViewModel.setValue(field.getValue());

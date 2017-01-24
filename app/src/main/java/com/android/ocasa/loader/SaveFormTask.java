@@ -60,19 +60,19 @@ public class SaveFormTask extends AsyncTask<SaveFormTask.FormData, Void, Void> {
                 if (value != null && !value.isEmpty() && !value.equalsIgnoreCase(field.getValue())) {
                     record.updateStatus();
 
-                    History history = new History();
-                    history.setValue(value);
-                    history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
-                    history.setField(field);
-
-                    if (lastLocation != null) {
-                        history.setLongitude(lastLocation.getLongitude());
-                        history.setLatitude(lastLocation.getLatitude());
-                    }
-
-                    history.setTimeZone(DateTimeHelper.getDeviceTimezone());
-
-                    field.addHistory(history);
+//                    History history = new History();
+//                    history.setValue(value);
+//                    history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
+//                    history.setField(field);
+//
+//                    if (lastLocation != null) {
+//                        history.setLongitude(lastLocation.getLongitude());
+//                        history.setLatitude(lastLocation.getLatitude());
+//                    }
+//
+//                    history.setTimeZone(DateTimeHelper.getDeviceTimezone());
+//
+//                    field.addHistory(history);
 
                     field.setValue(value);
                 }

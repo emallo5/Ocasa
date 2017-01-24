@@ -469,10 +469,10 @@ public class ReceiptService{
 
 //        HistoryDAO historyDAO = new HistoryDAO(context);
 
-        for (Field field : fields){
+        for (Field field : fields) {
 
             if (field.getColumn().getFieldType() != FieldType.MAP &&
-                    field.getColumn().getFieldType() != FieldType.DATE) {
+                    field.getColumn().getFieldType() != FieldType.TIME) {
 
 //                History history = historyDAO.findForReceiptAndField(String.valueOf(receipt.getId()), String.valueOf(field.getId()));
 //
@@ -645,7 +645,7 @@ public class ReceiptService{
 
         for (Field field : fields) {
             if (field.getColumn().getFieldType() != FieldType.MAP &&
-                    field.getColumn().getFieldType() != FieldType.DATE) {   // saco estos campos de la vista AvailableItems!
+                    field.getColumn().getFieldType() != FieldType.TIME) {   // saco estos campos de la vista AvailableItems!
 
                 FieldViewModel fieldViewModel = new FieldViewModel();
                 fieldViewModel.setValue(field.getValue());
