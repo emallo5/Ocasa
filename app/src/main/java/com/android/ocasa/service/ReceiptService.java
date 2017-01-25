@@ -532,7 +532,7 @@ public class ReceiptService{
         itemDAO.deleteForReceipt(receipt.getId());
         List<ReceiptItem> items = new ArrayList<>();
 
-        HistoryDAO historyDAO = new HistoryDAO(context);
+//        HistoryDAO historyDAO = new HistoryDAO(context);
 
         for (long id : recordIds){
             Record record = recordDAO.findById(id);
@@ -553,25 +553,25 @@ public class ReceiptService{
             }
 
 
-            List<History> histories = new ArrayList<>();
-
-            for (Field field : record.getFields()) {
-
-                History history = historyDAO.findForReceiptAndField(String.valueOf(receiptId), String.valueOf(field.getId()));
-
-                if(history == null || !history.getValue().equalsIgnoreCase(field.getValue())){
-                    history = new History();
-                    history.setValue(field.getValue());
-                    history.setField(field);
-                    history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
-                    history.setTimeZone(DateTimeHelper.getDeviceTimezone());
-                    history.setReceipt(receipt);
-
-                    histories.add(history);
-                }
-            }
-
-            historyDAO.save(histories);
+//            List<History> histories = new ArrayList<>();
+//
+//            for (Field field : record.getFields()) {
+//
+//                History history = historyDAO.findForReceiptAndField(String.valueOf(receiptId), String.valueOf(field.getId()));
+//
+//                if(history == null || !history.getValue().equalsIgnoreCase(field.getValue())){
+//                    history = new History();
+//                    history.setValue(field.getValue());
+//                    history.setField(field);
+//                    history.setSystemDate(DateTimeHelper.formatDateTime(new Date()));
+//                    history.setTimeZone(DateTimeHelper.getDeviceTimezone());
+//                    history.setReceipt(receipt);
+//
+//                    histories.add(history);
+//                }
+//            }
+//
+//            historyDAO.save(histories);
 
             fieldDAO.update(record.getFields());
         }
@@ -645,7 +645,8 @@ public class ReceiptService{
 
         for (Field field : fields) {
             if (field.getColumn().getFieldType() != FieldType.MAP &&
-                    field.getColumn().getFieldType() != FieldType.TIME) {   // saco estos campos de la vista AvailableItems!
+                    field.getColumn().getFieldType() != FieldType.TIME &&
+                    field.getColumn().getFieldType() != FieldType.DATE) {   // saco estos campos de la vista AvailableItems!
 
                 FieldViewModel fieldViewModel = new FieldViewModel();
                 fieldViewModel.setValue(field.getValue());

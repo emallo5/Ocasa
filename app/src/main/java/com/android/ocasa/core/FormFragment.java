@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.nfc.FormatException;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -89,6 +91,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     static final String DATE_TAG = "Date";
     static final String TIME_TAG = "Time";
     static final String COMBO_TAG = "Combo";
+
+    public static final String PREFIX = "ocasa_";
 
     public static final String SELECT_OPTION = "Seleccionar...";
 
@@ -230,8 +234,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
                     Toast.makeText(getActivity(), "Formato invalido", Toast.LENGTH_SHORT).show();
                 }
             }
-        }else if(requestCode == REQUEST_MAP){
-            if(resultCode == Activity.RESULT_OK){
+        } else if(requestCode == REQUEST_MAP) {
+            if (resultCode == Activity.RESULT_OK) {
 
                 LatLng location = data.getParcelableExtra(MapFragment.DATA_NEW_LOCATION);
 
@@ -240,20 +244,20 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
                 FieldMapView view = (FieldMapView) formContainer.findViewWithTag(columnId);
                 view.setValue(FieldType.MAP.format(location));
             }
-        }else if(requestCode == REQUEST_PHOTO){
-            if(resultCode == Activity.RESULT_OK){
+        } else if(requestCode == REQUEST_PHOTO) {
+
+            if (resultCode == Activity.RESULT_OK) {
                 try {
                     Bitmap bmp = (Bitmap) data.getExtras().get("data");
                     OutputStream stream = new FileOutputStream(imageTempFile);
                     bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     stream.flush();
-
                     stream.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                if(imageTempFile.exists()){
+                if (imageTempFile.exists()) {
                     FieldViewAdapter view = (FieldViewAdapter) formContainer.findViewWithTag(currentPhotoTag);
 
                     try {
@@ -262,6 +266,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
                         e.printStackTrace();
                     }
                 }
+//                deleteLastFromDCIM();
             }
         }
     }
@@ -327,7 +332,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             try {
-                imageTempFile = createPhotoFile(getActivity());
+                imageTempFile = createPhotoFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -335,9 +340,9 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         }
     }
 
-    public File createPhotoFile(Context ctx) throws IOException {
+    public File createPhotoFile() throws IOException {
 
-        String imageFileName = String.valueOf(new Date().getTime());
+        String imageFileName = PREFIX + new Date().getTime();
         File storageDir = getActivity().getCacheDir();
 
         if(!storageDir.exists())
@@ -528,5 +533,27 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         Toast.makeText(getContext(), "Guardando...", Toast.LENGTH_SHORT).show();
         new SaveFormTask(getActivity()).execute(formData);
 
+    }
+
+
+    private void deleteLastFromDCIM() {
+
+        try {
+            File[] images = new File(Environment.getExternalStorageDirectory() + File.separator + "DCIM/Camera").listFiles();
+            File latestSavedImage = images[0];
+
+            for (int i = 1; i < images.length; ++i)
+                if (images[i].lastModified() > latestSavedImage.lastModified())
+                    latestSavedImage = images[i];
+
+            File toDelete = new File(Environment.getExternalStorageDirectory() + File.separator + "DCIM/Camera/" + latestSavedImage.getAbsoluteFile());
+
+            toDelete.delete();
+
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("Removing Photo ->", "Error!");
+        }
     }
 }
