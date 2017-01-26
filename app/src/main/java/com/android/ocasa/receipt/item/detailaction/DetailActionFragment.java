@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.android.ocasa.model.FieldType;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.DateTimeHelper;
+import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.widget.FieldViewAdapter;
@@ -115,6 +117,7 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
 //        AlertDialogFragment.newInstance("Continuar", "¿Desea solo guardar?", "Guardar y Enviar", "Guardar", null)
 //                .show(getChildFragmentManager(), "CloseConfirmation");
 
+        showProgress();
         saveAndExit(true);
     }
 
@@ -182,5 +185,16 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
     @Override
     public void onNegativeClick(String tag) {
         saveAndExit(false);
+    }
+
+    public void showProgress() {
+        ProgressDialogFragment pdf = ProgressDialogFragment.newInstance("Guardando...");
+        pdf.setCancelable(false);
+        pdf.show(getChildFragmentManager(), "Progress");
+    }
+
+    public void hideProgress() {
+        DialogFragment dialog = (DialogFragment) getChildFragmentManager().findFragmentByTag("Progress");
+        if(dialog != null) dialog.dismiss();
     }
 }

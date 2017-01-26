@@ -39,7 +39,7 @@ public class ApiManager {
     }
 
     public Observable<Layout> layout(Layout layout, double latitude, double longitude, String deviceId){
-        return Observable.zip(
+        return Observable.zip (
                 api.columns(layout.getExternalID() + "|" + layout.getTable().getId(), deviceId, latitude, longitude)
                         .onErrorReturn(new Func1<Throwable, Layout>() {
                             @Override

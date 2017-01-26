@@ -10,10 +10,13 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Log;
 
+import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.service.ReceiptService;
+import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.ConnectionUtil;
+import com.android.ocasa.util.Constants;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -36,6 +39,8 @@ public class SyncIntentSerivce extends Service {
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
 
+    ScheduledExecutorService scheduler;
+
     private final class ServiceHandler extends Handler {
 
         public ServiceHandler(Looper looper) {
@@ -44,12 +49,12 @@ public class SyncIntentSerivce extends Service {
 
         @Override
         public void handleMessage(Message msg) {
-            ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+            scheduler = Executors.newSingleThreadScheduledExecutor();
             scheduler.scheduleAtFixedRate (new Runnable() {
                 public void run() {
                     syncData();
                 }
-            }, 0, 1, TimeUnit.MINUTES);
+            }, 0, 20, TimeUnit.MINUTES);
 
 //            stopSelf(msg.arg1);
         }
@@ -74,7 +79,7 @@ public class SyncIntentSerivce extends Service {
         msg.arg1 = startId;
         mServiceHandler.sendMessage(msg);
 
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     @Override
@@ -86,31 +91,57 @@ public class SyncIntentSerivce extends Service {
 
         if (!ConnectionUtil.isInternetAvailable(getApplicationContext())) return;
 
+        Log.d(TAG, "Service Process");
+
+        if (!ConfigHelper.getInstance().ReadConfigBoolean(Constants.SYNC_RUNING, false)) {
+            OcasaService.getInstance()
+                    .sync(0, 0)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Subscriber<Layout>() {
+                        @Override
+                        public void onCompleted() {
+                            ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, false);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, false);
+                        }
+
+                        @Override
+                        public void onNext(Layout layout) {
+                            Log.d(TAG, "Synchronized");
+                        }
+                    });
+        }
+
         final List<Receipt> opens = new ReceiptService().getOpenReceipts(getApplicationContext());
         final int count = opens.size();
 
-        Log.d(TAG, "sync records... " + count);
-        if (count == 0) return;
+        if (count != 0) {
+            OcasaService.getInstance()
+                    .uploadReceipts(opens)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Subscriber<Boolean>() {
+                        @Override
+                        public void onCompleted() {
+                        }
 
-        OcasaService.getInstance()
-                .uploadReceipts(opens)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<Boolean>() {
-                    @Override
-                    public void onCompleted() {}
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                            Log.d(TAG, "Sync fail");
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        Log.d(TAG, "Sync fail");
-                    }
-
-                    @Override
-                    public void onNext(Boolean aBoolean) {
-                        Log.d(TAG, "Sync records: " + count);
-                    }
-                });
+                        @Override
+                        public void onNext(Boolean aBoolean) {
+                            Log.d(TAG, "Sync records: " + count);
+                        }
+                    });
+            Log.d(TAG, "Runing upload");
+        }
     }
 
     @Override

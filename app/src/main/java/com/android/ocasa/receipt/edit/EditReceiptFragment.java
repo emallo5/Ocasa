@@ -328,7 +328,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
     @Override
     public void showProgress() {
-        showProgressCustom("Guardando...");
+        showProgressCustom("Enviando...");
     }
 
     public void showProgressCustom(String message) {

@@ -60,7 +60,7 @@ public class ReceiptAdapter extends BaseAdapter {
             holder = new RecordHolder(view, fieldCount);
 
             view.setTag(holder);
-        }else{
+        } else {
             holder = (RecordHolder) view.getTag();
         }
 
@@ -68,9 +68,9 @@ public class ReceiptAdapter extends BaseAdapter {
 
         holder.id = receipt.getId();
 
-        if(receipt.isOpen()){
+        if (receipt.isOpen()) {
             view.setBackgroundColor(Color.parseColor("#9E9E9E"));
-        }else{
+        } else {
             view.setBackgroundColor(Color.TRANSPARENT);
         }
 
@@ -81,9 +81,9 @@ public class ReceiptAdapter extends BaseAdapter {
             holder.views.get(index).setText(field.getLabel() + ": " + field.getValue());
         }
 
-        if(receipt.isOpen()){
+        if (receipt.isOpen()) {
             holder.more.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.more.setVisibility(View.GONE);
         }
 

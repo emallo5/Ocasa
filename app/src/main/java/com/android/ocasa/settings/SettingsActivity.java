@@ -16,6 +16,7 @@ import com.android.ocasa.R;
 import com.android.ocasa.loginflow.LoginFlowActivity;
 import com.android.ocasa.sync.SyncIntentSerivce;
 import com.android.ocasa.util.AlertDialogFragment;
+import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.ConnectionUtil;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.codika.androidmvp.activity.BaseMvpActivity;
@@ -63,8 +64,8 @@ AlertDialogFragment.OnAlertClickListener{
         sync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showProgress();
-                getPresenter().sync();
+                if (getPresenter().sync())
+                    showProgress();
             }
         });
     }

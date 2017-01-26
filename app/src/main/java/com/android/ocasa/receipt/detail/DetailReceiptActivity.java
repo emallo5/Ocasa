@@ -27,7 +27,7 @@ public class DetailReceiptActivity extends BaseReceiptActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.save).setVisible(false);
+//        menu.findItem(R.id.save).setVisible(false);
         return super.onPrepareOptionsMenu(menu);
     }
 

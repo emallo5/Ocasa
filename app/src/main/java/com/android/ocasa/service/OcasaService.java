@@ -28,6 +28,9 @@ import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.ReceiptItem;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.session.SessionManager;
+import com.android.ocasa.sync.SyncIntentSerivce;
+import com.android.ocasa.util.ConfigHelper;
+import com.android.ocasa.util.Constants;
 import com.android.ocasa.util.MediaUtils;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
@@ -74,6 +77,8 @@ public class OcasaService {
     }
 
     public Observable<Layout> sync(final double latitude, final double longitude){
+
+        ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, true);
 
         cacheManager.cleanLayoutColumn();
 
@@ -328,7 +333,7 @@ public class OcasaService {
                         if (s.getStatus() != 0) return;
 
                         apiManager.upload(record, receipt.getAction().getId() + "|" + receipt.getAction().getTable().getId(),
-                                SessionManager.getInstance().getDeviceId(), 0, 0)
+                                SessionManager.getInstance().getDeviceId(), 0, 0).retry(3)
                                 .subscribeOn(Schedulers.io())
                                 .subscribe(new Subscriber<Receipt>() {
                                     @Override

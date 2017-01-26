@@ -251,7 +251,7 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
             callback.onOptionClick(options.get(0));
         }
 
-        ((HomeActivity)getActivity()).openMenu();
+//        ((HomeActivity)getActivity()).openMenu();
 //
 //        if(tables.size() > 0){
 //            callback.onTableClick(tables.get(0));

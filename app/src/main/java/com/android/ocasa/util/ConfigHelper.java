@@ -12,9 +12,22 @@ import com.google.gson.Gson;
 
 public class ConfigHelper {
 
+    private static ConfigHelper instance;
+    private Context context;
     private final String TAG = ConfigHelper.class.getName();
 
-    public static String ReadConfig(Context context, String KeyName) {
+    public static ConfigHelper getInstance() {
+        if (instance == null) {
+            instance = new ConfigHelper();
+        }
+        return instance;
+    }
+
+    public void init (Context context) {
+        this.context = context;
+    }
+
+    public String ReadConfig(String KeyName) {
         try {
             SharedPreferences preferences = PreferenceManager
                     .getDefaultSharedPreferences(context);
@@ -27,7 +40,7 @@ public class ConfigHelper {
         }
     }
 
-    public static void WriteConfig(Context context, String KeyName, String KeyValue) {
+    public void WriteConfig(String KeyName, String KeyValue) {
         try {
             SharedPreferences preferences = PreferenceManager
                     .getDefaultSharedPreferences(context);
@@ -41,7 +54,7 @@ public class ConfigHelper {
         }
     }
 
-    public static void WriteConfigBoolean(Context context, String KeyName, boolean KeyValue) {
+    public void WriteConfigBoolean(String KeyName, boolean KeyValue) {
         try {
             SharedPreferences preferences = PreferenceManager
                     .getDefaultSharedPreferences(context);
@@ -55,7 +68,7 @@ public class ConfigHelper {
         }
     }
 
-    public static boolean ReadConfigBoolean(Context context, String KeyName, boolean defaultValue) {
+    public boolean ReadConfigBoolean(String KeyName, boolean defaultValue) {
         try {
             SharedPreferences preferences = PreferenceManager
                     .getDefaultSharedPreferences(context);
@@ -67,7 +80,7 @@ public class ConfigHelper {
         }
     }
 
-    public static void WriteObjectConfig(Context context, String KeyName, Object KeyValue) {
+    public void WriteObjectConfig(String KeyName, Object KeyValue) {
         try {
             SharedPreferences preferences = PreferenceManager
                     .getDefaultSharedPreferences(context);
@@ -82,7 +95,7 @@ public class ConfigHelper {
     }
 
 
-    public static Object ReadObjectConfig(Context context, String KeyName, Class KeyValue) {
+    public Object ReadObjectConfig(String KeyName, Class KeyValue) {
 
         try {
             SharedPreferences preferences = PreferenceManager

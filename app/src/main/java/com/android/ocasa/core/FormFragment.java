@@ -67,11 +67,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.internal.io.FileSystem;
 
 /**
  * Created by ignacio on 11/07/16.
@@ -435,6 +438,9 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
                 adapter.setValue(field.getValue());
             } catch (FormatException e) {
                 e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+                continue;
             }
         }
     }
@@ -529,12 +535,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     public abstract void onSaveButtonClick();
 
     public void save(SaveFormTask.FormData formData) {
-
-        Toast.makeText(getContext(), "Guardando...", Toast.LENGTH_SHORT).show();
         new SaveFormTask(getActivity()).execute(formData);
-
     }
-
 
     private void deleteLastFromDCIM() {
 

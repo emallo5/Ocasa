@@ -10,6 +10,8 @@ import com.android.ocasa.httpmodel.HttpTable;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.service.OcasaService;
+import com.android.ocasa.util.ConfigHelper;
+import com.android.ocasa.util.Constants;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -34,11 +36,12 @@ public class SyncService extends Service {
                 .subscribe(new Subscriber<Layout>() {
                     @Override
                     public void onCompleted() {
-
+                        ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, false);
                         stopSelf();
                     }
 

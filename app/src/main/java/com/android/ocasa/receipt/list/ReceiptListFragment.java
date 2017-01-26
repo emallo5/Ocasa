@@ -161,7 +161,7 @@ AlertDialogFragment.OnAlertClickListener{
 
         receiptList.setAdapter(new ReceiptAdapter(table.getReceipts()));
 
-//        syncReceipts();
+        syncReceipts();
     }
 
     private void syncReceipts() {

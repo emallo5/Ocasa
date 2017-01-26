@@ -5,7 +5,10 @@ import android.content.Context;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.service.OcasaService;
+import com.android.ocasa.sync.SyncIntentSerivce;
+import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.ConnectionUtil;
+import com.android.ocasa.util.Constants;
 import com.codika.androidmvprx.presenter.BaseRxPresenter;
 
 import java.util.List;
@@ -81,7 +84,7 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
                 });
     }
 
-    public void logout(){
+    public void logout() {
         OcasaService.getInstance()
                 .logout()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -104,7 +107,10 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
                 });
     }
 
-    public void sync(){
+    public boolean sync() {
+
+        if (ConfigHelper.getInstance().ReadConfigBoolean(Constants.SYNC_RUNING, false))
+            return false;
 
         OcasaService.getInstance()
                 .sync(0, 0)
@@ -118,7 +124,6 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
 
                     @Override
@@ -126,6 +131,8 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
                         getView().onSyncSuccess();
                     }
                 });
+
+        return true;
     }
 
 }

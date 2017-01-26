@@ -27,8 +27,8 @@ public class BaseReceiptActivity extends BarActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_receipt, menu);
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_receipt, menu);
         return true;
     }
 

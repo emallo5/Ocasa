@@ -8,6 +8,8 @@ import com.android.ocasa.model.Table;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.session.SessionPresenter;
 import com.android.ocasa.session.SessionSubscriber;
+import com.android.ocasa.util.ConfigHelper;
+import com.android.ocasa.util.Constants;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -33,7 +35,7 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
 
     public void sync(double latitude, double longitude){
 
-        if(isSyncing)
+        if (ConfigHelper.getInstance().ReadConfigBoolean(Constants.SYNC_RUNING, false))
             return;
 
         subscription = OcasaService.getInstance()
@@ -68,11 +70,14 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
         }
 
         @Override
-        public void onCompleted() {}
+        public void onCompleted() {
+            ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, false);
+        }
 
         @Override
         public void onError(Throwable e) {
             super.onError(e);
+            ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, false);
             Log.v(TAG, "Sync error: " + e.getMessage());
             getView().onSyncFinish();
         }
