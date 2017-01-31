@@ -62,16 +62,7 @@ public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> i
     @Override
     public void onLocationLoad(Location lastLocation) {
         super.onLocationLoad(lastLocation);
-
-        double latitude = 0;
-        double longitude = 0;
-
-        if(lastLocation != null){
-            latitude = lastLocation.getLatitude();
-            longitude = lastLocation.getLongitude();
-        }
-
-        getPresenter().sync(latitude, longitude);
+        getPresenter().sync(0, 0);
     }
 
     @Override

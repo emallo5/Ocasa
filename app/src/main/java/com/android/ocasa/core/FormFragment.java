@@ -2,14 +2,18 @@ package com.android.ocasa.core;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.nfc.FormatException;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -269,7 +273,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
                         e.printStackTrace();
                     }
                 }
-//                deleteLastFromDCIM();
+//                deleteLastFromDCIM(data.getExtras());
             }
         }
     }
@@ -439,7 +443,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
             } catch (FormatException e) {
                 e.printStackTrace();
             } catch (Exception e) {
-                e.printStackTrace();
+                e.printStackTrace(); //OM_MOVILNOVEDAD_C_0049 OM_MOTIVOENT_CLAVE OM_MOTIVOENT_CF_0200
                 continue;
             }
         }
@@ -538,24 +542,26 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         new SaveFormTask(getActivity()).execute(formData);
     }
 
-    private void deleteLastFromDCIM() {
+    private void deleteLastFromDCIM(Bundle data) {
 
-        try {
-            File[] images = new File(Environment.getExternalStorageDirectory() + File.separator + "DCIM/Camera").listFiles();
-            File latestSavedImage = images[0];
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String[] projection = { MediaStore.Images.Media._ID };
 
-            for (int i = 1; i < images.length; ++i)
-                if (images[i].lastModified() > latestSavedImage.lastModified())
-                    latestSavedImage = images[i];
+                String selection = MediaStore.Images.Media.DATA + " = ?";
+                String[] selectionArgs = new String[] { "data" }; //data.get("data").getAbsolutePath()
 
-            File toDelete = new File(Environment.getExternalStorageDirectory() + File.separator + "DCIM/Camera/" + latestSavedImage.getAbsoluteFile());
-
-            toDelete.delete();
-
-            return;
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("Removing Photo ->", "Error!");
-        }
+                Uri queryUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                ContentResolver contentResolver = getActivity().getContentResolver();
+                Cursor c = contentResolver.query(queryUri, projection, selection, selectionArgs, null);
+                if (c.moveToFirst()) {
+                    long id = c.getLong(c.getColumnIndexOrThrow(MediaStore.Images.Media._ID));
+                    Uri deleteUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
+                    contentResolver.delete(deleteUri, null, null);
+                } else {} // File not found in media store DB
+                c.close();
+            }
+        }, 1000);
     }
 }

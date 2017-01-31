@@ -55,8 +55,6 @@ public class SyncIntentSerivce extends Service {
                     syncData();
                 }
             }, 0, 20, TimeUnit.MINUTES);
-
-//            stopSelf(msg.arg1);
         }
     }
 
@@ -93,28 +91,7 @@ public class SyncIntentSerivce extends Service {
 
         Log.d(TAG, "Service Process");
 
-        if (!ConfigHelper.getInstance().ReadConfigBoolean(Constants.SYNC_RUNING, false)) {
-            OcasaService.getInstance()
-                    .sync(0, 0)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(new Subscriber<Layout>() {
-                        @Override
-                        public void onCompleted() {
-                            ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, false);
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, false);
-                        }
-
-                        @Override
-                        public void onNext(Layout layout) {
-                            Log.d(TAG, "Synchronized");
-                        }
-                    });
-        }
+//        sync();
 
         final List<Receipt> opens = new ReceiptService().getOpenReceipts(getApplicationContext());
         final int count = opens.size();
@@ -142,6 +119,27 @@ public class SyncIntentSerivce extends Service {
                     });
             Log.d(TAG, "Runing upload");
         }
+    }
+
+    private void sync() {
+        OcasaService.getInstance()
+                .sync(0, 0)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<Layout>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(Layout layout) {
+                        Log.d(TAG, "Synchronized");
+                    }
+                });
     }
 
     @Override

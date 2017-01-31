@@ -78,8 +78,6 @@ public class OcasaService {
 
     public Observable<Layout> sync(final double latitude, final double longitude){
 
-        ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, true);
-
         cacheManager.cleanLayoutColumn();
 
         return  categories()

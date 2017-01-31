@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.nfc.FormatException;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.Loader;
@@ -17,10 +18,13 @@ import com.android.ocasa.model.FieldType;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.DateTimeHelper;
+import com.android.ocasa.util.KeyboardUtil;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
+import com.android.ocasa.widget.FieldComboView;
 import com.android.ocasa.widget.FieldViewAdapter;
+import com.android.ocasa.widget.TextFieldView;
 import com.android.ocasa.widget.factory.FieldViewFactory;
 
 import java.util.Calendar;
@@ -32,12 +36,15 @@ import java.util.Map;
 /**
  * Created by ignacio on 24/10/16.
  */
-public class DetailActionFragment extends FormFragment implements AlertDialogFragment.OnAlertClickListener {
+public class DetailActionFragment extends FormFragment {
 
     static String ARG_RECEIPT_ID = "receipt_id";
     static String ARG_RECORD_ID = "record_id";
 
     public static final String EXIT_POD = "exit";
+
+    private String motivoClave = "";
+    private String motivoNombre = "";
 
     List<FieldViewModel> fields;
 
@@ -104,6 +111,27 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
                     formContainer.addView(view);
                 }
             }
+
+            // valor por defecto de MOTIVO
+            if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014")) {
+                motivoClave = field.getValue().equals("E") ? "Z4" : "Z1";
+                motivoNombre = field.getValue().equals("E") ? "ENTREGADO" : "RETIRADO";
+            }
+        }
+
+        setDefaultMotivo();
+    }
+
+    private void setDefaultMotivo() {
+        try {
+            FieldComboView comboView = (FieldComboView) formContainer.findViewWithTag("OM_MOVILNOVEDAD_C_0049");
+            comboView.setValue(motivoClave);
+            ((FieldViewAdapter) comboView.findViewWithTag("OM_MOTIVOENT_CLAVE")).setValue(motivoClave);
+            ((FieldViewAdapter) comboView.findViewWithTag("OM_MOTIVOENT_CF_0200")).setValue(motivoNombre);
+        } catch (FormatException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -114,10 +142,7 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
 
     @Override
     public void onSaveButtonClick() {
-//        AlertDialogFragment.newInstance("Continuar", "¿Desea solo guardar?", "Guardar y Enviar", "Guardar", null)
-//                .show(getChildFragmentManager(), "CloseConfirmation");
-
-        showProgress();
+        KeyboardUtil.hideKeyboard(getActivity());
         saveAndExit(true);
     }
 
@@ -126,6 +151,7 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
 
         if (validateMandatory(values)) return;
 
+        showProgress();
         getActivity().setResult(Activity.RESULT_OK, createIntentData(values, exit));
 
         // agrego los elementos de map y hora. Fueron sacados en el onFormSucces() del padre
@@ -171,20 +197,6 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
         extras.putBoolean(EXIT_POD, exit);
         i.putExtras(extras);
         return i;
-    }
-
-    @Override
-    public void onPosiviteClick(String tag) {
-        saveAndExit(true);
-    }
-
-    @Override
-    public void onNeutralClick(String tag) {
-    }
-
-    @Override
-    public void onNegativeClick(String tag) {
-        saveAndExit(false);
     }
 
     public void showProgress() {

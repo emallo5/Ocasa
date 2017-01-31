@@ -36,12 +36,10 @@ public class SyncService extends Service {
                 .subscribe(new Subscriber<Layout>() {
                     @Override
                     public void onCompleted() {
-                        ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, false);
                         stopSelf();
                     }
 

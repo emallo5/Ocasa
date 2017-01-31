@@ -35,9 +35,6 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
 
     public void sync(double latitude, double longitude){
 
-        if (ConfigHelper.getInstance().ReadConfigBoolean(Constants.SYNC_RUNING, false))
-            return;
-
         subscription = OcasaService.getInstance()
                 .sync(latitude, longitude)
                 .subscribeOn(Schedulers.io())
@@ -71,13 +68,11 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
 
         @Override
         public void onCompleted() {
-            ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, false);
         }
 
         @Override
         public void onError(Throwable e) {
             super.onError(e);
-            ConfigHelper.getInstance().WriteConfigBoolean(Constants.SYNC_RUNING, false);
             Log.v(TAG, "Sync error: " + e.getMessage());
             getView().onSyncFinish();
         }

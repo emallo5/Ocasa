@@ -109,9 +109,6 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
 
     public boolean sync() {
 
-        if (ConfigHelper.getInstance().ReadConfigBoolean(Constants.SYNC_RUNING, false))
-            return false;
-
         OcasaService.getInstance()
                 .sync(0, 0)
                 .observeOn(AndroidSchedulers.mainThread())
