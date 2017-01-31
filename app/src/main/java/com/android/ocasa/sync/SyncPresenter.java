@@ -36,7 +36,7 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
     public void sync(double latitude, double longitude){
 
         subscription = OcasaService.getInstance()
-                .sync(latitude, longitude)
+                .sync(0, 0)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subject);
