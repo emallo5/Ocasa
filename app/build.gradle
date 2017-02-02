@@ -5,7 +5,7 @@ android {
     buildToolsVersion '24.0.3'
 
     defaultConfig {
-        applicationId "com.android.ocasa"
+        applicationId "com.ocasa"
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 1
@@ -27,19 +27,19 @@ android {
         def BASE_URL = "BASE_URL"
 
         dev {
-            applicationId "com.android.ocasa.dev"
+            applicationId "com.ocasa.dev"
             resValue "string", "app_name", "Ocasa dev"
             buildConfigField "String", BASE_URL, "\"http://wsandroid.ocasa.com/\""
         }
 
         production {
-            applicationId "com.android.ocasa.app"
+            applicationId "com.ocasa.app"
             resValue "string", "app_name", "Ocasa"
             buildConfigField "String", BASE_URL, "\"http://ws1.ocasa.com/wsandroid/\""
         }
 
         local {
-            applicationId "com.android.ocasa.local"
+            applicationId "com.ocasa.local"
             resValue "string", "app_name", "Ocasa Local"
             buildConfigField "String", BASE_URL, "\"http://wsandroid.ocasa.com/\""
         }
