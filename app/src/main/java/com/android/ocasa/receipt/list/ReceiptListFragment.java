@@ -82,6 +82,12 @@ AlertDialogFragment.OnAlertClickListener{
         super.onResume();
         uploadingIds.clear();
         getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                syncReceipts();
+//            }
+//        }, 3000);
     }
 
     @Override
@@ -158,39 +164,38 @@ AlertDialogFragment.OnAlertClickListener{
             return;
 
         setTitle("Listado " + table.getName());
-
         receiptList.setAdapter(new ReceiptAdapter(table.getReceipts()));
-
-        syncReceipts();
     }
 
     private void syncReceipts() {
 
         for (int i=0; i < ((ReceiptAdapter) receiptList.getAdapter()).getReceipts().size(); i++) {
 
-            ReceiptCellViewModel receipt = ((ReceiptAdapter) receiptList.getAdapter()).getReceipts().get(i);
+            final ReceiptCellViewModel receipt = ((ReceiptAdapter) receiptList.getAdapter()).getReceipts().get(i);
             if (receipt.isOpen()) {
-                if (!uploadingIds.contains(receipt.getId())) {
-                    showProgress();
-                    uploadingIds.add(receipt.getId());
-                    getPresenter().close(receipt.getId());
-                }
+//                if (!uploadingIds.contains(receipt.getId())) {
+//                    showProgress();
+//                    uploadingIds.add(receipt.getId());
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getPresenter().close(receipt.getId());
+                        }
+                    }, i * 1000);
+//                }
             }
         }
     }
 
     @Override
     public void onCloseReceiptSuccess() {
-        hideProgress();
-
-        Handler h = new Handler();
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
-            }
-        };
-        h.postDelayed(r, 2000);
+//        hideProgress();
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+//            }
+//        }, 3000);
     }
 
     public void showProgress() {
@@ -199,7 +204,7 @@ AlertDialogFragment.OnAlertClickListener{
 
     public void hideProgress() {
         DialogFragment dialog = (DialogFragment) getChildFragmentManager().findFragmentByTag("Progress");
-        if(dialog != null) dialog.dismiss();
+        if (dialog != null) dialog.dismiss();
     }
 
     @Override

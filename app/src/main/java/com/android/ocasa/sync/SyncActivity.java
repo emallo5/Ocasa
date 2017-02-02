@@ -62,7 +62,6 @@ public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> i
     @Override
     public void onLocationLoad(Location lastLocation) {
         super.onLocationLoad(lastLocation);
-//        getPresenter().sync(0, 0);
     }
 
     @Override
@@ -77,7 +76,7 @@ public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> i
 
     @Override
     public void onSyncFinish() {
-        setSyncAlarm();
+//        setSyncAlarm();
         initSyncProcess();
         startActivity(new Intent(this, HomeActivity.class));
         finish();

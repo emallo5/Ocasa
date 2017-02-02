@@ -42,11 +42,13 @@ import com.android.ocasa.viewmodel.TableViewModel;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.functions.Func2;
 import rx.functions.Func4;
 import rx.schedulers.Schedulers;
 
@@ -420,13 +422,13 @@ public class OcasaService {
     }
 
     public Observable<Boolean> uploadReceipts(final List<Receipt> uploadReceipts) {
-        return Observable.from(uploadReceipts).flatMap(new Func1<Receipt, Observable<Boolean>>() {
-            @Override
-            public Observable<Boolean> call(Receipt receipt) {
-                upload(receipt);
 
-                return Observable.just(true);
+        return Observable.zip(Observable.from(uploadReceipts), Observable.interval(4, TimeUnit.SECONDS), new Func2<Receipt, Long, Boolean>() {
+            @Override
+            public Boolean call(Receipt receipt, Long l) {
+                upload(receipt);
+                return true;
             }
-        }).last();
+        });
     }
 }

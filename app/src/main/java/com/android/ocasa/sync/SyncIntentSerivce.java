@@ -35,6 +35,7 @@ import rx.schedulers.Schedulers;
 public class SyncIntentSerivce extends Service {
 
     public static final String TAG = "intentService";
+    public static final int MINUTES_DELAY = 5;
 
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
@@ -54,7 +55,7 @@ public class SyncIntentSerivce extends Service {
                 public void run() {
                     syncData();
                 }
-            }, 0, 20, TimeUnit.MINUTES);
+            }, 0, MINUTES_DELAY, TimeUnit.MINUTES);
         }
     }
 
@@ -117,7 +118,6 @@ public class SyncIntentSerivce extends Service {
                             Log.d(TAG, "Sync records: " + count);
                         }
                     });
-            Log.d(TAG, "Runing upload");
         }
     }
 

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
@@ -102,6 +103,9 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
     @Override
     public void onLocationChanged(Location location) {
         lastLocation = location;
+//
+//        Toast.makeText(getContext(), "Lat: " + lastLocation.getLatitude() +
+//                "\nLng: " + lastLocation.getLongitude(), Toast.LENGTH_LONG).show();
     }
 
     protected void createLocationRequest() {
@@ -119,14 +123,16 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         loadDummyLocation(CONNECTION_FAILED);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                apiClient.connect();
+            }
+        }, 2000);
     }
 
     public Location getLastLocation() {
-
-        if (lastLocation == null)
-            loadDummyLocation(PERMISSION_DENIED);
-
-//        Toast.makeText(getContext(), "Lat: " + lastLocation.getLatitude() + "\nLng: " + lastLocation.getLongitude(), Toast.LENGTH_LONG).show();
+        if (lastLocation == null) loadDummyLocation(PERMISSION_DENIED);
 
         return lastLocation;
     }
