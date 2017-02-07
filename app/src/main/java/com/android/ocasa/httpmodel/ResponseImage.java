@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by ignacio on 21/12/16.
  */
 
-public class Response {
+public class ResponseImage {
 
     @SerializedName("Status")
     int status;

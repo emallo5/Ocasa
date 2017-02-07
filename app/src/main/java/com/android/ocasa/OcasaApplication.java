@@ -21,6 +21,7 @@ import com.android.ocasa.model.Table;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.session.SessionManager;
 import com.android.ocasa.util.ConfigHelper;
+import com.android.ocasa.util.FileHelper;
 import com.android.ocasa.util.NutraBaseImageDecoder;
 import com.crittercism.app.Crittercism;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -58,10 +59,10 @@ public class OcasaApplication extends Application{
         ApiManager apiManager = new ApiManager(api);
 
         SessionManager.getInstance().init(getSharedPreferences("Session", MODE_PRIVATE));
-
         OcasaService.getInstance().init(this, apiManager, cacheManager);
 
         ConfigHelper.getInstance().init(this);
+        FileHelper.getInstance().init(this);
 
         Fresco.initialize(this);
 

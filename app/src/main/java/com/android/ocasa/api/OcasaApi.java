@@ -2,14 +2,13 @@ package com.android.ocasa.api;
 
 import com.android.ocasa.httpmodel.MediaBody;
 import com.android.ocasa.httpmodel.Menu;
-import com.android.ocasa.httpmodel.Response;
+import com.android.ocasa.httpmodel.ResponseImage;
+import com.android.ocasa.httpmodel.ResponseReceipt;
 import com.android.ocasa.httpmodel.TableRecord;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.LoginCredentials;
 import com.android.ocasa.model.Receipt;
-import com.android.ocasa.model.Table;
 
-import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -32,8 +31,8 @@ public interface OcasaApi {
     Observable<TableRecord> records(@Path("table_id") String tableId, @Query("imei") String imei, @Query("lat") double latitude, @Query("lng") double longitude);
 
     @POST("Actions.ashx")
-    Observable<Receipt> upload(@Body TableRecord records, @Query("id") String actionId, @Query("imei") String imei, @Query("lat") double latitude, @Query("lng") double longitude);
+    Observable<ResponseReceipt> upload(@Body TableRecord records, @Query("id") String actionId, @Query("imei") String imei, @Query("lat") double latitude, @Query("lng") double longitude);
 
     @POST("Images.ashx/{table_id}/file")
-    Observable<Response> uploadImage(@Body MediaBody media, @Path("table_id") String tableId, @Query("imei") String imei);
+    Observable<ResponseImage> uploadImage(@Body MediaBody media, @Path("table_id") String tableId, @Query("imei") String imei);
 }

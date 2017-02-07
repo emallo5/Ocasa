@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
-import com.android.ocasa.OcasaApplication;
 import com.android.ocasa.api.ApiManager;
 import com.android.ocasa.cache.CacheManager;
 import com.android.ocasa.cache.dao.ColumnActionDAO;
@@ -13,7 +12,8 @@ import com.android.ocasa.httpmodel.Archive;
 import com.android.ocasa.httpmodel.MediaBody;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.httpmodel.RecordArchive;
-import com.android.ocasa.httpmodel.Response;
+import com.android.ocasa.httpmodel.ResponseImage;
+import com.android.ocasa.httpmodel.ResponseReceipt;
 import com.android.ocasa.httpmodel.TableRecord;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
@@ -26,11 +26,13 @@ import com.android.ocasa.model.LayoutColumn;
 import com.android.ocasa.model.LoginCredentials;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.ReceiptItem;
+import com.android.ocasa.model.ReceiptLog;
 import com.android.ocasa.model.Record;
+import com.android.ocasa.model.UploadLog;
 import com.android.ocasa.session.SessionManager;
-import com.android.ocasa.sync.SyncIntentSerivce;
 import com.android.ocasa.util.ConfigHelper;
-import com.android.ocasa.util.Constants;
+import com.android.ocasa.util.FileHelper;
+import com.android.ocasa.util.LogHelper;
 import com.android.ocasa.util.MediaUtils;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
@@ -41,6 +43,7 @@ import com.android.ocasa.viewmodel.TableViewModel;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -58,6 +61,7 @@ import rx.schedulers.Schedulers;
 public class OcasaService {
 
     static final String TAG = "OcasaService";
+    static final String SERVICE_RESPONSE = "SERVICE RESPONSE: ";
 
     static OcasaService instance;
 
@@ -314,9 +318,13 @@ public class OcasaService {
             }
         }
 
+        Collection<ReceiptItem> list = receipt.getItems();
+        final String id = list.iterator().next().getRecord().getExternalId();
+        FileHelper.getInstance().writeToFile("record " + id);
+
         apiManager.uploadImage(receipt.getAction().getTable().getId(), body, SessionManager.getInstance().getDeviceId())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<Response>() {
+                .subscribe(new Subscriber<ResponseImage>() {
                     @Override
                     public void onCompleted() {
 
@@ -325,17 +333,20 @@ public class OcasaService {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
+                        FileHelper.getInstance().writeToFile("imgErr " + id + " by: " + e.getMessage());
                     }
 
                     @Override
-                    public void onNext(Response s) {
+                    public void onNext(ResponseImage s) {
+
+                        FileHelper.getInstance().writeToFile("imgSuc " + id + " server " + s.getDescription());
 
                         if (s.getStatus() != 0) return;
 
                         apiManager.upload(record, receipt.getAction().getId() + "|" + receipt.getAction().getTable().getId(),
                                 SessionManager.getInstance().getDeviceId(), 0, 0).retry(3)
                                 .subscribeOn(Schedulers.io())
-                                .subscribe(new Subscriber<Receipt>() {
+                                .subscribe(new Subscriber<ResponseReceipt>() {
                                     @Override
                                     public void onCompleted() {
 
@@ -343,12 +354,13 @@ public class OcasaService {
 
                                     @Override
                                     public void onError(Throwable e) {
-
+                                        e.printStackTrace();
+                                        FileHelper.getInstance().writeToFile("infErr " + id + " by: " + e.getMessage());
                                     }
 
                                     @Override
-                                    public void onNext(Receipt rec) {
-                                        Log.v(TAG, " -> Upload Receipt success: " + receipt.getNumber());
+                                    public void onNext(ResponseReceipt rec) {
+                                        FileHelper.getInstance().writeToFile("infSuc " + id + " server " + rec.getRecord());
                                         OcasaService.getInstance().updateReceiptClosed(receipt.getId());
                                     }
                                 });
@@ -400,7 +412,6 @@ public class OcasaService {
         });
     }
 
-    // TODO: tengo que llamar a este metodo cuando ESTE SEGURO de que ambos hilos del Upload fueron exitosos!!
     public void updateReceiptClosed (long receiptId) {
         ReceiptService service = new ReceiptService();
         Receipt receipt = service.findReceiptById(context, receiptId);

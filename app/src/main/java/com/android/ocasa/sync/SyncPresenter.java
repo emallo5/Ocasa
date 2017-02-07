@@ -11,6 +11,7 @@ import com.android.ocasa.session.SessionSubscriber;
 import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.Constants;
 
+import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -37,9 +38,26 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
 
         subscription = OcasaService.getInstance()
                 .sync(0, 0)
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subject);
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<Layout>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "Sync error: " + e.getMessage());
+                        getView().onSyncError();
+                    }
+
+                    @Override
+                    public void onNext(Layout layout) {
+                        Log.v(TAG, "Sync completed");
+                        getView().onSyncFinish();
+                    }
+                });
 
 //        getView().onSyncFinish();
 
@@ -49,8 +67,8 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
     @Override
     public void onAttachView(SyncView view) {
         super.onAttachView(view);
-        addSubscription(subject.asObservable()
-                .subscribe(new SyncSubscriber(this)));
+//        addSubscription(subject.asObservable()
+//                .subscribe(new SyncSubscriber(this)));
     }
 
     @Override
@@ -74,6 +92,7 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
         public void onError(Throwable e) {
             super.onError(e);
             Log.v(TAG, "Sync error: " + e.getMessage());
+
             getView().onSyncFinish();
         }
 

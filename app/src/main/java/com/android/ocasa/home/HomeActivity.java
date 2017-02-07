@@ -97,7 +97,9 @@ AlertDialogFragment.OnAlertClickListener{
             return;
         }
 
-        showExitAlert();
+        super.onBackPressed();
+
+//        showExitAlert();
     }
 
     private void showExitAlert(){

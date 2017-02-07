@@ -94,6 +94,10 @@ public class AlertDialogFragment extends DialogFragment implements DialogInterfa
         return builder.create();
     }
 
+    public void setCallback(OnAlertClickListener listener) {
+        this.callback = listener;
+    }
+
     @Override
     public void onClick(DialogInterface dialogInterface, int i) {
 

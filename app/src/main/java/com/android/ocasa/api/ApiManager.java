@@ -2,7 +2,8 @@ package com.android.ocasa.api;
 
 import com.android.ocasa.httpmodel.MediaBody;
 import com.android.ocasa.httpmodel.Menu;
-import com.android.ocasa.httpmodel.Response;
+import com.android.ocasa.httpmodel.ResponseImage;
+import com.android.ocasa.httpmodel.ResponseReceipt;
 import com.android.ocasa.httpmodel.TableRecord;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
@@ -12,8 +13,6 @@ import com.android.ocasa.model.LoginCredentials;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
-import com.android.ocasa.service.OcasaService;
-import com.android.ocasa.session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,11 +140,11 @@ public class ApiManager {
                 });
     }
 
-    public Observable<Receipt> upload(TableRecord table, String actionId, String deviceId, double latitude, double longitude){
+    public Observable<ResponseReceipt> upload(TableRecord table, String actionId, String deviceId, double latitude, double longitude){
         return api.upload(table, actionId, deviceId, latitude, longitude);
     }
 
-    public Observable<Response> uploadImage(String tableId, MediaBody body, String deviceId){
+    public Observable<ResponseImage> uploadImage(String tableId, MediaBody body, String deviceId){
         return api.uploadImage(body, tableId, deviceId);
     }
 }

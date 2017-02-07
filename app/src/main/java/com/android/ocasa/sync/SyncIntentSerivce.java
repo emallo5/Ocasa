@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Receipt;
+import com.android.ocasa.model.UploadLog;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.service.ReceiptService;
 import com.android.ocasa.util.ConfigHelper;
@@ -35,7 +36,7 @@ import rx.schedulers.Schedulers;
 public class SyncIntentSerivce extends Service {
 
     public static final String TAG = "intentService";
-    public static final int MINUTES_DELAY = 5;
+    public static final int MINUTES_DELAY = 1;
 
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
@@ -90,7 +91,7 @@ public class SyncIntentSerivce extends Service {
 
         if (!ConnectionUtil.isInternetAvailable(getApplicationContext())) return;
 
-        Log.d(TAG, "Service Process");
+        Log.d(TAG, "Service Process Log: " + ConfigHelper.getInstance().ReadConfig(UploadLog.TAG));
 
 //        sync();
 

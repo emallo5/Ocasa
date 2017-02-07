@@ -9,4 +9,5 @@ import com.codika.androidmvp.view.BaseView;
 public interface SyncView extends SessionView {
 
     void onSyncFinish();
+    void onSyncError();
 }

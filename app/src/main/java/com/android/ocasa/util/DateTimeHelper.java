@@ -17,7 +17,7 @@ public class DateTimeHelper {
     private static final String SERVER_DATE_PATTERN = "yyyy/MM/dd";
     private static final String DATE_PATTERN = "dd/MM/yyyy";
     private static final String TIME_PATTERN = "HH:mm:ss";
-    private static final String DATETIME_PATTERN = "dd/MM/yyyy HH:mm";
+    private static final String DATETIME_PATTERN = "dd/MM/yyyy HH:mm:ss";
 
     public static Date serverParseDate(String date){
 

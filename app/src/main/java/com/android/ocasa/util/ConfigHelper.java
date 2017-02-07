@@ -100,8 +100,10 @@ public class ConfigHelper {
         try {
             SharedPreferences preferences = PreferenceManager
                     .getDefaultSharedPreferences(context);
+            String v = preferences.getString(KeyName, "");
 
-            return new Gson().fromJson(preferences.getString(KeyName, ""), KeyValue);
+            if (v.isEmpty()) return null;
+            return new Gson().fromJson(v, KeyValue);
 
         } catch (Exception e) {
             return null;

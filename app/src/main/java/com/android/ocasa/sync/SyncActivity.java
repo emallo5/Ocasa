@@ -16,7 +16,9 @@ import android.widget.Toast;
 import com.android.ocasa.R;
 import com.android.ocasa.core.LocationMvpActivity;
 import com.android.ocasa.home.HomeActivity;
+import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConfigHelper;
+import com.android.ocasa.util.ConnectionUtil;
 import com.codika.androidmvp.activity.BaseMvpActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
@@ -51,7 +53,11 @@ public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> i
     @Override
     public void onResume() {
         super.onResume();
-        getPresenter().sync(0, 0);
+
+        if (!ConnectionUtil.isInternetAvailable(this)) {
+            onSyncFinish();
+            Toast.makeText(this, "Verificar conexion a internet!", Toast.LENGTH_SHORT).show();
+        } else getPresenter().sync(0, 0);
     }
 
     @Override
@@ -76,10 +82,31 @@ public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> i
 
     @Override
     public void onSyncFinish() {
-//        setSyncAlarm();
         initSyncProcess();
         startActivity(new Intent(this, HomeActivity.class));
         finish();
+    }
+
+    @Override
+    public void onSyncError() {
+        AlertDialogFragment alert = AlertDialogFragment.newInstance("Error", "La aplicación no pudo descargar los ultimos datos, trabajará offline", "Aceptar", null, null);
+        alert.setCallback(new AlertDialogFragment.OnAlertClickListener() {
+            @Override
+            public void onPosiviteClick(String tag) {
+                initSyncProcess();
+                startActivity(new Intent(SyncActivity.this, HomeActivity.class));
+                finish();
+            }
+            @Override
+            public void onNeutralClick(String tag) {}
+            @Override
+            public void onNegativeClick(String tag) {
+                initSyncProcess();
+                startActivity(new Intent(SyncActivity.this, HomeActivity.class));
+                finish();
+            }
+        });
+        alert.show(getSupportFragmentManager(), "error");
     }
 
     private void initSyncProcess() {
