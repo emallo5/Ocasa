@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.ocasa.R;
 import com.android.ocasa.loginflow.password.ForgotPassWordActivity;
@@ -39,6 +40,7 @@ import com.codika.androidmvp.fragment.BaseMvpFragment;
 public class LoginFragment extends BaseMvpFragment<LoginView, LoginPresenter> implements LoginView{
 
     static final int REQUEST_READ_PHONE_STATE = 1000;
+    static final int REQUEST_WRITE_STORAGE = 1001;
 
     private RelativeLayout container;
     private EditText userText;
@@ -98,9 +100,9 @@ public class LoginFragment extends BaseMvpFragment<LoginView, LoginPresenter> im
     private void loadImei() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE},
+            requestPermissions(new String[] {Manifest.permission.READ_PHONE_STATE},
                     REQUEST_READ_PHONE_STATE);
-        }else{
+        } else {
             TelephonyManager mngr = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
             if (mngr.getDeviceId() != null){
                 deviceId = mngr.getDeviceId();
@@ -108,6 +110,12 @@ public class LoginFragment extends BaseMvpFragment<LoginView, LoginPresenter> im
                 deviceId = Settings.Secure.getString(getActivity().getApplicationContext().getContentResolver(),
                         Settings.Secure.ANDROID_ID);
             }
+        }
+
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_WRITE_STORAGE);
         }
     }
 
@@ -118,6 +126,13 @@ public class LoginFragment extends BaseMvpFragment<LoginView, LoginPresenter> im
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 loadImei();
+            }
+        }
+
+        if(requestCode == REQUEST_WRITE_STORAGE){
+            if (grantResults.length > 0
+                    && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getActivity(), "No podrá crearse el Log", Toast.LENGTH_SHORT).show();
             }
         }
     }

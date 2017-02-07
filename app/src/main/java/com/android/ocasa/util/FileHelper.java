@@ -35,11 +35,16 @@ public class FileHelper {
 
     public void init (Context context) {
         this.context = context;
-        File path = context.getExternalFilesDir(null);
-        file = new File(path, FILE);
+        try {
+            File path = context.getExternalFilesDir(null);
+            file = new File(path, FILE);
+        } catch (Exception e) {
+            file = null;
+        }
     }
 
     public void writeToFile(String data) {
+        if (file == null) return;
         try {
             String date = DateTimeHelper.formatDateTime(new Date());
             date += " " + data + "\n";

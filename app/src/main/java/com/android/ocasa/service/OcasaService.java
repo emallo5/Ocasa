@@ -438,6 +438,7 @@ public class OcasaService {
             @Override
             public Boolean call(Receipt receipt, Long l) {
                 upload(receipt);
+                Log.d(TAG, "Sync record: " + receipt.getId());
                 return true;
             }
         });

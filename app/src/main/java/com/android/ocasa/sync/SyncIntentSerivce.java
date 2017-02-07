@@ -91,7 +91,7 @@ public class SyncIntentSerivce extends Service {
 
         if (!ConnectionUtil.isInternetAvailable(getApplicationContext())) return;
 
-        Log.d(TAG, "Service Process Log: " + ConfigHelper.getInstance().ReadConfig(UploadLog.TAG));
+        Log.d(TAG, "Service Process");
 
 //        sync();
 
@@ -116,7 +116,6 @@ public class SyncIntentSerivce extends Service {
 
                         @Override
                         public void onNext(Boolean aBoolean) {
-                            Log.d(TAG, "Sync records: " + count);
                         }
                     });
         }
