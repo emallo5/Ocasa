@@ -10,6 +10,7 @@ public interface SettingsView extends BaseView {
 
     void notConnection();
     void onSyncSuccess();
+    void onSyncError();
     void onLogoutSuccess();
     void canLogout();
     void needUpload();

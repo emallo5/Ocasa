@@ -40,24 +40,7 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
                 .sync(0, 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<Layout>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "Sync error: " + e.getMessage());
-                        getView().onSyncError();
-                    }
-
-                    @Override
-                    public void onNext(Layout layout) {
-                        Log.v(TAG, "Sync completed");
-                        getView().onSyncFinish();
-                    }
-                });
+                .subscribe(subject);
 
 //        getView().onSyncFinish();
 
@@ -67,8 +50,8 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
     @Override
     public void onAttachView(SyncView view) {
         super.onAttachView(view);
-//        addSubscription(subject.asObservable()
-//                .subscribe(new SyncSubscriber(this)));
+        addSubscription(subject.asObservable()
+                .subscribe(new SyncSubscriber(this)));
     }
 
     @Override
@@ -91,9 +74,8 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
         @Override
         public void onError(Throwable e) {
             super.onError(e);
-            Log.v(TAG, "Sync error: " + e.getMessage());
-
-            getView().onSyncFinish();
+            Log.e(TAG, "Sync error: " + e.getMessage());
+            getView().onSyncError();
         }
 
         @Override

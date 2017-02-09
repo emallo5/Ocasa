@@ -67,12 +67,13 @@ public class ReceiptAdapter extends BaseAdapter {
         ReceiptCellViewModel receipt = receipts.get(position);
 
         holder.id = receipt.getId();
+        holder.open = receipt.isOpen();
 
-        if (receipt.isOpen()) {
-            view.setBackgroundColor(Color.parseColor("#9E9E9E"));
-        } else {
-            view.setBackgroundColor(Color.TRANSPARENT);
-        }
+//        if (receipt.isOpen()) {
+//            view.setBackgroundColor(Color.parseColor("#9E9E9E"));
+//        } else {
+//            view.setBackgroundColor(Color.TRANSPARENT);
+//        }
 
         List<FieldViewModel> fields = receipt.getFields();
 
@@ -82,9 +83,9 @@ public class ReceiptAdapter extends BaseAdapter {
         }
 
         if (receipt.isOpen()) {
-            holder.more.setVisibility(View.VISIBLE);
+            holder.more.setBackgroundResource(R.drawable.ic_cloud_off_black_24dp);
         } else {
-            holder.more.setVisibility(View.GONE);
+            holder.more.setBackgroundResource(R.drawable.ic_cloud_done_black_24dp);
         }
 
         return view;
@@ -101,6 +102,7 @@ public class ReceiptAdapter extends BaseAdapter {
         ImageView more;
 
         long id;
+        boolean open = true;
 
         public RecordHolder(View view, int fieldCount){
 
@@ -120,7 +122,8 @@ public class ReceiptAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-            showMenu();
+            if (open)
+                showMenu();
         }
 
         private void showMenu(){

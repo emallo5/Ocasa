@@ -64,8 +64,12 @@ AlertDialogFragment.OnAlertClickListener{
         sync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getPresenter().sync())
+                if (!ConnectionUtil.isInternetAvailable(SettingsActivity.this))
+                    Toast.makeText(SettingsActivity.this, "Chequee su conexión a internet", Toast.LENGTH_SHORT).show();
+                else {
                     showProgress();
+                    getPresenter().sync();
+                }
             }
         });
     }
@@ -110,6 +114,12 @@ AlertDialogFragment.OnAlertClickListener{
     public void onSyncSuccess() {
         hideProgress();
         Toast.makeText(this, "Sincronizado exitosamente", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSyncError() {
+        hideProgress();
+        Toast.makeText(this, "Error al sincronizar, intente mas tarde", Toast.LENGTH_SHORT).show();
     }
 
     @Override

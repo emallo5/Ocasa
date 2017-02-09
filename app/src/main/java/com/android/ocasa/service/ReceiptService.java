@@ -43,6 +43,7 @@ import com.android.ocasa.viewmodel.ReceiptTableViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -134,21 +135,40 @@ public class ReceiptService{
 
             List<FieldViewModel> fieldViewModels = new ArrayList<>();
 
-            FieldViewModel id = new FieldViewModel();
-            id.setValue(String.valueOf(receipt.getId()));
-            id.setLabel("Id");
-            id.setType(FieldType.TEXT);
+//            FieldViewModel id = new FieldViewModel();
+//            id.setValue(String.valueOf(receipt.getId()));
+//            id.setLabel("Id");
+//            id.setType(FieldType.TEXT);
+//
+//            fieldViewModels.add(id);
+//
+//            int itemsCount = new ReceiptItemDAO(context).countItemsForReceipt(receipt.getId());
+//
+//            FieldViewModel items = new FieldViewModel();
+//            items.setValue(String.valueOf(itemsCount));
+//            items.setLabel(receipt.getAction().getTable().getName());
+//            items.setType(FieldType.TEXT);
+//
+//            fieldViewModels.add(items);
 
-            fieldViewModels.add(id);
+            for (ReceiptItem item : receipt.getItems()) {
+                Collection<Field> fields = item.getRecord().getFields();
 
-            int itemsCount = new ReceiptItemDAO(context).countItemsForReceipt(receipt.getId());
+                for (Field recordField : fields) {
 
-            FieldViewModel items = new FieldViewModel();
-            items.setValue(String.valueOf(itemsCount));
-            items.setLabel(receipt.getAction().getTable().getName());
-            items.setType(FieldType.TEXT);
+                    if (recordField.getColumn().getId().equals("OM_MOVILNOVEDAD_CF_0200") ||
+                            recordField.getColumn().getId().equals("OM_MOVILNOVEDAD_C_0049")) {
 
-            fieldViewModels.add(items);
+                        FieldViewModel field = new FieldViewModel();
+                        field.setValue(recordField.getValue());
+                        field.setLabel(recordField.getColumn().getName());
+                        field.setType(recordField.getColumn().getFieldType());
+                        field.setTag(String.valueOf(recordField.getColumn().getId()));
+
+                        fieldViewModels.add(field);
+                    }
+                }
+            }
 
             for (Field headerField : receipt.getHeaderValues()) {
 

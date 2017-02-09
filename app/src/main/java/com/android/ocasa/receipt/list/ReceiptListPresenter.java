@@ -54,6 +54,7 @@ public class ReceiptListPresenter extends BasePresenter<ReceiptListView> {
 
                     @Override
                     public void onError(Throwable e) {
+                        getView().onCloseReceiptSuccess();
                     }
 
                     @Override

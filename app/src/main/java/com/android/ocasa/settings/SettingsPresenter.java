@@ -1,6 +1,7 @@
 package com.android.ocasa.settings;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Receipt;
@@ -107,7 +108,7 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
                 });
     }
 
-    public boolean sync() {
+    public void sync() {
 
         OcasaService.getInstance()
                 .sync(0, 0)
@@ -121,6 +122,7 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
 
                     @Override
                     public void onError(Throwable e) {
+                        getView().onSyncError();
                     }
 
                     @Override
@@ -128,8 +130,6 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
                         getView().onSyncSuccess();
                     }
                 });
-
-        return true;
     }
 
 }

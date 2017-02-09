@@ -360,7 +360,7 @@ public class OcasaService {
 
                                     @Override
                                     public void onNext(ResponseReceipt rec) {
-                                        FileHelper.getInstance().writeToFile("infSuc " + id + " server " + rec.getRecord());
+                                        FileHelper.getInstance().writeToFile("infSuc " + id + " server " + rec.getId());
                                         OcasaService.getInstance().updateReceiptClosed(receipt.getId());
                                     }
                                 });

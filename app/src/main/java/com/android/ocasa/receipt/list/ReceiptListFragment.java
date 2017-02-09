@@ -11,7 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.ocasa.R;
@@ -46,7 +49,9 @@ AlertDialogFragment.OnAlertClickListener{
 
     private ListView receiptList;
     private FloatingActionButton addButton;
-    private ArrayList<Long> uploadingIds = new ArrayList<>();
+    private Button btnRefresh;
+    private TextView tvCountDone;
+    private TextView tvCountUndone;
 
     public static ReceiptListFragment newInstance(String actionId) {
 
@@ -80,14 +85,7 @@ AlertDialogFragment.OnAlertClickListener{
     @Override
     public void onResume() {
         super.onResume();
-        uploadingIds.clear();
         getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                syncReceipts();
-//            }
-//        }, 3000);
     }
 
     @Override
@@ -108,8 +106,10 @@ AlertDialogFragment.OnAlertClickListener{
 
     private void initControls(View view){
         receiptList = (ListView) view.findViewById(android.R.id.list);
-
         addButton = (FloatingActionButton) view.findViewById(R.id.add);
+        btnRefresh = (Button) view.findViewById(R.id.iv_refresh);
+        tvCountDone = (TextView) view.findViewById(R.id.tv_pod_count_done);
+        tvCountUndone = (TextView) view.findViewById(R.id.tv_pod_count_undone);
     }
 
     private void setListeners() {
@@ -142,6 +142,13 @@ AlertDialogFragment.OnAlertClickListener{
                 ((BaseActivity) getActivity()).startNewActivity(intent);
             }
         });
+
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+            }
+        });
     }
 
     public void setTitle(String title){
@@ -165,6 +172,22 @@ AlertDialogFragment.OnAlertClickListener{
 
         setTitle("Listado " + table.getName());
         receiptList.setAdapter(new ReceiptAdapter(table.getReceipts()));
+        updateCounters(table.getReceipts());
+    }
+
+    private void updateCounters (List<ReceiptCellViewModel> receipts) {
+        int opened = 0;
+        int closed = 0;
+
+        for (ReceiptCellViewModel r : receipts) {
+            if (r.isOpen())
+                opened++;
+            else
+                closed++;
+        }
+
+        tvCountDone.setText(" : " + closed);
+        tvCountUndone.setText(" : " + opened);
     }
 
     private void syncReceipts() {
@@ -173,9 +196,6 @@ AlertDialogFragment.OnAlertClickListener{
 
             final ReceiptCellViewModel receipt = ((ReceiptAdapter) receiptList.getAdapter()).getReceipts().get(i);
             if (receipt.isOpen()) {
-//                if (!uploadingIds.contains(receipt.getId())) {
-//                    showProgress();
-//                    uploadingIds.add(receipt.getId());
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -189,13 +209,8 @@ AlertDialogFragment.OnAlertClickListener{
 
     @Override
     public void onCloseReceiptSuccess() {
-//        hideProgress();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
-//            }
-//        }, 3000);
+        hideProgress();
+        getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
     }
 
     public void showProgress() {
@@ -214,7 +229,6 @@ AlertDialogFragment.OnAlertClickListener{
         Receipt receipt = service.findReceiptById(getContext(), receiptId);
 
         if (receipt.isOpen()) {
-            uploadingIds.add(receiptId);
             getPresenter().close(receiptId);
             showProgress();
         } else

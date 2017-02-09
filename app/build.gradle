@@ -9,7 +9,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 1
-        versionName "1.1.1"
+        versionName "1.1.2"
         multiDexEnabled true
     }
     lintOptions{
@@ -34,7 +34,7 @@ android {
 
         production {
             applicationId "com.ocasa.app"
-            resValue "string", "app_name", "Ocasa"
+            resValue "string", "app_name", "OCASA"
             buildConfigField "String", BASE_URL, "\"http://ws1.ocasa.com/wsandroid/\""
         }
 
