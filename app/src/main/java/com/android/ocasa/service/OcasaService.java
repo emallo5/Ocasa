@@ -30,6 +30,7 @@ import com.android.ocasa.model.ReceiptLog;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.UploadLog;
 import com.android.ocasa.session.SessionManager;
+import com.android.ocasa.sync.SyncIntentSerivce;
 import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.FileHelper;
 import com.android.ocasa.util.LogHelper;
@@ -438,7 +439,7 @@ public class OcasaService {
             @Override
             public Boolean call(Receipt receipt, Long l) {
                 upload(receipt);
-                Log.d(TAG, "Sync record: " + receipt.getId());
+                Log.d(SyncIntentSerivce.TAG, "Sync record: " + receipt.getId());
                 return true;
             }
         });

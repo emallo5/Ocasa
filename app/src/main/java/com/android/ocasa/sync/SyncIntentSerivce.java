@@ -36,7 +36,7 @@ import rx.schedulers.Schedulers;
 public class SyncIntentSerivce extends Service {
 
     public static final String TAG = "intentService";
-    public static final int MINUTES_DELAY = 1;
+    public static final int MINUTES_DELAY = 3;
 
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
