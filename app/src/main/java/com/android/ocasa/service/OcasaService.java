@@ -320,7 +320,7 @@ public class OcasaService {
 
         Collection<ReceiptItem> list = receipt.getItems();
         final String id = list.iterator().next().getRecord().getExternalId();
-        FileHelper.getInstance().writeToFile("record " + id);
+        FileHelper.getInstance().writeToFile("record " + id.substring(27, 31));
 
         apiManager.uploadImage(receipt.getAction().getTable().getId(), body, SessionManager.getInstance().getDeviceId())
                 .subscribeOn(Schedulers.io())
@@ -333,13 +333,13 @@ public class OcasaService {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        FileHelper.getInstance().writeToFile("imgErr " + id + " by: " + e.getMessage());
+                        FileHelper.getInstance().writeToFile("imgErr " + id.substring(27, 31) + " by: " + e.getMessage());
                     }
 
                     @Override
                     public void onNext(ResponseImage s) {
 
-                        FileHelper.getInstance().writeToFile("imgSuc " + id + " server " + s.getDescription());
+                        FileHelper.getInstance().writeToFile("imgSuc " + id.substring(27, 31) + " server " + s.getDescription().substring(27, 31));
 
                         if (s.getStatus() != 0) return;
 
@@ -355,12 +355,12 @@ public class OcasaService {
                                     @Override
                                     public void onError(Throwable e) {
                                         e.printStackTrace();
-                                        FileHelper.getInstance().writeToFile("infErr " + id + " by: " + e.getMessage());
+                                        FileHelper.getInstance().writeToFile("infErr " + id.substring(27, 31) + " by: " + e.getMessage());
                                     }
 
                                     @Override
                                     public void onNext(ResponseReceipt rec) {
-                                        FileHelper.getInstance().writeToFile("infSuc " + id + " server " + rec.getId());
+                                        FileHelper.getInstance().writeToFile("infSuc " + id.substring(27, 31) + " server " + rec.getId().substring(27, 31));
                                         OcasaService.getInstance().updateReceiptClosed(receipt.getId());
                                     }
                                 });
@@ -434,7 +434,7 @@ public class OcasaService {
 
     public Observable<Boolean> uploadReceipts(final List<Receipt> uploadReceipts) {
 
-        return Observable.zip(Observable.from(uploadReceipts), Observable.interval(4, TimeUnit.SECONDS), new Func2<Receipt, Long, Boolean>() {
+        return Observable.zip(Observable.from(uploadReceipts), Observable.interval(3, TimeUnit.SECONDS), new Func2<Receipt, Long, Boolean>() {
             @Override
             public Boolean call(Receipt receipt, Long l) {
                 upload(receipt);

@@ -97,13 +97,14 @@ AlertDialogFragment.OnAlertClickListener{
 
     }
 
-    private void showProgress(){
-        ProgressDialogFragment.newInstance("Sincronizando").show(getSupportFragmentManager(), "Sync");
+    private void showProgress() {
+        ProgressDialogFragment pdf = ProgressDialogFragment.newInstance("Sincronizando...");
+        pdf.setCancelable(false);
+        pdf.show(getSupportFragmentManager(), "Sync");
     }
 
-    private void hideProgress(){
-        DialogFragment syncDialog =
-                (DialogFragment) getSupportFragmentManager().findFragmentByTag("Sync");
+    private void hideProgress() {
+        DialogFragment syncDialog = (DialogFragment) getSupportFragmentManager().findFragmentByTag("Sync");
         if(syncDialog != null){
             syncDialog.dismiss();
         }
