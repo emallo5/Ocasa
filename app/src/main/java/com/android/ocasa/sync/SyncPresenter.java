@@ -28,23 +28,17 @@ public class SyncPresenter extends SessionPresenter<SyncView> {
 
     private AsyncSubject<Layout> subject;
 
-    private boolean isSyncing = false;
-
     public SyncPresenter() {
         subject = AsyncSubject.create();
     }
 
-    public void sync(double latitude, double longitude){
+    public void sync() {
 
         subscription = OcasaService.getInstance()
                 .sync(0, 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(subject);
-
-//        getView().onSyncFinish();
-
-        isSyncing = true;
     }
 
     @Override

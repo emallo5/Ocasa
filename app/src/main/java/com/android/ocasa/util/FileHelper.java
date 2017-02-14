@@ -22,7 +22,6 @@ import static android.content.Context.MODE_APPEND;
 public class FileHelper {
 
     private static FileHelper instance;
-    private Context context;
     private String FILE = "ocasa_log.txt";
     private File file;
 
@@ -34,7 +33,6 @@ public class FileHelper {
     }
 
     public void init (Context context) {
-        this.context = context;
         try {
             File path = context.getExternalFilesDir(null);
             file = new File(path, FILE);

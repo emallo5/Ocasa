@@ -26,14 +26,10 @@ import com.android.ocasa.model.LayoutColumn;
 import com.android.ocasa.model.LoginCredentials;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.ReceiptItem;
-import com.android.ocasa.model.ReceiptLog;
 import com.android.ocasa.model.Record;
-import com.android.ocasa.model.UploadLog;
 import com.android.ocasa.session.SessionManager;
 import com.android.ocasa.sync.SyncIntentSerivce;
-import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.FileHelper;
-import com.android.ocasa.util.LogHelper;
 import com.android.ocasa.util.MediaUtils;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
@@ -86,6 +82,8 @@ public class OcasaService {
     public Observable<Layout> sync(final double latitude, final double longitude){
 
         cacheManager.cleanLayoutColumn();
+
+        Log.d(TAG, "Init SYNC");
 
         return  categories()
                 .flatMap(new Func1<Category, Observable<Layout>>() {
@@ -293,9 +291,6 @@ public class OcasaService {
 
         record.setRecords(records);
 
-        // aca iba el upload de la api.. lo meto en el onNext() de las imagenes
-
-
         MediaBody body = new MediaBody();
 
         for (Field media : mediaFiles) {
@@ -323,7 +318,14 @@ public class OcasaService {
         final String id = list.iterator().next().getRecord().getExternalId();
         FileHelper.getInstance().writeToFile("record " + id.substring(27, 31));
 
-        apiManager.uploadImage(receipt.getAction().getTable().getId(), body, SessionManager.getInstance().getDeviceId())
+        if (mediaFiles.size() > 0)
+            uploadImages(receipt.getAction().getTable().getId(), body, record, receipt, id);
+        else
+            uploadInfo(record, receipt, id);
+    }
+
+    private void uploadImages(String tableId, MediaBody body, final TableRecord record, final Receipt receipt, final String id) {
+        apiManager.uploadImage(tableId, body, SessionManager.getInstance().getDeviceId())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<ResponseImage>() {
                     @Override
@@ -344,27 +346,32 @@ public class OcasaService {
 
                         if (s.getStatus() != 0) return;
 
-                        apiManager.upload(record, receipt.getAction().getId() + "|" + receipt.getAction().getTable().getId(),
-                                SessionManager.getInstance().getDeviceId(), 0, 0).retry(3)
-                                .subscribeOn(Schedulers.io())
-                                .subscribe(new Subscriber<ResponseReceipt>() {
-                                    @Override
-                                    public void onCompleted() {
+                        uploadInfo(record, receipt, id);
+                    }
+                });
 
-                                    }
+    }
 
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        e.printStackTrace();
-                                        FileHelper.getInstance().writeToFile("infErr " + id.substring(27, 31) + " by: " + e.getMessage());
-                                    }
+    private void uploadInfo(TableRecord record, final Receipt receipt, final String id) {
+        apiManager.upload(record, receipt.getAction().getId() + "|" + receipt.getAction().getTable().getId(),
+                SessionManager.getInstance().getDeviceId(), 0, 0).retry(3)
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<ResponseReceipt>() {
+                    @Override
+                    public void onCompleted() {
 
-                                    @Override
-                                    public void onNext(ResponseReceipt rec) {
-                                        FileHelper.getInstance().writeToFile("infSuc " + id.substring(27, 31) + " server " + rec.getId().substring(27, 31));
-                                        OcasaService.getInstance().updateReceiptClosed(receipt.getId());
-                                    }
-                                });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        FileHelper.getInstance().writeToFile("infErr " + id.substring(27, 31) + " by: " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(ResponseReceipt rec) {
+                        FileHelper.getInstance().writeToFile("infSuc " + id.substring(27, 31) + " server " + rec.getId().substring(27, 31));
+                        OcasaService.getInstance().updateReceiptClosed(receipt.getId());
                     }
                 });
     }

@@ -24,11 +24,15 @@ public interface OcasaApi {
     @POST("Login.ashx")
     Observable<Menu> login(@Body LoginCredentials credentials, @Query("imei") String imei);
 
+
+
     @GET("Tables.ashx/{table_id}/columns")
     Observable<Layout> columns(@Path("table_id") String tableId, @Query("imei") String imei, @Query("lat") double latitude, @Query("lng") double longitude);
 
     @GET("Tables.ashx/{table_id}/records")
     Observable<TableRecord> records(@Path("table_id") String tableId, @Query("imei") String imei, @Query("lat") double latitude, @Query("lng") double longitude);
+
+
 
     @POST("Actions.ashx")
     Observable<ResponseReceipt> upload(@Body TableRecord records, @Query("id") String actionId, @Query("imei") String imei, @Query("lat") double latitude, @Query("lng") double longitude);

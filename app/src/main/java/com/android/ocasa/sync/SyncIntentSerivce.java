@@ -93,8 +93,6 @@ public class SyncIntentSerivce extends Service {
 
         Log.d(TAG, "Service Process");
 
-//        sync();
-
         final List<Receipt> opens = new ReceiptService().getOpenReceipts(getApplicationContext());
         final int count = opens.size();
 
@@ -119,27 +117,6 @@ public class SyncIntentSerivce extends Service {
                         }
                     });
         }
-    }
-
-    private void sync() {
-        OcasaService.getInstance()
-                .sync(0, 0)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<Layout>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onNext(Layout layout) {
-                        Log.d(TAG, "Synchronized");
-                    }
-                });
     }
 
     @Override

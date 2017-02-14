@@ -17,16 +17,11 @@ import com.android.ocasa.R;
 import com.android.ocasa.core.LocationMvpActivity;
 import com.android.ocasa.home.HomeActivity;
 import com.android.ocasa.util.AlertDialogFragment;
-import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.ConnectionUtil;
-import com.codika.androidmvp.activity.BaseMvpActivity;
+import com.android.ocasa.util.SyncUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ignacio on 21/06/16.
@@ -57,7 +52,7 @@ public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> i
         if (!ConnectionUtil.isInternetAvailable(this)) {
             onSyncFinish();
             Toast.makeText(this, "Verificar conexion a internet!", Toast.LENGTH_SHORT).show();
-        } else getPresenter().sync(0, 0);
+        } else getPresenter().sync();
     }
 
     @Override
@@ -83,6 +78,8 @@ public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> i
     @Override
     public void onSyncFinish() {
         initSyncProcess();
+        if (SyncUtil.getInstance().wasError())
+            AlertDialogFragment.newInstance("Atención!", "La sincronización falló por problemas de señal, vuelva a intentarlo.").show(getSupportFragmentManager(), "error");
         startActivity(new Intent(this, HomeActivity.class));
         finish();
     }
@@ -126,16 +123,16 @@ public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> i
         return false;
     }
 
-    private void setSyncAlarm(){
+    private void setSyncAlarm() {
 
-        Intent syncIntent = new Intent(this, SyncService.class);
-
-        PendingIntent pendingIntent = PendingIntent.getService(this, 0, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + FIVE_MINUTES,
-                FIVE_MINUTES,
-                pendingIntent);
+//        Intent syncIntent = new Intent(this, SyncService.class);
+//
+//        PendingIntent pendingIntent = PendingIntent.getService(this, 0, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+//                SystemClock.elapsedRealtime() + FIVE_MINUTES,
+//                FIVE_MINUTES,
+//                pendingIntent);
     }
 }

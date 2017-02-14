@@ -19,6 +19,7 @@ import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.ConnectionUtil;
 import com.android.ocasa.util.ProgressDialogFragment;
+import com.android.ocasa.util.SyncUtil;
 import com.codika.androidmvp.activity.BaseMvpActivity;
 
 /**
@@ -114,7 +115,10 @@ AlertDialogFragment.OnAlertClickListener{
     @Override
     public void onSyncSuccess() {
         hideProgress();
-        Toast.makeText(this, "Sincronizado exitosamente", Toast.LENGTH_SHORT).show();
+        if (SyncUtil.getInstance().wasError())
+            AlertDialogFragment.newInstance("Atención!", "La sincronización falló por problemas de señal, vuelva a intentarlo.").show(getSupportFragmentManager(), "error");
+        else
+            Toast.makeText(this, "Sincronizado exitosamente", Toast.LENGTH_SHORT).show();
     }
 
     @Override

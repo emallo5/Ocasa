@@ -29,25 +29,25 @@ public class SyncService extends Service {
 
         Log.v(TAG, "Start syncing");
 
-        OcasaService.getInstance()
-                .sync(0, 0)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<Layout>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        stopSelf();
-                    }
-
-                    @Override
-                    public void onNext(Layout httpTable) {
-                        stopSelf();
-                    }
-                });
+//        OcasaService.getInstance()
+//                .sync(0, 0)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(new Subscriber<Layout>() {
+//                    @Override
+//                    public void onCompleted() {
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        stopSelf();
+//                    }
+//
+//                    @Override
+//                    public void onNext(Layout httpTable) {
+//                        stopSelf();
+//                    }
+//                });
 
         return START_NOT_STICKY;
     }
