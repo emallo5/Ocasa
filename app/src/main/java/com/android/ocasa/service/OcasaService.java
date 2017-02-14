@@ -318,7 +318,7 @@ public class OcasaService {
         final String id = list.iterator().next().getRecord().getExternalId();
         FileHelper.getInstance().writeToFile("record " + id.substring(27, 31));
 
-        if (mediaFiles.size() > 0)
+        if (body.getRecord() != null)
             uploadImages(receipt.getAction().getTable().getId(), body, record, receipt, id);
         else
             uploadInfo(record, receipt, id);
