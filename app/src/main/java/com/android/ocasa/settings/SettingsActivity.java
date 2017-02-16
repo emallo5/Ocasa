@@ -166,6 +166,7 @@ AlertDialogFragment.OnAlertClickListener{
         Intent loginIntent = new Intent(this, LoginFlowActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
+        finish();
     }
 
     @Override

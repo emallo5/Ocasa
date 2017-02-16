@@ -94,7 +94,7 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
         body.setImei(SessionManager.getInstance().getDeviceId());
 
         OcasaService.getInstance()
-                .logout(body)
+                .logout(body).retry(5)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<GenericResponse>() {
@@ -110,7 +110,24 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
 
                     @Override
                     public void onNext(GenericResponse response) {
-                        getView().onLogoutSuccess();
+                        OcasaService.getInstance().cleanDB().observeOn(AndroidSchedulers.mainThread())
+                                .subscribeOn(Schedulers.io())
+                                .subscribe(new Subscriber<Void>() {
+                                    @Override
+                                    public void onCompleted() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(Void aVoid) {
+                                        getView().onLogoutSuccess();
+                                    }
+                                });
                     }
                 });
     }

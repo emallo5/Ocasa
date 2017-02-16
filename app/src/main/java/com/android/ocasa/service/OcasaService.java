@@ -391,13 +391,11 @@ public class OcasaService {
     }
 
     public Observable<GenericResponse> logout(LogOutBody body) {
-        return apiManager.logout(body)
-                .doOnNext(new Action1<GenericResponse>() {
-                    @Override
-                    public void call(GenericResponse response) {
-                        cacheManager.cleanDb(context);
-                    }
-                });
+        return apiManager.logout(body);
+    }
+
+    public Observable<Void> cleanDB() {
+        return cacheManager.cleanDb(context);
     }
 
     public Observable<ControlResponse> controlSync (ControlBody body) {
