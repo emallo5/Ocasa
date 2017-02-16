@@ -1,5 +1,9 @@
 package com.android.ocasa.api;
 
+import com.android.ocasa.httpmodel.ControlBody;
+import com.android.ocasa.httpmodel.ControlResponse;
+import com.android.ocasa.httpmodel.GenericResponse;
+import com.android.ocasa.httpmodel.LogOutBody;
 import com.android.ocasa.httpmodel.MediaBody;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.httpmodel.ResponseImage;
@@ -36,6 +40,14 @@ public class ApiManager {
 
     public Observable<Menu> login(LoginCredentials credentials){
         return api.login(credentials, credentials.getImei());
+    }
+
+    public Observable<GenericResponse> logout (LogOutBody body) {
+        return api.logout(body);
+    }
+
+    public Observable<ControlResponse> controlSync (ControlBody body) {
+        return api.controlSync(body);
     }
 
     public Observable<ResponseReceipt> upload(TableRecord table, String actionId, String deviceId, double latitude, double longitude){

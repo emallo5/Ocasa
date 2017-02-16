@@ -129,6 +129,7 @@ AlertDialogFragment.OnAlertClickListener{
 
     @Override
     public void onLogoutSuccess() {
+        stopSyncService();
         hideLogoutProgress();
         goLoginScreen();
     }
@@ -153,10 +154,8 @@ AlertDialogFragment.OnAlertClickListener{
             notConnection();
             return;
         }
-
         showLogoutProgress();
-        stopSyncService();
-        getPresenter().logout();
+        Toast.makeText(this, "Intente Cerrar sesión nuevamente", Toast.LENGTH_SHORT).show();
     }
 
     private void stopSyncService() {

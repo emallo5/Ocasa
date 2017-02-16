@@ -38,7 +38,7 @@ public class SessionManager {
         preferences.edit().clear().apply();
     }
 
-    public boolean isSigned(){
+    public boolean isSigned() {
         return preferences.contains(USER_ID);
     }
 

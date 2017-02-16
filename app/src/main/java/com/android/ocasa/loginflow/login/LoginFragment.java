@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.telephony.TelephonyManager;
@@ -54,7 +52,8 @@ public class LoginFragment extends BaseMvpFragment<LoginView, LoginPresenter> im
     private String deviceId;
 
     public interface LoginCallback{
-        void onLogin();
+        void onLoginSucces();
+        void onLoggedUser();
     }
 
     @Override
@@ -73,7 +72,7 @@ public class LoginFragment extends BaseMvpFragment<LoginView, LoginPresenter> im
         super.onCreate(savedInstanceState);
 
         if(SessionManager.getInstance().isSigned()){
-            callback.onLogin();
+            callback.onLoggedUser();
         }
     }
 
@@ -219,7 +218,7 @@ public class LoginFragment extends BaseMvpFragment<LoginView, LoginPresenter> im
 
     @Override
     public void onLoginSuccess() {
-        callback.onLogin();
+        callback.onLoginSucces();
     }
 
     @Override

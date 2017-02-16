@@ -9,6 +9,10 @@ import com.android.ocasa.cache.CacheManager;
 import com.android.ocasa.cache.dao.ColumnActionDAO;
 import com.android.ocasa.cache.dao.ReceiptItemDAO;
 import com.android.ocasa.httpmodel.Archive;
+import com.android.ocasa.httpmodel.ControlBody;
+import com.android.ocasa.httpmodel.ControlResponse;
+import com.android.ocasa.httpmodel.GenericResponse;
+import com.android.ocasa.httpmodel.LogOutBody;
 import com.android.ocasa.httpmodel.MediaBody;
 import com.android.ocasa.httpmodel.Menu;
 import com.android.ocasa.httpmodel.RecordArchive;
@@ -384,6 +388,20 @@ public class OcasaService {
                         cacheManager.saveMenu(menu);
                     }
                 });
+    }
+
+    public Observable<GenericResponse> logout(LogOutBody body) {
+        return apiManager.logout(body)
+                .doOnNext(new Action1<GenericResponse>() {
+                    @Override
+                    public void call(GenericResponse response) {
+                        cacheManager.cleanDb(context);
+                    }
+                });
+    }
+
+    public Observable<ControlResponse> controlSync (ControlBody body) {
+        return apiManager.controlSync(body);
     }
 
     public FormViewModel getDetailFormForReceipt(long recordId, long receiptId){

@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 
 import com.android.ocasa.R;
 import com.android.ocasa.core.activity.BaseActivity;
+import com.android.ocasa.home.HomeActivity;
 import com.android.ocasa.loginflow.login.LoginFragment;
 import com.android.ocasa.sync.SyncActivity;
+import com.android.ocasa.sync.SyncIntentSerivce;
+import com.android.ocasa.util.ServiceUtil;
 
 /**
  * Created by ignacio on 14/01/16.
@@ -23,8 +26,20 @@ public class LoginFlowActivity extends BaseActivity implements LoginFragment.Log
     }
 
     @Override
-    public void onLogin() {
+    public void onLoginSucces() {
         startActivity(new Intent(this, SyncActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onLoggedUser() {
+
+        if (!ServiceUtil.isMyServiceRunning(SyncIntentSerivce.class, this)) {
+            Intent i = new Intent(LoginFlowActivity.this, SyncIntentSerivce.class);
+            startService(i);
+        }
+
+        startActivity(new Intent(this, HomeActivity.class));
         finish();
     }
 }

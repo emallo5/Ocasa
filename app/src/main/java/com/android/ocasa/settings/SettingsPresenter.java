@@ -3,9 +3,12 @@ package com.android.ocasa.settings;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.android.ocasa.httpmodel.GenericResponse;
+import com.android.ocasa.httpmodel.LogOutBody;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.service.OcasaService;
+import com.android.ocasa.session.SessionManager;
 import com.android.ocasa.sync.SyncIntentSerivce;
 import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.ConnectionUtil;
@@ -86,11 +89,15 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
     }
 
     public void logout() {
+
+        LogOutBody body = new LogOutBody();
+        body.setImei(SessionManager.getInstance().getDeviceId());
+
         OcasaService.getInstance()
-                .logout()
+                .logout(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<Void>() {
+                .subscribe(new Subscriber<GenericResponse>() {
                     @Override
                     public void onCompleted() {
 
@@ -98,11 +105,11 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
                     }
 
                     @Override
-                    public void onNext(Void aVoid) {
+                    public void onNext(GenericResponse response) {
                         getView().onLogoutSuccess();
                     }
                 });

@@ -18,6 +18,7 @@ import com.android.ocasa.core.LocationMvpActivity;
 import com.android.ocasa.home.HomeActivity;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConnectionUtil;
+import com.android.ocasa.util.ServiceUtil;
 import com.android.ocasa.util.SyncUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
@@ -107,20 +108,10 @@ public class SyncActivity extends LocationMvpActivity<SyncView, SyncPresenter> i
     }
 
     private void initSyncProcess() {
-        if (!isMyServiceRunning(SyncIntentSerivce.class)) {
+        if (!ServiceUtil.isMyServiceRunning(SyncIntentSerivce.class, this)) {
             Intent i = new Intent(SyncActivity.this, SyncIntentSerivce.class);
             startService(i);
         }
-    }
-
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private void setSyncAlarm() {

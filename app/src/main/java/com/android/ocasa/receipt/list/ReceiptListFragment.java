@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.android.ocasa.R;
 import com.android.ocasa.event.CloseReceiptEvent;
+import com.android.ocasa.httpmodel.ControlResponse;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.receipt.header.EditHeaderReceiptActivity;
 import com.android.ocasa.adapter.ReceiptAdapter;
@@ -173,6 +174,9 @@ AlertDialogFragment.OnAlertClickListener{
         setTitle("Listado " + table.getName());
         receiptList.setAdapter(new ReceiptAdapter(table.getReceipts()));
         updateCounters(table.getReceipts());
+
+        // una vez cargados los items, verifico si tengo para descargar
+        getPresenter().control();
     }
 
     private void updateCounters (List<ReceiptCellViewModel> receipts) {
@@ -211,6 +215,30 @@ AlertDialogFragment.OnAlertClickListener{
     public void onCloseReceiptSuccess() {
         hideProgress();
         getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+    }
+
+    @Override
+    public void onControlSynResponse(ControlResponse response) {
+        if (!response.isStatus()) return;
+
+        ProgressDialogFragment progress = ProgressDialogFragment.newInstance("Descargando actualización de ruta...");
+        progress.setCancelable(false);
+        progress.show(getChildFragmentManager(), "down");
+        getPresenter().sync();
+    }
+
+    @Override
+    public void onSyncSuccess() {
+        DialogFragment dialog = (DialogFragment) getChildFragmentManager().findFragmentByTag("down");
+        if (dialog != null) dialog.dismiss();
+        Toast.makeText(getContext(), "Ruta actualizada!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSyncError() {
+        DialogFragment dialog = (DialogFragment) getChildFragmentManager().findFragmentByTag("down");
+        if (dialog != null) dialog.dismiss();
+        Toast.makeText(getContext(), "Error al actualizar, intente manualmente Sincronizar!", Toast.LENGTH_SHORT).show();
     }
 
     public void showProgress() {
