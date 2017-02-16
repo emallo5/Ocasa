@@ -6,6 +6,8 @@
 # Files for the Dalvik VM
 *.dex
 
+core/core.iml
+
 # Java class files
 *.class
 
@@ -29,3 +31,4 @@ proguard/
 .idea/
 *.iml
 
+build/
