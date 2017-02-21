@@ -1,13 +1,17 @@
 package com.android.ocasa.receipt.edit;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.Loader;
@@ -58,6 +62,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         AlertDialogFragment.OnAlertClickListener {
 
     static final String TAG = "EditReceiptFragment";
+    static final int GPS_REQUEST = 100;
 
     static final int SCANNER_REQUEST_CODE = 1000;
     static final int DETAIL_ACTION_CODE = 1001;
@@ -99,6 +104,36 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
         checkSound = MediaPlayer.create(getActivity(), R.raw.check_in_sound);
         errorSound = MediaPlayer.create(getActivity(), R.raw.error_sound);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        final String[] permissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+            return;
+
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+            ActivityCompat.requestPermissions(getActivity(), permissions, GPS_REQUEST);
+            return;
+        }
+
+        final Activity thisActivity = getActivity();
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityCompat.requestPermissions(thisActivity, permissions,
+                        GPS_REQUEST);
+            }
+        };
+
+        Snackbar.make(content, "Habilite el GPS por favor",
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction("Ok", listener)
+                .show();
     }
 
     @Override

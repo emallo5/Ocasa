@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.android.ocasa.R;
 import com.android.ocasa.core.activity.BaseActivity;
@@ -28,6 +29,7 @@ public abstract class BaseReceiptFragment extends LocationMvpFragment<BaseReceip
 
     private CardView headerFormContainer;
     private LinearLayout headerContainer;
+    protected RelativeLayout content;
 
     private ReceiptFormViewModel header;
 
@@ -40,6 +42,7 @@ public abstract class BaseReceiptFragment extends LocationMvpFragment<BaseReceip
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         initControls(view);
+        content = (RelativeLayout) view.findViewById(R.id.content);
     }
 
     private void initControls(View view){

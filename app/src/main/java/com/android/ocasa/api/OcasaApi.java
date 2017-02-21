@@ -27,10 +27,10 @@ public interface OcasaApi {
 
     @POST("Login.ashx")
     Observable<Menu> login(@Body LoginCredentials credentials, @Query("imei") String imei);
-    @POST("/Logout.ashx")
+    @POST("Logout.ashx")
     Observable<GenericResponse> logout (@Body LogOutBody body);
 
-    @POST("/control.ashx")
+    @POST("control.ashx")
     Observable<ControlResponse> controlSync (@Body ControlBody body);
 
 

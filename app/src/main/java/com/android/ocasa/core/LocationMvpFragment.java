@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.ocasa.OcasaApplication;
@@ -31,9 +32,12 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
         implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
+    public static final String GPS_TAG = "GPS debug";
     private static final double PERMISSION_DENIED = 1;
     private static final double CONNECTION_FAILED = 2;
     private static final double LOCATION_DISABLED = 3;
+
+    protected boolean AVAILABLE_GPS_FUNCTION = false;
 
     private GoogleApiClient apiClient;
     private LocationRequest mLocationRequest;
@@ -43,7 +47,8 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        buildGoogleApiClient();
+        if (AVAILABLE_GPS_FUNCTION)
+            buildGoogleApiClient();
     }
 
     private void buildGoogleApiClient() {
@@ -57,20 +62,29 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
     @Override
     public void onStart() {
         super.onStart();
-        apiClient.connect();
+        if (AVAILABLE_GPS_FUNCTION)
+            apiClient.connect();
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        if (apiClient == null) return;
+
         if (apiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(apiClient, this);
             apiClient.disconnect();
         }
+
+        if (apiClient.isConnectionCallbacksRegistered(this))
+            apiClient.unregisterConnectionFailedListener(this);
+        if (apiClient.isConnectionFailedListenerRegistered(this))
+            apiClient.unregisterConnectionCallbacks(this);
     }
 
     @Override
     public void onConnected(Bundle bundle) {
+        Log.d(GPS_TAG, "gps conectado");
         loadLocation();
     }
 
@@ -83,11 +97,9 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
     }
 
     private void loadLocation() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         } else {
             createLocationRequest();
 
@@ -96,6 +108,7 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
 
             else {
                 loadDummyLocation(LOCATION_DISABLED);
+                Log.d(GPS_TAG, "loc desactivada");
             }
         }
     }
@@ -103,9 +116,7 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
     @Override
     public void onLocationChanged(Location location) {
         lastLocation = location;
-//
-//        Toast.makeText(getContext(), "Lat: " + lastLocation.getLatitude() +
-//                "\nLng: " + lastLocation.getLongitude(), Toast.LENGTH_LONG).show();
+        Log.d(GPS_TAG, "location changed");
     }
 
     protected void createLocationRequest() {
@@ -118,11 +129,13 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
     @Override
     public void onConnectionSuspended(int i) {
         apiClient.connect();
+        Log.d(GPS_TAG, "conexion suspendida, reintentando");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         loadDummyLocation(CONNECTION_FAILED);
+        Log.d(GPS_TAG, "conexion fallida, reintentando en 2 seg");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -60,6 +60,12 @@ public class DetailActionFragment extends FormFragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        AVAILABLE_GPS_FUNCTION = true;
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         ((DetailActionPresenter)getPresenter()).loadFields(getArguments().getLong(ARG_RECORD_ID), getArguments().getLong(ARG_RECEIPT_ID));
