@@ -181,12 +181,12 @@ public class DetailActionFragment extends FormFragment {
             }
         }
 
-        if (values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z4")) {
-            if (values.get("OM_MovilNovedad_cf_0400") == null) {
-                ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
-                return true;
-            }
-        }
+//        if (values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z4")) {
+//            if (values.get("OM_MovilNovedad_cf_0400") == null) {
+//                ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
+//                return true;
+//            }
+//        }
 
         return false;
     }

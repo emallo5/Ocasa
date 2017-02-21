@@ -72,6 +72,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.WritableByteChannel;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -258,6 +261,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
                     Bitmap bmp = (Bitmap) data.getExtras().get("data");
                     OutputStream stream = new FileOutputStream(imageTempFile);
                     bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
                     stream.flush();
                     stream.close();
                 } catch (IOException e) {

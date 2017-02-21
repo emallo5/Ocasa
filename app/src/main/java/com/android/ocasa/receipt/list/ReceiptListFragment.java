@@ -87,6 +87,14 @@ AlertDialogFragment.OnAlertClickListener{
     public void onResume() {
         super.onResume();
         getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+
+        // una vez cargados los items, verifico si tengo para descargar
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getPresenter().control();
+            }
+        }, 1000);
     }
 
     @Override
@@ -174,9 +182,6 @@ AlertDialogFragment.OnAlertClickListener{
         setTitle("Listado " + table.getName());
         receiptList.setAdapter(new ReceiptAdapter(table.getReceipts()));
         updateCounters(table.getReceipts());
-
-        // una vez cargados los items, verifico si tengo para descargar
-        getPresenter().control();
     }
 
     private void updateCounters (List<ReceiptCellViewModel> receipts) {

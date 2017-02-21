@@ -35,11 +35,6 @@ public class EditReceiptActivity extends BaseReceiptActivity implements AlertDia
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        showAlert();
-    }
-
     private void showAlert() {
         AlertDialogFragment dialog = AlertDialogFragment
                 .newInstance("¡ATENCION!", "¿Seguro que desea salir sin ENVIAR los datos?");

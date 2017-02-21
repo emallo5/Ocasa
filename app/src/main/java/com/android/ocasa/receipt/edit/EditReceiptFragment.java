@@ -173,7 +173,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     private void setListeners(){
 
         RxTextView.textChanges(search)
-                .debounce(700, TimeUnit.MILLISECONDS)
+                .debounce(1000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<CharSequence>() {
                     @Override

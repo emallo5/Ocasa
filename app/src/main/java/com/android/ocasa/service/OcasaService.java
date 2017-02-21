@@ -299,7 +299,7 @@ public class OcasaService {
 
         for (Field media : mediaFiles) {
 
-            if(media!=null && media.getValue()!=null && !media.getValue().isEmpty()) {
+            if(media != null && media.getValue() != null && !media.getValue().isEmpty()) {
 
                 File file = new File(context.getCacheDir(), media.getValue());
 
