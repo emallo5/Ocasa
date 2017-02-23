@@ -120,7 +120,7 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
 
                                     @Override
                                     public void onError(Throwable e) {
-
+                                        getView().onLogoutError(e.getMessage());
                                     }
 
                                     @Override

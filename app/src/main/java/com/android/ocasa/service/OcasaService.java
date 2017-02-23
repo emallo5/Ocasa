@@ -2,6 +2,7 @@ package com.android.ocasa.service;
 
 import android.content.Context;
 import android.location.Location;
+import android.os.Environment;
 import android.util.Log;
 
 import com.android.ocasa.api.ApiManager;
@@ -301,7 +302,7 @@ public class OcasaService {
 
             if(media != null && media.getValue() != null && !media.getValue().isEmpty()) {
 
-                File file = new File(context.getCacheDir(), media.getValue());
+                File file = new File(Environment.getExternalStorageDirectory(), "/Ocasa/" + media.getValue());
 
                 RecordArchive recordArchive = new RecordArchive();
                 recordArchive.setId(media.getRecord().getExternalId());
@@ -458,7 +459,7 @@ public class OcasaService {
 
     public Observable<Boolean> uploadReceipts(final List<Receipt> uploadReceipts) {
 
-        return Observable.zip(Observable.from(uploadReceipts), Observable.interval(3, TimeUnit.SECONDS), new Func2<Receipt, Long, Boolean>() {
+        return Observable.zip(Observable.from(uploadReceipts), Observable.interval(4, TimeUnit.SECONDS), new Func2<Receipt, Long, Boolean>() {
             @Override
             public Boolean call(Receipt receipt, Long l) {
                 upload(receipt);

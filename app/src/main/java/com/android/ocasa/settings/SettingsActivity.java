@@ -2,6 +2,7 @@ package com.android.ocasa.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.IntentCompat;
@@ -21,6 +22,8 @@ import com.android.ocasa.util.ConnectionUtil;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.util.SyncUtil;
 import com.codika.androidmvp.activity.BaseMvpActivity;
+
+import java.io.File;
 
 /**
  * Created by ignacio on 10/11/16.
@@ -130,8 +133,15 @@ AlertDialogFragment.OnAlertClickListener{
     @Override
     public void onLogoutSuccess() {
         stopSyncService();
+        removeOcasaFiles();
         hideLogoutProgress();
         goLoginScreen();
+    }
+
+    @Override
+    public void onLogoutError(String error) {
+        hideLogoutProgress();
+        AlertDialogFragment.newInstance("Error!", error).show(getSupportFragmentManager(), "errorLogout");
     }
 
     @Override
@@ -167,6 +177,16 @@ AlertDialogFragment.OnAlertClickListener{
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
         finish();
+    }
+
+    private void removeOcasaFiles() {
+        File dir = new File(Environment.getExternalStorageDirectory() + "/Ocasa");
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                new File(dir, children[i]).delete();
+            }
+        }
     }
 
     @Override

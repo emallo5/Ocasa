@@ -25,7 +25,7 @@ public class EditReceiptActivity extends BaseReceiptActivity implements AlertDia
     public boolean onOptionsItemSelected(MenuItem item) {
 
           if(item.getItemId() == android.R.id.home){
-            showAlert();
+            finish();
             return true;
         }
 

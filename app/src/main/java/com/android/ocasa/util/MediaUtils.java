@@ -14,12 +14,7 @@ public class MediaUtils {
         Bitmap bm = BitmapFactory.decodeFile(path);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-
-
-//        int bytes = getAllocationByteCount(bm);
-//        ByteBuffer buffer = ByteBuffer.allocate(bytes);
-//        bm.copyPixelsToBuffer(buffer);
+        bm.compress(Bitmap.CompressFormat.JPEG, 50, baos);
 
         return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
     }

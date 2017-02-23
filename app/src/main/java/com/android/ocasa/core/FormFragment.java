@@ -102,7 +102,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     static final String TIME_TAG = "Time";
     static final String COMBO_TAG = "Combo";
 
-    public static final String PREFIX = "ocasa_";
+    public static final String PREFIX = "/ocasa_";
 
     public static final String SELECT_OPTION = "Seleccionar...";
 
@@ -257,16 +257,16 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         } else if(requestCode == REQUEST_PHOTO) {
 
             if (resultCode == Activity.RESULT_OK) {
-                try {
-                    Bitmap bmp = (Bitmap) data.getExtras().get("data");
-                    OutputStream stream = new FileOutputStream(imageTempFile);
-                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-
-                    stream.flush();
-                    stream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Bitmap bmp = (Bitmap) data.getExtras().get("data");
+//                    OutputStream stream = new FileOutputStream(imageTempFile);
+//                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+//
+//                    stream.flush();
+//                    stream.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
                 if (imageTempFile.exists()) {
                     FieldViewAdapter view = (FieldViewAdapter) formContainer.findViewWithTag(currentPhotoTag);
@@ -344,17 +344,19 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             try {
                 imageTempFile = createPhotoFile();
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageTempFile));
+                startActivityForResult(takePictureIntent, REQUEST_PHOTO);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            startActivityForResult(takePictureIntent, REQUEST_PHOTO);
         }
     }
 
     public File createPhotoFile() throws IOException {
 
         String imageFileName = PREFIX + new Date().getTime();
-        File storageDir = getActivity().getCacheDir();
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Ocasa";
+        File storageDir = new File(path);
 
         if(!storageDir.exists())
             storageDir.mkdir();
@@ -363,7 +365,6 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
         return image;
     }
-
 
     @Override
     public void onQrClick(View view) {

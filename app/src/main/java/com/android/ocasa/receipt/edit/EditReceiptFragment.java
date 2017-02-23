@@ -217,11 +217,12 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     }
 
     public void setTitleFromChild(int count) {
-        setTitle(getTitle() + ": " + count);
+        if (getActivity() == null) return;
+        setTitle(getTitle() + " - Total: " + count);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode != Activity.RESULT_OK)
@@ -273,8 +274,12 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 //            ((EditReceiptPresenter)getPresenter()).findItems(getArguments().getLong(ARG_RECEIPT_ID), newCodes);
 
 //            search.setText(data.getStringExtra(ScannerActivity.EXTRA_RESULT_CODES)); este es para el search
-
-            openFromScanner(data.getStringExtra(ScannerActivity.EXTRA_RESULT_CODES));
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    openFromScanner(data.getStringExtra(ScannerActivity.EXTRA_RESULT_CODES));
+                }
+            }, 1300);
         }
     }
 
@@ -290,11 +295,8 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         }
 
         if (frag == null) {
-            getChildFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.sub_container,
-                            AddItemsFragment.newInstance(getArguments().getLong(ARG_RECEIPT_ID),
-                                    charSequence.toString().trim(), recordIds), "SearchItems").commit();
+            AddItemsFragment fragment = AddItemsFragment.newInstance(getArguments().getLong(ARG_RECEIPT_ID), charSequence.toString().trim(), recordIds);
+            getChildFragmentManager().beginTransaction().replace(R.id.sub_container, fragment, "SearchItems").commit();
 
             searchResultsContainer.setVisibility(View.VISIBLE);
         } else {

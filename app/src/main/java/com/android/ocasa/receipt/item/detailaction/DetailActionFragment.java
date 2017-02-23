@@ -1,12 +1,15 @@
 package com.android.ocasa.receipt.item.detailaction;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.nfc.FormatException;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.TextView;
@@ -33,15 +36,13 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by ignacio on 24/10/16.
- */
 public class DetailActionFragment extends FormFragment {
 
     static String ARG_RECEIPT_ID = "receipt_id";
     static String ARG_RECORD_ID = "record_id";
 
     public static final String EXIT_POD = "exit";
+    public static final int REQUEST_WRITE_STORAGE = 200;
 
     private String motivoClave = "";
     private String motivoNombre = "";
@@ -69,6 +70,14 @@ public class DetailActionFragment extends FormFragment {
     public void onResume() {
         super.onResume();
         ((DetailActionPresenter)getPresenter()).loadFields(getArguments().getLong(ARG_RECORD_ID), getArguments().getLong(ARG_RECEIPT_ID));
+
+        checkPermission();
+    }
+
+    private void checkPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_STORAGE);
+        }
     }
 
     @Override

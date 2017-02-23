@@ -1,7 +1,10 @@
 package com.android.ocasa.widget;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.nfc.FormatException;
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,9 +81,12 @@ public class FieldPhotoView extends RelativeLayout implements FieldViewAdapter{
 
         imagePath = value;
 
-        File file = new File(getContext().getCacheDir(), value);
+        File file = new File(Environment.getExternalStorageDirectory(), "/Ocasa/" + value);
 
-        ImageLoader.getInstance().displayImage("file://" + file.getPath(), photo);
+        Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+        photo.setImageBitmap(myBitmap);
+
+//        ImageLoader.getInstance().displayImage(/*"file://" + */file.getPath(), photo);
     }
 
     @Override

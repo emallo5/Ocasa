@@ -144,7 +144,6 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
 
         for (CellViewModel cell : recordsBackup)
             for (FieldViewModel field : cell.getFields())
-                if (field.getTag().equals("OM_MOVILNOVEDAD_C_0038"))
                     if (field.getValue().contains(filter)) {
                         records.add(cell);
                         break;

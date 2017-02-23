@@ -28,9 +28,6 @@ import java.util.List;
 import rx.Subscriber;
 import rx.Subscription;
 
-/**
- * Created by ignacio on 19/05/16.
- */
 public class AvailableItemsFragment extends TableFragment {
 
     static final String ARG_RECEIPT_ID = "receipt_id";
