@@ -54,9 +54,6 @@ import java.util.concurrent.TimeUnit;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
-/**
- * Created by ignacio on 07/07/16.
- */
 public class EditReceiptFragment extends BaseReceiptFragment implements EditReceiptView,
         OnItemChangeListener, PickupItemConfirmationDialog.OnConfirmationListener,
         AlertDialogFragment.OnAlertClickListener {
@@ -179,38 +176,11 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
                     @Override
                     public void call(CharSequence charSequence) {
 
-                        AddItemsFragment frag = (AddItemsFragment) getChildFragmentManager().findFragmentByTag("SearchItems");
+                        RecieptPagerAdapter adapter = (RecieptPagerAdapter) pager.getAdapter();
+                        AvailableItemsFragment availFrag = (AvailableItemsFragment) adapter.getItem(0);
+                        availFrag.filterItems(charSequence.toString());
 
-                        if(frag == null && charSequence.length() == 0){
-                            searchResultsContainer.setVisibility(View.GONE);
-                            return;
-                        }
-
-                        if(frag == null) {
-                            getChildFragmentManager()
-                                    .beginTransaction()
-                                    .replace(R.id.sub_container,
-                                            AddItemsFragment.newInstance(getArguments().getLong(ARG_RECEIPT_ID),
-                                                    charSequence.toString().trim(), recordIds), "SearchItems")
-                                    .commit();
-
-                            searchResultsContainer.setVisibility(View.VISIBLE);
-                        }else{
-                            if(charSequence.length() == 0) {
-                                searchResultsContainer.setVisibility(View.GONE);
-
-                                getChildFragmentManager()
-                                        .beginTransaction()
-                                        .remove(frag)
-                                        .commit();
-
-                                return;
-                            }
-
-                            searchResultsContainer.setVisibility(View.VISIBLE);
-
-                            frag.search(charSequence.toString());
-                        }
+//                    openFromScanner(charSequence); este codigo estaba antes
                     }
                 });
 
@@ -244,6 +214,10 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
                 pager.setCurrentItem(1, true);
             }
         });
+    }
+
+    public void setTitleFromChild(int count) {
+        setTitle(getTitle() + ": " + count);
     }
 
     @Override
@@ -284,7 +258,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         }
 
         if(requestCode == SCANNER_REQUEST_CODE) {
-            // *** saco el codigo que busca los resultados del lector de barras y lo cambio por codigo que pone en el search
+            // *** saco el codigo que busca los resultados del lector de barras y lo cambio por codigo que pone
             // *** el unico valor leido !
 
 //            long[] codes = data.getLongArrayExtra(ScannerActivity.EXTRA_RESULT_CODES);
@@ -298,7 +272,43 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 //            }
 //            ((EditReceiptPresenter)getPresenter()).findItems(getArguments().getLong(ARG_RECEIPT_ID), newCodes);
 
-            search.setText(data.getStringExtra(ScannerActivity.EXTRA_RESULT_CODES));
+//            search.setText(data.getStringExtra(ScannerActivity.EXTRA_RESULT_CODES)); este es para el search
+
+            openFromScanner(data.getStringExtra(ScannerActivity.EXTRA_RESULT_CODES));
+        }
+    }
+
+    private void openFromScanner (CharSequence charSequence) {
+
+        if (charSequence == null) return;
+
+        AddItemsFragment frag = (AddItemsFragment) getChildFragmentManager().findFragmentByTag("SearchItems");
+
+        if (frag == null && charSequence.length() == 0) {
+            searchResultsContainer.setVisibility(View.GONE);
+            return;
+        }
+
+        if (frag == null) {
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.sub_container,
+                            AddItemsFragment.newInstance(getArguments().getLong(ARG_RECEIPT_ID),
+                                    charSequence.toString().trim(), recordIds), "SearchItems").commit();
+
+            searchResultsContainer.setVisibility(View.VISIBLE);
+        } else {
+            if (charSequence.length() == 0) {
+                searchResultsContainer.setVisibility(View.GONE);
+                getChildFragmentManager()
+                        .beginTransaction()
+                        .remove(frag)
+                        .commit();
+                return;
+            }
+
+            searchResultsContainer.setVisibility(View.VISIBLE);
+            frag.search(charSequence.toString());
         }
     }
 

@@ -3,6 +3,7 @@ package com.android.ocasa.receipt.item.available;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
 import android.util.Log;
@@ -66,6 +67,13 @@ public class AvailableItemsFragment extends TableFragment {
         if(getAdapter() == null) {
             ((AvailableItemsPresenter) getPresenter()).load(getArguments().getLong(ARG_RECEIPT_ID));
             ((OcasaApplication) getActivity().getApplicationContext()).availableItemsLoading = true;
+        } else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ((EditReceiptFragment) getParentFragment()).setTitleFromChild(getAdapter().getItemCount());
+                }
+            }, 1000);
         }
     }
 
@@ -92,11 +100,13 @@ public class AvailableItemsFragment extends TableFragment {
         else ((AvailableItemsAdapter)getAdapter()).refreshItems(table.getCells());
 
         getRecyclerView().setBackgroundColor(Color.WHITE);
+
+        ((EditReceiptFragment) getParentFragment()).setTitleFromChild(table.getCells().size());
     }
 
     @Subscribe
     public void onItemClick(ReceiptItemAddEvent event) {
-        itemCallback.onItemAdded(getPresenter().getItemAtPosition(event.getPosition()));
+        itemCallback.onItemAdded(((AvailableItemsAdapter) getAdapter()).getItem(event.getPosition()));
     }
 
     public void removeitem(long id) {
@@ -110,5 +120,10 @@ public class AvailableItemsFragment extends TableFragment {
 
     public void addItem(CellViewModel item){
         ((AvailableItemsAdapter)getAdapter()).addItem(item);
+    }
+
+    public void filterItems(String filter) {
+        if (getAdapter() != null)
+            ((AvailableItemsAdapter) getAdapter()).filter(filter);
     }
 }

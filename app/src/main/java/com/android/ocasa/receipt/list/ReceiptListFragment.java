@@ -92,7 +92,8 @@ AlertDialogFragment.OnAlertClickListener{
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                getPresenter().control();
+                if (getPresenter() != null)
+                    getPresenter().control();
             }
         }, 1000);
     }

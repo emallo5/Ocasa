@@ -7,9 +7,6 @@ import android.view.MenuItem;
 import com.android.ocasa.receipt.base.BaseReceiptActivity;
 import com.android.ocasa.util.AlertDialogFragment;
 
-/**
- * Created by ignacio on 07/07/16.
- */
 public class EditReceiptActivity extends BaseReceiptActivity implements AlertDialogFragment.OnAlertClickListener {
 
     @Override

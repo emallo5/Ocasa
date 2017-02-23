@@ -30,12 +30,14 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
 
     private LongSparseArray<Boolean> selectedItems;
 
-    private List<CellViewModel> records;
+    private ArrayList<CellViewModel> records = new ArrayList<>();
+    private ArrayList<CellViewModel> recordsBackup = new ArrayList<>();
 
     private int fieldCount;
 
     public AvailableItemsAdapter(List<CellViewModel> records) {
-        this.records = records;
+        this.records.addAll(records);
+        this.recordsBackup.addAll(records);
 
         fieldCount = records.isEmpty() ? 0 : records.get(0).getFields().size();
 
@@ -46,11 +48,6 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
 
     public void addItem(CellViewModel item){
         records.add(0, item);
-        notifyDataSetChanged();
-    }
-
-    public void deleteItem(int position){
-        records.remove(position);
         notifyDataSetChanged();
     }
 
@@ -112,46 +109,6 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
         }
     }
 
-    public void toggleSelection(int pos) {
-
-        long id = getItemId(pos);
-
-        if (selectedItems.get(id, false)) {
-            selectedItems.delete(id);
-        } else {
-            selectedItems.put(id, true);
-        }
-
-        notifyItemChanged(pos);
-    }
-
-    public void setSelected(int pos) {
-        selectedItems.put(getItemId(pos), true);
-        notifyItemChanged(pos);
-    }
-
-    public void clearSelection(int pos) {
-
-        long id = getItemId(pos);
-
-        if (selectedItems.get(id, false)) {
-            selectedItems.delete(id);
-        }
-        notifyItemChanged(pos);
-    }
-
-    public void clearSelections() {
-        if (selectedItems.size() > 0) {
-            selectedItems.clear();
-            notifyDataSetChanged();
-        }
-    }
-
-
-    public int getSelectedItemCount() {
-        return selectedItems.size();
-    }
-
     @Override
     public long getItemId(int position) {
         return records.get(position).getId();
@@ -162,20 +119,37 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
         return records.size();
     }
 
+    public CellViewModel getItem(int position) {
+        return records.get(position);
+    }
+
     public void refreshItems(List<CellViewModel> records) {
         fieldCount = records.isEmpty() ? 0 : records.get(0).getFields().size();
 
         this.records.clear();
         this.records.addAll(records);
+        this.recordsBackup.clear();
+        this.recordsBackup.addAll(records);
         notifyDataSetChanged();
     }
 
-    public long[] getSelectedItemIds() {
-        long[] ids = new long[selectedItems.size()];
-        for (int i = 0; i < selectedItems.size(); i++) {
-            ids[i]= selectedItems.keyAt(i);
+    public void filter(String filter) {
+        records.clear();
+
+        if (filter.isEmpty() || filter.length() == 0) {
+            records.addAll(recordsBackup);
+            notifyDataSetChanged();
+            return;
         }
-        return ids;
+
+        for (CellViewModel cell : recordsBackup)
+            for (FieldViewModel field : cell.getFields())
+                if (field.getTag().equals("OM_MOVILNOVEDAD_C_0038"))
+                    if (field.getValue().contains(filter)) {
+                        records.add(cell);
+                        break;
+                    }
+        notifyDataSetChanged();
     }
 
     public static class RecordViewHolder extends RecyclerView.ViewHolder implements

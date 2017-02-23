@@ -95,6 +95,10 @@ public abstract class BaseReceiptFragment extends LocationMvpFragment<BaseReceip
         ((BaseActivity) getActivity()).getSupportActionBar().setTitle(title);
     }
 
+    public String getTitle() {
+        return ((BaseActivity) getActivity()).getSupportActionBar().getTitle().toString();
+    }
+
     public abstract void onLoadContent(ReceiptFormViewModel header);
 
     public FormViewModel getReceiptHeader() {
