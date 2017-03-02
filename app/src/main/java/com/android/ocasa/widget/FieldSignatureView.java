@@ -2,7 +2,10 @@ package com.android.ocasa.widget;
 
 import android.content.Context;
 import android.content.pm.ProviderInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.nfc.FormatException;
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -80,9 +83,13 @@ public class FieldSignatureView extends RelativeLayout implements FieldViewAdapt
 
         path = value;
 
-        File file = new File(getContext().getCacheDir(), value);
+        File file = new File(Environment.getExternalStorageDirectory(), "/Ocasa/" + value);
+        Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+        signature.setImageBitmap(myBitmap);
 
-        ImageLoader.getInstance().displayImage("file://" + file.getPath(), signature);
+//        File file = new File(getContext().getCacheDir(), value);
+
+//        ImageLoader.getInstance().displayImage("file://" + file.getPath(), signature);
     }
 
     @Override

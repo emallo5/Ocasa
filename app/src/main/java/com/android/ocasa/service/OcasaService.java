@@ -311,6 +311,8 @@ public class OcasaService {
                 archive.setType("image/jpg");
                 archive.setBase("base64");
 
+                if (!file.exists()) break;
+
                 archive.setData(MediaUtils.convertMediaToBase64(file.getPath()));
 
                 recordArchive.addArchive(archive);

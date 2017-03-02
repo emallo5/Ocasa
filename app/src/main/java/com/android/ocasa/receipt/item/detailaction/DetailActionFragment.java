@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.ocasa.core.FormFragment;
 import com.android.ocasa.core.FormPresenter;
@@ -74,10 +75,12 @@ public class DetailActionFragment extends FormFragment {
         checkPermission();
     }
 
-    private void checkPermission() {
+    private boolean checkPermission() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_STORAGE);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -162,6 +165,12 @@ public class DetailActionFragment extends FormFragment {
     }
 
     public void saveAndExit(boolean exit) {
+
+        if (!checkPermission()) {
+            Toast.makeText(getContext(), "DEBE HABILITAR LOS PERMISOS!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Map<String, String> values = getFormValues();
 
         if (validateMandatory(values)) return;

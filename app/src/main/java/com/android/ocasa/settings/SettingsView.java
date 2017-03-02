@@ -16,4 +16,5 @@ public interface SettingsView extends BaseView {
     void canLogout();
     void needUpload();
     void onUploadSuccess();
+    void onUploadError();
 }

@@ -154,7 +154,7 @@ AlertDialogFragment.OnAlertClickListener{
     @Override
     public void needUpload() {
         AlertDialogFragment
-                .newInstance("Hay comprobantes sin sincronizar", "Desea contabilizarlos?")
+                .newInstance("Hay comprobantes para enviar", "Desea sincronizarlos?")
                 .show(getSupportFragmentManager(), "Alert");
     }
 
@@ -164,8 +164,14 @@ AlertDialogFragment.OnAlertClickListener{
             notConnection();
             return;
         }
-        showLogoutProgress();
-        Toast.makeText(this, "Intente Cerrar sesión nuevamente", Toast.LENGTH_SHORT).show();
+        hideProgress();
+        Toast.makeText(this, "Ahora puede Cerrar sesión", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onUploadError() {
+        hideProgress();
+        Toast.makeText(this, "Huebo un error, intente mas tarde!", Toast.LENGTH_SHORT).show();
     }
 
     private void stopSyncService() {
@@ -207,6 +213,7 @@ AlertDialogFragment.OnAlertClickListener{
 
     @Override
     public void onPosiviteClick(String tag) {
+        showProgress();
         getPresenter().uploadReceipts(this);
     }
 

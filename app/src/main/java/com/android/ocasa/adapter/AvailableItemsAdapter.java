@@ -144,7 +144,7 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
 
         for (CellViewModel cell : recordsBackup)
             for (FieldViewModel field : cell.getFields())
-                    if (field.getValue().contains(filter)) {
+                    if (field.getValue().toLowerCase().contains(filter.toLowerCase())) {
                         records.add(cell);
                         break;
                     }

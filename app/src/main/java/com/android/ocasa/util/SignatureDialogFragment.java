@@ -2,6 +2,7 @@ package com.android.ocasa.util;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,7 +112,9 @@ public class SignatureDialogFragment extends FieldDetailDialogFragment {
 
         String fileName = String.format(SIGNATURE_FILE_NAME, timeStamp);
 
-        File file = new File(getActivity().getCacheDir(), fileName);
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Ocasa";
+        File storageDir = new File(path);
+        File file = new File(storageDir, fileName);
 
         try {
 
