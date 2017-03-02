@@ -13,6 +13,7 @@ import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.LayoutColumn;
+import com.android.ocasa.model.LocationModel;
 import com.android.ocasa.model.LoginCredentials;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
@@ -88,6 +89,9 @@ public class ApiManager {
                 });
     }
 
+    public Observable<Void> sendLocation (LocationModel data) {
+        return api.sendLocation(data);
+    }
 
     private TableRecord DummyTableRecord() {
         TableRecord record = new TableRecord();

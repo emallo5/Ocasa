@@ -28,6 +28,7 @@ import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.LayoutColumn;
+import com.android.ocasa.model.LocationModel;
 import com.android.ocasa.model.LoginCredentials;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.ReceiptItem;
@@ -469,5 +470,9 @@ public class OcasaService {
                 return true;
             }
         });
+    }
+
+    public Observable<Void> sendLocationData(LocationModel data) {
+        return apiManager.sendLocation(data);
     }
 }

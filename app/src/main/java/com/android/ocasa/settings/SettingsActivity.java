@@ -160,11 +160,11 @@ AlertDialogFragment.OnAlertClickListener{
 
     @Override
     public void onUploadSuccess() {
+        hideProgress();
         if (!ConnectionUtil.isInternetAvailable(this)) {
             notConnection();
             return;
         }
-        hideProgress();
         Toast.makeText(this, "Ahora puede Cerrar sesión", Toast.LENGTH_SHORT).show();
     }
 
@@ -197,6 +197,7 @@ AlertDialogFragment.OnAlertClickListener{
 
     @Override
     public void notConnection() {
+        hideProgress();
         Toast.makeText(this, "Chequee su conexión a Internet", Toast.LENGTH_SHORT).show();
     }
 

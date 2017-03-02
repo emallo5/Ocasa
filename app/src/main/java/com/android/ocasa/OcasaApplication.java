@@ -76,6 +76,8 @@ public class OcasaApplication extends Application{
                 .build();
 
         ImageLoader.getInstance().init(config);
+
+
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.android.ocasa.httpmodel.ResponseImage;
 import com.android.ocasa.httpmodel.ResponseReceipt;
 import com.android.ocasa.httpmodel.TableRecord;
 import com.android.ocasa.model.Layout;
+import com.android.ocasa.model.LocationModel;
 import com.android.ocasa.model.LoginCredentials;
 import com.android.ocasa.model.Receipt;
 
@@ -44,4 +45,7 @@ public interface OcasaApi {
     Observable<ResponseReceipt> upload(@Body TableRecord records, @Query("id") String actionId, @Query("imei") String imei, @Query("lat") double latitude, @Query("lng") double longitude);
     @POST("Images.ashx/{table_id}/file")
     Observable<ResponseImage> uploadImage(@Body MediaBody media, @Path("table_id") String tableId, @Query("imei") String imei);
+
+    @POST("Location.ashx")
+    Observable<Void> sendLocation(@Body LocationModel locationData);
 }
