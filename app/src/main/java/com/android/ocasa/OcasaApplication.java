@@ -2,6 +2,7 @@ package com.android.ocasa;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.support.multidex.MultiDex;
 
@@ -20,9 +21,11 @@ import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.session.SessionManager;
+import com.android.ocasa.sync.LocationLogService;
 import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.FileHelper;
 import com.android.ocasa.util.NutraBaseImageDecoder;
+import com.android.ocasa.util.ServiceUtil;
 import com.crittercism.app.Crittercism;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
@@ -77,7 +80,10 @@ public class OcasaApplication extends Application{
 
         ImageLoader.getInstance().init(config);
 
-
+        if (!ServiceUtil.isMyServiceRunning(LocationLogService.class, this)) {
+            Intent i = new Intent(this, LocationLogService.class);
+            startService(i);
+        }
     }
 
     @Override

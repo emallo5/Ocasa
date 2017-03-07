@@ -3,6 +3,7 @@ package com.android.ocasa.settings;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.IntentCompat;
@@ -197,7 +198,12 @@ AlertDialogFragment.OnAlertClickListener{
 
     @Override
     public void notConnection() {
-        hideProgress();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideProgress();
+            }
+        }, 500);
         Toast.makeText(this, "Chequee su conexión a Internet", Toast.LENGTH_SHORT).show();
     }
 

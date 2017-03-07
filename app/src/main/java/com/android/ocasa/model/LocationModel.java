@@ -14,7 +14,7 @@ public class LocationModel {
     @SerializedName("date")
     private String date;
 
-    @SerializedName("time")
+    @SerializedName("timer")
     private String time;
 
     @SerializedName("lat")
