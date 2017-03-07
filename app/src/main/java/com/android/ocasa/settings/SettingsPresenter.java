@@ -79,7 +79,8 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        getView().onUploadError();
+                        if (getView() != null)
+                            getView().onUploadError();
                     }
 
                     @Override

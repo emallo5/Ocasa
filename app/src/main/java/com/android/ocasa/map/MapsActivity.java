@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 
 import com.android.ocasa.R;
@@ -29,6 +31,7 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private Spinner spinner;
+    private CheckBox checkBox;
     private LocationListByDay sites;
     private GoogleMap mMap;
     private boolean mapReady = false;
@@ -41,6 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         spinner = (Spinner) findViewById(R.id.spinnerDay);
+        checkBox = (CheckBox) findViewById(R.id.cb_draw_trip);
 
         initSpinner();
     }
@@ -68,19 +72,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String day = (String) spinner.getAdapter().getItem(position);
                 if (!mapReady) return;
 
-                ArrayList<Site> points = sites.getLocationList().get(day);
-
                 mMap.clear();
-                PolylineOptions options = new PolylineOptions().width(7).color(Color.RED).geodesic(true);
-                for (Site site : points) {
-                    LatLng loc = new LatLng(site.lat, site.lng);
-                    options.add(loc);
-//                    mMap.addMarker(new MarkerOptions().position(loc).title(site.date));
-                }
 
-                mMap.addMarker(new MarkerOptions().position(new LatLng(points.get(0).lat, points.get(0).lng)).title(points.get(0).date));
-                mMap.addMarker(new MarkerOptions().position(new LatLng(points.get(points.size()-1).lat, points.get(points.size()-1).lng)).title(points.get(points.size()-1).date));
-                mMap.addPolyline(options);
+                if (checkBox.isChecked()) {
+                    drawTrip();
+                } else {
+                    drawPoints();
+                }
             }
 
             @Override
@@ -88,5 +86,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    drawTrip();
+                else
+                    drawPoints();
+            }
+        });
+    }
+
+    private void drawTrip() {
+        mMap.clear();
+        ArrayList<Site> points = sites.getLocationList().get(spinner.getSelectedItem());
+        PolylineOptions options = new PolylineOptions().width(7).color(Color.RED).geodesic(true);
+        for (Site site : points) {
+            LatLng loc = new LatLng(site.lat, site.lng);
+            options.add(loc);
+        }
+
+        mMap.addMarker(new MarkerOptions().position(new LatLng(points.get(0).lat, points.get(0).lng)).title(points.get(0).date));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(points.get(points.size()-1).lat, points.get(points.size()-1).lng)).title(points.get(points.size()-1).date));
+        mMap.addPolyline(options);
+    }
+
+    private void drawPoints() {
+        mMap.clear();
+        ArrayList<Site> points = sites.getLocationList().get(spinner.getSelectedItem());
+        for (Site site : points) {
+            LatLng loc = new LatLng(site.lat, site.lng);
+            mMap.addMarker(new MarkerOptions().position(loc).title(site.date));
+        }
     }
 }

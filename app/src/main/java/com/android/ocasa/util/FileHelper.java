@@ -110,6 +110,7 @@ public class FileHelper {
 
     public void saveLocation (String data) {
         LOC_LOG = DateTimeHelper.formatDate(new Date()) + ".txt";
+        LOC_LOG = LOC_LOG.replace("/", "-");
 
         File f = new File(context.getExternalFilesDir(null).getAbsolutePath() + "/" + LOC_LOG);
         if (!f.exists()) {
