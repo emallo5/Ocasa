@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.android.ocasa.R;
 import com.android.ocasa.core.activity.MenuActivity;
 import com.android.ocasa.home.menu.MenuFragment;
+import com.android.ocasa.map.MapsActivity;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.receipt.list.ReceiptListFragment;
@@ -133,7 +134,9 @@ AlertDialogFragment.OnAlertClickListener{
 
         if (item.getItemId() == R.id.settings) {
             startActivity(new Intent(this, SettingsActivity.class));
-
+            return true;
+        } else if (item.getItemId() == R.id.map) {
+            startActivity(new Intent(this, MapsActivity.class));
             return true;
         }
 

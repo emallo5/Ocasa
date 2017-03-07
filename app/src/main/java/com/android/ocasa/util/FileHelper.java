@@ -1,16 +1,23 @@
 package com.android.ocasa.util;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
+
+import com.android.ocasa.map.MapsActivity;
+import com.android.ocasa.model.LocationListByDay;
+import com.android.ocasa.model.Site;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static android.content.Context.MODE_APPEND;
@@ -23,7 +30,9 @@ public class FileHelper {
 
     private static FileHelper instance;
     private String FILE = "ocasa_log.txt";
+    private String LOC_LOG;
     private File file;
+    private Context context;
 
     public static FileHelper getInstance() {
         if (instance == null) {
@@ -33,6 +42,8 @@ public class FileHelper {
     }
 
     public void init (Context context) {
+        this.context = context;
+        LOC_LOG = DateTimeHelper.formatDate(new Date());
         try {
             File path = context.getExternalFilesDir(null);
             file = new File(path, FILE);
@@ -59,34 +70,69 @@ public class FileHelper {
         }
     }
 
-    private String readFromFile(Context context) {
+    public LocationListByDay readLocation() {
+        LocationListByDay list = new LocationListByDay();
 
-        String ret = "";
+        File dir = new File(context.getExternalFilesDir(null).getAbsolutePath());
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
 
-        try {
-            InputStream inputStream = context.openFileInput(FILE);
+                if (children[i].equals(FILE)) continue;
 
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
+                ArrayList<Site> sites = new ArrayList<>();
+                File f = new File(dir, children[i]);
 
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
+                try {
+                    FileInputStream inputStream = new FileInputStream(f);
+
+                    if ( inputStream != null ) {
+                        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                        String receiveString;
+
+                        while ( (receiveString = bufferedReader.readLine()) != null ) {
+                            String[] loc = receiveString.split(" ");
+                            sites.add(new Site(loc[0], Double.parseDouble(loc[1]), Double.parseDouble(loc[2])));
+                        }
+                        inputStream.close();
+                    }
                 }
-
-                inputStream.close();
-                ret = stringBuilder.toString();
+                catch (Exception e) {
+                    Log.e("write location", e.toString());
+                }
+                list.addLocationList(children[i].substring(0, 10), sites);
             }
         }
-        catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+
+        return list;
+    }
+
+    public void saveLocation (String data) {
+        LOC_LOG = DateTimeHelper.formatDate(new Date()) + ".txt";
+
+        File f = new File(context.getExternalFilesDir(null).getAbsolutePath() + "/" + LOC_LOG);
+        if (!f.exists()) {
+            File path = context.getExternalFilesDir(null);
+            f = new File(path, LOC_LOG);
         }
 
-        return ret;
+        Log.d("LocationService", data);
+
+        try {
+            String date = DateTimeHelper.formatTime(new Date());
+            date += " " + data + "\n";
+
+            FileOutputStream stream = new FileOutputStream(f, true);
+            try {
+                stream.write(date.getBytes());
+            } finally {
+                stream.close();
+            }
+        }
+        catch (IOException e) {
+            Log.e("FILE HELPER", "File write location: " + e.toString());
+        }
     }
 
 }

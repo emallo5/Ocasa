@@ -11,10 +11,10 @@ public class LocationModel {
     @SerializedName("imei")
     private String imei;
 
-    @SerializedName("date")
+    @SerializedName("Fecha")
     private String date;
 
-    @SerializedName("timer")
+    @SerializedName("Hora")
     private String time;
 
     @SerializedName("lat")

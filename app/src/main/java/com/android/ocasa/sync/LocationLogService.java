@@ -17,6 +17,7 @@ import com.android.ocasa.model.LocationModel;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.session.SessionManager;
 import com.android.ocasa.util.DateTimeHelper;
+import com.android.ocasa.util.FileHelper;
 
 import java.util.Date;
 
@@ -31,12 +32,14 @@ import rx.schedulers.Schedulers;
 public class LocationLogService extends Service {
 
     private static final String TAG = "LocationService";
-    private static final int LOCATION_TIME_LAP = 20000;
+    private static final int LOCATION_TIME_LAP = 10000;
 
     LocationManager locationManager;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        Log.d("LocationService", "Starting");
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -45,10 +48,10 @@ public class LocationLogService extends Service {
                 out();
             } else {
                 if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
-                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_TIME_LAP, 5, locationNETListener);
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_TIME_LAP, 10, locationNETListener);
 
                 if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_TIME_LAP, 5, locationGPSListener);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_TIME_LAP, 10, locationGPSListener);
             }
         } else
             out();
@@ -92,9 +95,11 @@ public class LocationLogService extends Service {
         String time = DateTimeHelper.formatTime(new Date());
         String imei = SessionManager.getInstance().getDeviceId();
 
+        FileHelper.getInstance().saveLocation(location.getLatitude() + " " + location.getLongitude());
+
         LocationModel data = new LocationModel(imei, date, time, location.getLatitude(), location.getLongitude());
 
-        OcasaService.getInstance().sendLocationData(data).observeOn(AndroidSchedulers.mainThread())
+        OcasaService.getInstance().sendLocationData(data).retry(2).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<Void>() {
                     @Override

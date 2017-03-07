@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/map"
+        android:icon="@drawable/ic_directions_car_black_24dp"
+        android:title="Recorrido"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/settings"
         android:icon="@android:drawable/ic_menu_manage"
         android:title="Configuracion"
