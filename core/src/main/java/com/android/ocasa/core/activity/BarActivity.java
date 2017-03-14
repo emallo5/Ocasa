@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.ocasa.core.R;
@@ -18,7 +20,9 @@ import com.android.ocasa.core.R;
 public class BarActivity extends BaseActivity {
 
     protected Toolbar toolbar;
-
+    protected LinearLayout llCounters;
+    protected TextView tvTotalItems;
+    protected TextView tvPendingItems;
     private DrawerLayout drawerLayout;
 
     @Override
@@ -33,6 +37,10 @@ public class BarActivity extends BaseActivity {
     private void init(){
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
+
+        llCounters = (LinearLayout) findViewById(R.id.ll_counters);
+        tvTotalItems = (TextView) findViewById(R.id.tv_total_items);
+        tvPendingItems = (TextView) findViewById(R.id.tv_pending);
 
         setSupportActionBar(toolbar);
 

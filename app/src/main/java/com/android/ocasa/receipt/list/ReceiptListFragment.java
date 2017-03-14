@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.ocasa.R;
+import com.android.ocasa.cache.dao.RecordDAO;
 import com.android.ocasa.event.CloseReceiptEvent;
 import com.android.ocasa.httpmodel.ControlResponse;
 import com.android.ocasa.model.Receipt;
@@ -30,6 +31,7 @@ import com.android.ocasa.receipt.edit.EditReceiptActivity;
 import com.android.ocasa.service.ReceiptService;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ProgressDialogFragment;
+import com.android.ocasa.util.ReceiptCounterHelper;
 import com.android.ocasa.viewmodel.ReceiptCellViewModel;
 import com.android.ocasa.viewmodel.ReceiptTableViewModel;
 import com.codika.androidmvp.fragment.BaseMvpFragment;
@@ -40,9 +42,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ignacio on 11/07/16.
- */
 public class ReceiptListFragment extends BaseMvpFragment<ReceiptListView, ReceiptListPresenter> implements ReceiptListView,
 AlertDialogFragment.OnAlertClickListener{
 
@@ -53,6 +52,8 @@ AlertDialogFragment.OnAlertClickListener{
     private Button btnRefresh;
     private TextView tvCountDone;
     private TextView tvCountUndone;
+    private TextView tvTotalItems;
+    private TextView tvTotalPending;
 
     public static ReceiptListFragment newInstance(String actionId) {
 
@@ -120,6 +121,8 @@ AlertDialogFragment.OnAlertClickListener{
         btnRefresh = (Button) view.findViewById(R.id.iv_refresh);
         tvCountDone = (TextView) view.findViewById(R.id.tv_pod_count_done);
         tvCountUndone = (TextView) view.findViewById(R.id.tv_pod_count_undone);
+        tvTotalItems = (TextView) view.findViewById(R.id.tv_total_items);
+        tvTotalPending = (TextView) view.findViewById(R.id.tv_pending);
     }
 
     private void setListeners() {
@@ -157,6 +160,7 @@ AlertDialogFragment.OnAlertClickListener{
             @Override
             public void onClick(View v) {
                 getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+                Toast.makeText(getContext(), "Refrescando...", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -189,15 +193,20 @@ AlertDialogFragment.OnAlertClickListener{
         int opened = 0;
         int closed = 0;
 
+        long total = new RecordDAO(getContext()).findForActionId(getArguments().getString(ARG_ACTION_ID));
+
         for (ReceiptCellViewModel r : receipts) {
-            if (r.isOpen())
-                opened++;
-            else
-                closed++;
+            if (r.isOpen()) opened++;
+            else closed++;
         }
 
-        tvCountDone.setText(" : " + closed);
-        tvCountUndone.setText(" : " + opened);
+        tvCountDone.setText(": " + closed);
+        tvCountUndone.setText(": " + opened);
+        tvTotalPending.setText(": " + (total-closed-opened));
+        tvTotalItems.setText(": " + total);
+
+        ReceiptCounterHelper.getInstance().setCompletedItems(opened);
+        ReceiptCounterHelper.getInstance().setCompletedSyncItems(closed);
     }
 
     private void syncReceipts() {

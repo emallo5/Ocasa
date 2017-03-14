@@ -18,6 +18,7 @@ import com.android.ocasa.event.ReceiptItemAddEvent;
 import com.android.ocasa.model.ReceiptItem;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.receipt.edit.OnItemChangeListener;
+import com.android.ocasa.util.ReceiptCounterHelper;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
 
@@ -68,7 +69,9 @@ public class AvailableItemsFragment extends TableFragment {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    ((EditReceiptFragment) getParentFragment()).setTitleFromChild(getAdapter().getItemCount());
+                    int pending = getAdapter().getItemCount();
+                    int total = ReceiptCounterHelper.getInstance().getCompletedItemsCount() + ReceiptCounterHelper.getInstance().getCompletedSyncItemsCount() + pending;
+                    ((EditReceiptFragment) getParentFragment()).setTitleFromChild(total, pending);
                 }
             }, 1000);
         }
@@ -98,7 +101,9 @@ public class AvailableItemsFragment extends TableFragment {
 
         getRecyclerView().setBackgroundColor(Color.WHITE);
 
-        ((EditReceiptFragment) getParentFragment()).setTitleFromChild(table.getCells().size());
+        int pending = table.getCells().size();
+        int total = ReceiptCounterHelper.getInstance().getCompletedItemsCount() + ReceiptCounterHelper.getInstance().getCompletedSyncItemsCount() + pending;
+        ((EditReceiptFragment) getParentFragment()).setTitleFromChild(total, pending);
     }
 
     @Subscribe

@@ -20,13 +20,51 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent" >
 
-                <!-- <ImageView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_gravity="center"
-                     android:scaleType="center"
-                     android:src="?attr/navBarIcon"
-                     android:layout_centerInParent="true"/>-->
+                <LinearLayout
+                    android:id="@+id/ll_counters"
+                    android:visibility="gone"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="P: "
+                        android:layout_marginLeft="38dp"
+                        android:textSize="20sp"
+                        android:textColor="@color/material_grey_900"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_pending"
+                        android:text="0"
+                        android:textSize="20sp"
+                        android:textColor="@color/ocasaLightBlue"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:text="T: "
+                        android:layout_marginLeft="18dp"
+                        android:textColor="@color/material_grey_900"
+                        android:layout_gravity="center"
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_total_items"
+                        android:text="0"
+                        android:textSize="20sp"
+                        android:textColor="@color/ocasaLightBlue"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
 
             </android.support.v7.widget.Toolbar>
 

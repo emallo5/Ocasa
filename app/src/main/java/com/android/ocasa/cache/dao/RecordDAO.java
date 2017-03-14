@@ -2,6 +2,7 @@ package com.android.ocasa.cache.dao;
 
 import android.content.Context;
 
+import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.ReceiptItem;
@@ -28,15 +29,17 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
         super(Record.class, context);
     }
 
-    public List<Record> findForTable(String tableId){
+    public long findForActionId(String actionId) {
+
+        Action action = new ActionDAO(context).findById(actionId);
 
         try {
-            return dao.queryBuilder().where().eq("table_id", tableId).query();
+            return dao.queryBuilder().where().eq("table_id", action.getTable().getId()).countOf();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return 0;
     }
 
     public Record findByExternalId(String id){

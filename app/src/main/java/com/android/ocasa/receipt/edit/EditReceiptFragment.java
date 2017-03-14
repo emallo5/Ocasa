@@ -216,9 +216,8 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         });
     }
 
-    public void setTitleFromChild(int count) {
-        if (getActivity() == null) return;
-        setTitle(getTitle() + " - Total: " + count);
+    public void setTitleFromChild(int total, int pending) {
+        ((EditReceiptActivity) getActivity()).setCounters(total, pending);
     }
 
     @Override

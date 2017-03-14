@@ -22,6 +22,7 @@ import com.android.ocasa.model.FieldType;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.DateTimeHelper;
+import com.android.ocasa.util.FileHelper;
 import com.android.ocasa.util.KeyboardUtil;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.viewmodel.FieldViewModel;
@@ -185,6 +186,16 @@ public class DetailActionFragment extends FormFragment {
         SaveFormTask.FormData data = new SaveFormTask.FormData(values, getArguments().getLong(ARG_RECORD_ID), getLastLocation());
 
         save(data);
+
+        FileHelper.getInstance().saveLocation(getLastLocation().getLatitude() + " "
+                + getLastLocation().getLongitude() + " " + FileHelper.IS_POD + " " + getIdSistema());
+    }
+
+    private String getIdSistema() {
+        for (FieldViewModel field : fields)
+            if (field.getTag().equals("OM_MOVILNOVEDAD_C_0038"))
+                return field.getValue();
+        return "Sin ID";
     }
 
     private boolean validateMandatory(Map<String, String> values) {

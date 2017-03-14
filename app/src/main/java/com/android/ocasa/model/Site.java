@@ -9,11 +9,13 @@ public class Site {
     public String date;
     public double lat;
     public double lng;
+    public boolean isPod;
 
-    public Site(String date, double lat, double lng) {
+    public Site(String date, double lat, double lng, boolean isPod) {
         this.date = date;
         this.lat = lat;
         this.lng = lng;
+        this.isPod = isPod;
     }
 
 }

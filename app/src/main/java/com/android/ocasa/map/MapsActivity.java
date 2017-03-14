@@ -90,6 +90,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (sites.getLocationList().isEmpty()) return;
+
                 if (isChecked)
                     drawTrip();
                 else
@@ -104,7 +106,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         PolylineOptions options = new PolylineOptions().width(7).color(Color.RED).geodesic(true);
         for (Site site : points) {
             LatLng loc = new LatLng(site.lat, site.lng);
-            options.add(loc);
+            if (site.isPod)
+                mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(site.isPod ? BitmapDescriptorFactory.HUE_YELLOW : BitmapDescriptorFactory.HUE_RED)).position(loc).title(site.date));
+            else
+                options.add(loc);
         }
 
         mMap.addMarker(new MarkerOptions().position(new LatLng(points.get(0).lat, points.get(0).lng)).title(points.get(0).date));
@@ -117,7 +122,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ArrayList<Site> points = sites.getLocationList().get(spinner.getSelectedItem());
         for (Site site : points) {
             LatLng loc = new LatLng(site.lat, site.lng);
-            mMap.addMarker(new MarkerOptions().position(loc).title(site.date));
+            mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(site.isPod ? BitmapDescriptorFactory.HUE_YELLOW : BitmapDescriptorFactory.HUE_RED)).position(loc).title(site.date));
         }
     }
 }

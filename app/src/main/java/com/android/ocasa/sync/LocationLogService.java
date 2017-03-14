@@ -95,7 +95,7 @@ public class LocationLogService extends Service {
         String time = DateTimeHelper.formatTime(new Date());
         String imei = SessionManager.getInstance().getDeviceId();
 
-        FileHelper.getInstance().saveLocation(location.getLatitude() + " " + location.getLongitude());
+        FileHelper.getInstance().saveLocation(location.getLatitude() + " " + location.getLongitude() + " " + FileHelper.IS_NOT_POD + ".");
 
         LocationModel data = new LocationModel(imei, date, time, location.getLatitude(), location.getLongitude());
 

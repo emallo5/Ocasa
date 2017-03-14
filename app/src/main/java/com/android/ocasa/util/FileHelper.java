@@ -28,6 +28,9 @@ import static android.content.Context.MODE_APPEND;
 
 public class FileHelper {
 
+    public static final String IS_POD = "0";
+    public static final String IS_NOT_POD = "1";
+
     private static FileHelper instance;
     private String FILE = "ocasa_log.txt";
     private String LOC_LOG;
@@ -93,7 +96,9 @@ public class FileHelper {
 
                         while ( (receiveString = bufferedReader.readLine()) != null ) {
                             String[] loc = receiveString.split(" ");
-                            sites.add(new Site(loc[0], Double.parseDouble(loc[1]), Double.parseDouble(loc[2])));
+                            try {
+                                sites.add(new Site(loc[3].equals(IS_POD) ? loc[4] : loc[0], Double.parseDouble(loc[1]), Double.parseDouble(loc[2]), loc[3].equals(IS_POD)));
+                            } catch (Exception e) {}
                         }
                         inputStream.close();
                     }
