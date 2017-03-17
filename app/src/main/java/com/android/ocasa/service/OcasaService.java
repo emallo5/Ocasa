@@ -378,8 +378,9 @@ public class OcasaService {
 
                     @Override
                     public void onNext(ResponseReceipt rec) {
-                        FileHelper.getInstance().writeToFile("infSuc " + id.substring(27, 31) + " server " + rec.getId().substring(27, 31));
-                        OcasaService.getInstance().updateReceiptClosed(receipt.getId());
+                        if (rec.getId() != null)
+                            FileHelper.getInstance().writeToFile("infSuc " + id.substring(27, 31) + " server " + rec.getId().substring(27, 31));
+                        updateReceiptClosed(receipt.getId());
                     }
                 });
     }

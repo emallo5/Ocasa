@@ -104,6 +104,7 @@ public class SyncIntentSerivce extends Service {
                     .subscribe(new Subscriber<Boolean>() {
                         @Override
                         public void onCompleted() {
+                            Log.d(TAG, "Sync completed");
                         }
 
                         @Override
@@ -114,6 +115,7 @@ public class SyncIntentSerivce extends Service {
 
                         @Override
                         public void onNext(Boolean aBoolean) {
+                            Log.d(TAG, "Sync succes");
                         }
                     });
         }

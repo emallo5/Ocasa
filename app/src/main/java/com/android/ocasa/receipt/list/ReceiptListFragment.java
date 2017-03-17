@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +58,7 @@ AlertDialogFragment.OnAlertClickListener{
     static final String ARG_ACTION_ID = "action_id";
 
     private ListView receiptList;
+    private SwipeRefreshLayout swiperefresh;
     private FloatingActionButton addButton;
     private Button btnRefresh;
     private TextView tvCountDone;
@@ -97,6 +99,7 @@ AlertDialogFragment.OnAlertClickListener{
     public void onResume() {
         super.onResume();
         getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+        if (swiperefresh != null) swiperefresh.setRefreshing(true);
 
         // una vez cargados los items, verifico si tengo para descargar
         new Handler().postDelayed(new Runnable() {
@@ -132,45 +135,45 @@ AlertDialogFragment.OnAlertClickListener{
         tvCountUndone = (TextView) view.findViewById(R.id.tv_pod_count_undone);
         tvTotalItems = (TextView) view.findViewById(R.id.tv_total_items);
         tvTotalPending = (TextView) view.findViewById(R.id.tv_pending);
+        swiperefresh = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
     }
 
     private void setListeners() {
 
+        swiperefresh.setColorSchemeColors(getResources().getColor(R.color.ocasaLightBlue));
+        swiperefresh.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+                        swiperefresh.setRefreshing(true);
+                    }
+                }
+        );
+
         receiptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
 //                ReceiptCellViewModel receiptViewModel = (ReceiptCellViewModel) receiptList.getItemAtPosition(i);
-
                 Intent intent;
-
 //                if (receiptViewModel.isOpen()) {
 //                    intent = new Intent(getActivity(), EditReceiptActivity.class);
 //                } else {
                     intent = new Intent(getActivity(), DetailReceiptActivity.class);
 //                }
-
                 intent.putExtra(BaseReceiptActivity.EXTRA_RECEIPT_ID, l);
                 ((BaseActivity) getActivity()).startNewActivity(intent);
-
             }
         });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (swiperefresh.isRefreshing()) return;
                 getPresenter().load(getArguments().getString(ARG_ACTION_ID));
 //                Intent intent = new Intent(getActivity(), EditHeaderReceiptActivity.class);
 //                intent.putExtra(EditHeaderReceiptActivity.EXTRA_ACTION_ID, getArguments().getString(ARG_ACTION_ID));
 //                ((BaseActivity) getActivity()).startNewActivity(intent);
-            }
-        });
-
-        btnRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
-                Toast.makeText(getContext(), "Refrescando...", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -232,6 +235,8 @@ AlertDialogFragment.OnAlertClickListener{
         setTitle("Listado " + table.getName());
         receiptList.setAdapter(new ReceiptAdapter(table.getReceipts()));
         updateCounters(table.getReceipts());
+
+        swiperefresh.setRefreshing(false);
     }
 
     private void updateCounters (List<ReceiptCellViewModel> receipts) {

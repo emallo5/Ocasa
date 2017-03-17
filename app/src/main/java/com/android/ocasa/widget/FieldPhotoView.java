@@ -15,6 +15,7 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.android.ocasa.R;
+import com.android.ocasa.util.MediaUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
@@ -83,7 +84,8 @@ public class FieldPhotoView extends RelativeLayout implements FieldViewAdapter{
 
         File file = new File(Environment.getExternalStorageDirectory(), "/Ocasa/" + value);
 
-        Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+        Bitmap myBitmap = MediaUtils.decodeFile(file, 200, 400);
+//        Bitmap myBitmap2 = BitmapFactory.decodeFile(file.getAbsolutePath()); // lo saco porque me genera OutOfMemory
         photo.setImageBitmap(myBitmap);
 
 //        ImageLoader.getInstance().displayImage(/*"file://" + */file.getPath(), photo);

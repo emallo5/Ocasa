@@ -36,12 +36,13 @@ public class ReceiptListPresenter extends BasePresenter<ReceiptListView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.v("Error", e.getMessage());
+                        e.printStackTrace();
                     }
 
                     @Override
                     public void onNext(ReceiptTableViewModel receiptTableViewModel) {
-                        getView().onReceiptsLoadSuccess(receiptTableViewModel);
+                        if (getView() != null)
+                            getView().onReceiptsLoadSuccess(receiptTableViewModel);
                     }
                 });
     }
