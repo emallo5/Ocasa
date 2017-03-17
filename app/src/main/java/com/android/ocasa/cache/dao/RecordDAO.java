@@ -137,6 +137,7 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
                 column.setLogic(Integer.parseInt(resultArray[6]) == 1);
                 column.setPrimaryKey(Integer.parseInt(resultArray[7]) == 1);
                 column.setHighlight(Integer.parseInt(resultArray[8]) == 1);
+                column.setDetail(Integer.parseInt(resultArray[9]) == 1);
 
                 field.setColumn(column);
 
@@ -212,6 +213,7 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
                 column.setVisible(Integer.parseInt(resultArray[6]) == 1);
                 column.setPrimaryKey(Integer.parseInt(resultArray[7]) == 1);
                 column.setHighlight(Integer.parseInt(resultArray[8]) == 1);
+                column.setDetail(Integer.parseInt(resultArray[9]) == 1);
 
                 field.setColumn(column);
 

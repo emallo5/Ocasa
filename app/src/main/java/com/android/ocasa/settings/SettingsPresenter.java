@@ -73,7 +73,8 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
                 .subscribe(new Subscriber<Boolean>() {
                     @Override
                     public void onCompleted() {
-
+                        if (getView() != null)
+                            getView().onUploadSuccess();
                     }
 
                     @Override
@@ -85,7 +86,6 @@ public class SettingsPresenter extends BaseRxPresenter<SettingsView> {
 
                     @Override
                     public void onNext(Boolean aBoolean) {
-                        getView().onUploadSuccess();
                     }
                 });
     }

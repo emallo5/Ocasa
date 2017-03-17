@@ -10,6 +10,7 @@ import com.android.ocasa.model.Receipt;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.service.ReceiptService;
 import com.android.ocasa.session.SessionManager;
+import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.viewmodel.ReceiptTableViewModel;
 import com.codika.androidmvp.presenter.BasePresenter;
 
@@ -87,7 +88,8 @@ public class ReceiptListPresenter extends BasePresenter<ReceiptListView> {
 
                     @Override
                     public void onNext(ControlResponse controlResponse) {
-                        getView().onControlSynResponse(controlResponse);
+                        if (getView() != null)
+                            getView().onControlSynResponse(controlResponse);
                     }
                 });
     }
@@ -112,6 +114,29 @@ public class ReceiptListPresenter extends BasePresenter<ReceiptListView> {
                     @Override
                     public void onNext(Layout layout) {
                         getView().onSyncSuccess();
+                    }
+                });
+    }
+
+    public void load(String actionId) {
+        OcasaService.getInstance()
+                .headerReceipt(actionId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<FormViewModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(FormViewModel formViewModel) {
+                        getView().onFormSuccess(formViewModel);
                     }
                 });
     }

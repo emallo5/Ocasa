@@ -107,6 +107,7 @@ public class FieldService {
         fieldViewModel.setEditable(true);
         fieldViewModel.setVisible(column.isVisible());
         fieldViewModel.setMandatory(column.isMandatory());
+        fieldViewModel.setDetail(column.isDetail());
 
         return fieldViewModel;
     }

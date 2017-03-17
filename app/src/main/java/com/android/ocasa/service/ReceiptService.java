@@ -667,7 +667,7 @@ public class ReceiptService{
         for (Field field : fields) {
             if (field.getColumn().getFieldType() != FieldType.MAP &&
                     field.getColumn().getFieldType() != FieldType.TIME &&
-                    field.getColumn().getFieldType() != FieldType.DATE) {   // saco estos campos de la vista AvailableItems!
+                    field.getColumn().isDetail()) {   // saco estos campos de la vista AvailableItems!
 
                 FieldViewModel fieldViewModel = new FieldViewModel();
                 fieldViewModel.setValue(field.getValue());
@@ -675,6 +675,7 @@ public class ReceiptService{
                 fieldViewModel.setHighlight(field.getColumn().isHighlight());
                 fieldViewModel.setEditable(field.getColumn().isEditable());
                 fieldViewModel.setTag(field.getColumn().getId());
+                fieldViewModel.setDetail(field.getColumn().isDetail());
                 fieldViewModels.add(fieldViewModel);
             }
         }

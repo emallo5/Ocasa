@@ -63,14 +63,7 @@ public class EditHeaderReceiptFragment extends FormFragment {
         setTitle("Nueva " + form.getTitle());
 
         showFieldsInfo();
-
-//        if(form.getFields().isEmpty()){
-            onSaveButtonClick();
-//        } else {
-//            if (form.getFields().size() == 1)
-//                if (form.getFields().get(0).getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0075"))
-//                    onSaveButtonClick();
-//        }
+        onSaveButtonClick();
     }
 
     @Override

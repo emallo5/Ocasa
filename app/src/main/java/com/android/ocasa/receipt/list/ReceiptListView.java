@@ -1,6 +1,7 @@
 package com.android.ocasa.receipt.list;
 
 import com.android.ocasa.httpmodel.ControlResponse;
+import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.viewmodel.ReceiptTableViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
 import com.codika.androidmvp.view.BaseView;
@@ -15,4 +16,5 @@ public interface ReceiptListView extends BaseView {
     void onControlSynResponse(ControlResponse response);
     void onSyncSuccess();
     void onSyncError();
+    void onFormSuccess(FormViewModel formViewModel);
 }

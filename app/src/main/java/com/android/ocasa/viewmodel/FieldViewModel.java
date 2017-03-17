@@ -29,6 +29,8 @@ public class FieldViewModel {
 
     private boolean mandatory;
 
+    private boolean detail;
+
     private List<FieldViewModel> relationshipFields;
 
     public String getTag() {
@@ -117,5 +119,13 @@ public class FieldViewModel {
 
     public void setMandatory(boolean mandatory) {
         this.mandatory = mandatory;
+    }
+
+    public boolean isDetail() {
+        return detail;
+    }
+
+    public void setDetail(boolean detail) {
+        this.detail = detail;
     }
 }

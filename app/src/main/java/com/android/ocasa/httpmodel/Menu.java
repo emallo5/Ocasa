@@ -260,6 +260,7 @@ public class Menu {
                 column.setFieldType(FieldType.findTypeByApiName(jObject.get("Field_Type").getAsString()));
                 column.setHighlight(jObject.has("Highlight") && jObject.get("Highlight").getAsBoolean());
                 column.setDefaultValue(jObject.has("Default") ? jObject.get("Default").getAsString() : "");
+                column.setDetail(jObject.has("Detail") && jObject.get("Detail").getAsBoolean());
 
                 if(column.isPrimaryKey() || column.getId().contains("CF_0200")){
                     column.setLogic(true);

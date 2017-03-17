@@ -57,6 +57,8 @@ public class Column {
     @DatabaseField
     private String defaultValue;
 
+    @DatabaseField
+    private boolean detail;
 
     public Column() {}
 
@@ -178,6 +180,14 @@ public class Column {
         }
 
         layouts.add(layout);
+    }
+
+    public boolean isDetail() {
+        return detail;
+    }
+
+    public void setDetail(boolean detail) {
+        this.detail = detail;
     }
 
     public boolean isCombo() {

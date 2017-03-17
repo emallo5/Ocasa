@@ -18,9 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.ocasa.R;
+import com.android.ocasa.cache.dao.FieldDAO;
+import com.android.ocasa.cache.dao.ReceiptDAO;
 import com.android.ocasa.cache.dao.RecordDAO;
 import com.android.ocasa.event.CloseReceiptEvent;
 import com.android.ocasa.httpmodel.ControlResponse;
+import com.android.ocasa.model.Action;
+import com.android.ocasa.model.Column;
+import com.android.ocasa.model.Field;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.receipt.header.EditHeaderReceiptActivity;
 import com.android.ocasa.adapter.ReceiptAdapter;
@@ -28,10 +33,13 @@ import com.android.ocasa.core.activity.BaseActivity;
 import com.android.ocasa.receipt.base.BaseReceiptActivity;
 import com.android.ocasa.receipt.detail.DetailReceiptActivity;
 import com.android.ocasa.receipt.edit.EditReceiptActivity;
+import com.android.ocasa.receipt.header.EditHeaderReceiptPresenter;
 import com.android.ocasa.service.ReceiptService;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.util.ReceiptCounterHelper;
+import com.android.ocasa.viewmodel.FieldViewModel;
+import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.viewmodel.ReceiptCellViewModel;
 import com.android.ocasa.viewmodel.ReceiptTableViewModel;
 import com.codika.androidmvp.fragment.BaseMvpFragment;
@@ -41,6 +49,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ReceiptListFragment extends BaseMvpFragment<ReceiptListView, ReceiptListPresenter> implements ReceiptListView,
 AlertDialogFragment.OnAlertClickListener{
@@ -150,9 +159,10 @@ AlertDialogFragment.OnAlertClickListener{
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), EditHeaderReceiptActivity.class);
-                intent.putExtra(EditHeaderReceiptActivity.EXTRA_ACTION_ID, getArguments().getString(ARG_ACTION_ID));
-                ((BaseActivity) getActivity()).startNewActivity(intent);
+                getPresenter().load(getArguments().getString(ARG_ACTION_ID));
+//                Intent intent = new Intent(getActivity(), EditHeaderReceiptActivity.class);
+//                intent.putExtra(EditHeaderReceiptActivity.EXTRA_ACTION_ID, getArguments().getString(ARG_ACTION_ID));
+//                ((BaseActivity) getActivity()).startNewActivity(intent);
             }
         });
 
@@ -163,6 +173,41 @@ AlertDialogFragment.OnAlertClickListener{
                 Toast.makeText(getContext(), "Refrescando...", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onFormSuccess(FormViewModel formViewModel) {
+        Receipt receipt = new Receipt();
+        receipt.setNumber((int) (Math.random() * 1000));
+
+        Action action = new Action();
+        action.setId(getArguments().getString(ARG_ACTION_ID));
+        receipt.setAction(action);
+
+        List<Field> fields = new ArrayList<>();
+
+        for (FieldViewModel fieldViewModel : formViewModel.getFields()) {
+            Field field = new Field();
+
+            Column column = new Column();
+            column.setId(fieldViewModel.getTag());
+
+            field.setColumn(column);
+            field.setValue(fieldViewModel.getValue());
+            field.setReceipt(receipt);
+
+            fields.add(field);
+        }
+
+        receipt.setHeaderValues(fields);
+
+        new ReceiptDAO(getActivity()).save(receipt);
+        new FieldDAO(getActivity()).save(receipt.getHeaderValues());
+
+        Intent intent = new Intent(getActivity(), EditReceiptActivity.class);
+        intent.putExtra(EditReceiptActivity.EXTRA_RECEIPT_ID, receipt.getId());
+
+        ((BaseActivity)getActivity()).startNewActivity(intent);
     }
 
     public void setTitle(String title){
