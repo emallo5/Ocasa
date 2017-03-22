@@ -90,6 +90,33 @@ public class FieldDAO extends GenericDAOImpl<Field, Long> {
         return null;
     }
 
+    public List<Field> findForRecordAndLayout(String recordId, String layoutId){
+
+        try {
+            QueryBuilder<Field, Long> fieldBuilder = dao.queryBuilder();
+
+            QueryBuilder<Column, String> columnBuilder = new ColumnDAO(context).getDao().queryBuilder();
+//            columnBuilder.where().eq("visible", true);
+
+            QueryBuilder<LayoutColumn, Long> layoutColumnBuilder = new LayoutColumnDAO(context).getDao().queryBuilder();
+
+            QueryBuilder<Layout, Long> layoutBuilder = new LayoutDAO(context).getDao().queryBuilder();
+            layoutBuilder.where().eq("externalID", layoutId);
+
+            layoutColumnBuilder.join(layoutBuilder);
+
+            columnBuilder.join(layoutColumnBuilder);
+
+            fieldBuilder.join(columnBuilder);
+            fieldBuilder.where().eq("record_id", recordId);
+
+            return fieldBuilder.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
     public List<Field> findForAvailableColumns(long recordId, ArrayList<String> availableColumns){
 

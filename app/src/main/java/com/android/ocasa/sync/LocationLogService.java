@@ -12,10 +12,12 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.ocasa.model.LocationModel;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.session.SessionManager;
+import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.util.FileHelper;
 
@@ -41,6 +43,8 @@ public class LocationLogService extends Service {
 
         Log.d("LocationService", "Starting");
 
+        int lap = ConfigHelper.getInstance().getAppConfiguration().getLapLocationProc();
+
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         if (ContextCompat.checkSelfPermission(LocationLogService.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -48,10 +52,10 @@ public class LocationLogService extends Service {
                 out();
             } else {
                 if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
-                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_TIME_LAP, 10, locationNETListener);
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, lap, 15, locationNETListener);
 
                 if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_TIME_LAP, 10, locationGPSListener);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, lap, 15, locationGPSListener);
             }
         } else
             out();
@@ -97,6 +101,8 @@ public class LocationLogService extends Service {
 
         FileHelper.getInstance().saveLocation(location.getLatitude() + " " + location.getLongitude() + " " + FileHelper.IS_NOT_POD + ".");
 
+        if (!ConfigHelper.getInstance().getAppConfiguration().isLocationProcOn()) return;
+
         LocationModel data = new LocationModel(imei, date, time, location.getLatitude(), location.getLongitude());
 
         OcasaService.getInstance().sendLocationData(data).retry(2).observeOn(AndroidSchedulers.mainThread())
@@ -104,17 +110,14 @@ public class LocationLogService extends Service {
                 .subscribe(new Subscriber<Void>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
 
                     @Override
                     public void onNext(Void aVoid) {
-
                     }
                 });
     }

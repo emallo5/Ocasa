@@ -15,6 +15,7 @@ public class TableViewModel {
     private String name;
 
     private List<CellViewModel> cells;
+    private ArrayList<String> orderBy = new ArrayList<>();
 
     private String color;
 
@@ -70,5 +71,13 @@ public class TableViewModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void addOrderColumn(String column) {
+        orderBy.add(column);
+    }
+
+    public ArrayList<String> getOrderBy() {
+        return orderBy;
     }
 }

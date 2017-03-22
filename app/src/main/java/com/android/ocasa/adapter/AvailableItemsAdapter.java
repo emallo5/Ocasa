@@ -91,7 +91,7 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
 
             FieldViewModel field = record.getFields().get(index);
             TextView text = holder.fields.get(index);
-            if(field.isEditable() == false) {
+            if (!field.isEditable() && field.isVisible()) {
                 text.setText(field.getLabel() + ": " + field.getValue());
                 text.setVisibility(View.VISIBLE);
             }else

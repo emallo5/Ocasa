@@ -69,10 +69,20 @@ public class CellViewModel {
         isUpdated = updated;
     }
 
-    public String getKeyValue(){
+    public String getKeyValue() {
         for (int index = 0; index < fields.size(); index++) {
             FieldViewModel field = fields.get(index);
             if(field.isPrimaryKey()){
+                return field.getValue();
+            }
+        }
+
+        return null;
+    }
+
+    public String getColumnValue(String column) {
+        for (FieldViewModel field : fields) {
+            if(field.getTag().equals(column)) {
                 return field.getValue();
             }
         }

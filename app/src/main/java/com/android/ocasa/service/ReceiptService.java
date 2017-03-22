@@ -652,12 +652,15 @@ public class ReceiptService{
             if (!((OcasaApplication) context.getApplicationContext()).availableItemsLoading) return null;
         }
 
+        for (String column : action.getOrder().split(",")) tableView.addOrderColumn(column);
+        if (tableView.getOrderBy().get(0).isEmpty()) tableView.getOrderBy().clear();
+
         return tableView;
     }
 
     private CellViewModel createCell(long recordId, Receipt receipt, Context context) {
 
-        List<Field> fields = new FieldDAO(context).findVisiblesForRecordAndLayout(String.valueOf(recordId), receipt.getAction().getId());
+        List<Field> fields = new FieldDAO(context).findForRecordAndLayout(String.valueOf(recordId), receipt.getAction().getId());
 
         CellViewModel cell = new CellViewModel();
         cell.setId(recordId);
@@ -676,6 +679,7 @@ public class ReceiptService{
                 fieldViewModel.setEditable(field.getColumn().isEditable());
                 fieldViewModel.setTag(field.getColumn().getId());
                 fieldViewModel.setDetail(field.getColumn().isDetail());
+                fieldViewModel.setVisible(field.getColumn().isVisible());
                 fieldViewModels.add(fieldViewModel);
             }
         }

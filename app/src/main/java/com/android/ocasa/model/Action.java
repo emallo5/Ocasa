@@ -31,6 +31,9 @@ public class Action {
     @DatabaseField(foreign = true)
     private Category category;
 
+    @DatabaseField
+    private String order = "";
+
     public String getId() {
         return id;
     }
@@ -77,6 +80,14 @@ public class Action {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+    public String getOrder() {
+        return order;
     }
 
     public Column getHeaderColumnForId(String columnId){

@@ -35,6 +35,7 @@ import com.android.ocasa.model.ReceiptItem;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.session.SessionManager;
 import com.android.ocasa.sync.SyncIntentSerivce;
+import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.FileHelper;
 import com.android.ocasa.util.MediaUtils;
 import com.android.ocasa.viewmodel.CellViewModel;
@@ -297,9 +298,11 @@ public class OcasaService {
 
         record.setRecords(records);
 
-        MediaBody body = new MediaBody();
+        ArrayList<MediaBody> bodys = new ArrayList<>();
 
         for (Field media : mediaFiles) {
+
+            MediaBody body = new MediaBody();
 
             if(media != null && media.getValue() != null && !media.getValue().isEmpty()) {
 
@@ -319,6 +322,7 @@ public class OcasaService {
                 recordArchive.addArchive(archive);
 
                 body.addRecordArchive(recordArchive);
+                bodys.add(body);
             }
         }
 
@@ -326,13 +330,14 @@ public class OcasaService {
         final String id = list.iterator().next().getRecord().getExternalId();
         FileHelper.getInstance().writeToFile("record " + id.substring(27, 31));
 
-        if (body.getRecord() != null)
-            uploadImages(receipt.getAction().getTable().getId(), body, record, receipt, id);
+        if (bodys.size() != 0)
+            uploadImages(receipt.getAction().getTable().getId(), bodys, record, receipt, id);
         else
             uploadInfo(record, receipt, id);
     }
 
-    private void uploadImages(String tableId, MediaBody body, final TableRecord record, final Receipt receipt, final String id) {
+    private void uploadImages(final String tableId, final ArrayList<MediaBody> bodys, final TableRecord record, final Receipt receipt, final String id) {
+        MediaBody body = bodys.get(0);
         apiManager.uploadImage(tableId, body, SessionManager.getInstance().getDeviceId())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<ResponseImage>() {
@@ -354,7 +359,12 @@ public class OcasaService {
 
                         if (s.getStatus() != 0) return;
 
-                        uploadInfo(record, receipt, id);
+                        bodys.remove(0);
+
+                        if (bodys.size() != 0)
+                            uploadImages(tableId, bodys, record, receipt, id);
+                        else
+                            uploadInfo(record, receipt, id);
                     }
                 });
 
@@ -463,7 +473,9 @@ public class OcasaService {
 
     public Observable<Boolean> uploadReceipts(final List<Receipt> uploadReceipts) {
 
-        return Observable.zip(Observable.from(uploadReceipts), Observable.interval(4, TimeUnit.SECONDS), new Func2<Receipt, Long, Boolean>() {
+        int lap = ConfigHelper.getInstance().getAppConfiguration().getPodDelay();
+
+        return Observable.zip(Observable.from(uploadReceipts), Observable.interval(lap, TimeUnit.SECONDS), new Func2<Receipt, Long, Boolean>() {
             @Override
             public Boolean call(Receipt receipt, Long l) {
                 upload(receipt);

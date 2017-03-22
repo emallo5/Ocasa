@@ -31,7 +31,7 @@ public class ReceiptCacheManager {
     private ReceiptCacheManager(){
         cache = new DualCacheBuilder<>(CACHE_NAME, 1, List.class)
                 .useDefaultSerializerInRam(1000)
-                .useDefaultSerializerInDisk(1000, true);;
+                .useDefaultSerializerInDisk(1000, true);
     }
 
     public boolean recordExists(long recordId){

@@ -11,10 +11,14 @@ import android.view.View;
 
 import com.android.ocasa.OcasaApplication;
 import com.android.ocasa.adapter.AvailableItemsAdapter;
+import com.android.ocasa.cache.dao.ActionDAO;
+import com.android.ocasa.cache.dao.ReceiptDAO;
 import com.android.ocasa.cache.dao.ReceiptItemDAO;
 import com.android.ocasa.core.TableFragment;
 import com.android.ocasa.core.TablePresenter;
 import com.android.ocasa.event.ReceiptItemAddEvent;
+import com.android.ocasa.model.Action;
+import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.ReceiptItem;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.receipt.edit.OnItemChangeListener;
@@ -24,6 +28,9 @@ import com.android.ocasa.viewmodel.TableViewModel;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import rx.Subscriber;
@@ -93,6 +100,8 @@ public class AvailableItemsFragment extends TableFragment {
         if(table == null)
             return;
 
+        if (!table.getOrderBy().isEmpty()) orderRecords(table.getCells(), table.getOrderBy());
+
         if (getAdapter() == null) {
             setListShown(true);
             setAdapter(new AvailableItemsAdapter(table.getCells()));
@@ -127,5 +136,19 @@ public class AvailableItemsFragment extends TableFragment {
     public void filterItems(String filter) {
         if (getAdapter() != null)
             ((AvailableItemsAdapter) getAdapter()).filter(filter);
+    }
+
+    public void orderRecords(List<CellViewModel> cells, final List<String> orderBy) {
+        Collections.sort(cells, new Comparator<CellViewModel>() {
+            @Override
+            public int compare(CellViewModel o1, CellViewModel o2) {
+                for (String comparing : orderBy) {
+                    int result = o1.getColumnValue(comparing).compareTo(o2.getColumnValue(comparing));
+                    if (result == 0) continue;
+                    else return result;
+                }
+                return 0;
+            }
+        });
     }
 }

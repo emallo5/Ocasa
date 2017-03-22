@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.android.ocasa.model.AppConfiguration;
 import com.google.gson.Gson;
 
 /**
@@ -94,7 +95,6 @@ public class ConfigHelper {
         }
     }
 
-
     public Object ReadObjectConfig(String KeyName, Class KeyValue) {
 
         try {
@@ -111,5 +111,14 @@ public class ConfigHelper {
             return null;
         }
 
+    }
+
+    public AppConfiguration getAppConfiguration() {
+        AppConfiguration config = (AppConfiguration) ReadObjectConfig("app_configuration", AppConfiguration.class);
+        return config == null ? new AppConfiguration() : config;
+    }
+
+    public void setAppConfiguration(AppConfiguration appConfiguration) {
+        WriteObjectConfig("app_configuration", appConfiguration);
     }
 }

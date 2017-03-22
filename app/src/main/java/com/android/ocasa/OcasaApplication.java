@@ -102,8 +102,9 @@ public class OcasaApplication extends Application{
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-//        httpClient.connectTimeout(1, TimeUnit.MINUTES);
-//        httpClient.readTimeout(1, TimeUnit.MINUTES);
+        httpClient.connectTimeout(5, TimeUnit.MINUTES);
+        httpClient.readTimeout(5, TimeUnit.MINUTES);
+        httpClient.writeTimeout(5, TimeUnit.MINUTES);
 
         if (BuildConfig.DEBUG)
             httpClient.interceptors().add(logging);

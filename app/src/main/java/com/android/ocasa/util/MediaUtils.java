@@ -15,10 +15,12 @@ public class MediaUtils {
 
     public static String convertMediaToBase64(String path) throws OutOfMemoryError {
 
+        int compress = ConfigHelper.getInstance().getAppConfiguration().getImgCompress();
+
         Bitmap bm = BitmapFactory.decodeFile(path);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        bm.compress(Bitmap.CompressFormat.JPEG, compress, baos);
 
         return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
     }

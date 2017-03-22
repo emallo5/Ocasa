@@ -258,6 +258,7 @@ public class CacheManager {
 
             FieldViewModel fieldViewModel = new FieldService().getFieldFromColumn(context, column);
             fieldViewModel.setEditable(column.isEditable());
+            fieldViewModel.setVisible(column.isVisible());
 
             Field field = record.getFieldForColumn(column.getId());
 

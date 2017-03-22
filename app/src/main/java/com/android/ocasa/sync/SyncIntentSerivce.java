@@ -36,7 +36,7 @@ import rx.schedulers.Schedulers;
 public class SyncIntentSerivce extends Service {
 
     public static final String TAG = "intentService";
-    public static final int MINUTES_DELAY = 2;
+    public static final int MINUTES_DELAY = 4;
 
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
@@ -54,9 +54,9 @@ public class SyncIntentSerivce extends Service {
             scheduler = Executors.newSingleThreadScheduledExecutor();
             scheduler.scheduleAtFixedRate (new Runnable() {
                 public void run() {
-                    syncData();
+                    if (ConfigHelper.getInstance().getAppConfiguration().isSyncProcOn()) syncData();
                 }
-            }, 0, MINUTES_DELAY, TimeUnit.MINUTES);
+            }, 0, ConfigHelper.getInstance().getAppConfiguration().getLapSyncProc(), TimeUnit.MINUTES);
         }
     }
 
@@ -104,7 +104,6 @@ public class SyncIntentSerivce extends Service {
                     .subscribe(new Subscriber<Boolean>() {
                         @Override
                         public void onCompleted() {
-                            Log.d(TAG, "Sync completed");
                         }
 
                         @Override
@@ -115,7 +114,6 @@ public class SyncIntentSerivce extends Service {
 
                         @Override
                         public void onNext(Boolean aBoolean) {
-                            Log.d(TAG, "Sync succes");
                         }
                     });
         }

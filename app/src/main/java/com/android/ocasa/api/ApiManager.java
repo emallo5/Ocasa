@@ -59,7 +59,6 @@ public class ApiManager {
         return api.uploadImage(body, tableId, deviceId);
     }
 
-
     public Observable<Layout> layout(Layout layout, double latitude, double longitude, String deviceId){
         return Observable.zip (
                 api.columns(layout.getExternalID() + "|" + layout.getTable().getId(), deviceId, latitude, longitude)

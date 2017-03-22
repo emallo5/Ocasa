@@ -95,6 +95,7 @@ public class Menu {
                 action.setId(jAction.get("Id").getAsString());
                 action.setName(jAction.get("Name").getAsString());
                 action.setCategory(category);
+                action.setOrder(jAction.get("OrderBy").getAsString());
 
                 Table table = new Table();
                 table.setId(jAction.get("Table_id").getAsString());
@@ -172,6 +173,7 @@ public class Menu {
 
             action.setId(jObject.get("Id").getAsString());
             action.setName(jObject.get("Name").getAsString());
+            action.setOrder(jObject.get("OrderBy").getAsString());
 
             Table table = new Table();
             table.setId(jObject.get("Table_id").getAsString());

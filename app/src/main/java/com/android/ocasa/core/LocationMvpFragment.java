@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.ocasa.OcasaApplication;
+import com.android.ocasa.util.FileHelper;
 import com.codika.androidmvp.fragment.BaseMvpFragment;
 import com.codika.androidmvp.presenter.BasePresenter;
 import com.codika.androidmvp.view.BaseView;
@@ -62,8 +63,10 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
     @Override
     public void onStart() {
         super.onStart();
-        if (AVAILABLE_GPS_FUNCTION)
+        if (AVAILABLE_GPS_FUNCTION) {
+            FileHelper.getInstance().writeToFile("GPS:connecting");
             apiClient.connect();
+        }
     }
 
     @Override
@@ -72,6 +75,7 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
         if (apiClient == null) return;
 
         if (apiClient.isConnected()) {
+            FileHelper.getInstance().writeToFile("GPS:desconnecting");
             LocationServices.FusedLocationApi.removeLocationUpdates(apiClient, this);
             apiClient.disconnect();
         }
@@ -84,7 +88,7 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
 
     @Override
     public void onConnected(Bundle bundle) {
-        Log.d(GPS_TAG, "gps conectado");
+        FileHelper.getInstance().writeToFile("GPS:connected");
         loadLocation();
     }
 
@@ -101,14 +105,16 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         } else {
+            FileHelper.getInstance().writeToFile("GPS:creatingReq");
             createLocationRequest();
 
-            if (LocationServices.FusedLocationApi.getLocationAvailability(apiClient).isLocationAvailable())
+            if (LocationServices.FusedLocationApi.getLocationAvailability(apiClient).isLocationAvailable()) {
                 LocationServices.FusedLocationApi.requestLocationUpdates(apiClient, mLocationRequest, this);
-
+                FileHelper.getInstance().writeToFile("GPS:receivingUpdates");
+            }
             else {
                 loadDummyLocation(LOCATION_DISABLED);
-                Log.d(GPS_TAG, "loc desactivada");
+                FileHelper.getInstance().writeToFile("GPS:notAvailable");
             }
         }
     }
@@ -129,13 +135,13 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
     @Override
     public void onConnectionSuspended(int i) {
         apiClient.connect();
-        Log.d(GPS_TAG, "conexion suspendida, reintentando");
+        FileHelper.getInstance().writeToFile("GPS:suspended-reconecting");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         loadDummyLocation(CONNECTION_FAILED);
-        Log.d(GPS_TAG, "conexion fallida, reintentando en 2 seg");
+        FileHelper.getInstance().writeToFile("GPS:connect-failed-retrying");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -145,8 +151,12 @@ public abstract class LocationMvpFragment<V extends BaseView, P extends BasePres
     }
 
     public Location getLastLocation() {
-        if (lastLocation == null) loadDummyLocation(PERMISSION_DENIED);
+        if (lastLocation == null) {
+            loadDummyLocation(PERMISSION_DENIED);
+            FileHelper.getInstance().writeToFile("GPS:locationRetNull");
+        }
 
+        FileHelper.getInstance().writeToFile("GPS:returnedSucc");
         return lastLocation;
     }
 
