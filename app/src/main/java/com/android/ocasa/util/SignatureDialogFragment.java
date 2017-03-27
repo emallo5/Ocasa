@@ -26,7 +26,7 @@ import java.util.Locale;
  */
 public class SignatureDialogFragment extends FieldDetailDialogFragment {
 
-    static final String SIGNATURE_FILE_NAME = "signature_%s.jpg";
+    static final String SIGNATURE_FILE_NAME = "signature_%s";
 
     private TextView title;
     private SignatureView signature;
@@ -117,16 +117,13 @@ public class SignatureDialogFragment extends FieldDetailDialogFragment {
         File file = new File(storageDir, fileName);
 
         try {
-
             if(!file.exists()) {
-                if (file.createNewFile()) {
-                    OutputStream stream = new FileOutputStream(file);
-                    signature.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                    stream.flush();
-                    stream.close();
-
-                    return fileName;
-                }
+                file = File.createTempFile(fileName, ".jpg", storageDir);
+                OutputStream stream = new FileOutputStream(file);
+                signature.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                stream.flush();
+                stream.close();
+                return file.getName();
             }
         } catch (IOException e) {
             e.printStackTrace();
