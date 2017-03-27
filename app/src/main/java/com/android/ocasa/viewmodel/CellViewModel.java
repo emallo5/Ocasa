@@ -82,7 +82,7 @@ public class CellViewModel {
 
     public String getColumnValue(String column) {
         for (FieldViewModel field : fields) {
-            if(field.getTag().equals(column)) {
+            if(field.getTag().equalsIgnoreCase(column)) {
                 return field.getValue();
             }
         }

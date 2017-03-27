@@ -143,9 +143,14 @@ public class AvailableItemsFragment extends TableFragment {
             @Override
             public int compare(CellViewModel o1, CellViewModel o2) {
                 for (String comparing : orderBy) {
-                    int result = o1.getColumnValue(comparing).compareTo(o2.getColumnValue(comparing));
-                    if (result == 0) continue;
-                    else return result;
+                    try {
+                        int result = o1.getColumnValue(comparing).compareTo(o2.getColumnValue(comparing));
+                        if (result == 0) continue;
+                        else return result;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return 0;
+                    }
                 }
                 return 0;
             }
