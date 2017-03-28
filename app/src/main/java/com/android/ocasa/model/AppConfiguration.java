@@ -34,7 +34,7 @@ public class AppConfiguration {
     }
 
     public int getPodDelay() {
-        return podDelay == 0 ? 5 : podDelay;
+        return podDelay;
     }
 
     public void setPodDelay(int podDelay) {

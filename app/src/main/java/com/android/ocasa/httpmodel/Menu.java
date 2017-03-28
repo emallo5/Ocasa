@@ -1,6 +1,7 @@
 package com.android.ocasa.httpmodel;
 
 import com.android.ocasa.model.Action;
+import com.android.ocasa.model.AppConfiguration;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Column;
@@ -29,6 +30,9 @@ public class Menu {
     @SerializedName("Applications")
     private List<Application> applications;
 
+    @SerializedName("Configuracion")
+    private AppConfiguration configuration;
+
     public Menu(){ }
 
     public List<Application> getApplications() {
@@ -37,6 +41,14 @@ public class Menu {
 
     public void setApplications(List<Application> applications) {
         this.applications = applications;
+    }
+
+    public AppConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(AppConfiguration configuration) {
+        this.configuration = configuration;
     }
 
     public static class CategoryDeserializer implements JsonDeserializer<Category>{

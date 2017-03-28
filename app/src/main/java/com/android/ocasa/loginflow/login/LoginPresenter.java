@@ -10,6 +10,7 @@ import com.android.ocasa.model.ApiError;
 import com.android.ocasa.model.LoginCredentials;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.session.SessionManager;
+import com.android.ocasa.util.ConfigHelper;
 import com.codika.androidmvprx.presenter.BaseRxPresenter;
 
 import rx.Subscription;
@@ -125,6 +126,7 @@ public class LoginPresenter extends BaseRxPresenter<LoginView> {
         @Override
         public void onNext(Menu menu) {
             getView().onLoginSuccess();
+            ConfigHelper.getInstance().setAppConfiguration(menu.getConfiguration());
             SessionManager.getInstance().saveUser("");
         }
     }
