@@ -11,4 +11,5 @@ public interface OnItemChangeListener {
     void onItemRemoved(CellViewModel item);
     void onItemNotFound(String code);
     void onPreviousItemsLoaded(long[] recordIds);
+    void onCreateItem(String id);
 }

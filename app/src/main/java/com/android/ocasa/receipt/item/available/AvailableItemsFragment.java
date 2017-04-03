@@ -134,8 +134,14 @@ public class AvailableItemsFragment extends TableFragment {
     }
 
     public void filterItems(String filter) {
+        int results = 2;
         if (getAdapter() != null)
-            ((AvailableItemsAdapter) getAdapter()).filter(filter);
+            results = ((AvailableItemsAdapter) getAdapter()).filter(filter);
+
+        if (results == 0) {
+            itemCallback.onCreateItem(filter);
+        } else if (results == 1)
+            itemCallback.onItemAdded(((AvailableItemsAdapter) getAdapter()).getItem(0));
     }
 
     public void orderRecords(List<CellViewModel> cells, final List<String> orderBy) {

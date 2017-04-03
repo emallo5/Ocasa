@@ -192,7 +192,7 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
 
                 String[] resultArray = results.get(index);
 
-                if(record == null || record.getId() != Long.parseLong(resultArray[0])){
+                if(record == null || record.getId() != Long.parseLong(resultArray[0])) {
                     record = new Record();
                     record.setId(Long.parseLong(resultArray[0]));
 

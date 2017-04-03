@@ -6,6 +6,6 @@ package com.android.ocasa.util;
 
 public class Constants {
 
-    public static final String SYNC_RUNING = "sync_runing";
+    public static final String LAST_LOCATION = "last_location";
 
 }

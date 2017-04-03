@@ -37,6 +37,7 @@ import com.android.ocasa.pickup.util.PickupItemConfirmationDialog;
 import com.android.ocasa.receipt.base.BaseReceiptFragment;
 import com.android.ocasa.receipt.base.BaseReceiptPresenter;
 import com.android.ocasa.receipt.base.BaseReceiptView;
+import com.android.ocasa.service.TableService;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.viewmodel.CellViewModel;
@@ -75,6 +76,8 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     private ViewPager pager;
     private ImageView scanner;
     private CardView searchResultsContainer;
+
+    private String codeNotFound;
 
     private long[] recordIds;
     private CellViewModel currentRecordEditing = null;
@@ -298,7 +301,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
             AddItemsFragment fragment = AddItemsFragment.newInstance(getArguments().getLong(ARG_RECEIPT_ID), charSequence.toString().trim(), recordIds);
             getChildFragmentManager().beginTransaction().replace(R.id.sub_container, fragment, "SearchItems").commit();
 
-            searchResultsContainer.setVisibility(View.VISIBLE);
+//            searchResultsContainer.setVisibility(View.VISIBLE);
         } else {
             if (charSequence.length() == 0) {
                 searchResultsContainer.setVisibility(View.GONE);
@@ -309,7 +312,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
                 return;
             }
 
-            searchResultsContainer.setVisibility(View.VISIBLE);
+//            searchResultsContainer.setVisibility(View.VISIBLE); Porque ya no mostramos los resultados aparte, los filtramos en la lista misma
             frag.search(charSequence.toString());
         }
     }
@@ -427,6 +430,12 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     @Override
     public void onPosiviteClick(String tag) {
 
+        if(tag.equalsIgnoreCase("createRecord")){
+            CellViewModel cell = new TableService().addRecordToTable(getContext(), codeNotFound);
+            onItemAdded(cell);
+            return;
+        }
+
         if(tag.equalsIgnoreCase("Dialog")){
             getActivity().finish();
             return;
@@ -496,6 +505,15 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         search.requestFocus();
         errorSound.start();
         PickupItemConfirmationDialog.newInstance(code).show(getChildFragmentManager(), "ConfirmationDialog");
+//        onCreateItem(code);
+    }
+
+    @Override
+    public void onCreateItem(String id) {
+        codeNotFound = id;
+//        AlertDialogFragment dialog = AlertDialogFragment
+//                .newInstance("Pieza no econtrada", "¿Desea agregarla?");
+//        dialog.show(getChildFragmentManager(), "createRecord");
     }
 
     @Override

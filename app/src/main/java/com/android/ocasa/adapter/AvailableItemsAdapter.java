@@ -71,17 +71,17 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
     public void onBindViewHolder(RecordViewHolder holder, int position) {
         CellViewModel record = records.get(position);
 
-        if(position % 2 == 0){
+        if (position % 2 == 0) {
             holder.itemView.setBackgroundColor(Color.LTGRAY);
-        }else{
+        } else {
             holder.itemView.setBackgroundColor(Color.WHITE);
         }
 
-        if(record.isNew()){
+        if (record.isNew()) {
             holder.status.setImageResource(R.drawable.ic_new_record);
-        }else if(record.isUpdated()){
+        } else if (record.isUpdated()) {
             holder.status.setImageResource(R.drawable.ic_update_record);
-        }else {
+        } else {
             holder.status.setVisibility(View.GONE);
         }
 
@@ -94,18 +94,9 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
             if (!field.isEditable() && field.isVisible()) {
                 text.setText(field.getLabel() + ": " + field.getValue());
                 text.setVisibility(View.VISIBLE);
-            }else
-            {
+            } else {
                 text.setVisibility(View.GONE);
             }
-
-//            if(field.isHighlight()){
-//                text.setTypeface(null, Typeface.BOLD);
-//                text.setTextSize(18);
-//            }else{
-//                text.setTypeface(null, Typeface.NORMAL);
-//                text.setTextSize(14);
-//            }
         }
     }
 
@@ -133,13 +124,15 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
         notifyDataSetChanged();
     }
 
-    public void filter(String filter) {
+    public int filter(String filter) {
+        // retorna true si hay un solo item matcheado, de esta manera, vamos a la carga de POD directamente
+
         records.clear();
 
         if (filter.isEmpty() || filter.length() == 0) {
             records.addAll(recordsBackup);
             notifyDataSetChanged();
-            return;
+            return records.size();
         }
 
         for (CellViewModel cell : recordsBackup)
@@ -149,6 +142,8 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
                         break;
                     }
         notifyDataSetChanged();
+
+        return records.size();
     }
 
     public static class RecordViewHolder extends RecyclerView.ViewHolder implements

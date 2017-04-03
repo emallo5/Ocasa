@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Location;
 import android.nfc.FormatException;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -21,6 +22,8 @@ import com.android.ocasa.loader.SaveFormTask;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.util.AlertDialogFragment;
+import com.android.ocasa.util.ConfigHelper;
+import com.android.ocasa.util.Constants;
 import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.util.FileHelper;
 import com.android.ocasa.util.KeyboardUtil;
@@ -114,6 +117,7 @@ public class DetailActionFragment extends FormFragment {
                 text.setText(field.getLabel() + ": " + field.getValue());
                 text.setVisibility(View.VISIBLE);
 
+                if (field.getValue().isEmpty()) text.setVisibility(View.GONE);
                 formContainer.addView(text);
             } else {
 
@@ -181,7 +185,7 @@ public class DetailActionFragment extends FormFragment {
 
         // agrego los elementos de map y hora. Fueron sacados en el onFormSucces() del padre
         values.put(timeTag, DateTimeHelper.formatTime(new Date()));
-        values.put(mapTag, FieldType.MAP.format(getLastLocation()));
+        values.put(mapTag, FieldType.MAP.format(requestLoction()));
 
         SaveFormTask.FormData data = new SaveFormTask.FormData(values, getArguments().getLong(ARG_RECORD_ID), getLastLocation());
 
@@ -232,6 +236,21 @@ public class DetailActionFragment extends FormFragment {
         extras.putBoolean(EXIT_POD, exit);
         i.putExtras(extras);
         return i;
+    }
+
+    private Location requestLoction() {
+
+        Location location = getLastLocation();
+
+        try {
+            String[] loc = ConfigHelper.getInstance().ReadConfig(Constants.LAST_LOCATION).split("-");
+            Location locationSaved = new Location("Dummy");
+            locationSaved.setLatitude(Double.valueOf(loc[0]));
+            locationSaved.setLongitude(Double.valueOf(loc[1]));
+            location = locationSaved;
+        } catch (Exception e) {}
+
+        return location;
     }
 
     public void showProgress() {

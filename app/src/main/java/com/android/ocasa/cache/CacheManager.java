@@ -262,7 +262,7 @@ public class CacheManager {
 
             Field field = record.getFieldForColumn(column.getId());
 
-            if(field != null){
+            if (field != null) {
                 fieldViewModel.setValue(field.getValue());
             }
 

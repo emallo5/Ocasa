@@ -18,6 +18,7 @@ import com.android.ocasa.model.LocationModel;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.session.SessionManager;
 import com.android.ocasa.util.ConfigHelper;
+import com.android.ocasa.util.Constants;
 import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.util.FileHelper;
 
@@ -95,6 +96,9 @@ public class LocationLogService extends Service {
     };
 
     private void sendResult (Location location) {
+
+        ConfigHelper.getInstance().WriteConfig(Constants.LAST_LOCATION, location.getLatitude()+"-"+location.getLongitude());
+
         String date = DateTimeHelper.formatDate(new Date());
         String time = DateTimeHelper.formatTime(new Date());
         String imei = SessionManager.getInstance().getDeviceId();
