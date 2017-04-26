@@ -49,6 +49,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -57,6 +58,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.functions.Func2;
 import rx.functions.Func4;
+import rx.plugins.RxJavaPlugins;
 import rx.schedulers.Schedulers;
 
 /**
@@ -261,6 +263,7 @@ public class OcasaService {
 
     private void upload(final Receipt receipt) {
 
+
         final TableRecord record = new TableRecord();
 
         List<Record> records = new ArrayList<>();
@@ -272,6 +275,9 @@ public class OcasaService {
             List<Field> headerFields = new ArrayList<>();
 
             Record receiptRecord = new Record();
+
+            if (item.getRecord().getExternalId() == null) return;
+
             receiptRecord.setExternalId(item.getRecord().getExternalId());
 
             List<ColumnAction> headers = new ColumnActionDAO(context)
@@ -328,7 +334,9 @@ public class OcasaService {
 
         Collection<ReceiptItem> list = receipt.getItems();
         final String id = list.iterator().next().getRecord().getExternalId();
-        FileHelper.getInstance().writeToFile("record " + id.substring(27, 31));
+        try {
+            FileHelper.getInstance().writeToFile("record " + id.substring(27, 31));
+        } catch (Exception e) {}
 
         if (bodys.size() != 0)
             uploadImages(receipt.getAction().getTable().getId(), bodys, record, receipt, id);
@@ -338,6 +346,7 @@ public class OcasaService {
 
     private void uploadImages(final String tableId, final ArrayList<MediaBody> bodys, final TableRecord record, final Receipt receipt, final String id) {
         MediaBody body = bodys.get(0);
+
         apiManager.uploadImage(tableId, body, SessionManager.getInstance().getDeviceId())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<ResponseImage>() {
@@ -349,13 +358,22 @@ public class OcasaService {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        FileHelper.getInstance().writeToFile("imgErr " + id.substring(27, 31) + " by: " + e.getMessage());
+
+                        try {
+                            RxJavaPlugins.getInstance().getErrorHandler().handleError(e);
+                        } catch (Throwable pluginException) {}
+
+                        try {
+                            FileHelper.getInstance().writeToFile("imgErr " + id.substring(27, 31) + " by: " + e.getMessage());
+                        } catch (Exception f) {}
                     }
 
                     @Override
                     public void onNext(ResponseImage s) {
 
-                        FileHelper.getInstance().writeToFile("imgSuc " + id.substring(27, 31) + " server " + s.getDescription().substring(27, 31));
+                        try {
+                            FileHelper.getInstance().writeToFile("imgSuc " + id.substring(27, 31) + " server " + s.getDescription().substring(27, 31));
+                        } catch (Exception e) {}
 
                         if (s.getStatus() != 0) return;
 
@@ -388,8 +406,11 @@ public class OcasaService {
 
                     @Override
                     public void onNext(ResponseReceipt rec) {
-                        if (rec.getId() != null)
-                            FileHelper.getInstance().writeToFile("infSuc " + id.substring(27, 31) + " server " + rec.getId().substring(27, 31));
+                        if (rec.getId() != null) {
+                            try {
+                                FileHelper.getInstance().writeToFile("infSuc " + id.substring(27, 31) + " server " + rec.getId().substring(27, 31));
+                            } catch (Exception e) {}
+                        }
                         updateReceiptClosed(receipt.getId());
                     }
                 });

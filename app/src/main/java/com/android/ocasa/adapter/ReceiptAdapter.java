@@ -77,9 +77,11 @@ public class ReceiptAdapter extends BaseAdapter {
 
         List<FieldViewModel> fields = receipt.getFields();
 
-        for (int index = 0; index < fields.size(); index++){
-            FieldViewModel field = fields.get(index);
-            holder.views.get(index).setText(field.getLabel() + ": " + field.getValue());
+        for (int index = 0; index < fields.size(); index++) {
+            try {
+                FieldViewModel field = fields.get(index);
+                holder.views.get(index).setText(field.getLabel() + ": " + field.getValue());
+            } catch (Exception e) {}
         }
 
         if (receipt.isOpen()) {

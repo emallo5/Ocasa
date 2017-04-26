@@ -17,6 +17,10 @@ public class ApiException extends RuntimeException {
         return new ApiException(throwable.getMessage(), url, null, Kind.NOT_FOUND, throwable, null);
     }
 
+    public static ApiException formatError(Throwable throwable, String url) {
+        return new ApiException(throwable.getMessage(), url, null, Kind.FORMAT_ERROR, throwable, null);
+    }
+
     public static ApiException unauthorizedError(Throwable throwable) {
         return new ApiException(throwable.getMessage(), null, null, Kind.UNAUTHORIZED, throwable, null);
     }
@@ -42,6 +46,8 @@ public class ApiException extends RuntimeException {
         HTTP,
         /** A 404 status code*/
         NOT_FOUND,
+        /** A 422 status code*/
+        FORMAT_ERROR,
         /** A 401 status code*/
         UNAUTHORIZED,
         /**

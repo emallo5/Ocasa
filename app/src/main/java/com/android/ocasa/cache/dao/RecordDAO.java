@@ -70,7 +70,7 @@ public class RecordDAO extends GenericDAOImpl<Record, Long> {
 
             recordQuery.join(fieldDao);
 
-            if (query != null){
+            if (query != null) {
                 where.and().like("concatValues", "%" + query.toLowerCase() + "%");
 
                 if(excludeIds != null && excludeIds.length >  0){

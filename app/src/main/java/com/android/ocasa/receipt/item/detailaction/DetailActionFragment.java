@@ -121,6 +121,8 @@ public class DetailActionFragment extends FormFragment {
                 formContainer.addView(text);
             } else {
 
+//                if (!field.getTag()) continue;
+
                 field.setValue("");  // vacio los datos que pueden haber quedado sucios
                 FieldViewFactory factory = field.getType().getFieldFactory();
                 View view = factory.createView(formContainer, field, isEditMode);

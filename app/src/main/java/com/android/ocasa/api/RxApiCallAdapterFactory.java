@@ -75,6 +75,10 @@ public class RxApiCallAdapterFactory extends CallAdapter.Factory {
                     return ApiException.unauthorizedError(throwable);
                 }
 
+                // A format error happened
+                if(code == 422)
+                    return ApiException.notFoundError(throwable, response.raw().request().url().toString());
+
                 return ApiException.httpError(response.raw().request().url().toString(), response, retrofit);
             }
             // A network error happened

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.android.ocasa.cache.dao.ApplicationDAO;
 import com.android.ocasa.cache.dao.CategoryDAO;
 import com.android.ocasa.cache.dao.ColumnDAO;
+import com.android.ocasa.cache.dao.FieldDAO;
 import com.android.ocasa.cache.dao.LayoutColumnDAO;
 import com.android.ocasa.cache.dao.LayoutDAO;
 import com.android.ocasa.cache.dao.ReceiptDAO;
@@ -23,12 +24,14 @@ import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.Status;
 import com.android.ocasa.model.Table;
+import com.android.ocasa.session.SessionManager;
 import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -269,40 +272,83 @@ public class TableService {
 
     public CellViewModel addRecordToTable(Context context, String seguimientoCli) {
 
-        LayoutColumnDAO layoutColumnDAO = new LayoutColumnDAO(context);
+//        LayoutColumnDAO layoutColumnDAO = new LayoutColumnDAO(context);
 
         String externalId = "AP_Mobile_2|1|c_0006|CargaMovil";
         String tableId = "OM_MovilNovedad";
 
+        RecordDAO recordDAO = new RecordDAO(context);
+        Record aRecord = recordDAO.findForTableAndQuery(tableId, null, null).get(0);
+
+
         Record record = new Record();
-        record.setExternalId(externalId);
+        ArrayList<Field> fields = new ArrayList<>();
+//        record.setExternalId(externalId);
         Table table = findTable(context, tableId);
 
-        Column clave = new Column();
-        clave.setId("OM_MOVILNOVEDAD_CF_0200");
-        Field field = new Field();
-        field.setValue(seguimientoCli);
-        field.setColumn(clave);
-        List<Field> fields = new ArrayList<Field>();
-        fields.add(field);
+//        Column clave = new Column();
+//        clave.setId("OM_MOVILNOVEDAD_CF_0200");
+//        Field field = new Field();
+//        field.setValue(seguimientoCli);
+//        field.setColumn(clave);
+//        List<Field> fields = new ArrayList<Field>();
+//        fields.add(field);
+//        record.setFields(fields);
+
+        FieldDAO fieldDAO = new FieldDAO(context);
+        for (Field field : aRecord.getFields()) {
+            field.setValue(field.getColumn().getId().equalsIgnoreCase("OM_MOVILNOVEDAD_CF_0200") ? seguimientoCli : "");
+            field.setRecord(record);
+            fields.add(field);
+        }
         record.setFields(fields);
 
-        table.getRecords().add(record);
         record.setTable(table);
+        table.getRecords().add(record);
 
-        Layout layout = new Layout();
-        layout.setExternalID(externalId);
-        layout.setTable(table);
-        List<LayoutColumn> layoutColumns = layoutColumnDAO.findAll();
-        for (LayoutColumn lc : layoutColumns)
-            if (lc.getLayout().getExternalID().equalsIgnoreCase(externalId))
-                layout.getColumns().add(lc);
-        saveTable(context, layout);
 
-        Record savedRecord = new RecordDAO(context).findByExternalId(externalId);
+//        record.getFields();
+
+        record.setExternalId(record.getId() + "|" + seguimientoCli + "|" + SessionManager.getInstance().getDeviceId());
+        recordDAO.save(record);
+
+        for (Field field : fields)
+            fieldDAO.save(field);
+
+//        new TableDAO(context).update(table);
+
+//        ColumnDAO columnDAO = new ColumnDAO(context);
+//
+//        Layout layout = new Layout();
+//        layout.setExternalID(externalId);
+//        layout.setTable(table);
+//        List<LayoutColumn> layoutColumns = layoutColumnDAO.findAll();
+//
+//        ArrayList<LayoutColumn> list = new ArrayList<>();
+//
+//        for (LayoutColumn lc : layoutColumns) {
+//            for (Column column : columnDAO.findColumnsForTable(tableId)) {
+//                if (column.getId().equalsIgnoreCase(lc.getColumn().getId())) {
+//                    lc.setColumn(column);
+//                    list.add(lc);
+//                }
+//            }
+//        }
+//
+//        layout.setColumns(list);
+//
+//        saveTable(context, layout);
+
+//        List<Record> records = recordDAO.findAll();
+//        Record savedRecord = new Record();
+//        for (Record record1 : records)
+//            if (record1.getFieldForColumn("OM_MOVILNOVEDAD_CF_0200") != null)
+//                if (record1.getFieldForColumn("OM_MOVILNOVEDAD_CF_0200").getValue().equals(seguimientoCli))
+//                    savedRecord = record1;
+
 
         CellViewModel cell = new CellViewModel();
-        cell.setId(savedRecord.getId());
+        cell.setId(record.getId());
         cell.setNew(record.isNew());
         cell.setUpdated(record.isUpdated());
         cell.setValue(record.getPrimaryKey().getValue());

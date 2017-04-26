@@ -504,16 +504,16 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         search.setText("");
         search.requestFocus();
         errorSound.start();
-        PickupItemConfirmationDialog.newInstance(code).show(getChildFragmentManager(), "ConfirmationDialog");
-//        onCreateItem(code);
+//        PickupItemConfirmationDialog.newInstance(code).show(getChildFragmentManager(), "ConfirmationDialog");
+        onCreateItem(code);
     }
 
     @Override
     public void onCreateItem(String id) {
         codeNotFound = id;
-//        AlertDialogFragment dialog = AlertDialogFragment
-//                .newInstance("Pieza no econtrada", "¿Desea agregarla?");
-//        dialog.show(getChildFragmentManager(), "createRecord");
+        AlertDialogFragment dialog = AlertDialogFragment
+                .newInstance("Pieza no econtrada", "¿Desea agregarla?");
+        dialog.show(getChildFragmentManager(), "createRecord");
     }
 
     @Override

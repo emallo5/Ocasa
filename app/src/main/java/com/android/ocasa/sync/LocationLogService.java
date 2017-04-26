@@ -49,11 +49,11 @@ public class LocationLogService extends Service {
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         if (ContextCompat.checkSelfPermission(LocationLogService.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) /*&& !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)*/) {
                 out();
             } else {
-                if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
-                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, lap, 15, locationNETListener);
+//                if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
+//                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, lap, 15, locationNETListener);
 
                 if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, lap, 15, locationGPSListener);

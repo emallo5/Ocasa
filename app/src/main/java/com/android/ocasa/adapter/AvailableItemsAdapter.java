@@ -88,15 +88,16 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
         holder.itemView.setActivated(selectedItems.get(record.getId(), false));
 
         for (int index = 0; index < holder.fields.size(); index++){
-
-            FieldViewModel field = record.getFields().get(index);
-            TextView text = holder.fields.get(index);
-            if (!field.isEditable() && field.isVisible()) {
-                text.setText(field.getLabel() + ": " + field.getValue());
-                text.setVisibility(View.VISIBLE);
-            } else {
-                text.setVisibility(View.GONE);
-            }
+            try {
+                FieldViewModel field = record.getFields().get(index);
+                TextView text = holder.fields.get(index);
+                if (!field.isEditable() && field.isVisible()) {
+                    text.setText(field.getLabel() + ": " + field.getValue());
+                    text.setVisibility(View.VISIBLE);
+                } else {
+                    text.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {}
         }
     }
 

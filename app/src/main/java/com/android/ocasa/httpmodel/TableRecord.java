@@ -91,8 +91,12 @@ public class TableRecord {
                 Field field = fields.get(index);
 
                 JsonObject jField = new JsonObject();
-                jField.addProperty("Column_id", field.getColumn().getId());
-                jField.addProperty("Value", field.getValue());
+                try {
+                    jField.addProperty("Column_id", field.getColumn().getId());
+                } catch (NullPointerException e) {jField.addProperty("Column_id", "");}
+                try {
+                    jField.addProperty("Value", field.getValue());
+                } catch (NullPointerException e) {jField.addProperty("Value", "");}
 
                 jFields.add(jField);
             }
