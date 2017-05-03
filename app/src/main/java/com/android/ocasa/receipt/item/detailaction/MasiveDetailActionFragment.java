@@ -49,8 +49,9 @@ public class MasiveDetailActionFragment extends FormFragment {
     public static final String EXIT_POD = "exit";
     public static final int REQUEST_WRITE_STORAGE = 200;
 
-    private String motivoClave = "";
-    private String motivoNombre = "";
+    private boolean readyToSave = false;
+    private View name;
+    private View signature;
 
     List<FieldViewModel> fields;
 
@@ -107,6 +108,11 @@ public class MasiveDetailActionFragment extends FormFragment {
 
             FieldViewModel field = fields.get(index);
 
+            // OM_MOVILNOVEDAD_C_0049 direccion
+            // OM_MOVILNOVEDAD_C_0014 tipoServicio
+            // OM_MOVILNOVEDAD_C_0050 nombre
+            // OM_MovilNovedad_cf_0400 firma
+
             if (!field.isEditable() && field.isVisible()) {
                 TextView text = new TextView(getContext());
                 text.setTextColor(Color.BLACK);
@@ -114,32 +120,35 @@ public class MasiveDetailActionFragment extends FormFragment {
                 text.setBackgroundColor(Color.LTGRAY);
 
                 text.setText(field.getLabel() + ": " + field.getValue());
-                text.setVisibility(View.VISIBLE);
+                text.setVisibility(View.GONE);
 
-                if (field.getValue().isEmpty()) text.setVisibility(View.GONE);
+                if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0049") || field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014"))
+                    text.setVisibility(View.VISIBLE);
+
                 formContainer.addView(text);
             } else {
+                if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0050") || field.getTag().equalsIgnoreCase("OM_MovilNovedad_cf_0400")) {
+                    field.setValue("");
+                    FieldViewFactory factory = field.getType().getFieldFactory();
+                    View view = factory.createView(formContainer, field, isEditMode);
 
-                field.setValue("");
-                FieldViewFactory factory = field.getType().getFieldFactory();
-                View view = factory.createView(formContainer, field, isEditMode);
+                    if (view != null) {
+                        formValues.put(field.getTag(), field.getValue());
+                        view.setTag(field.getTag());
 
-                if (view != null) {
-                    formValues.put(field.getTag(), field.getValue());
-                    view.setTag(field.getTag());
+                        FieldViewAdapter adapter = (FieldViewAdapter) view;
+                        adapter.setFieldViewActionListener(this);
 
-                    FieldViewAdapter adapter = (FieldViewAdapter) view;
-                    adapter.setFieldViewActionListener(this);
-                    formContainer.addView(view);
+                        view.setVisibility(View.GONE);
+                        if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0050")) name = view;
+                        if (field.getTag().equalsIgnoreCase("OM_MovilNovedad_cf_0400")) signature = view;
+                        formContainer.addView(view);
+                    }
                 }
             }
-
-            // valor por defecto de MOTIVO
-//            if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014")) {
-//                motivoClave = field.getValue().equals("E") ? "Z4" : "Z1";
-//                motivoNombre = field.getValue().equals("E") ? "ENTREGADO" : "RETIRADO";
-//            }
         }
+
+//        formContainer.findViewWithTag();
     }
 
     @Override
@@ -150,7 +159,13 @@ public class MasiveDetailActionFragment extends FormFragment {
     @Override
     public void onSaveButtonClick() {
         KeyboardUtil.hideKeyboard(getActivity());
-        saveAndExit(true);
+        if (readyToSave) {
+            saveAndExit(true);
+        } else {
+            readyToSave = true;
+            name.setVisibility(View.VISIBLE);
+            signature.setVisibility(View.VISIBLE);
+        }
     }
 
     public void saveAndExit(boolean exit) {
@@ -188,27 +203,14 @@ public class MasiveDetailActionFragment extends FormFragment {
 
     private boolean validateMandatory(Map<String, String> values) {
 
-        for (FieldViewModel field : fields) {
-            if (field.isMandatory()) {
-                if (values.get(field.getTag()) == null || values.get(field.getTag()).isEmpty() ||
-                        values.get(field.getTag()).equals(SELECT_OPTION)) {
-                    ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + field.getLabel() + "' es obligatorio");
-                    return true;
-                }
-            }
+        if (values.get("OM_MovilNovedad_cf_0400") == null) {
+            ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
+            return true;
         }
 
-        if (values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z4") || values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z1")) {
-            if (values.get("OM_MovilNovedad_cf_0400") == null) {
-                ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
-                return true;
-            }
-        } else {
-            if (values.get("OM_MovilNovedad_cf_0500") == null && values.get("OM_MovilNovedad_cf_0600") == null
-                    && values.get("OM_MovilNovedad_cf_0700") == null && values.get("OM_MovilNovedad_cf_0800") == null) {
-                ((DetailActionActivity) getActivity()).showDialog("Atención", "Se requiere al menos una foto");
-                return true;
-            }
+        if (values.get("OM_MovilNovedad_cf_0400") == null) { // TODO: buscar codigo del receptor
+            ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar el nombre del receptor");
+            return true;
         }
 
         return false;
