@@ -114,7 +114,7 @@ public class ReceiptService{
         return form;
     }
 
-    public ReceiptTableViewModel getReceiptForAction(Context context, String actionId){
+    public ReceiptTableViewModel getReceiptForAction(Context context, String actionId) {
 
         ReceiptTableViewModel table = new ReceiptTableViewModel();
 

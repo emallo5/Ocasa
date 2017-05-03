@@ -325,6 +325,7 @@ AlertDialogFragment.OnAlertClickListener{
         progress.setCancelable(false);
         progress.show(getChildFragmentManager(), "down");
         getPresenter().sync();
+
     }
 
     @Override

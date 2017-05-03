@@ -40,6 +40,7 @@ import com.android.ocasa.receipt.base.BaseReceiptView;
 import com.android.ocasa.service.TableService;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ProgressDialogFragment;
+import com.android.ocasa.util.ReceiptCounterHelper;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
@@ -432,8 +433,9 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     @Override
     public void onPosiviteClick(String tag) {
 
-        if(tag.equalsIgnoreCase("createRecord")){
+        if (tag.equalsIgnoreCase("createRecord")) {
             CellViewModel cell = new TableService().addRecordToTable(getContext(), codeNotFound);
+            ReceiptCounterHelper.getInstance().setTotalItems(ReceiptCounterHelper.getInstance().getTotalItemsCount() + 1);
             onItemAdded(cell);
             return;
         }
