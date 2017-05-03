@@ -50,7 +50,7 @@
 
             <TextView
                 android:background="@drawable/ic_functions_black_24dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="4dp"
                 android:textColor="@color/material_grey_900"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
 
             <TextView
                 android:background="@drawable/ic_cloud_done_black_24dp"
-                android:layout_marginLeft="26dp"
+                android:layout_marginLeft="16dp"
                 android:textColor="@color/material_grey_900"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -111,6 +111,24 @@
 
             <TextView
                 android:id="@+id/tv_pod_count_undone"
+                android:text=": 0"
+                android:textSize="20sp"
+                android:textColor="@color/material_grey_900"
+                android:layout_gravity="center"
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:background="@drawable/ic_fiber_new_black_24dp"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/material_grey_900"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_pod_count_news"
                 android:text=": 0"
                 android:textSize="20sp"
                 android:textColor="@color/material_grey_900"

@@ -179,6 +179,8 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
                     @Override
                     public void call(CharSequence charSequence) {
 
+                        if (charSequence.toString().isEmpty()) return;
+
                         RecieptPagerAdapter adapter = (RecieptPagerAdapter) pager.getAdapter();
                         AvailableItemsFragment availFrag = (AvailableItemsFragment) adapter.getItem(0);
                         availFrag.filterItems(charSequence.toString());
@@ -485,6 +487,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         Intent intent = new Intent(getActivity(), DetailActionActivity.class);
         intent.putExtra(DetailActionActivity.EXTRA_RECEIPT_ID, getArguments().getLong(ARG_RECEIPT_ID));
         intent.putExtra(DetailActionActivity.EXTRA_RECORD_ID, recordId);
+        intent.putExtra(DetailActionActivity.POD_TYPE_MASIVE, false); // TODO: preguntar si el motivo es "M" !!!
         startActivityForResult(intent, DETAIL_ACTION_CODE);
     }
 

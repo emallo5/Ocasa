@@ -9,6 +9,7 @@ public class ReceiptCounterHelper {
     private static final String AVAILABLES = "availables";
     private static final String COMPLETED_SYNC = "completed_sync";
     private static final String COMPLETED = "completed";
+    private static final String TOTAL = "total";
 
     private static ReceiptCounterHelper instance;
 
@@ -46,5 +47,15 @@ public class ReceiptCounterHelper {
 
     public void setCompletedSyncItems(int count) {
         ConfigHelper.getInstance().WriteConfig(COMPLETED_SYNC, String.valueOf(count));
+    }
+
+    public long getTotalItemsCount() {
+        String count = ConfigHelper.getInstance().ReadConfig(TOTAL);
+        if (count.isEmpty()) return 0;
+        return Long.valueOf(count);
+    }
+
+    public void setTotalItems(long count) {
+        ConfigHelper.getInstance().WriteConfig(TOTAL, String.valueOf(count));
     }
 }

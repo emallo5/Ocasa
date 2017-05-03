@@ -12,6 +12,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ignacio on 21/07/16.
  */
+
 public class AvailableItemsPresenter extends TablePresenter {
 
     public void load(long receiptId) {

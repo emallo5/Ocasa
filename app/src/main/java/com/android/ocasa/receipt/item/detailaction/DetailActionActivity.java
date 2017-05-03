@@ -22,8 +22,10 @@ import java.util.List;
  */
 
 public class DetailActionActivity extends BarActivity implements InformationDialogFragment.OnIformationClickListener {
+
     public static final String EXTRA_RECEIPT_ID = "_receipt_id_";
     public static final String EXTRA_RECORD_ID = "_record_id_";
+    public static final String POD_TYPE_MASIVE = "pod_type";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +33,9 @@ public class DetailActionActivity extends BarActivity implements InformationDial
 
         Bundle extras = getIntent().getExtras();
 
-        pushFragment(DetailActionFragment.newInstance(extras.getLong(EXTRA_RECEIPT_ID),
+        if (extras.getBoolean(POD_TYPE_MASIVE)) pushFragment(MasiveDetailActionFragment.newInstance(extras.getLong(EXTRA_RECEIPT_ID),
+                extras.getLong(EXTRA_RECORD_ID)), "DetailAction");
+        else pushFragment(DetailActionFragment.newInstance(extras.getLong(EXTRA_RECEIPT_ID),
                 extras.getLong(EXTRA_RECORD_ID)), "DetailAction");
     }
 

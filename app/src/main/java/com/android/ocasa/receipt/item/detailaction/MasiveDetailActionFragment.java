@@ -21,7 +21,6 @@ import com.android.ocasa.core.FormPresenter;
 import com.android.ocasa.loader.SaveFormTask;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
-import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.Constants;
 import com.android.ocasa.util.DateTimeHelper;
@@ -32,16 +31,17 @@ import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.widget.FieldComboView;
 import com.android.ocasa.widget.FieldViewAdapter;
-import com.android.ocasa.widget.TextFieldView;
 import com.android.ocasa.widget.factory.FieldViewFactory;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
-public class DetailActionFragment extends FormFragment {
+/**
+ * Created by leandro on 3/5/17.
+ */
+
+public class MasiveDetailActionFragment extends FormFragment {
 
     static String ARG_RECEIPT_ID = "receipt_id";
     static String ARG_RECORD_ID = "record_id";
@@ -100,11 +100,10 @@ public class DetailActionFragment extends FormFragment {
         if(formContainer.getChildCount() > 0)
             return;
 
-//        super.fillFields(fields, isEditMode);   hago el fill a mano para cambiar los editable=false
         if(formContainer.getChildCount() > 1)
             formContainer.removeAllViewsInLayout();
 
-        for (int index = 0; index < fields.size(); index++){
+        for (int index = 0; index < fields.size(); index++) {
 
             FieldViewModel field = fields.get(index);
 
@@ -121,9 +120,7 @@ public class DetailActionFragment extends FormFragment {
                 formContainer.addView(text);
             } else {
 
-//                if (!field.getTag()) continue;
-
-                field.setValue("");  // vacio los datos que pueden haber quedado sucios
+                field.setValue("");
                 FieldViewFactory factory = field.getType().getFieldFactory();
                 View view = factory.createView(formContainer, field, isEditMode);
 
@@ -138,25 +135,10 @@ public class DetailActionFragment extends FormFragment {
             }
 
             // valor por defecto de MOTIVO
-            if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014")) {
-                motivoClave = field.getValue().equals("E") ? "Z4" : "Z1";
-                motivoNombre = field.getValue().equals("E") ? "ENTREGADO" : "RETIRADO";
-            }
-        }
-
-        setDefaultMotivo();
-    }
-
-    private void setDefaultMotivo() {
-        try {
-            FieldComboView comboView = (FieldComboView) formContainer.findViewWithTag("OM_MOVILNOVEDAD_C_0049");
-            comboView.setValue(motivoClave);
-            ((FieldViewAdapter) comboView.findViewWithTag("OM_MOTIVOENT_CLAVE")).setValue(motivoClave);
-            ((FieldViewAdapter) comboView.findViewWithTag("OM_MOTIVOENT_CF_0200")).setValue(motivoNombre);
-        } catch (FormatException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+//            if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014")) {
+//                motivoClave = field.getValue().equals("E") ? "Z4" : "Z1";
+//                motivoNombre = field.getValue().equals("E") ? "ENTREGADO" : "RETIRADO";
+//            }
         }
     }
 
@@ -267,8 +249,4 @@ public class DetailActionFragment extends FormFragment {
         pdf.show(getChildFragmentManager(), "Progress");
     }
 
-    public void hideProgress() {
-        DialogFragment dialog = (DialogFragment) getChildFragmentManager().findFragmentByTag("Progress");
-        if(dialog != null) dialog.dismiss();
-    }
 }

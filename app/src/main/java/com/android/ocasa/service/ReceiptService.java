@@ -156,6 +156,9 @@ public class ReceiptService{
 
                 for (Field recordField : fields) {
 
+                    if (recordField.getColumn().getId().equals("OM_MOVILNOVEDAD_C_0038"))
+                        cell.setCreated(recordField.getValue().isEmpty());
+
                     if (recordField.getColumn().getId().equals("OM_MOVILNOVEDAD_CF_0200") ||
                             recordField.getColumn().getId().equals("OM_MOVILNOVEDAD_C_0049") ||
                             recordField.getColumn().getId().equals("OM_MOVILNOVEDAD_C_0106")) {

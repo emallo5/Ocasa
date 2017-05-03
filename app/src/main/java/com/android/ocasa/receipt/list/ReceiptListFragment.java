@@ -1,10 +1,15 @@
 package com.android.ocasa.receipt.list;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -23,6 +28,7 @@ import com.android.ocasa.cache.dao.FieldDAO;
 import com.android.ocasa.cache.dao.ReceiptDAO;
 import com.android.ocasa.cache.dao.RecordDAO;
 import com.android.ocasa.event.CloseReceiptEvent;
+import com.android.ocasa.home.HomeActivity;
 import com.android.ocasa.httpmodel.ControlResponse;
 import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Column;
@@ -63,6 +69,7 @@ AlertDialogFragment.OnAlertClickListener{
     private Button btnRefresh;
     private TextView tvCountDone;
     private TextView tvCountUndone;
+    private TextView tvCountNews;
     private TextView tvTotalItems;
     private TextView tvTotalPending;
 
@@ -133,6 +140,7 @@ AlertDialogFragment.OnAlertClickListener{
         btnRefresh = (Button) view.findViewById(R.id.iv_refresh);
         tvCountDone = (TextView) view.findViewById(R.id.tv_pod_count_done);
         tvCountUndone = (TextView) view.findViewById(R.id.tv_pod_count_undone);
+        tvCountNews = (TextView) view.findViewById(R.id.tv_pod_count_news);
         tvTotalItems = (TextView) view.findViewById(R.id.tv_total_items);
         tvTotalPending = (TextView) view.findViewById(R.id.tv_pending);
         swiperefresh = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
@@ -242,21 +250,48 @@ AlertDialogFragment.OnAlertClickListener{
     private void updateCounters (List<ReceiptCellViewModel> receipts) {
         int opened = 0;
         int closed = 0;
+        int news = 0;
 
         long total = new RecordDAO(getContext()).findForActionId(getArguments().getString(ARG_ACTION_ID));
 
         for (ReceiptCellViewModel r : receipts) {
             if (r.isOpen()) opened++;
             else closed++;
+            if (r.isCreated()) news++;
         }
 
         tvCountDone.setText(": " + closed);
         tvCountUndone.setText(": " + opened);
+        tvCountNews.setText(": " + news);
         tvTotalPending.setText(": " + (total-closed-opened));
         tvTotalItems.setText(": " + total);
 
         ReceiptCounterHelper.getInstance().setCompletedItems(opened);
         ReceiptCounterHelper.getInstance().setCompletedSyncItems(closed);
+
+        long oldTotal = ReceiptCounterHelper.getInstance().getTotalItemsCount();
+        if (oldTotal != total)
+            createLocalNotification(total - oldTotal);
+        ReceiptCounterHelper.getInstance().setTotalItems(total);
+    }
+
+    private void createLocalNotification(long news) {
+//        Intent intent = new Intent(getContext(), HomeActivity.class);
+//        PendingIntent contentIntent = PendingIntent.getActivity(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder b = new NotificationCompat.Builder(getContext());
+
+        b.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setSmallIcon(R.drawable.ic_arrow_statusbar_24dp)
+                .setContentTitle("OCASA")
+                .setContentText("Tiene " + news + (news > 1 ? " paradas nuevas!" : " parada nueva!"))
+                .setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_LIGHTS| Notification.DEFAULT_SOUND);
+//                .setContentIntent(contentIntent)
+
+        NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1, b.build());
     }
 
     private void syncReceipts() {
@@ -296,6 +331,10 @@ AlertDialogFragment.OnAlertClickListener{
     public void onSyncSuccess() {
         DialogFragment dialog = (DialogFragment) getChildFragmentManager().findFragmentByTag("down");
         if (dialog != null) dialog.dismiss();
+
+        getPresenter().receipts(getArguments().getString(ARG_ACTION_ID));
+        swiperefresh.setRefreshing(true);
+
         Toast.makeText(getContext(), "Ruta actualizada!", Toast.LENGTH_SHORT).show();
     }
 
