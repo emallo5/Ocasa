@@ -111,6 +111,7 @@ public class LoginPresenter extends BaseRxPresenter<LoginView> {
             super.onError(e);
 //            Log.v(TAG, e.getMessage());
             reconnectSubject();
+            getView().onLoginError("Usuario o contraseña incorrecta");
         }
 
         @Override
