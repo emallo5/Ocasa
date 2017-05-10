@@ -87,13 +87,27 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
 
         holder.itemView.setActivated(selectedItems.get(record.getId(), false));
 
-        for (int index = 0; index < holder.fields.size(); index++){
+
+        String serviceType = "";
+        for (int index = 0; index < holder.fields.size(); index++) {
+            if (record.getFields().get(index).getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014"))
+                serviceType = record.getFields().get(index).getValue();
+        }
+
+        for (int index = 0; index < holder.fields.size(); index++) {
             try {
                 FieldViewModel field = record.getFields().get(index);
                 TextView text = holder.fields.get(index);
+
                 if (!field.isEditable() && field.isVisible()) {
                     text.setText(field.getLabel() + ": " + field.getValue());
-                    text.setVisibility(View.VISIBLE);
+
+                    if (serviceType.equalsIgnoreCase("m")) {
+                        text.setVisibility((field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0043")
+                                || field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014")) ? View.VISIBLE : View.GONE);
+                    } else
+                        text.setVisibility(View.VISIBLE);
+
                 } else {
                     text.setVisibility(View.GONE);
                 }
@@ -126,8 +140,6 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
     }
 
     public int filter(String filter) {
-        // retorna true si hay un solo item matcheado, de esta manera, vamos a la carga de POD directamente
-
         records.clear();
 
         if (filter.isEmpty() || filter.length() == 0) {

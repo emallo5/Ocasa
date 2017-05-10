@@ -114,6 +114,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     protected LinearLayout formContainer;
 
     private FloatingActionButton detail;
+    protected Menu menu;
 
     private File imageTempFile;
 
@@ -527,6 +528,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(com.android.ocasa.R.menu.menu_form_send, menu);
+        this.menu = menu;
+        onMenuCreated();
     }
 
     @Override
@@ -539,6 +542,13 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void onMenuCreated() {
+    }
+
+    protected void changeSendButtonText(String title) {
+        if (menu != null) menu.findItem(R.id.send).setTitle(title);
     }
 
     public abstract void onSaveButtonClick();

@@ -11,6 +11,7 @@ import com.android.ocasa.cache.dao.FieldDAO;
 import com.android.ocasa.cache.dao.HistoryDAO;
 import com.android.ocasa.cache.dao.LayoutColumnDAO;
 import com.android.ocasa.cache.dao.LayoutDAO;
+import com.android.ocasa.cache.dao.NewRecordReadDAO;
 import com.android.ocasa.cache.dao.ReceiptDAO;
 import com.android.ocasa.cache.dao.ReceiptItemDAO;
 import com.android.ocasa.cache.dao.RecordDAO;
@@ -296,6 +297,7 @@ public class CacheManager {
                 new ReceiptItemDAO(context).deleteAll();
                 new StatusDAO(context).deleteAll();
                 new ActionDAO(context).deleteAll();
+                new NewRecordReadDAO(context).deleteAll();
 
                 SessionManager.getInstance().cleanSession();
 

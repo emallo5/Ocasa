@@ -103,7 +103,7 @@ public class AlertDialogFragment extends DialogFragment implements DialogInterfa
 
         dismiss();
 
-        if(i == DialogInterface.BUTTON_POSITIVE){
+        if(i == DialogInterface.BUTTON_POSITIVE) {
             callback.onPosiviteClick(getTag());
         }else if(i == DialogInterface.BUTTON_NEGATIVE){
             callback.onNegativeClick(getTag());

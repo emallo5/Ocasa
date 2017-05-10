@@ -487,7 +487,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         Intent intent = new Intent(getActivity(), DetailActionActivity.class);
         intent.putExtra(DetailActionActivity.EXTRA_RECEIPT_ID, getArguments().getLong(ARG_RECEIPT_ID));
         intent.putExtra(DetailActionActivity.EXTRA_RECORD_ID, recordId);
-        intent.putExtra(DetailActionActivity.POD_TYPE_MASIVE, false); // TODO: preguntar si el motivo es "M" !!!
+        intent.putExtra(DetailActionActivity.POD_TYPE_MASIVE, currentRecordEditing.getColumnValue("OM_MOVILNOVEDAD_C_0014").equalsIgnoreCase("M")); // TODO: preguntar si el motivo es "M" !!!
         startActivityForResult(intent, DETAIL_ACTION_CODE);
     }
 

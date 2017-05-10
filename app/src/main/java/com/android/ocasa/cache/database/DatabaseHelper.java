@@ -12,6 +12,7 @@ import com.android.ocasa.model.Field;
 import com.android.ocasa.model.History;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.LayoutColumn;
+import com.android.ocasa.model.NewRecordRead;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.ReceiptItem;
 import com.android.ocasa.model.Record;
@@ -55,6 +56,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Receipt.class);
             TableUtils.createTable(connectionSource, Status.class);
             TableUtils.createTable(connectionSource, ReceiptItem.class);
+            TableUtils.createTable(connectionSource, NewRecordRead.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }

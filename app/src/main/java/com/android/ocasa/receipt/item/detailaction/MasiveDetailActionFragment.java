@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.nfc.FormatException;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -16,11 +17,17 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.ocasa.R;
+import com.android.ocasa.activity.ReadFieldActvivity;
+import com.android.ocasa.barcode.BarcodeActivity;
+import com.android.ocasa.cache.dao.NewRecordReadDAO;
 import com.android.ocasa.core.FormFragment;
 import com.android.ocasa.core.FormPresenter;
 import com.android.ocasa.loader.SaveFormTask;
 import com.android.ocasa.model.FieldType;
+import com.android.ocasa.model.NewRecordRead;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
+import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.Constants;
 import com.android.ocasa.util.DateTimeHelper;
@@ -31,8 +38,14 @@ import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.widget.FieldComboView;
 import com.android.ocasa.widget.FieldViewAdapter;
+import com.android.ocasa.widget.TagReaderView;
 import com.android.ocasa.widget.factory.FieldViewFactory;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -41,27 +54,33 @@ import java.util.Map;
  * Created by leandro on 3/5/17.
  */
 
-public class MasiveDetailActionFragment extends FormFragment {
+public class MasiveDetailActionFragment extends FormFragment implements TagReaderView.OnActionClickListener {
 
     static String ARG_RECEIPT_ID = "receipt_id";
     static String ARG_RECORD_ID = "record_id";
 
     public static final String EXIT_POD = "exit";
     public static final int REQUEST_WRITE_STORAGE = 200;
+    public static final int REQUEST_CODE_READ = 300;
 
     private boolean readyToSave = false;
     private View name;
     private View signature;
 
-    List<FieldViewModel> fields;
+    private MediaPlayer errorSound;
+    private MediaPlayer checkSound;
 
-    public static DetailActionFragment newInstance(long receiptId, long recordId) {
+    List<FieldViewModel> fields;
+    ArrayList<String> readCodes = new ArrayList<>();
+    TagReaderView tagReaderView;
+
+    public static MasiveDetailActionFragment newInstance(long receiptId, long recordId) {
 
         Bundle args = new Bundle();
         args.putLong(ARG_RECEIPT_ID, receiptId);
         args.putLong(ARG_RECORD_ID, recordId);
 
-        DetailActionFragment fragment = new DetailActionFragment();
+        MasiveDetailActionFragment fragment = new MasiveDetailActionFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,6 +89,9 @@ public class MasiveDetailActionFragment extends FormFragment {
     public void onCreate(Bundle savedInstanceState) {
         AVAILABLE_GPS_FUNCTION = true;
         super.onCreate(savedInstanceState);
+
+        checkSound = MediaPlayer.create(getActivity(), R.raw.check_in_sound);
+        errorSound = MediaPlayer.create(getActivity(), R.raw.error_sound);
     }
 
     @Override
@@ -78,6 +100,12 @@ public class MasiveDetailActionFragment extends FormFragment {
         ((DetailActionPresenter)getPresenter()).loadFields(getArguments().getLong(ARG_RECORD_ID), getArguments().getLong(ARG_RECEIPT_ID));
 
         checkPermission();
+    }
+
+    @Override
+    public void onMenuCreated() {
+        super.onStart();
+        changeSendButtonText(readyToSave ? "ENVIAR" : "FINALIZAR");
     }
 
     private boolean checkPermission() {
@@ -108,7 +136,7 @@ public class MasiveDetailActionFragment extends FormFragment {
 
             FieldViewModel field = fields.get(index);
 
-            // OM_MOVILNOVEDAD_C_0049 direccion
+            // OM_MOVILNOVEDAD_C_0043 direccion
             // OM_MOVILNOVEDAD_C_0014 tipoServicio
             // OM_MOVILNOVEDAD_C_0050 nombre
             // OM_MovilNovedad_cf_0400 firma
@@ -122,7 +150,7 @@ public class MasiveDetailActionFragment extends FormFragment {
                 text.setText(field.getLabel() + ": " + field.getValue());
                 text.setVisibility(View.GONE);
 
-                if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0049") || field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014"))
+                if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0043") || field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014"))
                     text.setVisibility(View.VISIBLE);
 
                 formContainer.addView(text);
@@ -148,7 +176,70 @@ public class MasiveDetailActionFragment extends FormFragment {
             }
         }
 
-//        formContainer.findViewWithTag();
+        tagReaderView = new TagReaderView(getContext());
+        tagReaderView.setOnActionClickListener(this);
+        formContainer.addView(tagReaderView);
+        tagReaderView.setCountRead(0);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_READ) {
+
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if(data == null) return;
+
+                Barcode barcode = data.getParcelableExtra(BarcodeActivity.BarcodeObject);
+                addCode(barcode.displayValue);
+            }
+        }
+    }
+
+    @Override
+    public void onReadTagClick() {
+        Intent intent =  new Intent(getActivity(), ReadFieldActvivity.class);
+        startActivityForResult(intent, REQUEST_CODE_READ);
+    }
+
+    @Override
+    public void onEnterKeyPressed(String code) {
+        addCode(code);
+    }
+
+    public void addCode(String code) {
+
+        if (readCodes.contains(code)) {
+            errorSound.start();
+            ((DetailActionActivity) getActivity()).showDialog("Atención", "Este código ya existe!");
+            return;
+        } else if (code.length() != 11) {
+            errorSound.start();
+            ((DetailActionActivity) getActivity()).showDialog("Atención", "El código es inválido.");
+            return;
+        }
+
+        checkSound.start();
+        TextView textView = new TextView(getContext());
+        textView.setText(code);
+        textView.setTextSize(16);
+        formContainer.addView(textView);
+
+        readCodes.add(code);
+        tagReaderView.setCodeRead("");
+        tagReaderView.setCountRead(readCodes.size());
+        KeyboardUtil.hideKeyboard(getActivity());
+    }
+
+    private void saveReadCodes() {
+        NewRecordReadDAO newRecordReadDAO = new NewRecordReadDAO(getContext());
+        for (String code : readCodes) {
+            NewRecordRead rec  = new NewRecordRead();
+            rec.setRead(code);
+            rec.setRecordId(String.valueOf(getArguments().getLong(ARG_RECORD_ID)));
+            newRecordReadDAO.save(rec);
+        }
     }
 
     @Override
@@ -163,6 +254,7 @@ public class MasiveDetailActionFragment extends FormFragment {
             saveAndExit(true);
         } else {
             readyToSave = true;
+            changeSendButtonText("ENVIAR");
             name.setVisibility(View.VISIBLE);
             signature.setVisibility(View.VISIBLE);
         }
@@ -188,6 +280,7 @@ public class MasiveDetailActionFragment extends FormFragment {
 
         SaveFormTask.FormData data = new SaveFormTask.FormData(values, getArguments().getLong(ARG_RECORD_ID), getLastLocation());
 
+        saveReadCodes();
         save(data);
 
         FileHelper.getInstance().saveLocation(getLastLocation().getLatitude() + " "
@@ -203,15 +296,25 @@ public class MasiveDetailActionFragment extends FormFragment {
 
     private boolean validateMandatory(Map<String, String> values) {
 
+        if (readCodes.size() == 0) {
+            ((DetailActionActivity) getActivity()).showDialog("Atención", "No agregó ningún elemento a la lista!");
+            return true;
+        }
+
         if (values.get("OM_MovilNovedad_cf_0400") == null) {
             ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
             return true;
         }
 
-        if (values.get("OM_MovilNovedad_cf_0400") == null) { // TODO: buscar codigo del receptor
+        if (values.get("OM_MOVILNOVEDAD_C_0050").isEmpty()) {
             ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar el nombre del receptor");
             return true;
         }
+
+//        if (values.get("").isEmpty()) {
+//            ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar....");
+//            return true;
+//        }
 
         return false;
     }
