@@ -45,6 +45,8 @@ public interface OcasaApi {
     Observable<ResponseReceipt> upload(@Body TableRecord records, @Query("id") String actionId, @Query("imei") String imei, @Query("lat") double latitude, @Query("lng") double longitude);
     @POST("Images.ashx/{table_id}/file")
     Observable<ResponseImage> uploadImage(@Body MediaBody media, @Path("table_id") String tableId, @Query("imei") String imei);
+//    @POST(".ashx")
+//    Observable<ResponseReceipt> uploadMasive(@Body asd, @Query("id") String actionId, @Query("imei") String imei, @Query("lat") double latitude, @Query("lng") double longitude);
 
     @POST("Location.ashx")
     Observable<Void> sendLocation(@Body LocationModel locationData);

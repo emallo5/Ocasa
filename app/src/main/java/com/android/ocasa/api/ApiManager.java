@@ -17,6 +17,7 @@ import com.android.ocasa.model.LocationModel;
 import com.android.ocasa.model.LoginCredentials;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
+import com.android.ocasa.model.RecordMassive;
 import com.android.ocasa.model.Table;
 import com.android.ocasa.util.SyncUtil;
 
@@ -54,6 +55,10 @@ public class ApiManager {
     public Observable<ResponseReceipt> upload(TableRecord table, String actionId, String deviceId, double latitude, double longitude){
         return api.upload(table, actionId, deviceId, latitude, longitude);
     }
+
+//    public Observable<ResponseReceipt> uploadMassive(RecordMassive recordMassive, String actionId, String deviceId, double latitude, double longitude){
+//        return api.uploadMassive();
+//    }
 
     public Observable<ResponseImage> uploadImage(String tableId, MediaBody body, String deviceId){
         return api.uploadImage(body, tableId, deviceId);

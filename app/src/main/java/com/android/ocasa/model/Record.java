@@ -38,6 +38,7 @@ public class Record {
     @DatabaseField
     private String concatValues;
 
+
     public Record() {}
 
     public long getId() {
@@ -205,4 +206,5 @@ public class Record {
     public void setConcatValues(String concatValues) {
         this.concatValues = concatValues;
     }
+
 }

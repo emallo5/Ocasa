@@ -8,8 +8,8 @@ android {
         applicationId "com.ocasa"
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 12
-        versionName "1.1.11"
+        versionCode 13
+        versionName "1.2.1"
         multiDexEnabled true
     }
     lintOptions {

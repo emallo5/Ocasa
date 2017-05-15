@@ -56,6 +56,6 @@
     <string name="items_count">"Items : "</string>
     <string name="title_activity_maps">Map</string>
 
-    <string name="read_tags_title">Cantidad de ítems leídos: [X]</string>
+    <string name="read_tags_title">Ítems leídos: [X]</string>
 
 </resources>

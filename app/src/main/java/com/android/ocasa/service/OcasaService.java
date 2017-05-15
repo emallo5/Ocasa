@@ -8,6 +8,7 @@ import android.util.Log;
 import com.android.ocasa.api.ApiManager;
 import com.android.ocasa.cache.CacheManager;
 import com.android.ocasa.cache.dao.ColumnActionDAO;
+import com.android.ocasa.cache.dao.NewRecordReadDAO;
 import com.android.ocasa.cache.dao.ReceiptItemDAO;
 import com.android.ocasa.httpmodel.Archive;
 import com.android.ocasa.httpmodel.ControlBody;
@@ -30,9 +31,12 @@ import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.LayoutColumn;
 import com.android.ocasa.model.LocationModel;
 import com.android.ocasa.model.LoginCredentials;
+import com.android.ocasa.model.MassiveColumn;
+import com.android.ocasa.model.NewRecordRead;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.ReceiptItem;
 import com.android.ocasa.model.Record;
+import com.android.ocasa.model.RecordMassive;
 import com.android.ocasa.session.SessionManager;
 import com.android.ocasa.sync.SyncIntentSerivce;
 import com.android.ocasa.util.ConfigHelper;
@@ -266,6 +270,8 @@ public class OcasaService {
 
         final TableRecord record = new TableRecord();
 
+        RecordMassive recordMassive = new RecordMassive();
+
         List<Record> records = new ArrayList<>();
 
         List<Field> mediaFiles = new ArrayList<>();
@@ -296,6 +302,12 @@ public class OcasaService {
                     headerFields.add(item.getRecord().getFieldForColumn(columnAction.getColumn().getId()));
                 else
                     mediaFiles.add(item.getRecord().getFieldForColumn(columnAction.getColumn().getId()));
+            }
+
+            List<NewRecordRead> codes = new NewRecordReadDAO(context).findByRecordId(item.getRecord().getId());
+            if (codes.size() > 0) {
+                for (NewRecordRead rr : codes) recordMassive.addCode(rr.getRead());
+                for (Field field : headerFields) recordMassive.addColumn(new MassiveColumn(field.getColumn().getId(), field.getValue()));
             }
 
             receiptRecord.setFields(headerFields);
@@ -339,12 +351,14 @@ public class OcasaService {
         } catch (Exception e) {}
 
         if (bodys.size() != 0)
-            uploadImages(receipt.getAction().getTable().getId(), bodys, record, receipt, id);
-        else
-            uploadInfo(record, receipt, id);
+            uploadImages(receipt.getAction().getTable().getId(), bodys, record, receipt, id, recordMassive);
+        else {
+            if (recordMassive.isNotEmpty()) uploadMassiveRecord(receipt, recordMassive);
+            else uploadInfo(record, receipt, id);
+        }
     }
 
-    private void uploadImages(final String tableId, final ArrayList<MediaBody> bodys, final TableRecord record, final Receipt receipt, final String id) {
+    private void uploadImages(final String tableId, final ArrayList<MediaBody> bodys, final TableRecord record, final Receipt receipt, final String id, final RecordMassive recordMassive) {
         MediaBody body = bodys.get(0);
 
         apiManager.uploadImage(tableId, body, SessionManager.getInstance().getDeviceId())
@@ -370,7 +384,6 @@ public class OcasaService {
 
                     @Override
                     public void onNext(ResponseImage s) {
-
                         try {
                             FileHelper.getInstance().writeToFile("imgSuc " + id.substring(27, 31) + " server " + s.getDescription().substring(27, 31));
                         } catch (Exception e) {}
@@ -380,12 +393,18 @@ public class OcasaService {
                         bodys.remove(0);
 
                         if (bodys.size() != 0)
-                            uploadImages(tableId, bodys, record, receipt, id);
-                        else
-                            uploadInfo(record, receipt, id);
+                            uploadImages(tableId, bodys, record, receipt, id, recordMassive);
+                        else {
+                            if (recordMassive.isNotEmpty())
+                                uploadMassiveRecord(receipt, recordMassive);
+                            else uploadInfo(record, receipt, id);
+                        }
                     }
                 });
+    }
 
+    private void uploadMassiveRecord(final Receipt receipt, RecordMassive recordMassive) {
+//        updateReceiptClosed(receipt.getId());
     }
 
     private void uploadInfo(TableRecord record, final Receipt receipt, final String id) {

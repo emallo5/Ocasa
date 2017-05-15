@@ -65,6 +65,7 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
 
     private boolean readyToSave = false;
     private View name;
+    private View recibo;
     private View signature;
 
     private MediaPlayer errorSound;
@@ -140,6 +141,7 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
             // OM_MOVILNOVEDAD_C_0014 tipoServicio
             // OM_MOVILNOVEDAD_C_0050 nombre
             // OM_MovilNovedad_cf_0400 firma
+            // OM_MOVILNOVEDAD_C_0072 recibo
 
             if (!field.isEditable() && field.isVisible()) {
                 TextView text = new TextView(getContext());
@@ -155,23 +157,26 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
 
                 formContainer.addView(text);
             } else {
-                if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0050") || field.getTag().equalsIgnoreCase("OM_MovilNovedad_cf_0400")) {
-                    field.setValue("");
-                    FieldViewFactory factory = field.getType().getFieldFactory();
-                    View view = factory.createView(formContainer, field, isEditMode);
 
-                    if (view != null) {
-                        formValues.put(field.getTag(), field.getValue());
-                        view.setTag(field.getTag());
+                // TODO: borre el if para saber si es 0050 o 0400
 
-                        FieldViewAdapter adapter = (FieldViewAdapter) view;
-                        adapter.setFieldViewActionListener(this);
+                field.setValue("");
+                FieldViewFactory factory = field.getType().getFieldFactory();
+                View view = factory.createView(formContainer, field, isEditMode);
 
-                        view.setVisibility(View.GONE);
-                        if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0050")) name = view;
-                        if (field.getTag().equalsIgnoreCase("OM_MovilNovedad_cf_0400")) signature = view;
-                        formContainer.addView(view);
-                    }
+                if (view != null) {
+                    formValues.put(field.getTag(), field.getValue());
+                    view.setTag(field.getTag());
+
+                    FieldViewAdapter adapter = (FieldViewAdapter) view;
+                    adapter.setFieldViewActionListener(this);
+
+                    view.setVisibility(View.GONE);
+                    if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0050")) name = view;
+                    if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0072")) recibo = view;
+                    if (field.getTag().equalsIgnoreCase("OM_MovilNovedad_cf_0400")) signature = view;
+
+                    formContainer.addView(view);
                 }
             }
         }
@@ -256,6 +261,7 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
             readyToSave = true;
             changeSendButtonText("ENVIAR");
             name.setVisibility(View.VISIBLE);
+            recibo.setVisibility(View.VISIBLE);
             signature.setVisibility(View.VISIBLE);
         }
     }
@@ -308,6 +314,11 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
 
         if (values.get("OM_MOVILNOVEDAD_C_0050").isEmpty()) {
             ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar el nombre del receptor");
+            return true;
+        }
+
+        if (values.get("OM_MOVILNOVEDAD_C_0072").isEmpty()) {
+            ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar el campo Recibo imposición");
             return true;
         }
 

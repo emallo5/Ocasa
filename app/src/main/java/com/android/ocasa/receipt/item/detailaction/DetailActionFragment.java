@@ -133,6 +133,7 @@ public class DetailActionFragment extends FormFragment {
 
                     FieldViewAdapter adapter = (FieldViewAdapter) view;
                     adapter.setFieldViewActionListener(this);
+                    if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0072")) view.setVisibility(View.GONE);
                     formContainer.addView(view);
                 }
             }
