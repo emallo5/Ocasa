@@ -48,6 +48,7 @@ import com.android.ocasa.viewmodel.MenuViewModel;
 import com.android.ocasa.viewmodel.ReceiptFormViewModel;
 import com.android.ocasa.viewmodel.ReceiptTableViewModel;
 import com.android.ocasa.viewmodel.TableViewModel;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -306,6 +307,7 @@ public class OcasaService {
 
             List<NewRecordRead> codes = new NewRecordReadDAO(context).findByRecordId(item.getRecord().getId());
             if (codes.size() > 0) {
+                recordMassive.setId(item.getRecord().getExternalId());
                 for (NewRecordRead rr : codes) recordMassive.addCode(rr.getRead());
                 for (Field field : headerFields) recordMassive.addColumn(new MassiveColumn(field.getColumn().getId(), field.getValue()));
             }
@@ -404,7 +406,26 @@ public class OcasaService {
     }
 
     private void uploadMassiveRecord(final Receipt receipt, RecordMassive recordMassive) {
-//        updateReceiptClosed(receipt.getId());
+
+        apiManager.uploadMassive(recordMassive, receipt.getAction().getId() + "|" + receipt.getAction().getTable().getId(),
+                SessionManager.getInstance().getDeviceId()).retry(3)
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<ResponseReceipt>() {
+                               @Override
+                               public void onCompleted() {
+
+                               }
+
+                               @Override
+                               public void onError(Throwable e) {
+                                   e.printStackTrace();
+                               }
+
+                               @Override
+                               public void onNext(ResponseReceipt responseReceipt) {
+                                   updateReceiptClosed(receipt.getId());
+                               }
+                           });
     }
 
     private void uploadInfo(TableRecord record, final Receipt receipt, final String id) {

@@ -56,9 +56,9 @@ public class ApiManager {
         return api.upload(table, actionId, deviceId, latitude, longitude);
     }
 
-//    public Observable<ResponseReceipt> uploadMassive(RecordMassive recordMassive, String actionId, String deviceId, double latitude, double longitude){
-//        return api.uploadMassive();
-//    }
+    public Observable<ResponseReceipt> uploadMassive(RecordMassive recordMassive, String actionId, String deviceId) {
+        return api.uploadMassive(recordMassive, actionId, deviceId);
+    }
 
     public Observable<ResponseImage> uploadImage(String tableId, MediaBody body, String deviceId){
         return api.uploadImage(body, tableId, deviceId);

@@ -158,8 +158,6 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
                 formContainer.addView(text);
             } else {
 
-                // TODO: borre el if para saber si es 0050 o 0400
-
                 field.setValue("");
                 FieldViewFactory factory = field.getType().getFieldFactory();
                 View view = factory.createView(formContainer, field, isEditMode);
@@ -321,11 +319,6 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
             ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar el campo Recibo imposición");
             return true;
         }
-
-//        if (values.get("").isEmpty()) {
-//            ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar....");
-//            return true;
-//        }
 
         return false;
     }

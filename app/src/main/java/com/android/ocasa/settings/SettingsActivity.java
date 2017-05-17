@@ -21,6 +21,7 @@ import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.ConnectionUtil;
 import com.android.ocasa.util.ProgressDialogFragment;
+import com.android.ocasa.util.ReceiptCounterHelper;
 import com.android.ocasa.util.SyncUtil;
 import com.codika.androidmvp.activity.BaseMvpActivity;
 
@@ -134,6 +135,7 @@ AlertDialogFragment.OnAlertClickListener{
     @Override
     public void onLogoutSuccess() {
         stopSyncService();
+        ReceiptCounterHelper.getInstance().setTotalItems(0);
         removeOcasaFiles();
         hideLogoutProgress();
         goLoginScreen();
