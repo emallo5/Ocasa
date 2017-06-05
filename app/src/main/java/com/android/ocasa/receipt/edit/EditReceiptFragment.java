@@ -438,7 +438,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
             return;
         }
 
-        if(tag.equalsIgnoreCase("Dialog")){
+        if(tag.equalsIgnoreCase("Dialog")) {
             getActivity().finish();
             return;
         }

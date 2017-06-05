@@ -306,7 +306,6 @@ public class TableService {
         record.setTable(table);
         table.getRecords().add(record);
 
-
 //        record.getFields();
 
         record.setExternalId(record.getId() + "|" + seguimientoCli + "|" + SessionManager.getInstance().getDeviceId());
@@ -345,7 +344,6 @@ public class TableService {
 //            if (record1.getFieldForColumn("OM_MOVILNOVEDAD_CF_0200") != null)
 //                if (record1.getFieldForColumn("OM_MOVILNOVEDAD_CF_0200").getValue().equals(seguimientoCli))
 //                    savedRecord = record1;
-
 
         CellViewModel cell = new CellViewModel();
         cell.setId(record.getId());

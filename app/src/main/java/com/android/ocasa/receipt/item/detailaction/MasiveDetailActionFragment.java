@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -148,6 +149,17 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
                 text.setTextColor(Color.BLACK);
                 text.setTypeface(null, Typeface.BOLD);
                 text.setBackgroundColor(Color.LTGRAY);
+                text.setEllipsize(TextUtils.TruncateAt.END);
+                text.setSingleLine();
+                text.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String[] text = ((TextView) v).getText().toString().split(":");
+                        if (com.android.ocasa.util.TextUtils.isEllipsized((TextView) v))
+                            showCompleteText(text[1]);
+                        else tvCompleteText.setVisibility(View.GONE);
+                    }
+                });
 
                 text.setText(field.getLabel() + ": " + field.getValue());
                 text.setVisibility(View.GONE);
@@ -305,10 +317,10 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
             return true;
         }
 
-        if (values.get("OM_MovilNovedad_cf_0400") == null) {
-            ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
-            return true;
-        }
+//        if (values.get("OM_MovilNovedad_cf_0400") == null) {
+//            ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
+//            return true;
+//        }
 
         if (values.get("OM_MOVILNOVEDAD_C_0050").isEmpty()) {
             ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar el nombre del receptor");

@@ -276,8 +276,8 @@ AlertDialogFragment.OnAlertClickListener{
     }
 
     private void createLocalNotification(long news) {
-//        Intent intent = new Intent(getContext(), HomeActivity.class);
-//        PendingIntent contentIntent = PendingIntent.getActivity(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (news <= 0) return;
 
         NotificationCompat.Builder b = new NotificationCompat.Builder(getContext());
 
@@ -288,7 +288,6 @@ AlertDialogFragment.OnAlertClickListener{
                 .setContentText("Tiene " + news + (news > 1 ? " paradas nuevas!" : " parada nueva!"))
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_LIGHTS| Notification.DEFAULT_SOUND);
-//                .setContentIntent(contentIntent)
 
         NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1, b.build());

@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.ocasa.R;
@@ -111,6 +112,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     private FormViewModel record;
 
     protected CardView container;
+    protected TextView tvCompleteText;
     protected LinearLayout formContainer;
 
     private FloatingActionButton detail;
@@ -144,6 +146,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         super.onViewCreated(view, savedInstanceState);
 
         container = (CardView) view.findViewById(R.id.detail_container);
+        tvCompleteText = (TextView) view.findViewById(R.id.tv_complete_text);
         formContainer = (LinearLayout) view.findViewById(R.id.detail_form_container);
         detail = (FloatingActionButton) view.findViewById(com.android.ocasa.R.id.detail);
 
@@ -224,6 +227,11 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
                 formContainer.addView(view);
             }
         }
+    }
+
+    protected void showCompleteText(String text) {
+        tvCompleteText.setVisibility(tvCompleteText.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        tvCompleteText.setText(text);
     }
 
     @Override

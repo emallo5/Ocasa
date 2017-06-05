@@ -2,9 +2,11 @@ package com.android.ocasa.receipt.item.detailaction;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.nfc.FormatException;
@@ -12,14 +14,20 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.PopupMenu;
+import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.ocasa.R;
 import com.android.ocasa.core.FormFragment;
 import com.android.ocasa.core.FormPresenter;
 import com.android.ocasa.loader.SaveFormTask;
 import com.android.ocasa.model.FieldType;
+import com.android.ocasa.model.Layout;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConfigHelper;
@@ -113,6 +121,17 @@ public class DetailActionFragment extends FormFragment {
                 text.setTextColor(Color.BLACK);
                 text.setTypeface(null, Typeface.BOLD);
                 text.setBackgroundColor(Color.LTGRAY);
+                text.setEllipsize(TextUtils.TruncateAt.END);
+                text.setSingleLine();
+                text.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String[] text = ((TextView) v).getText().toString().split(":");
+                        if (com.android.ocasa.util.TextUtils.isEllipsized((TextView) v))
+                            showCompleteText(text[1]);
+                        else tvCompleteText.setVisibility(View.GONE);
+                    }
+                });
 
                 text.setText(field.getLabel() + ": " + field.getValue());
                 text.setVisibility(View.VISIBLE);
@@ -120,9 +139,6 @@ public class DetailActionFragment extends FormFragment {
                 if (field.getValue().isEmpty()) text.setVisibility(View.GONE);
                 formContainer.addView(text);
             } else {
-
-//                if (!field.getTag()) continue;
-
                 field.setValue("");  // vacio los datos que pueden haber quedado sucios
                 FieldViewFactory factory = field.getType().getFieldFactory();
                 View view = factory.createView(formContainer, field, isEditMode);
@@ -217,18 +233,18 @@ public class DetailActionFragment extends FormFragment {
             }
         }
 
-        if (values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z4") || values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z1")) {
-            if (values.get("OM_MovilNovedad_cf_0400") == null) {
-                ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
-                return true;
-            }
-        } else {
+//        if (values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z4") || values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z1")) {
+//            if (values.get("OM_MovilNovedad_cf_0400") == null) {
+//                ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
+//                return true;
+//            }
+//        } else {
             if (values.get("OM_MovilNovedad_cf_0500") == null && values.get("OM_MovilNovedad_cf_0600") == null
                     && values.get("OM_MovilNovedad_cf_0700") == null && values.get("OM_MovilNovedad_cf_0800") == null) {
                 ((DetailActionActivity) getActivity()).showDialog("Atención", "Se requiere al menos una foto");
                 return true;
             }
-        }
+//        }
 
         return false;
     }

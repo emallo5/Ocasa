@@ -69,8 +69,8 @@ public class LocationLogService extends Service {
         if (ContextCompat.checkSelfPermission(LocationLogService.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
                 locationManager.removeUpdates(locationGPSListener);
-            if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
-                locationManager.removeUpdates(locationNETListener);
+//            if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
+//                locationManager.removeUpdates(locationNETListener);
         }
         stopSelf();
     }
