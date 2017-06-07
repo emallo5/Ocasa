@@ -111,7 +111,8 @@ public class AvailableItemsFragment extends TableFragment {
         getRecyclerView().setBackgroundColor(Color.WHITE);
 
         int pending = table.getCells().size();
-        int total = ReceiptCounterHelper.getInstance().getCompletedItemsCount() + ReceiptCounterHelper.getInstance().getCompletedSyncItemsCount() + pending;
+        int total = (int) ReceiptCounterHelper.getInstance().getTotalItemsCount();
+//        int total = ReceiptCounterHelper.getInstance().getCompletedItemsCount() + ReceiptCounterHelper.getInstance().getCompletedSyncItemsCount() + pending;
         ((EditReceiptFragment) getParentFragment()).setTitleFromChild(total, pending);
     }
 

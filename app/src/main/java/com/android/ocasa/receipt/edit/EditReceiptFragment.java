@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 import com.android.ocasa.R;
 import com.android.ocasa.adapter.RecieptPagerAdapter;
 import com.android.ocasa.fragment.AddItemsFragment;
+import com.android.ocasa.model.TripData;
 import com.android.ocasa.receipt.item.available.AvailableItemsFragment;
 import com.android.ocasa.receipt.item.detailaction.DetailActionActivity;
 import com.android.ocasa.receipt.item.detailaction.DetailActionFragment;
@@ -40,6 +42,7 @@ import com.android.ocasa.receipt.base.BaseReceiptView;
 import com.android.ocasa.service.TableService;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ProgressDialogFragment;
+import com.android.ocasa.util.ReceiptCounterHelper;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
@@ -49,6 +52,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -57,7 +61,7 @@ import rx.functions.Action1;
 
 public class EditReceiptFragment extends BaseReceiptFragment implements EditReceiptView,
         OnItemChangeListener, PickupItemConfirmationDialog.OnConfirmationListener,
-        AlertDialogFragment.OnAlertClickListener {
+        AlertDialogFragment.OnAlertClickListener, View.OnClickListener {
 
     static final String TAG = "EditReceiptFragment";
     static final int GPS_REQUEST = 100;
@@ -72,11 +76,13 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     private ImageView glass;
     private EditText search;
     private ImageView clearSearch;
+    private Button btnTrip;
     private TabLayout tabs;
     private ViewPager pager;
     private ImageView scanner;
     private CardView searchResultsContainer;
 
+    private boolean tripStarted = false;
     private String codeNotFound;
 
     private long[] recordIds;
@@ -152,6 +158,8 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
         clearSearch = (ImageView) getView().findViewById(R.id.clear_search);
 
+        btnTrip = (Button) getView().findViewById(R.id.btn_trip);
+
         scanner = (ImageView) getView().findViewById(R.id.scanner);
 
         searchResultsContainer = (CardView) getView().findViewById(R.id.sub_container);
@@ -170,7 +178,9 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         setListeners();
     }
 
-    private void setListeners(){
+    private void setListeners() {
+
+        btnTrip.setOnClickListener(this);
 
         RxTextView.textChanges(search)
                 .debounce(1000, TimeUnit.MILLISECONDS)
@@ -179,7 +189,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
                     @Override
                     public void call(CharSequence charSequence) {
 
-                        if (charSequence.toString().isEmpty()) return;
+//                        if (charSequence.toString().isEmpty()) return;
 
                         RecieptPagerAdapter adapter = (RecieptPagerAdapter) pager.getAdapter();
                         AvailableItemsFragment availFrag = (AvailableItemsFragment) adapter.getItem(0);
@@ -432,9 +442,15 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     @Override
     public void onPosiviteClick(String tag) {
 
+        if (tag.equals("tripAlert")) {
+            btnTripPressed();
+            return;
+        }
+
         if(tag.equalsIgnoreCase("createRecord")){
             CellViewModel cell = new TableService().addRecordToTable(getContext(), codeNotFound);
             onItemAdded(cell);
+            ReceiptCounterHelper.getInstance().setTotalItems(1 + ReceiptCounterHelper.getInstance().getTotalItemsCount());
             return;
         }
 
@@ -524,4 +540,23 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         this.recordIds = ArrayUtils.addAll(this.recordIds, recordIds);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_trip:
+                AlertDialogFragment.newInstance("Ruta", tripStarted ?
+                        getString(R.string.alert_finish_trip) :
+                        getString(R.string.alert_start_trip),
+                        "Aceptar", "Cancelar", null).show(getChildFragmentManager(), "tripAlert");
+                break;
+        }
+    }
+
+    private void btnTripPressed() {
+        btnTrip.setBackgroundResource(tripStarted ? R.drawable.button_trip_unpressed : R.drawable.button_trip_pressed);
+        btnTrip.setText(tripStarted ? getString(R.string.button_start_trip) : getString(R.string.button_finish_trip));
+        tripStarted = !tripStarted;
+
+        TripData trip = new TripData(tripStarted, new Date());
+    }
 }

@@ -19,6 +19,12 @@
 
     <string name="forgot_password_empty_user_message">Debe ingresar un email</string>
 
+    <string name="button_start_trip">Comenzar viaje</string>
+    <string name="button_finish_trip">Finalizar viaje</string>
+
+    <string name="alert_start_trip">Está seguro que desea iniciar un nuevo viaje?</string>
+    <string name="alert_finish_trip">Está seguro que desea finalizar el viaje?</string>
+
     <plurals name="list_item_selected">
         <item quantity="one">%d item</item>
         <item quantity="other">%d items</item>

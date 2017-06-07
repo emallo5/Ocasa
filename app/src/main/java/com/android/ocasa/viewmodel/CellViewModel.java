@@ -87,6 +87,6 @@ public class CellViewModel {
             }
         }
 
-        return null;
+        return "";
     }
 }
