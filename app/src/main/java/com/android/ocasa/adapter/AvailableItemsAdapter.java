@@ -145,7 +145,7 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
         if (filter.isEmpty() || filter.length() == 0) {
             records.addAll(recordsBackup);
             notifyDataSetChanged();
-            return records.size();
+            return -1;
         }
 
         for (CellViewModel cell : recordsBackup)

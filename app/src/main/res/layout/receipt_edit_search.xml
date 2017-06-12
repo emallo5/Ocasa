@@ -55,20 +55,39 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_trip"
-        android:layout_margin="10dp"
-        android:text="@string/button_start_trip"
-        android:textColor="#ffffff"
-        android:background="@drawable/button_trip_unpressed"
+    <LinearLayout
+        android:id="@+id/ll_btns"
+        android:orientation="horizontal"
         android:layout_below="@+id/search_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_weight="1"
+            android:layout_margin="6dp"
+            android:text="@string/button_start_trip"
+            android:textColor="#ffffff"
+            android:background="@drawable/button_trip_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_end"
+            android:layout_weight="1"
+            android:layout_margin="6dp"
+            android:text="@string/button_finish_trip"
+            android:textColor="#ffffff"
+            android:background="@drawable/button_trip_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/btn_trip">
+        android:layout_below="@+id/ll_btns">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/receipt_items_tabs"

@@ -478,6 +478,10 @@ public class OcasaService {
         return apiManager.controlSync(body);
     }
 
+    public Observable<Void> sendTripMovements (String trips) {
+        return apiManager.sendTripMovements(trips);
+    }
+
     public FormViewModel getDetailFormForReceipt(long recordId, long receiptId){
         return cacheManager.getDetailColumnsForReceipt(recordId, receiptId);
     }

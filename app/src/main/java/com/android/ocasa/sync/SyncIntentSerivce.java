@@ -18,6 +18,7 @@ import com.android.ocasa.service.ReceiptService;
 import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.ConnectionUtil;
 import com.android.ocasa.util.Constants;
+import com.android.ocasa.util.TripHelper;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -93,6 +94,8 @@ public class SyncIntentSerivce extends Service {
 
         Log.d(TAG, "Service Process");
 
+//        sendTripData();
+
         final List<Receipt> opens = new ReceiptService().getOpenReceipts(getApplicationContext());
         final int count = opens.size();
 
@@ -117,6 +120,31 @@ public class SyncIntentSerivce extends Service {
                         }
                     });
         }
+    }
+
+    private void sendTripData() {
+        String trips = TripHelper.getTripMovementsString();
+
+        OcasaService.getInstance()
+                .sendTripMovements(trips)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<Void>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "TripSync fail");
+                    }
+
+                    @Override
+                    public void onNext(Void avoid) {
+                        TripHelper.clearTripMovements();
+                    }
+                });
     }
 
     @Override

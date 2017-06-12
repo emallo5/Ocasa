@@ -43,6 +43,7 @@ import com.android.ocasa.service.TableService;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.util.ReceiptCounterHelper;
+import com.android.ocasa.util.TripHelper;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
@@ -52,6 +53,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -76,13 +78,13 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     private ImageView glass;
     private EditText search;
     private ImageView clearSearch;
-    private Button btnTrip;
+    private Button btnTripStart;
+    private Button btnTripEnd;
     private TabLayout tabs;
     private ViewPager pager;
     private ImageView scanner;
     private CardView searchResultsContainer;
 
-    private boolean tripStarted = false;
     private String codeNotFound;
 
     private long[] recordIds;
@@ -158,7 +160,9 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
         clearSearch = (ImageView) getView().findViewById(R.id.clear_search);
 
-        btnTrip = (Button) getView().findViewById(R.id.btn_trip);
+        btnTripStart = (Button) getView().findViewById(R.id.btn_start);
+        btnTripEnd = (Button) getView().findViewById(R.id.btn_end);
+        initTripButtons();
 
         scanner = (ImageView) getView().findViewById(R.id.scanner);
 
@@ -180,7 +184,8 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
 
     private void setListeners() {
 
-        btnTrip.setOnClickListener(this);
+        btnTripStart.setOnClickListener(this);
+        btnTripEnd.setOnClickListener(this);
 
         RxTextView.textChanges(search)
                 .debounce(1000, TimeUnit.MILLISECONDS)
@@ -443,7 +448,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     public void onPosiviteClick(String tag) {
 
         if (tag.equals("tripAlert")) {
-            btnTripPressed();
+            btnTripPressed(false);
             return;
         }
 
@@ -543,20 +548,29 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_trip:
-                AlertDialogFragment.newInstance("Ruta", tripStarted ?
-                        getString(R.string.alert_finish_trip) :
-                        getString(R.string.alert_start_trip),
+            case R.id.btn_start:
+                btnTripPressed(true);
+                break;
+            case R.id.btn_end:
+                AlertDialogFragment.newInstance("Ruta", getString(R.string.alert_stop_trip),
                         "Aceptar", "Cancelar", null).show(getChildFragmentManager(), "tripAlert");
                 break;
         }
     }
 
-    private void btnTripPressed() {
-        btnTrip.setBackgroundResource(tripStarted ? R.drawable.button_trip_unpressed : R.drawable.button_trip_pressed);
-        btnTrip.setText(tripStarted ? getString(R.string.button_start_trip) : getString(R.string.button_finish_trip));
-        tripStarted = !tripStarted;
+    private void initTripButtons() {
+        btnTripStart.setBackgroundResource(TripHelper.getLastMovement().equals("I") ? R.drawable.btn_trip_disabled : R.drawable.button_trip_start);
+        btnTripEnd.setBackgroundResource(TripHelper.getLastMovement().equals("I") ? R.drawable.button_trip_end : R.drawable.btn_trip_disabled);
+    }
 
-        TripData trip = new TripData(tripStarted, new Date());
+    private void btnTripPressed(boolean started) {
+        btnTripStart.setEnabled(!started);
+        btnTripEnd.setEnabled(started);
+
+        btnTripStart.setBackgroundResource(started ? R.drawable.btn_trip_disabled : R.drawable.button_trip_start);
+        btnTripEnd.setBackgroundResource(started ? R.drawable.button_trip_end : R.drawable.btn_trip_disabled);
+
+        TripHelper.setLastMovement(started);
+        TripHelper.registerTripMovement(new TripData(started ? "I" : "F", new Date(), getLastLocation().getLatitude(), getLastLocation().getLongitude()));
     }
 }

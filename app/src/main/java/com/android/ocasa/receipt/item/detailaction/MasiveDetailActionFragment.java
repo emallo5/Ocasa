@@ -149,17 +149,14 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
                 text.setTextColor(Color.BLACK);
                 text.setTypeface(null, Typeface.BOLD);
                 text.setBackgroundColor(Color.LTGRAY);
-                text.setEllipsize(TextUtils.TruncateAt.END);
-                text.setSingleLine();
-                text.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String[] text = ((TextView) v).getText().toString().split(":");
-                        if (com.android.ocasa.util.TextUtils.isEllipsized((TextView) v))
-                            showCompleteText(text[1]);
-                        else tvCompleteText.setVisibility(View.GONE);
-                    }
-                });
+
+                text.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                text.setSingleLine(true);
+                text.setHorizontallyScrolling(true);
+                text.setMarqueeRepeatLimit(10000);
+                text.setFocusable(true);
+                text.setFocusableInTouchMode(true);
+                text.setSelected(true);
 
                 text.setText(field.getLabel() + ": " + field.getValue());
                 text.setVisibility(View.GONE);

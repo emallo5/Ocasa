@@ -51,4 +51,7 @@ public interface OcasaApi {
 
     @POST("Location.ashx")
     Observable<Void> sendLocation(@Body LocationModel locationData);
+
+    @POST("TripMovements.ashx")
+    Observable<Void> sendTripMovements(@Body String trips);
 }

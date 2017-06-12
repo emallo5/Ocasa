@@ -11,23 +11,21 @@ import java.util.Date;
 public class TripData {
 
     @SerializedName("started_trip")
-    private boolean startedTrip;
+    private String startedTrip;
     @SerializedName("date")
     private Date date;
+    @SerializedName("latitude")
+    private double latitude;
+    @SerializedName("longitude")
+    private double longitude;
 
     public TripData() {}
 
-    public TripData(boolean startedTrip, Date date) {
+    public TripData(String startedTrip, Date date, double latitude, double longitude) {
         this.startedTrip = startedTrip;
         this.date = date;
-    }
-
-    public boolean isStartedTrip() {
-        return startedTrip;
-    }
-
-    public void setStartedTrip(boolean startedTrip) {
-        this.startedTrip = startedTrip;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Date getDate() {
@@ -36,5 +34,29 @@ public class TripData {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getStartedTrip() {
+        return startedTrip;
+    }
+
+    public void setStartedTrip(String startedTrip) {
+        this.startedTrip = startedTrip;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

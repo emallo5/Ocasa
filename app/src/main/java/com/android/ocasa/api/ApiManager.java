@@ -64,6 +64,10 @@ public class ApiManager {
         return api.uploadImage(body, tableId, deviceId);
     }
 
+    public Observable<Void> sendTripMovements (String trips) {
+        return api.sendTripMovements(trips);
+    }
+
     public Observable<Layout> layout(Layout layout, double latitude, double longitude, String deviceId){
         return Observable.zip (
                 api.columns(layout.getExternalID() + "|" + layout.getTable().getId(), deviceId, latitude, longitude)
