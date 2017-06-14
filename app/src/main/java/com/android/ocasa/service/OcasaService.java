@@ -37,6 +37,7 @@ import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.ReceiptItem;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.RecordMassive;
+import com.android.ocasa.model.TripData;
 import com.android.ocasa.session.SessionManager;
 import com.android.ocasa.sync.SyncIntentSerivce;
 import com.android.ocasa.util.ConfigHelper;
@@ -478,8 +479,8 @@ public class OcasaService {
         return apiManager.controlSync(body);
     }
 
-    public Observable<Void> sendTripMovements (String trips) {
-        return apiManager.sendTripMovements(trips);
+    public Observable<Void> sendTripMovements (List<TripData> trips) {
+        return apiManager.sendTripMovements(trips, SessionManager.getInstance().getDeviceId());
     }
 
     public FormViewModel getDetailFormForReceipt(long recordId, long receiptId){

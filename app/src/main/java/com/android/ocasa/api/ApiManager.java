@@ -19,6 +19,7 @@ import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.Record;
 import com.android.ocasa.model.RecordMassive;
 import com.android.ocasa.model.Table;
+import com.android.ocasa.model.TripData;
 import com.android.ocasa.util.SyncUtil;
 
 import java.util.ArrayList;
@@ -64,8 +65,8 @@ public class ApiManager {
         return api.uploadImage(body, tableId, deviceId);
     }
 
-    public Observable<Void> sendTripMovements (String trips) {
-        return api.sendTripMovements(trips);
+    public Observable<Void> sendTripMovements (List<TripData> trips, String imei) {
+        return api.sendTripMovements(trips, imei);
     }
 
     public Observable<Layout> layout(Layout layout, double latitude, double longitude, String deviceId){

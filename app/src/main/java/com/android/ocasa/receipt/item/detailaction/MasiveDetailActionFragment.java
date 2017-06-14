@@ -153,10 +153,15 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
                 text.setEllipsize(TextUtils.TruncateAt.MARQUEE);
                 text.setSingleLine(true);
                 text.setHorizontallyScrolling(true);
-                text.setMarqueeRepeatLimit(10000);
+                text.setMarqueeRepeatLimit(3);
                 text.setFocusable(true);
                 text.setFocusableInTouchMode(true);
-                text.setSelected(true);
+                text.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        v.setSelected(true);
+                    }
+                });
 
                 text.setText(field.getLabel() + ": " + field.getValue());
                 text.setVisibility(View.GONE);

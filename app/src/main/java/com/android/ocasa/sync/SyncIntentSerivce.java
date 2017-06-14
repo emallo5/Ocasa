@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.Receipt;
+import com.android.ocasa.model.TripData;
 import com.android.ocasa.model.UploadLog;
 import com.android.ocasa.service.OcasaService;
 import com.android.ocasa.service.ReceiptService;
@@ -19,6 +20,8 @@ import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.ConnectionUtil;
 import com.android.ocasa.util.Constants;
 import com.android.ocasa.util.TripHelper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -94,7 +97,7 @@ public class SyncIntentSerivce extends Service {
 
         Log.d(TAG, "Service Process");
 
-//        sendTripData();
+        sendTripData();
 
         final List<Receipt> opens = new ReceiptService().getOpenReceipts(getApplicationContext());
         final int count = opens.size();
@@ -125,8 +128,12 @@ public class SyncIntentSerivce extends Service {
     private void sendTripData() {
         String trips = TripHelper.getTripMovementsString();
 
+        if (trips.isEmpty()) return;
+
+        List<TripData> data = new Gson().fromJson(trips, new TypeToken<List<TripData>>(){}.getType());
+
         OcasaService.getInstance()
-                .sendTripMovements(trips)
+                .sendTripMovements(data)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<Void>() {

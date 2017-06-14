@@ -30,8 +30,7 @@ public class ConfigHelper {
 
     public String ReadConfig(String KeyName) {
         try {
-            SharedPreferences preferences = PreferenceManager
-                    .getDefaultSharedPreferences(context);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             return preferences.getString(KeyName, "");
         } catch (Exception e) {
             // TODO: handle exception
@@ -43,8 +42,7 @@ public class ConfigHelper {
 
     public void WriteConfig(String KeyName, String KeyValue) {
         try {
-            SharedPreferences preferences = PreferenceManager
-                    .getDefaultSharedPreferences(context);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(KeyName, KeyValue);
             editor.commit();
@@ -57,8 +55,7 @@ public class ConfigHelper {
 
     public void WriteConfigBoolean(String KeyName, boolean KeyValue) {
         try {
-            SharedPreferences preferences = PreferenceManager
-                    .getDefaultSharedPreferences(context);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(KeyName, KeyValue);
             editor.commit();
@@ -71,8 +68,7 @@ public class ConfigHelper {
 
     public boolean ReadConfigBoolean(String KeyName, boolean defaultValue) {
         try {
-            SharedPreferences preferences = PreferenceManager
-                    .getDefaultSharedPreferences(context);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             return preferences.getBoolean(KeyName, defaultValue);
         } catch (Exception e) {
             return defaultValue;

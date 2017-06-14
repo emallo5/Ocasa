@@ -1,5 +1,6 @@
 package com.android.ocasa.model;
 
+import com.android.ocasa.util.DateTimeHelper;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -10,29 +11,29 @@ import java.util.Date;
 
 public class TripData {
 
-    @SerializedName("started_trip")
+    @SerializedName("action")
     private String startedTrip;
     @SerializedName("date")
-    private Date date;
+    private String date;
     @SerializedName("latitude")
-    private double latitude;
+    private String latitude;
     @SerializedName("longitude")
-    private double longitude;
+    private String longitude;
 
     public TripData() {}
 
-    public TripData(String startedTrip, Date date, double latitude, double longitude) {
+    public TripData(String startedTrip, Date date, String latitude, String longitude) {
         this.startedTrip = startedTrip;
-        this.date = date;
+        this.date = DateTimeHelper.formatDateTime(date);
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -44,19 +45,19 @@ public class TripData {
         this.startedTrip = startedTrip;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 }

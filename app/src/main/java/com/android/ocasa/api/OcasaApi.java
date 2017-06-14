@@ -14,6 +14,9 @@ import com.android.ocasa.model.LocationModel;
 import com.android.ocasa.model.LoginCredentials;
 import com.android.ocasa.model.Receipt;
 import com.android.ocasa.model.RecordMassive;
+import com.android.ocasa.model.TripData;
+
+import java.util.List;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -52,6 +55,6 @@ public interface OcasaApi {
     @POST("Location.ashx")
     Observable<Void> sendLocation(@Body LocationModel locationData);
 
-    @POST("TripMovements.ashx")
-    Observable<Void> sendTripMovements(@Body String trips);
+    @POST("session.ashx")
+    Observable<Void> sendTripMovements(@Body List<TripData> trips, @Query("imei") String imei);
 }

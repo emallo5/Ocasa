@@ -571,6 +571,6 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         btnTripEnd.setBackgroundResource(started ? R.drawable.button_trip_end : R.drawable.btn_trip_disabled);
 
         TripHelper.setLastMovement(started);
-        TripHelper.registerTripMovement(new TripData(started ? "I" : "F", new Date(), getLastLocation().getLatitude(), getLastLocation().getLongitude()));
+        TripHelper.registerTripMovement(new TripData(started ? "I" : "F", new Date(), String.valueOf(getLastLocation().getLatitude()), String.valueOf(getLastLocation().getLongitude())));
     }
 }
