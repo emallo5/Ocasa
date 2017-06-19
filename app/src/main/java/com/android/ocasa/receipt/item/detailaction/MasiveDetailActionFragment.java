@@ -163,7 +163,7 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
                     }
                 });
 
-                text.setText(field.getLabel() + ": " + field.getValue());
+                text.setText(field.getLabel() + ": " + (field.getType() == FieldType.TIME ? DateTimeHelper.formatTime(new Date()): field.getValue()));
                 text.setVisibility(View.GONE);
 
                 if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0043") || field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014"))

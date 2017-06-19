@@ -183,15 +183,16 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     public void onFormSuccess(FormViewModel form) {
         record = form;
 
-        // saco el valor de MAP y TIME a mano porque es visible pero no tiene que mostrarse, lo agrego en el saveAndExit() del hijo
+        // saco el valor de MAP a mano porque es visible pero no tiene que mostrarse, lo agrego en el saveAndExit() del hijo
         for (int i=form.getFields().size() - 1; i>-1; i--) {
             if (form.getFields().get(i).getType() == FieldType.MAP) {
                 mapTag = form.getFields().get(i).getTag();
                 form.getFields().remove(i);
-            } else if (form.getFields().get(i).getType() == FieldType.TIME) {
-                timeTag = form.getFields().get(i).getTag();
-                form.getFields().remove(i);
             }
+//            else if (form.getFields().get(i).getType() == FieldType.TIME) {
+//                timeTag = form.getFields().get(i).getTag();
+//                form.getFields().remove(i);
+//            }
         }
 
         fillFields(form.getFields());
@@ -477,7 +478,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         }
 
         try {
-            view.setValue(DateTimeHelper.formatDateTime(calendar.getTime()));
+            view.setValue(DateTimeHelper.formatTime(calendar.getTime()));
         } catch (FormatException e) {
             e.printStackTrace();
         }
