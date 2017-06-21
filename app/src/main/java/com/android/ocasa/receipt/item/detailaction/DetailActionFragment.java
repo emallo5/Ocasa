@@ -135,7 +135,12 @@ public class DetailActionFragment extends FormFragment {
                     }
                 });
 
-                text.setText(field.getLabel() + ": " + (field.getType() == FieldType.TIME ? DateTimeHelper.formatTime(new Date()): field.getValue()));
+                if (field.getType() == FieldType.TIME) {
+                    field.setValue(DateTimeHelper.formatTime(new Date()));
+                    timePodTag = field.getTag() + "-" + field.getValue();
+                }
+
+                text.setText(field.getLabel() + ": " + field.getValue());
                 text.setVisibility(View.VISIBLE);
 
                 if (field.getValue().isEmpty()) text.setVisibility(View.GONE);
@@ -204,8 +209,8 @@ public class DetailActionFragment extends FormFragment {
         showProgress();
         getActivity().setResult(Activity.RESULT_OK, createIntentData(values, exit));
 
-        // agrego map. Fue sacado en el onFormSucces() del padre
-//        values.put(timeTag, DateTimeHelper.formatTime(new Date()));
+        // agrego map. Fue sacado en el onFormSucces() del padre y la hora POD que no es editable pero hay que setearla
+        if (!timePodTag.isEmpty()) values.put(timePodTag.split("-")[0], timePodTag.split("-")[1]);
         values.put(mapTag, FieldType.MAP.format(requestLoction()));
 
         SaveFormTask.FormData data = new SaveFormTask.FormData(values, getArguments().getLong(ARG_RECORD_ID), getLastLocation());

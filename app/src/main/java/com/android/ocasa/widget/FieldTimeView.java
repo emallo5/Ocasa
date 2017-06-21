@@ -39,5 +39,10 @@ public class FieldTimeView extends FormTextFieldView {
 
         super.setValue(value);
     }
+
+    @Override
+    public void changeLabelVisbility(boolean visibility) {
+//        label.setVisibility(VISIBLE);
+    }
 }
 

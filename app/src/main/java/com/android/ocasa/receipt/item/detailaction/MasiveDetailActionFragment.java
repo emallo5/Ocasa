@@ -163,7 +163,12 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
                     }
                 });
 
-                text.setText(field.getLabel() + ": " + (field.getType() == FieldType.TIME ? DateTimeHelper.formatTime(new Date()): field.getValue()));
+                if (field.getType() == FieldType.TIME) {
+                    field.setValue(DateTimeHelper.formatTime(new Date()));
+                    timePodTag = field.getTag() + "-" + field.getValue();
+                }
+
+                text.setText(field.getLabel() + ": " + field.getValue());
                 text.setVisibility(View.GONE);
 
                 if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0043") || field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014"))
@@ -292,8 +297,8 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
         showProgress();
         getActivity().setResult(Activity.RESULT_OK, createIntentData(values, exit));
 
-        // agrego los elementos de map y hora. Fueron sacados en el onFormSucces() del padre
-        values.put(timeTag, DateTimeHelper.formatTime(new Date()));
+        // agrego map. Fue sacado en el onFormSucces() del padre
+        if (!timePodTag.isEmpty()) values.put(timePodTag.split("-")[0], timePodTag.split("-")[1]);
         values.put(mapTag, FieldType.MAP.format(requestLoction()));
 
         SaveFormTask.FormData data = new SaveFormTask.FormData(values, getArguments().getLong(ARG_RECORD_ID), getLastLocation());

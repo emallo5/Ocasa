@@ -123,7 +123,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     private String currentPhotoTag;
 
     protected String mapTag = "";
-    protected String timeTag = "";
+    protected String timePodTag = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
