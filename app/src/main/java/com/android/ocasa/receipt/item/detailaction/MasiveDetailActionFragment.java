@@ -27,6 +27,7 @@ import com.android.ocasa.core.FormPresenter;
 import com.android.ocasa.loader.SaveFormTask;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.NewRecordRead;
+import com.android.ocasa.pickup.scanner.ScannerActivity;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConfigHelper;
@@ -209,20 +210,17 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE_READ) {
+            if(resultCode != Activity.RESULT_OK)
+                return;
 
-            if (resultCode == CommonStatusCodes.SUCCESS) {
-                if(data == null) return;
-
-                Barcode barcode = data.getParcelableExtra(BarcodeActivity.BarcodeObject);
-                addCode(barcode.displayValue);
-            }
+            if(data == null) return;
+            addCode(data.getStringExtra(ScannerActivity.EXTRA_RESULT_CODES));
         }
     }
 
     @Override
     public void onReadTagClick() {
-        Intent intent =  new Intent(getActivity(), ReadFieldActvivity.class);
-        startActivityForResult(intent, REQUEST_CODE_READ);
+        startActivityForResult(new Intent(getActivity(), ScannerActivity.class), REQUEST_CODE_READ);
     }
 
     @Override
@@ -235,10 +233,6 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
         if (readCodes.contains(code)) {
             errorSound.start();
             ((DetailActionActivity) getActivity()).showDialog("Atención", "Este código ya existe!");
-            return;
-        } else if (code.length() != 11) {
-            errorSound.start();
-            ((DetailActionActivity) getActivity()).showDialog("Atención", "El código es inválido.");
             return;
         }
 
@@ -278,7 +272,7 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
             readyToSave = true;
             changeSendButtonText("ENVIAR");
             name.setVisibility(View.VISIBLE);
-            recibo.setVisibility(View.VISIBLE);
+            if (recibo != null) recibo.setVisibility(View.VISIBLE);
             signature.setVisibility(View.VISIBLE);
         }
     }
