@@ -328,9 +328,11 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
             return true;
         }
 
-        if (values.get("OM_MOVILNOVEDAD_C_0072").isEmpty()) {
-            ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar el campo Recibo imposición");
-            return true;
+        if (values.get("OM_MOVILNOVEDAD_C_0072") != null) {
+            if (values.get("OM_MOVILNOVEDAD_C_0072").isEmpty()) {
+                ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar el campo Recibo imposición");
+                return true;
+            }
         }
 
         return false;
