@@ -17,6 +17,7 @@ import com.android.ocasa.event.ReceiptItemEvent;
 import com.android.ocasa.event.RecordLongClickEvent;
 import com.android.ocasa.viewmodel.CellViewModel;
 import com.android.ocasa.viewmodel.FieldViewModel;
+import com.android.ocasa.widget.LabelDescriptionView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -97,17 +98,20 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
         for (int index = 0; index < holder.fields.size(); index++) {
             try {
                 FieldViewModel field = record.getFields().get(index);
-                TextView text = holder.fields.get(index);
+                LabelDescriptionView text = holder.fields.get(index);
 
                 if (!field.isEditable() && field.isVisible()) {
-                    text.setText(field.getLabel() + ": " + field.getValue());
+                    text.setLabel(field.getLabel() + ": ");
+                    text.setValue(field.getValue());
 
                     if (serviceType.equalsIgnoreCase("m")) {
-                        text.setVisibility((field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0043")
+                        text.setVisibility((field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0043") // oculto casi todos para la caarga masiva
                                 || field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014")) ? View.VISIBLE : View.GONE);
-                    } else
+                    } else {
                         text.setVisibility(View.VISIBLE);
-
+                        text.setVisibility((field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0046") // oculto Observacion y Obs.Ap
+                                || field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0111")) ? View.GONE : View.VISIBLE);
+                    }
                 } else {
                     text.setVisibility(View.GONE);
                 }
@@ -164,7 +168,7 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
 
         ImageView status;
 
-        ArrayList<TextView> fields;
+        ArrayList<LabelDescriptionView> fields;
 
         public RecordViewHolder(View itemView, int fieldCount) {
             super(itemView);
@@ -179,9 +183,7 @@ public class AvailableItemsAdapter extends RecyclerView.Adapter<AvailableItemsAd
             LinearLayout container = (LinearLayout) itemView.findViewById(R.id.container);
 
             for (int index = 0; index < fieldCount; index++) {
-                TextView text = new TextView(itemView.getContext());
-                text.setTextColor(Color.BLACK);
-                text.setTypeface(null, Typeface.BOLD);
+                LabelDescriptionView text = new LabelDescriptionView(itemView.getContext());
 
                 fields.add(text);
                 container.addView(text);

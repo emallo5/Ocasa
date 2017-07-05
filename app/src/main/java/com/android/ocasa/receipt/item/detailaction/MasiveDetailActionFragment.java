@@ -13,8 +13,11 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,7 @@ import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.Constants;
 import com.android.ocasa.util.DateTimeHelper;
+import com.android.ocasa.util.ExpandedTextFragment;
 import com.android.ocasa.util.FileHelper;
 import com.android.ocasa.util.KeyboardUtil;
 import com.android.ocasa.util.ProgressDialogFragment;
@@ -51,6 +55,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 /**
  * Created by leandro on 3/5/17.
@@ -137,7 +144,7 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
 
         for (int index = 0; index < fields.size(); index++) {
 
-            FieldViewModel field = fields.get(index);
+            final FieldViewModel field = fields.get(index);
 
             // OM_MOVILNOVEDAD_C_0043 direccion
             // OM_MOVILNOVEDAD_C_0014 tipoServicio
@@ -146,21 +153,36 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
             // OM_MOVILNOVEDAD_C_0072 recibo
 
             if (!field.isEditable() && field.isVisible()) {
+
+                LinearLayout ll = new LinearLayout(getContext());
+                ll.setOrientation(LinearLayout.HORIZONTAL);
+
+                TextView tvLabel = new TextView(getContext());
+                tvLabel.setTextColor(Color.BLACK);
+                tvLabel.setTypeface(null, Typeface.BOLD);
+                tvLabel.setBackgroundColor(Color.LTGRAY);
+                tvLabel.setText(field.getLabel() + ": ");
+
                 TextView text = new TextView(getContext());
                 text.setTextColor(Color.BLACK);
-                text.setTypeface(null, Typeface.BOLD);
                 text.setBackgroundColor(Color.LTGRAY);
+                final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+                text.setLayoutParams(lp);
 
-                text.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                text.setEllipsize(TextUtils.TruncateAt.END);
                 text.setSingleLine(true);
-                text.setHorizontallyScrolling(true);
-                text.setMarqueeRepeatLimit(3);
-                text.setFocusable(true);
-                text.setFocusableInTouchMode(true);
                 text.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        v.setSelected(true);
+                        TextView textView = (TextView)v;
+                        Layout l = textView.getLayout();
+                        if (l != null) {
+                            int lines = l.getLineCount();
+                            if (lines > 0)
+                                if (l.getEllipsisCount(lines-1) > 0)
+                                    ExpandedTextFragment.newInstance(field.getLabel(), field.getValue())
+                                            .show(getChildFragmentManager(), "ExpandedText");
+                        }
                     }
                 });
 
@@ -169,13 +191,17 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
                     timePodTag = field.getTag() + "-" + field.getValue();
                 }
 
-                text.setText(field.getLabel() + ": " + field.getValue());
-                text.setVisibility(View.GONE);
+                text.setText(field.getValue());
+
+                ll.setVisibility(View.GONE);
 
                 if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0043") || field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014"))
-                    text.setVisibility(View.VISIBLE);
+                    ll.setVisibility(View.VISIBLE);
 
-                formContainer.addView(text);
+                ll.addView(tvLabel);
+                ll.addView(text);
+
+                formContainer.addView(ll);
             } else {
 
                 field.setValue("");

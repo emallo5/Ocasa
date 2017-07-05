@@ -15,10 +15,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.PopupMenu;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,15 +30,16 @@ import com.android.ocasa.core.FormFragment;
 import com.android.ocasa.core.FormPresenter;
 import com.android.ocasa.loader.SaveFormTask;
 import com.android.ocasa.model.FieldType;
-import com.android.ocasa.model.Layout;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.Constants;
 import com.android.ocasa.util.DateTimeHelper;
+import com.android.ocasa.util.ExpandedTextFragment;
 import com.android.ocasa.util.FileHelper;
 import com.android.ocasa.util.KeyboardUtil;
 import com.android.ocasa.util.ProgressDialogFragment;
+import com.android.ocasa.util.SignatureDialogFragment;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.widget.FieldComboView;
@@ -48,6 +52,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class DetailActionFragment extends FormFragment {
 
@@ -112,39 +119,58 @@ public class DetailActionFragment extends FormFragment {
         if(formContainer.getChildCount() > 1)
             formContainer.removeAllViewsInLayout();
 
-        for (int index = 0; index < fields.size(); index++){
+        for (int index = 0; index < fields.size(); index++) {
 
-            FieldViewModel field = fields.get(index);
+            final FieldViewModel field = fields.get(index);
 
             if (!field.isEditable() && field.isVisible()) {
+
+                LinearLayout ll = new LinearLayout(getContext());
+                ll.setOrientation(LinearLayout.HORIZONTAL);
+
+                TextView tvLabel = new TextView(getContext());
+                tvLabel.setTextColor(Color.BLACK);
+                tvLabel.setTypeface(null, Typeface.BOLD);
+                tvLabel.setBackgroundColor(Color.LTGRAY);
+                tvLabel.setText(field.getLabel() + ": ");
+
                 TextView text = new TextView(getContext());
                 text.setTextColor(Color.BLACK);
-                text.setTypeface(null, Typeface.BOLD);
                 text.setBackgroundColor(Color.LTGRAY);
+                final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+                text.setLayoutParams(lp);
 
-                text.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                text.setEllipsize(TextUtils.TruncateAt.END);
                 text.setSingleLine(true);
-                text.setHorizontallyScrolling(true);
-                text.setMarqueeRepeatLimit(3);
-                text.setFocusable(true);
-                text.setFocusableInTouchMode(true);
                 text.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        v.setSelected(true);
+                        TextView textView = (TextView)v;
+                        Layout l = textView.getLayout();
+                        if (l != null) {
+                            int lines = l.getLineCount();
+                            if (lines > 0)
+                                if (l.getEllipsisCount(lines-1) > 0)
+                                    ExpandedTextFragment.newInstance(field.getLabel(), field.getValue())
+                                            .show(getChildFragmentManager(), "ExpandedText");
+                        }
                     }
                 });
 
                 if (field.getType() == FieldType.TIME) {
                     field.setValue(DateTimeHelper.formatTime(new Date()));
                     timePodTag = field.getTag() + "-" + field.getValue();
+                    ll.setVisibility(View.GONE);
                 }
 
-                text.setText(field.getLabel() + ": " + field.getValue());
-                text.setVisibility(View.VISIBLE);
+                text.setText(field.getValue());
 
-                if (field.getValue().isEmpty()) text.setVisibility(View.GONE);
-                formContainer.addView(text);
+                if (field.getValue().isEmpty()) ll.setVisibility(View.GONE);
+
+                ll.addView(tvLabel);
+                ll.addView(text);
+
+                formContainer.addView(ll);
             } else {
                 field.setValue("");  // vacio los datos que pueden haber quedado sucios
                 FieldViewFactory factory = field.getType().getFieldFactory();
