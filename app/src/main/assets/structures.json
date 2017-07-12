@@ -1,0 +1,36 @@
+[{
+  "id": 2,
+  "columns": [
+    {
+      "id": "OM_MOVILNOVEDAD_C_0049",
+      "mandatory": true,
+      "default": "",
+      "rules": null
+    },
+    {
+      "id": "OM_MovilNovedad_cf_0400",
+      "mandatory": true,
+      "default": "",
+      "rules": null
+    },
+    {
+      "id": "OM_MovilNovedad_cf_0500",
+      "mandatory": false,
+      "default": "",
+      "rules": [
+        {
+          "id": "OM_MOVILNOVEDAD_C_0049",
+          "operator": "<>",
+          "value": "Z4",
+          "NEXTcondition": null
+        }
+      ]
+    },
+    {
+      "id": "OM_MovilNovedad_cf_0600",
+      "mandatory": false,
+      "default": "",
+      "rules": null
+    }
+  ]
+}]

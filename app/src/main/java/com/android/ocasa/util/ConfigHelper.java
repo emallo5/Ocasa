@@ -5,7 +5,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.android.ocasa.model.AppConfiguration;
+import com.android.ocasa.model.PodStructuresById;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ignacio on 24/01/17.
@@ -79,8 +85,7 @@ public class ConfigHelper {
 
     public void WriteObjectConfig(String KeyName, Object KeyValue) {
         try {
-            SharedPreferences preferences = PreferenceManager
-                    .getDefaultSharedPreferences(context);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(KeyName, new Gson().toJson(KeyValue));
             editor.commit();
@@ -91,11 +96,10 @@ public class ConfigHelper {
         }
     }
 
-    public Object ReadObjectConfig(String KeyName, Class KeyValue) {
+    public Object ReadObjectConfig(String KeyName, Type KeyValue) {
 
         try {
-            SharedPreferences preferences = PreferenceManager
-                    .getDefaultSharedPreferences(context);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             String v = preferences.getString(KeyName, "");
 
             if (v.isEmpty()) return null;
@@ -116,5 +120,16 @@ public class ConfigHelper {
 
     public void setAppConfiguration(AppConfiguration appConfiguration) {
         WriteObjectConfig("app_configuration", appConfiguration);
+    }
+
+    public List<PodStructuresById> getPodStructureByIdList() {
+        Type listType = new TypeToken<List<PodStructuresById>>(){}.getType();
+        List<PodStructuresById> structures = (List<PodStructuresById>) ReadObjectConfig("pod_structure_by_id", listType);
+        return structures != null ? structures : new ArrayList<PodStructuresById>();
+    }
+
+    public void setPodStructureById(List<PodStructuresById> structureById) {
+//        Type listType = new TypeToken<List<PodStructuresById>>(){}.getType();
+        WriteObjectConfig("pod_structure_by_id", structureById);
     }
 }

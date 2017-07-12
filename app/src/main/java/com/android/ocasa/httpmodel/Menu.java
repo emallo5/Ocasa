@@ -9,6 +9,7 @@ import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.Layout;
 import com.android.ocasa.model.LayoutColumn;
+import com.android.ocasa.model.PodStructuresById;
 import com.android.ocasa.model.Table;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -33,6 +34,10 @@ public class Menu {
     @SerializedName("Configuracion")
     private AppConfiguration configuration;
 
+    @SerializedName("PodRules")
+    private List<PodStructuresById> podRules;
+
+
     public Menu(){ }
 
     public List<Application> getApplications() {
@@ -49,6 +54,14 @@ public class Menu {
 
     public void setConfiguration(AppConfiguration configuration) {
         this.configuration = configuration;
+    }
+
+    public List<PodStructuresById> getPodRules() {
+        return podRules;
+    }
+
+    public void setPodRules(List<PodStructuresById> podRules) {
+        this.podRules = podRules;
     }
 
     public static class CategoryDeserializer implements JsonDeserializer<Category>{

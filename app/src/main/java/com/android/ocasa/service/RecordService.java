@@ -71,7 +71,7 @@ public class RecordService {
             if(table.getId().equalsIgnoreCase("OM_MovilNovedad")){
 
                 Column column = new Column();
-                column.setId("OM_MovilNovedad_cf_0400");
+                column.setId("OM_MOVILNOVEDAD_CF_0400");
                 column.setVisible(false);
 
                 Field signature = new Field();
@@ -81,7 +81,7 @@ public class RecordService {
                 record.getFields().add(signature);
 
                 Column photoColumn = new Column();
-                photoColumn.setId("OM_MovilNovedad_cf_0500");
+                photoColumn.setId("OM_MOVILNOVEDAD_CF_0500");
                 photoColumn.setVisible(false);
 
                 Field photo = new Field();
@@ -91,7 +91,7 @@ public class RecordService {
                 record.getFields().add(photo);
 
                 Column photoColumn1 = new Column();
-                photoColumn1.setId("OM_MovilNovedad_cf_0600");
+                photoColumn1.setId("OM_MOVILNOVEDAD_CF_0600");
                 photoColumn1.setVisible(false);
 
                 Field photo1 = new Field();
@@ -101,7 +101,7 @@ public class RecordService {
                 record.getFields().add(photo1);
 
                 Column photoColumn2 = new Column();
-                photoColumn2.setId("OM_MovilNovedad_cf_0700");
+                photoColumn2.setId("OM_MOVILNOVEDAD_CF_0700");
                 photoColumn2.setVisible(false);
 
                 Field photo2 = new Field();
@@ -111,7 +111,7 @@ public class RecordService {
                 record.getFields().add(photo2);
 
                 Column photoColumn3 = new Column();
-                photoColumn3.setId("OM_MovilNovedad_cf_0800");
+                photoColumn3.setId("OM_MOVILNOVEDAD_CF_0800");
                 photoColumn3.setVisible(false);
 
                 Field photo3 = new Field();

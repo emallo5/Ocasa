@@ -69,7 +69,7 @@ public class MenuService {
                         if(action.getTable().getId().equalsIgnoreCase("OM_MovilNovedad")){
 
                             Column sigature = new Column();
-                            sigature.setId("OM_MovilNovedad_cf_0400");
+                            sigature.setId("OM_MOVILNOVEDAD_CF_0400");
                             sigature.setName("Firma");
                             sigature.setVisible(false);
                             sigature.setLogic(true);
@@ -85,7 +85,7 @@ public class MenuService {
                             action.getColumnsDetail().add(columnAction);
 
                             Column photo = new Column();
-                            photo.setId("OM_MovilNovedad_cf_0500");
+                            photo.setId("OM_MOVILNOVEDAD_CF_0500");
                             photo.setName("Foto");
                             photo.setVisible(false);
                             photo.setLogic(true);
@@ -101,7 +101,7 @@ public class MenuService {
                             action.getColumnsDetail().add(photoAction);
 
                             Column photo1 = new Column();
-                            photo1.setId("OM_MovilNovedad_cf_0600");
+                            photo1.setId("OM_MOVILNOVEDAD_CF_0600");
                             photo1.setName("Foto 2");
                             photo1.setVisible(false);
                             photo1.setLogic(true);
@@ -117,7 +117,7 @@ public class MenuService {
                             action.getColumnsDetail().add(photoAction1);
 
                             Column photo2 = new Column();
-                            photo2.setId("OM_MovilNovedad_cf_0700");
+                            photo2.setId("OM_MOVILNOVEDAD_CF_0700");
                             photo2.setName("Foto 3");
                             photo2.setVisible(false);
                             photo2.setLogic(true);
@@ -133,7 +133,7 @@ public class MenuService {
                             action.getColumnsDetail().add(photoAction2);
 
                             Column photo3 = new Column();
-                            photo3.setId("OM_MovilNovedad_cf_0800");
+                            photo3.setId("OM_MOVILNOVEDAD_CF_0800");
                             photo3.setName("Foto 4");
                             photo3.setVisible(false);
                             photo3.setLogic(true);

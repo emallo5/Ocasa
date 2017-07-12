@@ -29,7 +29,9 @@ import com.android.ocasa.R;
 import com.android.ocasa.core.FormFragment;
 import com.android.ocasa.core.FormPresenter;
 import com.android.ocasa.loader.SaveFormTask;
+import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
+import com.android.ocasa.model.PodStructuresById;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConfigHelper;
@@ -38,6 +40,7 @@ import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.util.ExpandedTextFragment;
 import com.android.ocasa.util.FileHelper;
 import com.android.ocasa.util.KeyboardUtil;
+import com.android.ocasa.util.Operator;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.util.SignatureDialogFragment;
 import com.android.ocasa.viewmodel.FieldViewModel;
@@ -46,7 +49,12 @@ import com.android.ocasa.widget.FieldComboView;
 import com.android.ocasa.widget.FieldViewAdapter;
 import com.android.ocasa.widget.TextFieldView;
 import com.android.ocasa.widget.factory.FieldViewFactory;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -172,6 +180,7 @@ public class DetailActionFragment extends FormFragment {
 
                 formContainer.addView(ll);
             } else {
+
                 field.setValue("");  // vacio los datos que pueden haber quedado sucios
                 FieldViewFactory factory = field.getType().getFieldFactory();
                 View view = factory.createView(formContainer, field, isEditMode);
@@ -184,10 +193,12 @@ public class DetailActionFragment extends FormFragment {
                     adapter.setFieldViewActionListener(this);
                     if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0072")) view.setVisibility(View.GONE);
                     formContainer.addView(view);
+
+                    view.setVisibility(podStructure.containsColumn(field.getTag()) ? View.VISIBLE : View.GONE);
                 }
             }
 
-            // valor por defecto de MOTIVO
+            // valor por defecto de MOTIVO a partir del Tipo de Servicio
             if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0014")) {
                 motivoClave = field.getValue().equals("E") ? "Z4" : "Z1";
                 motivoNombre = field.getValue().equals("E") ? "ENTREGADO" : "RETIRADO";
@@ -256,29 +267,51 @@ public class DetailActionFragment extends FormFragment {
 
     private boolean validateMandatory(Map<String, String> values) {
 
-        for (FieldViewModel field : fields) {
-            if (field.isMandatory()) {
-                if (values.get(field.getTag()) == null || values.get(field.getTag()).isEmpty() ||
-                        values.get(field.getTag()).equals(SELECT_OPTION)) {
-                    ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + field.getLabel() + "' es obligatorio");
+        if (podStructure != null) {
+            for (PodStructuresById.VisibleColumn column : podStructure.getColumns()) {
+                if (column.isMandatory()) {
+                    if (values.get(column.getId()) == null || values.get(column.getId()).isEmpty() || values.get(column.getId()).equals(SELECT_OPTION)) {
+                        ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + column.getName() + "' es obligatorio");
+                        return true;
+                    }
+                } else {
+                    if (column.getRules() == null || column.getRules().isEmpty()) continue;
+                    for (PodStructuresById.Rule rule : column.getRules()) {
+                        if (Operator.findOperator(rule.getOperator()).operate(values.get(rule.getId()), rule.getValue())) {
+                            if (values.get(column.getId()) == null || values.get(column.getId()).isEmpty() ||
+                                    values.get(column.getId()).equals(SELECT_OPTION)) {
+                                ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + column.getName() + "' es obligatorio");
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            for (FieldViewModel field : fields) {
+                if (field.isMandatory()) {
+                    if (values.get(field.getTag()) == null || values.get(field.getTag()).isEmpty() ||
+                            values.get(field.getTag()).equals(SELECT_OPTION)) {
+                        ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + field.getLabel() + "' es obligatorio");
+                        return true;
+                    }
+                }
+            }
+
+            if (!values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z4") && !values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z1")) {
+                if (values.get("OM_MOVILNOVEDAD_CF_0500") == null && values.get("OM_MOVILNOVEDAD_CF_0600") == null
+                        && values.get("OM_MOVILNOVEDAD_CF_0700") == null && values.get("OM_MOVILNOVEDAD_CF_0800") == null) {
+                    ((DetailActionActivity) getActivity()).showDialog("Atención", "Se requiere al menos una foto");
+                    return true;
+                }
+            } else {
+                if (values.get("OM_MovilNovedad_cf_0400") == null) {
+                    ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
                     return true;
                 }
             }
         }
-
-        if (!values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z4") && !values.get("OM_MOVILNOVEDAD_C_0049").equalsIgnoreCase("Z1")) {
-            if (values.get("OM_MovilNovedad_cf_0500") == null && values.get("OM_MovilNovedad_cf_0600") == null
-                    && values.get("OM_MovilNovedad_cf_0700") == null && values.get("OM_MovilNovedad_cf_0800") == null) {
-                ((DetailActionActivity) getActivity()).showDialog("Atención", "Se requiere al menos una foto");
-                return true;
-            }
-//        } else {
-//            if (values.get("OM_MovilNovedad_cf_0400") == null) {
-//                ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
-//                return true;
-//            }
-        }
-
         return false;
     }
 

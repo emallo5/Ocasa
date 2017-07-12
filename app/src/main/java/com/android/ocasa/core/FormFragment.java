@@ -43,6 +43,8 @@ import com.android.ocasa.fragment.MapFragment;
 import com.android.ocasa.loader.SaveFormTask;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
+import com.android.ocasa.model.PodStructuresById;
+import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.DatePickerDialogFragment;
 import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.util.FieldDetailDialogFragment;
@@ -125,6 +127,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     protected String mapTag = "";
     protected String timePodTag = "";
 
+    protected PodStructuresById podStructure;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,7 +199,21 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 //            }
         }
 
+        setPodStructure(form.getFields());
         fillFields(form.getFields());
+    }
+
+    protected void setPodStructure(List<FieldViewModel> fields) {
+        for (FieldViewModel field : fields) {
+            if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0006")) {
+                for (PodStructuresById structure : ConfigHelper.getInstance().getPodStructureByIdList()) {
+                    if (structure.getId().equalsIgnoreCase(field.getValue())) {
+                        this.podStructure = structure;
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     public void setRecordForm(FormViewModel form){

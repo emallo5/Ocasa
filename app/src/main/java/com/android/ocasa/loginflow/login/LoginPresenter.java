@@ -128,6 +128,7 @@ public class LoginPresenter extends BaseRxPresenter<LoginView> {
         public void onNext(Menu menu) {
             getView().onLoginSuccess();
             ConfigHelper.getInstance().setAppConfiguration(menu.getConfiguration());
+            ConfigHelper.getInstance().setPodStructureById(menu.getPodRules());
             SessionManager.getInstance().saveUser("");
         }
     }
