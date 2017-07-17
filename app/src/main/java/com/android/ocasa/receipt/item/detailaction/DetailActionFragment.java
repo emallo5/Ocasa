@@ -194,7 +194,8 @@ public class DetailActionFragment extends FormFragment {
                     if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0072")) view.setVisibility(View.GONE);
                     formContainer.addView(view);
 
-                    view.setVisibility(podStructure.containsColumn(field.getTag()) ? View.VISIBLE : View.GONE);
+                    if (podStructure != null)
+                        view.setVisibility(podStructure.containsColumn(field.getTag()) ? View.VISIBLE : View.GONE);
                 }
             }
 

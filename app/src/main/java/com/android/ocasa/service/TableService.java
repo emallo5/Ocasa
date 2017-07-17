@@ -286,7 +286,12 @@ public class TableService {
             Field newField = new Field();
 
             newField.setColumn(field.getColumn());
-            newField.setValue(field.getColumn().getId().equalsIgnoreCase("OM_MOVILNOVEDAD_CF_0200") ? seguimientoCli : "");
+            if (field.getColumn().getId().equalsIgnoreCase("OM_MOVILNOVEDAD_CF_0200"))
+                newField.setValue(seguimientoCli);
+            else if (field.getColumn().getId().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0006"))
+                newField.setValue("0000000000");
+            else
+                newField.setValue("");
             newField.setRecord(record);
             fields.add(newField);
         }

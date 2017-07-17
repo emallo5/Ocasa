@@ -30,6 +30,7 @@ import com.android.ocasa.core.FormPresenter;
 import com.android.ocasa.loader.SaveFormTask;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.NewRecordRead;
+import com.android.ocasa.model.PodStructuresById;
 import com.android.ocasa.pickup.scanner.ScannerActivity;
 import com.android.ocasa.receipt.edit.EditReceiptFragment;
 import com.android.ocasa.util.AlertDialogFragment;
@@ -39,6 +40,7 @@ import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.util.ExpandedTextFragment;
 import com.android.ocasa.util.FileHelper;
 import com.android.ocasa.util.KeyboardUtil;
+import com.android.ocasa.util.Operator;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
@@ -73,9 +75,6 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
     public static final int REQUEST_CODE_READ = 300;
 
     private boolean readyToSave = false;
-    private View name;
-    private View recibo;
-    private View signature;
 
     private MediaPlayer errorSound;
     private MediaPlayer checkSound;
@@ -216,10 +215,9 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
                     adapter.setFieldViewActionListener(this);
 
                     view.setVisibility(View.GONE);
-                    if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0050")) name = view;
-                    if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0072")) recibo = view;
-                    if (field.getTag().equalsIgnoreCase("OM_MovilNovedad_cf_0400")) signature = view;
-
+//                    if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0050")) name = view;
+//                    if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0072")) recibo = view;
+//                    if (field.getTag().equalsIgnoreCase("OM_MovilNovedad_cf_0400")) signature = view;
                     formContainer.addView(view);
                 }
             }
@@ -297,9 +295,11 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
         } else {
             readyToSave = true;
             changeSendButtonText("ENVIAR");
-            name.setVisibility(View.VISIBLE);
-            if (recibo != null) recibo.setVisibility(View.VISIBLE);
-            signature.setVisibility(View.VISIBLE);
+            for (int i=0; i<formContainer.getChildCount(); i++) {
+                View v = formContainer.getChildAt(i);
+                if (v.getTag() != null)
+                    v.setVisibility(podStructure.containsColumn(v.getTag().toString()) ? View.VISIBLE : View.GONE);
+            }
         }
     }
 
@@ -344,20 +344,38 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
             return true;
         }
 
-//        if (values.get("OM_MovilNovedad_cf_0400") == null) {
-//            ((DetailActionActivity) getActivity()).showDialog("Atención", "La firma es obligatoria");
-//            return true;
-//        }
-
-        if (values.get("OM_MOVILNOVEDAD_C_0050").isEmpty()) {
-            ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar el nombre del receptor");
-            return true;
+        if (podStructure != null) {
+            for (PodStructuresById.VisibleColumn column : podStructure.getColumns()) {
+                if (column.isMandatory()) {
+                    if (values.get(column.getId()) == null || values.get(column.getId()).isEmpty() || values.get(column.getId()).equals(SELECT_OPTION)) {
+                        ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + column.getName() + "' es obligatorio");
+                        return true;
+                    }
+                } else {
+                    if (column.getRules() == null || column.getRules().isEmpty()) continue;
+                    for (PodStructuresById.Rule rule : column.getRules()) {
+                        if (Operator.findOperator(rule.getOperator()).operate(values.get(rule.getId()), rule.getValue())) {
+                            if (values.get(column.getId()) == null || values.get(column.getId()).isEmpty() ||
+                                    values.get(column.getId()).equals(SELECT_OPTION)) {
+                                ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + column.getName() + "' es obligatorio");
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
         }
-
-        if (values.get("OM_MOVILNOVEDAD_C_0072") != null) {
-            if (values.get("OM_MOVILNOVEDAD_C_0072").isEmpty()) {
-                ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar el campo Recibo imposición");
+        else {
+            if (values.get("OM_MOVILNOVEDAD_C_0050").isEmpty()) {
+                ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar el nombre del receptor");
                 return true;
+            }
+
+            if (values.get("OM_MOVILNOVEDAD_C_0072") != null) {
+                if (values.get("OM_MOVILNOVEDAD_C_0072").isEmpty()) {
+                    ((DetailActionActivity) getActivity()).showDialog("Atención", "Debe completar el campo Recibo imposición");
+                    return true;
+                }
             }
         }
 
