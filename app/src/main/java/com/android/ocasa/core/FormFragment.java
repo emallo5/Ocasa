@@ -566,6 +566,9 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
             case R.id.send:
                 onSaveButtonClick();
                 return true;
+            case R.id.map:
+                onMapButtonClick();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -580,30 +583,10 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
     public abstract void onSaveButtonClick();
 
-    public void save(SaveFormTask.FormData formData) {
-        new SaveFormTask(getActivity()).execute(formData);
+    public void onMapButtonClick() {
     }
 
-    private void deleteLastFromDCIM(Bundle data) {
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                String[] projection = { MediaStore.Images.Media._ID };
-
-                String selection = MediaStore.Images.Media.DATA + " = ?";
-                String[] selectionArgs = new String[] { "data" }; //data.get("data").getAbsolutePath()
-
-                Uri queryUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                ContentResolver contentResolver = getActivity().getContentResolver();
-                Cursor c = contentResolver.query(queryUri, projection, selection, selectionArgs, null);
-                if (c.moveToFirst()) {
-                    long id = c.getLong(c.getColumnIndexOrThrow(MediaStore.Images.Media._ID));
-                    Uri deleteUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-                    contentResolver.delete(deleteUri, null, null);
-                } else {} // File not found in media store DB
-                c.close();
-            }
-        }, 1000);
+    public void save(SaveFormTask.FormData formData) {
+        new SaveFormTask(getActivity()).execute(formData);
     }
 }

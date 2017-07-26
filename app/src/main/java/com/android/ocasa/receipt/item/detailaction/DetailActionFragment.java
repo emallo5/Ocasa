@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.net.Uri;
 import android.nfc.FormatException;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -39,6 +40,7 @@ import com.android.ocasa.util.Constants;
 import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.util.ExpandedTextFragment;
 import com.android.ocasa.util.FileHelper;
+import com.android.ocasa.util.GeolocationUtils;
 import com.android.ocasa.util.KeyboardUtil;
 import com.android.ocasa.util.Operator;
 import com.android.ocasa.util.ProgressDialogFragment;
@@ -46,9 +48,11 @@ import com.android.ocasa.util.SignatureDialogFragment;
 import com.android.ocasa.viewmodel.FieldViewModel;
 import com.android.ocasa.viewmodel.FormViewModel;
 import com.android.ocasa.widget.FieldComboView;
+import com.android.ocasa.widget.FieldMapView;
 import com.android.ocasa.widget.FieldViewAdapter;
 import com.android.ocasa.widget.TextFieldView;
 import com.android.ocasa.widget.factory.FieldViewFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -74,6 +78,7 @@ public class DetailActionFragment extends FormFragment {
 
     private String motivoClave = "";
     private String motivoNombre = "";
+    private String address = null;
 
     List<FieldViewModel> fields;
 
@@ -132,6 +137,9 @@ public class DetailActionFragment extends FormFragment {
             final FieldViewModel field = fields.get(index);
 
             if (!field.isEditable() && field.isVisible()) {
+
+                if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0043"))
+                    address = field.getValue();
 
                 LinearLayout ll = new LinearLayout(getContext());
                 ll.setOrientation(LinearLayout.HORIZONTAL);
@@ -231,6 +239,25 @@ public class DetailActionFragment extends FormFragment {
     public void onSaveButtonClick() {
         KeyboardUtil.hideKeyboard(getActivity());
         saveAndExit(true);
+    }
+
+    @Override
+    public void onMapButtonClick() {
+        LatLng location = GeolocationUtils.addressToLocation(getContext(), address);
+
+        if (location == null) {
+            AlertDialogFragment.newInstance("Error de localización", "No se pude resolver la dirección").show(getChildFragmentManager(), "Map");
+            return;
+        }
+
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + location.latitude + ", " + location.longitude + "&mode=d");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+        if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null)
+            startActivity(mapIntent);
+        else
+            AlertDialogFragment.newInstance("Aplicación GoogleMaps faltante", "Debe instalar o actualizar GoogleMaps").show(getChildFragmentManager(), "MapApp");
     }
 
     public void saveAndExit(boolean exit) {

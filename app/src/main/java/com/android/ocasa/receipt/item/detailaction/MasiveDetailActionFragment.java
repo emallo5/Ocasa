@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.nfc.FormatException;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -39,6 +40,7 @@ import com.android.ocasa.util.Constants;
 import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.util.ExpandedTextFragment;
 import com.android.ocasa.util.FileHelper;
+import com.android.ocasa.util.GeolocationUtils;
 import com.android.ocasa.util.KeyboardUtil;
 import com.android.ocasa.util.Operator;
 import com.android.ocasa.util.ProgressDialogFragment;
@@ -49,6 +51,7 @@ import com.android.ocasa.widget.FieldViewAdapter;
 import com.android.ocasa.widget.TagReaderView;
 import com.android.ocasa.widget.factory.FieldViewFactory;
 import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import org.w3c.dom.Text;
@@ -82,6 +85,7 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
     List<FieldViewModel> fields;
     ArrayList<String> readCodes = new ArrayList<>();
     TagReaderView tagReaderView;
+    private String address = null;
 
     public static MasiveDetailActionFragment newInstance(long receiptId, long recordId) {
 
@@ -152,6 +156,9 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
             // OM_MOVILNOVEDAD_C_0072 recibo
 
             if (!field.isEditable() && field.isVisible()) {
+
+                if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0043"))
+                    address = field.getValue();
 
                 LinearLayout ll = new LinearLayout(getContext());
                 ll.setOrientation(LinearLayout.HORIZONTAL);
@@ -409,6 +416,25 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
         } catch (Exception e) {}
 
         return location;
+    }
+
+    @Override
+    public void onMapButtonClick() {
+        LatLng location = GeolocationUtils.addressToLocation(getContext(), address);
+
+        if (location == null) {
+            AlertDialogFragment.newInstance("Error de localización", "No se pude resolver la dirección").show(getChildFragmentManager(), "Map");
+            return;
+        }
+
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + location.latitude + ", " + location.longitude + "&mode=d");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+        if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null)
+            startActivity(mapIntent);
+        else
+            AlertDialogFragment.newInstance("Aplicación GoogleMaps faltante", "Debe instalar o actualizar GoogleMaps").show(getChildFragmentManager(), "MapApp");
     }
 
     public void showProgress() {

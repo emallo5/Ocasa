@@ -3,9 +3,6 @@ package com.android.ocasa.model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-/**
- * Created by leandro on 8/5/17.
- */
 @DatabaseTable(tableName = "new_records")
 public class NewRecordRead {
 

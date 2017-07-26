@@ -13,7 +13,6 @@ import java.util.List;
 
 public class NewRecordReadDAO extends GenericDAOImpl<NewRecordRead, String> {
 
-
     public NewRecordReadDAO(Context context) {
         super(NewRecordRead.class, context);
     }

@@ -177,7 +177,7 @@ AlertDialogFragment.OnAlertClickListener{
     @Override
     public void onUploadError() {
         hideProgress();
-        Toast.makeText(this, "Huebo un error, intente mas tarde!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Hubo un error, intente mas tarde!", Toast.LENGTH_SHORT).show();
     }
 
     private void stopSyncService() {

@@ -269,7 +269,6 @@ public class OcasaService {
 
     private void upload(final Receipt receipt) {
 
-
         final TableRecord record = new TableRecord();
 
         RecordMassive recordMassive = new RecordMassive();
@@ -298,7 +297,7 @@ public class OcasaService {
             List<ColumnAction> details = new ColumnActionDAO(context)
                     .findColumnsForActionAndType(receipt.getAction().getId(), ColumnAction.ColumnActionType.DETAIL);
 
-            for (ColumnAction columnAction : details){
+            for (ColumnAction columnAction : details) {
                 if(columnAction.getColumn().getFieldType() != FieldType.PHOTO &&
                         columnAction.getColumn().getFieldType() != FieldType.SIGNATURE)
                     headerFields.add(item.getRecord().getFieldForColumn(columnAction.getColumn().getId()));
@@ -545,7 +544,7 @@ public class OcasaService {
             @Override
             public Boolean call(Receipt receipt, Long l) {
                 upload(receipt);
-                Log.d(SyncIntentSerivce.TAG, "Sync record: " + receipt.getId());
+                Log.d(SyncIntentSerivce.TAG, "Sync record DONE: " + receipt.getId());
                 return true;
             }
         });
