@@ -420,21 +420,7 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
 
     @Override
     public void onMapButtonClick() {
-        LatLng location = GeolocationUtils.addressToLocation(getContext(), address);
-
-        if (location == null) {
-            AlertDialogFragment.newInstance("Error de localización", "No se pude resolver la dirección").show(getChildFragmentManager(), "Map");
-            return;
-        }
-
-        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + location.latitude + ", " + location.longitude + "&mode=d");
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-        mapIntent.setPackage("com.google.android.apps.maps");
-
-        if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null)
-            startActivity(mapIntent);
-        else
-            AlertDialogFragment.newInstance("Aplicación GoogleMaps faltante", "Debe instalar o actualizar GoogleMaps").show(getChildFragmentManager(), "MapApp");
+        GeolocationUtils.ShowListResult(this, address);
     }
 
     public void showProgress() {
