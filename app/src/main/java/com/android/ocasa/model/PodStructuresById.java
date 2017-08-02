@@ -109,7 +109,7 @@ public class PodStructuresById {
         @SerializedName("value")
         private String value;
 
-        @SerializedName("nextCondition")
+        @SerializedName("nextcondition")
         private String next;
 
 

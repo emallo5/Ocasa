@@ -360,13 +360,11 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
                     }
                 } else {
                     if (column.getRules() == null || column.getRules().isEmpty()) continue;
-                    for (PodStructuresById.Rule rule : column.getRules()) {
-                        if (Operator.findOperator(rule.getOperator()).operate(values.get(rule.getId()), rule.getValue())) {
-                            if (values.get(column.getId()) == null || values.get(column.getId()).isEmpty() ||
-                                    values.get(column.getId()).equals(SELECT_OPTION)) {
-                                ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + column.getName() + "' es obligatorio");
-                                return true;
-                            }
+
+                    if (checkRules(column, values, 0)) {
+                        if (values.get(column.getId()) == null || values.get(column.getId()).isEmpty() || values.get(column.getId()).equals(SELECT_OPTION)) {
+                            ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + column.getName() + "' es obligatorio");
+                            return true;
                         }
                     }
                 }
@@ -387,6 +385,19 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
         }
 
         return false;
+    }
+
+    private boolean checkRules(PodStructuresById.VisibleColumn column, Map<String, String> values, int position) {
+
+        PodStructuresById.Rule rule = column.getRules().get(position);
+
+        // caso base
+        if (rule.getNext() == null || rule.getNext().isEmpty())
+            return Operator.findOperator(rule.getOperator()).operate(values.get(rule.getId()), rule.getValue());
+        else
+            return Operator.findOperator(rule.getNext())
+                    .operate(Operator.findOperator(rule.getOperator()).operate(values.get(rule.getId()), rule.getValue()),
+                            checkRules(column, values, position + 1));
     }
 
     private Intent createIntentData(Map<String, String> values, boolean exit) {

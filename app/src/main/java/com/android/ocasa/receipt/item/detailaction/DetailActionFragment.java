@@ -30,6 +30,7 @@ import com.android.ocasa.R;
 import com.android.ocasa.core.FormFragment;
 import com.android.ocasa.core.FormPresenter;
 import com.android.ocasa.loader.SaveFormTask;
+import com.android.ocasa.model.Column;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.PodStructuresById;
@@ -290,13 +291,10 @@ public class DetailActionFragment extends FormFragment {
                     }
                 } else {
                     if (column.getRules() == null || column.getRules().isEmpty()) continue;
-                    for (PodStructuresById.Rule rule : column.getRules()) {
-                        if (Operator.findOperator(rule.getOperator()).operate(values.get(rule.getId()), rule.getValue())) {
-                            if (values.get(column.getId()) == null || values.get(column.getId()).isEmpty() ||
-                                    values.get(column.getId()).equals(SELECT_OPTION)) {
-                                ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + column.getName() + "' es obligatorio");
-                                return true;
-                            }
+                    if (checkRules(column, values, 0)) {
+                        if (values.get(column.getId()) == null || values.get(column.getId()).isEmpty() || values.get(column.getId()).equals(SELECT_OPTION)) {
+                            ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + column.getName() + "' es obligatorio");
+                            return true;
                         }
                     }
                 }
@@ -327,6 +325,30 @@ public class DetailActionFragment extends FormFragment {
             }
         }
         return false;
+    }
+
+    private boolean checkRules(PodStructuresById.VisibleColumn column, Map<String, String> values, int position) {
+
+        PodStructuresById.Rule rule = column.getRules().get(position);
+
+        // caso base
+        if (rule.getNext() == null || rule.getNext().isEmpty())
+            return Operator.findOperator(rule.getOperator()).operate(getValue(values, rule.getId()), rule.getValue());
+        else
+            return Operator.findOperator(rule.getNext())
+                    .operate(Operator.findOperator(rule.getOperator()).operate(getValue(values, rule.getId()), rule.getValue()),
+                                                            checkRules(column, values, position + 1));
+    }
+
+    private String getValue(Map<String, String> values, String id) {
+
+        if (!values.containsKey(id)) {
+            for (FieldViewModel field : fields)
+                if (field.getTag().equalsIgnoreCase(id))
+                    return field.getValue();
+        }
+
+        return values.get(id);
     }
 
     private Intent createIntentData(Map<String, String> values, boolean exit) {

@@ -31,7 +31,7 @@ import java.sql.SQLException;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     static final String DB_NAME = "Ocasa.db";
-    static final int DB_VERSION = 1;
+    static final int DB_VERSION = 2;
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -64,6 +64,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-
+        try {
+            TableUtils.createTableIfNotExists(connectionSource, NewRecordRead.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

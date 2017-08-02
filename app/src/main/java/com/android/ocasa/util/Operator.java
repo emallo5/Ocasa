@@ -16,6 +16,16 @@ public enum Operator {
         public boolean operate(String pivot, String other) {
             return !pivot.equalsIgnoreCase(other);
         }
+    }, AND("AND") {
+        @Override
+        public boolean operate(boolean first, boolean second) {
+            return first && second;
+        }
+    }, OR("OR") {
+        @Override
+        public boolean operate(boolean first, boolean second) {
+            return first || second;
+        }
     };
 
     String type;
@@ -29,13 +39,16 @@ public enum Operator {
     }
 
     public static Operator findOperator(String type) {
-        for (Operator o : Operator.values()) {
+        for (Operator o : Operator.values())
             if (type.equals(o.getType())) return o;
-        }
         return EQUALS; // por defecto va el "igual"
     }
 
     public boolean operate (String pivot, String other) {
+        return false;
+    }
+
+    public boolean operate (boolean first, boolean second) {
         return false;
     }
 }

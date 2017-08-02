@@ -210,7 +210,8 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
                     if (structure.getId().equalsIgnoreCase(field.getValue())) {
                         this.podStructure = structure;
                         return;
-                    }
+                    } else if (structure.getId().equalsIgnoreCase("0"))
+                        this.podStructure = structure;
                 }
             }
         }
