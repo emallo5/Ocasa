@@ -69,7 +69,7 @@ public abstract class BaseReceiptFragment extends LocationMvpFragment<BaseReceip
     @Override
     public void onHeaderSuccess(ReceiptFormViewModel header) {
 
-        headerFormContainer.setCardBackgroundColor(Color.parseColor(header.getColor()));
+        headerFormContainer.setCardBackgroundColor(Color.parseColor("#ffffff"/*header.getColor()*/));
 
         this.header = header;
 

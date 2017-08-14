@@ -48,6 +48,7 @@ import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.DatePickerDialogFragment;
 import com.android.ocasa.util.DateTimeHelper;
 import com.android.ocasa.util.FieldDetailDialogFragment;
+import com.android.ocasa.util.MediaUtils;
 import com.android.ocasa.util.SignatureDialogFragment;
 import com.android.ocasa.util.TimePickerDialogFragment;
 import com.android.ocasa.viewmodel.CellViewModel;
@@ -106,8 +107,9 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
     static final String COMBO_TAG = "Combo";
 
     public static final String PREFIX = "/ocasa_";
-
     public static final String SELECT_OPTION = "Seleccionar...";
+
+    private int margin = 8;
 
     protected Map<String, String> formValues;
 
@@ -144,6 +146,9 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         return inflater.inflate(com.android.ocasa.R.layout.fragment_detail_record, container, false);
     }
 
+    protected int getMargin(Context context) {
+        return MediaUtils.dpToPixel(margin, context);
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

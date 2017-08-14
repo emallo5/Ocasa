@@ -162,16 +162,17 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
 
                 LinearLayout ll = new LinearLayout(getContext());
                 ll.setOrientation(LinearLayout.HORIZONTAL);
+                ll.setBackgroundColor(Color.LTGRAY);
 
                 TextView tvLabel = new TextView(getContext());
+                tvLabel.setPadding(getMargin(getContext()), 3, getMargin(getContext()), 3);
                 tvLabel.setTextColor(Color.BLACK);
                 tvLabel.setTypeface(null, Typeface.BOLD);
-                tvLabel.setBackgroundColor(Color.LTGRAY);
                 tvLabel.setText(field.getLabel() + ": ");
 
                 TextView text = new TextView(getContext());
                 text.setTextColor(Color.BLACK);
-                text.setBackgroundColor(Color.LTGRAY);
+                tvLabel.setPadding(8, 3, 20, 3);
                 final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
                 text.setLayoutParams(lp);
 
@@ -220,6 +221,8 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
 
                     FieldViewAdapter adapter = (FieldViewAdapter) view;
                     adapter.setFieldViewActionListener(this);
+
+                    view.setPadding(getMargin(getContext()), 0, getMargin(getContext()), 0);
 
                     view.setVisibility(View.GONE);
 //                    if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0050")) name = view;

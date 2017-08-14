@@ -31,6 +31,8 @@ public class DetailActionActivity extends BarActivity implements InformationDial
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTitle("Ingreso de Novedad");
+
         Bundle extras = getIntent().getExtras();
 
         if (extras.getBoolean(POD_TYPE_MASIVE)) pushFragment(MasiveDetailActionFragment.newInstance(extras.getLong(EXTRA_RECEIPT_ID),

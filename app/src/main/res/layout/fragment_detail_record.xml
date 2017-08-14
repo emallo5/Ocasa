@@ -15,10 +15,7 @@
         <android.support.v7.widget.CardView
             android:id="@+id/detail_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:contentPaddingBottom="@dimen/medium_padding"
-            app:contentPaddingLeft="@dimen/large_padding"
-            app:contentPaddingRight="@dimen/large_padding">
+            android:layout_height="wrap_content" >
 
             <LinearLayout
                 android:id="@+id/detail_form_container"

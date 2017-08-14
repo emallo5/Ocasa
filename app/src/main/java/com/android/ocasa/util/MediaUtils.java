@@ -1,7 +1,10 @@
 package com.android.ocasa.util;
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -42,5 +45,12 @@ public class MediaUtils {
             return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
         } catch (FileNotFoundException e) {}
         return null;
+    }
+
+    public static int dpToPixel(int dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return (int) px;
     }
 }

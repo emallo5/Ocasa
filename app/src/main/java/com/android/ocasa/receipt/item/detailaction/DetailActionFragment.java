@@ -43,6 +43,7 @@ import com.android.ocasa.util.ExpandedTextFragment;
 import com.android.ocasa.util.FileHelper;
 import com.android.ocasa.util.GeolocationUtils;
 import com.android.ocasa.util.KeyboardUtil;
+import com.android.ocasa.util.MediaUtils;
 import com.android.ocasa.util.Operator;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.util.SignatureDialogFragment;
@@ -144,16 +145,17 @@ public class DetailActionFragment extends FormFragment {
 
                 LinearLayout ll = new LinearLayout(getContext());
                 ll.setOrientation(LinearLayout.HORIZONTAL);
+                ll.setBackgroundColor(Color.LTGRAY);
 
                 TextView tvLabel = new TextView(getContext());
+                tvLabel.setPadding(getMargin(getContext()), 3, getMargin(getContext()), 3);
                 tvLabel.setTextColor(Color.BLACK);
                 tvLabel.setTypeface(null, Typeface.BOLD);
-                tvLabel.setBackgroundColor(Color.LTGRAY);
                 tvLabel.setText(field.getLabel() + ": ");
 
                 TextView text = new TextView(getContext());
                 text.setTextColor(Color.BLACK);
-                text.setBackgroundColor(Color.LTGRAY);
+                tvLabel.setPadding(8, 3, getMargin(getContext()), 3);
                 final RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
                 text.setLayoutParams(lp);
 
@@ -201,6 +203,7 @@ public class DetailActionFragment extends FormFragment {
                     FieldViewAdapter adapter = (FieldViewAdapter) view;
                     adapter.setFieldViewActionListener(this);
                     if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0072")) view.setVisibility(View.GONE);
+                    view.setPadding(getMargin(getContext()), 0, getMargin(getContext()), 0);
                     formContainer.addView(view);
 
                     if (podStructure != null)
