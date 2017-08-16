@@ -225,8 +225,9 @@ public class DetailActionFragment extends FormFragment {
         try {
             FieldComboView comboView = (FieldComboView) formContainer.findViewWithTag("OM_MOVILNOVEDAD_C_0049");
             comboView.setValue(motivoClave);
-            ((FieldViewAdapter) comboView.findViewWithTag("OM_MOTIVOENT_CLAVE")).setValue(motivoClave);
+            comboView.hideKey();
             ((FieldViewAdapter) comboView.findViewWithTag("OM_MOTIVOENT_CF_0200")).setValue(motivoNombre);
+            ((FieldViewAdapter) comboView.findViewWithTag("OM_MOTIVOENT_CLAVE")).setValue(motivoClave);
         } catch (FormatException e) {
             e.printStackTrace();
         } catch (Exception e) {

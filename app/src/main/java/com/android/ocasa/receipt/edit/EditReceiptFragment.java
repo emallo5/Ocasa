@@ -536,7 +536,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
     public void onCreateItem(String id) {
         codeNotFound = id;
         AlertDialogFragment dialog = AlertDialogFragment
-                .newInstance("Pieza no econtrada", "¿Desea agregarla?");
+                .newInstance("Pieza no encontrada", "¿Desea agregarla?");
         dialog.show(getChildFragmentManager(), "createRecord");
     }
 

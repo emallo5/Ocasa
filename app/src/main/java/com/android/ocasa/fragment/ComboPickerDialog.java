@@ -155,6 +155,7 @@ public class ComboPickerDialog extends DialogFragment implements LoaderManager.L
             for (int index = 0; index < holder.fields.size(); index++){
                 TextView text = holder.fields.get(index);
                 text.setText(record.getFields().get(index).getValue());
+                if (index==0) text.setVisibility(View.GONE); // oculto esta vista porque quieren que solo se vea la descripcion
             }
             return view;
         }

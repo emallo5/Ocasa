@@ -71,7 +71,8 @@ public class FormInputFieldView extends LinearLayout implements FieldViewAdapter
 
     @Override
     public void changeLabelVisbility(boolean visibility) {
-        field.getInputLayout().setHintEnabled(visibility);
+//        field.getInputLayout().setHintEnabled(visibility);
+        field.getInputLayout().setVisibility(visibility ? VISIBLE : GONE);
     }
 
     @Override

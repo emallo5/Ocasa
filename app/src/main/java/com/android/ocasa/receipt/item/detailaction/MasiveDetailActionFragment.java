@@ -237,6 +237,9 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
         tagReaderView.setOnActionClickListener(this);
         formContainer.addView(tagReaderView);
         tagReaderView.setCountRead(0);
+
+        FieldComboView comboView = (FieldComboView) formContainer.findViewWithTag("OM_MOVILNOVEDAD_C_0049");
+        comboView.hideKey();
     }
 
     @Override

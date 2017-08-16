@@ -84,6 +84,12 @@ public class FieldComboView extends RelativeLayout implements FieldViewAdapter, 
         this.value = value;
     }
 
+    public void hideKey() {
+        try {
+            container.getChildAt(0).setVisibility(GONE);
+        } catch (Exception e) {}
+    }
+
     @Override
     public void changeLabelVisbility(boolean visibility) {
         label.setVisibility(VISIBLE);
