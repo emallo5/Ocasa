@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.android.ocasa.core.FormFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
@@ -65,7 +66,7 @@ public class GeolocationUtils {
         return addressHashMap;
     }
 
-    public static void ShowListResult(final Fragment context, String address) {
+    public static void ShowListResult(final FormFragment context, String address) {
 
         final Map<String, Address> list = addressToLocation(context.getContext(), address);
 

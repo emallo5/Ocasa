@@ -9,6 +9,7 @@ public enum Operator {
     EQUALS("=") {
         @Override
         public boolean operate(String pivot, String other) {
+            if (pivot==null) return true;
             return pivot.equalsIgnoreCase(other);
         }
     }, DIFFERENT("<>") {

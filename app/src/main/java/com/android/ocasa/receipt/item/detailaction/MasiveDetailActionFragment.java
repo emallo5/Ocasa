@@ -367,12 +367,18 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
                 } else {
                     if (column.getRules() == null || column.getRules().isEmpty()) continue;
 
-                    if (checkRules(column, values, 0)) {
-                        if (values.get(column.getId()) == null || values.get(column.getId()).isEmpty() || values.get(column.getId()).equals(SELECT_OPTION)) {
-                            ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + column.getName() + "' es obligatorio");
-                            return true;
-                        }
-                    }
+
+
+                    return false;
+
+//                    if (checkRules(column, values, 0)) {
+//                        if (values.get(column.getId()) == null || values.get(column.getId()).isEmpty() || values.get(column.getId()).equals(SELECT_OPTION)) {
+//                            ((DetailActionActivity) getActivity()).showDialog("Atención", "El campo '" + column.getName() + "' es obligatorio");
+//                            return true;
+//                        }
+//                    }
+
+
                 }
             }
         }

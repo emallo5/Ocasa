@@ -453,7 +453,7 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         }
 
         if(tag.equalsIgnoreCase("createRecord")){
-            CellViewModel cell = new TableService().addRecordToTable(getContext(), codeNotFound);
+            CellViewModel cell = new TableService().addRecordToTable(getContext(), codeNotFound, getArguments().getLong(ARG_RECEIPT_ID));
             onItemAdded(cell);
             ReceiptCounterHelper.getInstance().setTotalItems(1 + ReceiptCounterHelper.getInstance().getTotalItemsCount());
             return;

@@ -3,6 +3,7 @@ package com.android.ocasa.service;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.ocasa.cache.dao.ActionDAO;
 import com.android.ocasa.cache.dao.ApplicationDAO;
 import com.android.ocasa.cache.dao.CategoryDAO;
 import com.android.ocasa.cache.dao.ColumnDAO;
@@ -13,9 +14,11 @@ import com.android.ocasa.cache.dao.ReceiptDAO;
 import com.android.ocasa.cache.dao.RecordDAO;
 import com.android.ocasa.cache.dao.StatusDAO;
 import com.android.ocasa.cache.dao.TableDAO;
+import com.android.ocasa.model.Action;
 import com.android.ocasa.model.Application;
 import com.android.ocasa.model.Category;
 import com.android.ocasa.model.Column;
+import com.android.ocasa.model.ColumnAction;
 import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.Layout;
@@ -270,19 +273,26 @@ public class TableService {
         new RecordService().saveRecordsFromTable(context, response.getTable());
     }
 
-    public CellViewModel addRecordToTable(Context context, String seguimientoCli) {
+    public CellViewModel addRecordToTable(Context context, String seguimientoCli, long receiptId) {
 
         String tableId = "OM_MovilNovedad";
 
         RecordDAO recordDAO = new RecordDAO(context);
-        Record aRecord = recordDAO.findForTableAndQuery(tableId, null, null).get(0);
+        Record aRecord;
+        Collection<Field> aFields;
+        try {
+            aRecord = recordDAO.findForTableAndQuery(tableId, null, null).get(0);
+            aFields = aRecord.getFields();
+        } catch (IndexOutOfBoundsException e) {
+            aFields = createFields(receiptId, context);
+        }
 
         Record record = new Record();
         ArrayList<Field> fields = new ArrayList<>();
         Table table = findTable(context, tableId);
 
         FieldDAO fieldDAO = new FieldDAO(context);
-        for (Field field : aRecord.getFields()) {
+        for (Field field : aFields) {
             Field newField = new Field();
 
             newField.setColumn(field.getColumn());
@@ -315,5 +325,18 @@ public class TableService {
         fillCell(cell, record.getVisibleFields());
 
         return cell;
+    }
+
+    private ArrayList<Field> createFields(long receiptId, Context context) {
+        ArrayList<Field> fields = new ArrayList<>();
+        Receipt r = new ReceiptDAO(context).findById(receiptId);
+
+        for (ColumnAction ca : r.getAction().getColumnsDetail()) {
+            Field field = new Field();
+            field.setColumn(ca.getColumn());
+            fields.add(field);
+        }
+
+        return fields;
     }
 }

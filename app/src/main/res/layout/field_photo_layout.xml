@@ -3,21 +3,30 @@
 
     <TextView
         android:id="@+id/label"
+        android:text="Foto Data Logger"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"/>
 
     <ImageView
         android:id="@+id/photo"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_below="@+id/label"
-        android:layout_toLeftOf="@+id/edit"/>
+        android:layout_toRightOf="@+id/edit"
+        android:layout_toEndOf="@+id/edit"/>
 
     <ImageView
         android:id="@+id/edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_below="@+id/label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:src="@mipmap/ic_edit_photo"/>
 
 </merge>
