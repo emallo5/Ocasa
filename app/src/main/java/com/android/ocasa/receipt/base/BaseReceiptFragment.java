@@ -27,7 +27,7 @@ public abstract class BaseReceiptFragment extends LocationMvpFragment<BaseReceip
 
     public static final String ARG_RECEIPT_ID = "receipt_id";
 
-    private CardView headerFormContainer;
+    protected CardView headerFormContainer;
     private LinearLayout headerContainer;
     protected RelativeLayout content;
 
