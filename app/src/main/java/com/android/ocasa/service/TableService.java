@@ -182,73 +182,73 @@ public class TableService {
 
         List<Column> columns = new ArrayList<>();
 
-        if(layout.getTable().getId().equalsIgnoreCase("OM_MovilNovedad")) {
-
-            Column sigature = new Column();
-            sigature.setId("OM_MOVILNOVEDAD_CF_0400");
-            sigature.setName("Firma");
-            sigature.setVisible(false);
-            sigature.setLogic(true);
-            sigature.setOrder(9998);
-            sigature.setFieldType(FieldType.SIGNATURE);
-
-            LayoutColumn layoutColumn = new LayoutColumn(layout, sigature);
-            sigature.addLayout(layoutColumn);
-
-            layout.getColumns().add(layoutColumn);
-
-            Column photo = new Column();
-            photo.setId("OM_MOVILNOVEDAD_CF_0500");
-            photo.setName("Foto");
-            photo.setVisible(false);
-            photo.setLogic(true);
-            photo.setOrder(9999);
-            photo.setFieldType(FieldType.PHOTO);
-
-            LayoutColumn photoColumn = new LayoutColumn(layout, photo);
-            photo.addLayout(photoColumn);
-
-            layout.getColumns().add(photoColumn);
-
-            Column photo1 = new Column();
-            photo1.setId("OM_MOVILNOVEDAD_CF_0600");
-            photo1.setName("Foto 2");
-            photo1.setVisible(false);
-            photo1.setLogic(true);
-            photo1.setOrder(10000);
-            photo1.setFieldType(FieldType.PHOTO);
-
-            LayoutColumn photoColumn1 = new LayoutColumn(layout, photo1);
-            photo1.addLayout(photoColumn1);
-
-            layout.getColumns().add(photoColumn1);
-
-            Column photo2 = new Column();
-            photo2.setId("OM_MOVILNOVEDAD_CF_0700");
-            photo2.setName("Foto 3");
-            photo2.setVisible(false);
-            photo2.setLogic(true);
-            photo2.setOrder(10001);
-            photo2.setFieldType(FieldType.PHOTO);
-
-            LayoutColumn photoColumn2 = new LayoutColumn(layout, photo2);
-            photo2.addLayout(photoColumn2);
-
-            layout.getColumns().add(photoColumn2);
-
-            Column photo3 = new Column();
-            photo3.setId("OM_MOVILNOVEDAD_CF_0800");
-            photo3.setName("Foto 4");
-            photo3.setVisible(false);
-            photo3.setLogic(true);
-            photo3.setOrder(10002);
-            photo3.setFieldType(FieldType.PHOTO);
-
-            LayoutColumn photoColumn3 = new LayoutColumn(layout, photo3);
-            photo3.addLayout(photoColumn3);
-
-            layout.getColumns().add(photoColumn3);
-        }
+//        if(layout.getTable().getId().equalsIgnoreCase("OM_MovilNovedad")) {
+//
+//            Column sigature = new Column();
+//            sigature.setId("OM_MOVILNOVEDAD_CF_0400");
+//            sigature.setName("Firma");
+//            sigature.setVisible(false);
+//            sigature.setLogic(true);
+//            sigature.setOrder(9998);
+//            sigature.setFieldType(FieldType.SIGNATURE);
+//
+//            LayoutColumn layoutColumn = new LayoutColumn(layout, sigature);
+//            sigature.addLayout(layoutColumn);
+//
+//            layout.getColumns().add(layoutColumn);
+//
+//            Column photo = new Column();
+//            photo.setId("OM_MOVILNOVEDAD_CF_0500");
+//            photo.setName("Foto");
+//            photo.setVisible(false);
+//            photo.setLogic(true);
+//            photo.setOrder(9999);
+//            photo.setFieldType(FieldType.PHOTO);
+//
+//            LayoutColumn photoColumn = new LayoutColumn(layout, photo);
+//            photo.addLayout(photoColumn);
+//
+//            layout.getColumns().add(photoColumn);
+//
+//            Column photo1 = new Column();
+//            photo1.setId("OM_MOVILNOVEDAD_CF_0600");
+//            photo1.setName("Foto 2");
+//            photo1.setVisible(false);
+//            photo1.setLogic(true);
+//            photo1.setOrder(10000);
+//            photo1.setFieldType(FieldType.PHOTO);
+//
+//            LayoutColumn photoColumn1 = new LayoutColumn(layout, photo1);
+//            photo1.addLayout(photoColumn1);
+//
+//            layout.getColumns().add(photoColumn1);
+//
+//            Column photo2 = new Column();
+//            photo2.setId("OM_MOVILNOVEDAD_CF_0700");
+//            photo2.setName("Foto 3");
+//            photo2.setVisible(false);
+//            photo2.setLogic(true);
+//            photo2.setOrder(10001);
+//            photo2.setFieldType(FieldType.PHOTO);
+//
+//            LayoutColumn photoColumn2 = new LayoutColumn(layout, photo2);
+//            photo2.addLayout(photoColumn2);
+//
+//            layout.getColumns().add(photoColumn2);
+//
+//            Column photo3 = new Column();
+//            photo3.setId("OM_MOVILNOVEDAD_CF_0800");
+//            photo3.setName("Foto 4");
+//            photo3.setVisible(false);
+//            photo3.setLogic(true);
+//            photo3.setOrder(10002);
+//            photo3.setFieldType(FieldType.PHOTO);
+//
+//            LayoutColumn photoColumn3 = new LayoutColumn(layout, photo3);
+//            photo3.addLayout(photoColumn3);
+//
+//            layout.getColumns().add(photoColumn3);
+//        }
 
         for (LayoutColumn layoutColumn : layout.getColumns()){
 

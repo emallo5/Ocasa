@@ -66,88 +66,88 @@ public class MenuService {
                             header.setAction(action);
                         }
 
-                        if(action.getTable().getId().equalsIgnoreCase("OM_MovilNovedad")){
-
-                            Column sigature = new Column();
-                            sigature.setId("OM_MOVILNOVEDAD_CF_0400");
-                            sigature.setName("Firma");
-                            sigature.setVisible(false);
-                            sigature.setLogic(true);
-                            sigature.setFieldType(FieldType.SIGNATURE);
-
-                            ColumnAction columnAction = new ColumnAction();
-                            columnAction.setType(ColumnAction.ColumnActionType.DETAIL);
-                            columnAction.setColumn(sigature);
-                            columnAction.setEditable(true);
-                            columnAction.setLastValue("");
-                            columnAction.setDefaultValue("");
-
-                            action.getColumnsDetail().add(columnAction);
-
-                            Column photo = new Column();
-                            photo.setId("OM_MOVILNOVEDAD_CF_0500");
-                            photo.setName("Foto");
-                            photo.setVisible(false);
-                            photo.setLogic(true);
-                            photo.setFieldType(FieldType.PHOTO);
-
-                            ColumnAction photoAction = new ColumnAction();
-                            photoAction.setType(ColumnAction.ColumnActionType.DETAIL);
-                            photoAction.setColumn(photo);
-                            photoAction.setEditable(true);
-                            photoAction.setLastValue("");
-                            photoAction.setDefaultValue("");
-
-                            action.getColumnsDetail().add(photoAction);
-
-                            Column photo1 = new Column();
-                            photo1.setId("OM_MOVILNOVEDAD_CF_0600");
-                            photo1.setName("Foto 2");
-                            photo1.setVisible(false);
-                            photo1.setLogic(true);
-                            photo1.setFieldType(FieldType.PHOTO);
-
-                            ColumnAction photoAction1 = new ColumnAction();
-                            photoAction1.setType(ColumnAction.ColumnActionType.DETAIL);
-                            photoAction1.setColumn(photo1);
-                            photoAction1.setEditable(true);
-                            photoAction1.setLastValue("");
-                            photoAction1.setDefaultValue("");
-
-                            action.getColumnsDetail().add(photoAction1);
-
-                            Column photo2 = new Column();
-                            photo2.setId("OM_MOVILNOVEDAD_CF_0700");
-                            photo2.setName("Foto 3");
-                            photo2.setVisible(false);
-                            photo2.setLogic(true);
-                            photo2.setFieldType(FieldType.PHOTO);
-
-                            ColumnAction photoAction2 = new ColumnAction();
-                            photoAction2.setType(ColumnAction.ColumnActionType.DETAIL);
-                            photoAction2.setColumn(photo2);
-                            photoAction2.setEditable(true);
-                            photoAction2.setLastValue("");
-                            photoAction2.setDefaultValue("");
-
-                            action.getColumnsDetail().add(photoAction2);
-
-                            Column photo3 = new Column();
-                            photo3.setId("OM_MOVILNOVEDAD_CF_0800");
-                            photo3.setName("Foto 4");
-                            photo3.setVisible(false);
-                            photo3.setLogic(true);
-                            photo3.setFieldType(FieldType.PHOTO);
-
-                            ColumnAction photoAction3 = new ColumnAction();
-                            photoAction3.setType(ColumnAction.ColumnActionType.DETAIL);
-                            photoAction3.setColumn(photo3);
-                            photoAction3.setEditable(true);
-                            photoAction3.setLastValue("");
-                            photoAction3.setDefaultValue("");
-
-                            action.getColumnsDetail().add(photoAction3);
-                        }
+//                        if(action.getTable().getId().equalsIgnoreCase("OM_MovilNovedad")){
+//
+//                            Column sigature = new Column();
+//                            sigature.setId("OM_MOVILNOVEDAD_CF_0400");
+//                            sigature.setName("Firma");
+//                            sigature.setVisible(false);
+//                            sigature.setLogic(true);
+//                            sigature.setFieldType(FieldType.SIGNATURE);
+//
+//                            ColumnAction columnAction = new ColumnAction();
+//                            columnAction.setType(ColumnAction.ColumnActionType.DETAIL);
+//                            columnAction.setColumn(sigature);
+//                            columnAction.setEditable(true);
+//                            columnAction.setLastValue("");
+//                            columnAction.setDefaultValue("");
+//
+//                            action.getColumnsDetail().add(columnAction);
+//
+//                            Column photo = new Column();
+//                            photo.setId("OM_MOVILNOVEDAD_CF_0500");
+//                            photo.setName("Foto");
+//                            photo.setVisible(false);
+//                            photo.setLogic(true);
+//                            photo.setFieldType(FieldType.PHOTO);
+//
+//                            ColumnAction photoAction = new ColumnAction();
+//                            photoAction.setType(ColumnAction.ColumnActionType.DETAIL);
+//                            photoAction.setColumn(photo);
+//                            photoAction.setEditable(true);
+//                            photoAction.setLastValue("");
+//                            photoAction.setDefaultValue("");
+//
+//                            action.getColumnsDetail().add(photoAction);
+//
+//                            Column photo1 = new Column();
+//                            photo1.setId("OM_MOVILNOVEDAD_CF_0600");
+//                            photo1.setName("Foto 2");
+//                            photo1.setVisible(false);
+//                            photo1.setLogic(true);
+//                            photo1.setFieldType(FieldType.PHOTO);
+//
+//                            ColumnAction photoAction1 = new ColumnAction();
+//                            photoAction1.setType(ColumnAction.ColumnActionType.DETAIL);
+//                            photoAction1.setColumn(photo1);
+//                            photoAction1.setEditable(true);
+//                            photoAction1.setLastValue("");
+//                            photoAction1.setDefaultValue("");
+//
+//                            action.getColumnsDetail().add(photoAction1);
+//
+//                            Column photo2 = new Column();
+//                            photo2.setId("OM_MOVILNOVEDAD_CF_0700");
+//                            photo2.setName("Foto 3");
+//                            photo2.setVisible(false);
+//                            photo2.setLogic(true);
+//                            photo2.setFieldType(FieldType.PHOTO);
+//
+//                            ColumnAction photoAction2 = new ColumnAction();
+//                            photoAction2.setType(ColumnAction.ColumnActionType.DETAIL);
+//                            photoAction2.setColumn(photo2);
+//                            photoAction2.setEditable(true);
+//                            photoAction2.setLastValue("");
+//                            photoAction2.setDefaultValue("");
+//
+//                            action.getColumnsDetail().add(photoAction2);
+//
+//                            Column photo3 = new Column();
+//                            photo3.setId("OM_MOVILNOVEDAD_CF_0800");
+//                            photo3.setName("Foto 4");
+//                            photo3.setVisible(false);
+//                            photo3.setLogic(true);
+//                            photo3.setFieldType(FieldType.PHOTO);
+//
+//                            ColumnAction photoAction3 = new ColumnAction();
+//                            photoAction3.setType(ColumnAction.ColumnActionType.DETAIL);
+//                            photoAction3.setColumn(photo3);
+//                            photoAction3.setEditable(true);
+//                            photoAction3.setLastValue("");
+//                            photoAction3.setDefaultValue("");
+//
+//                            action.getColumnsDetail().add(photoAction3);
+//                        }
 
 
                         for (ColumnAction detail: action.getColumnsDetail()) {

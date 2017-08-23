@@ -345,7 +345,7 @@ public class MasiveDetailActionFragment extends FormFragment implements TagReade
 
     private String getIdSistema() {
         for (FieldViewModel field : fields)
-            if (field.getTag().equals("OM_MOVILNOVEDAD_C_0038"))
+            if (field.getTag().equalsIgnoreCase("OM_MOVILNOVEDAD_C_0038"))
                 return field.getValue();
         return "Sin ID";
     }
