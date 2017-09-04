@@ -1,13 +1,19 @@
 package com.android.ocasa.receipt.list;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.Loader;
@@ -178,12 +184,38 @@ AlertDialogFragment.OnAlertClickListener{
             @Override
             public void onClick(View view) {
                 if (swiperefresh.isRefreshing()) return;
+
+                if (!checkGPSEnabled()) {
+                    AlertDialogFragment.newInstance("Atención", "Debe activar el GPS para continuar", "Activar", "Cancelar", null)
+                            .show(getChildFragmentManager(), "gps_enable");
+                    return;
+                }
+
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    AlertDialogFragment.newInstance("Atención", "Debe conceder permisos para el GPS", "Aceptar", "Cancelar", null)
+                            .show(getChildFragmentManager(), "gps_permission");
+                    return;
+                }
+
                 getPresenter().load(getArguments().getString(ARG_ACTION_ID));
 //                Intent intent = new Intent(getActivity(), EditHeaderReceiptActivity.class);
 //                intent.putExtra(EditHeaderReceiptActivity.EXTRA_ACTION_ID, getArguments().getString(ARG_ACTION_ID));
 //                ((BaseActivity) getActivity()).startNewActivity(intent);
             }
         });
+    }
+
+    private boolean checkGPSEnabled() {
+        LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE );
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    private void goToPermissionsSettings() {
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+        intent.setData(uri);
+        startActivity(intent);
     }
 
     @Override
@@ -355,6 +387,16 @@ AlertDialogFragment.OnAlertClickListener{
 
     @Override
     public void onPosiviteClick(String tag) {
+
+        if (tag.equals("gps_enable")) {
+            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            return;
+        }
+
+        if (tag.equals("gps_permission")) {
+            goToPermissionsSettings();
+            return;
+        }
 
         ReceiptService service = new ReceiptService();
         Receipt receipt = service.findReceiptById(getContext(), receiptId);
