@@ -2,27 +2,22 @@ package com.android.ocasa.core;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.nfc.FormatException;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,9 +36,9 @@ import com.android.ocasa.fragment.ComboPickerDialog;
 import com.android.ocasa.fragment.FieldHistoricalFragment;
 import com.android.ocasa.fragment.MapFragment;
 import com.android.ocasa.loader.SaveFormTask;
-import com.android.ocasa.model.Field;
 import com.android.ocasa.model.FieldType;
 import com.android.ocasa.model.PodStructuresById;
+import com.android.ocasa.util.AlertDialogFragment;
 import com.android.ocasa.util.ConfigHelper;
 import com.android.ocasa.util.DatePickerDialogFragment;
 import com.android.ocasa.util.DateTimeHelper;
@@ -65,27 +60,18 @@ import com.android.ocasa.widget.FieldSignatureView;
 import com.android.ocasa.widget.FieldTimeView;
 import com.android.ocasa.widget.FieldViewActionListener;
 import com.android.ocasa.widget.FieldViewAdapter;
-import com.android.ocasa.widget.SignatureView;
 import com.android.ocasa.widget.factory.FieldViewFactory;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URI;
-import java.nio.ByteBuffer;
-import java.nio.channels.Channels;
-import java.nio.channels.WritableByteChannel;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import okhttp3.internal.io.FileSystem;
 
 /**
  * Created by ignacio on 11/07/16.
@@ -570,7 +556,7 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
 
         switch (item.getItemId()){
             case R.id.send:
-                onSaveButtonClick();
+                onButtonSendClick();
                 return true;
             case R.id.map:
                 onMapButtonClick();
@@ -578,6 +564,34 @@ public abstract class FormFragment extends LocationMvpFragment<FormView, FormPre
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void onButtonSendClick() {
+        if (!checkGPSEnabled()) {
+            AlertDialogFragment.newInstance("Atención", "Debe activar el GPS para continuar", "Activar", "Cancelar", null)
+                    .show(getChildFragmentManager(), "gps_enable");
+            return;
+        }
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            AlertDialogFragment.newInstance("Atención", "Debe conceder permisos para el GPS", "Aceptar", "Cancelar", null)
+                    .show(getChildFragmentManager(), "gps_permission");
+            return;
+        }
+        onSaveButtonClick();
+    }
+
+    protected boolean checkGPSEnabled() {
+        LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE );
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    protected void goToPermissionsSettings() {
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+        intent.setData(uri);
+        startActivity(intent);
     }
 
     protected void onMenuCreated() {

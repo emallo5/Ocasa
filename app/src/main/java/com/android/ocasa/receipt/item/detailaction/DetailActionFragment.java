@@ -12,6 +12,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.nfc.FormatException;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
@@ -70,7 +71,7 @@ import java.util.Map;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
-public class DetailActionFragment extends FormFragment {
+public class DetailActionFragment extends FormFragment implements AlertDialogFragment.OnAlertClickListener {
 
     static String ARG_RECEIPT_ID = "receipt_id";
     static String ARG_RECORD_ID = "record_id";
@@ -394,4 +395,24 @@ public class DetailActionFragment extends FormFragment {
         DialogFragment dialog = (DialogFragment) getChildFragmentManager().findFragmentByTag("Progress");
         if(dialog != null) dialog.dismiss();
     }
+
+    @Override
+    public void onPosiviteClick(String tag) {
+
+        if (tag.equals("gps_enable")) {
+            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            return;
+        }
+
+        if (tag.equals("gps_permission")) {
+            goToPermissionsSettings();
+            return;
+        }
+    }
+
+    @Override
+    public void onNeutralClick(String tag) {}
+
+    @Override
+    public void onNegativeClick(String tag) {}
 }
