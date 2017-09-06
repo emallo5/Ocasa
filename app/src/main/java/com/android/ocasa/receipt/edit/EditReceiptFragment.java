@@ -24,6 +24,7 @@ import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.ocasa.R;
@@ -41,6 +42,7 @@ import com.android.ocasa.receipt.base.BaseReceiptPresenter;
 import com.android.ocasa.receipt.base.BaseReceiptView;
 import com.android.ocasa.service.TableService;
 import com.android.ocasa.util.AlertDialogFragment;
+import com.android.ocasa.util.AnimationUtils;
 import com.android.ocasa.util.ProgressDialogFragment;
 import com.android.ocasa.util.ReceiptCounterHelper;
 import com.android.ocasa.util.TripHelper;
@@ -180,6 +182,11 @@ public class EditReceiptFragment extends BaseReceiptFragment implements EditRece
         tabs.setupWithViewPager(pager);
 
         setListeners();
+
+        AnimationUtils.enterFromLeft(btnTripStart, getContext());
+        AnimationUtils.enterFromRight(btnTripEnd, getContext());
+        AnimationUtils.enterFromTop(headerFormContainer, getContext());
+        AnimationUtils.enterFromBottom(getView().findViewById(R.id.rl_availables), getContext());
     }
 
     private void setListeners() {
