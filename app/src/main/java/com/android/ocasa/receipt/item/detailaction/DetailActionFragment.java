@@ -207,8 +207,11 @@ public class DetailActionFragment extends FormFragment implements AlertDialogFra
                     view.setPadding(getMargin(getContext()), 0, getMargin(getContext()), 0);
                     formContainer.addView(view);
 
-                    if (podStructure != null)
+                    if (podStructure != null) {
                         view.setVisibility(podStructure.containsColumn(field.getTag()) ? View.VISIBLE : View.GONE);
+                        if (podStructure.containsColumn(field.getTag()) && field.getType() == FieldType.PHOTO)
+                            factory.setLabel(podStructure.getColumn(field.getTag()).getName());
+                    }
                 }
             }
 

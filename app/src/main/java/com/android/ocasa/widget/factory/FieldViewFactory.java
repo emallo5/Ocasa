@@ -16,4 +16,6 @@ public abstract class FieldViewFactory {
     public abstract View createSubView(ViewGroup container, FieldViewModel field, boolean isEditMode);
 
     public abstract View createView(ViewGroup container, FieldViewModel field, boolean isEditMode);
+
+    public void setLabel(String label) {}
 }

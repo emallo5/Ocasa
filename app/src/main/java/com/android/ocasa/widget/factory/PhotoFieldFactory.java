@@ -15,6 +15,8 @@ import com.android.ocasa.widget.FieldPhotoView;
 
 public class PhotoFieldFactory extends FieldViewFactory {
 
+    private FieldPhotoView photo;
+
     @Override
     public View createView(ViewGroup container, String value, String label, boolean isEditMode) {
         return null;
@@ -28,8 +30,7 @@ public class PhotoFieldFactory extends FieldViewFactory {
     @Override
     public View createView(ViewGroup container, FieldViewModel field, boolean isEditMode) {
 
-        FieldPhotoView photo =
-                (FieldPhotoView) LayoutInflater.from(container.getContext()).inflate(R.layout.field_photo, container, false);
+        photo = (FieldPhotoView) LayoutInflater.from(container.getContext()).inflate(R.layout.field_photo, container, false);
 
         try {
             photo.setValue(field.getValue());
@@ -38,5 +39,10 @@ public class PhotoFieldFactory extends FieldViewFactory {
         }
 
         return photo;
+    }
+
+    @Override
+    public void setLabel(String label) {
+        photo.setLabel(label);
     }
 }

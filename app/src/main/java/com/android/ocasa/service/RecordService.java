@@ -68,58 +68,58 @@ public class RecordService {
 
             Record record = records.get(index);
 
-//            if(table.getId().equalsIgnoreCase("OM_MovilNovedad")){
-//
-//                Column column = new Column();
-//                column.setId("OM_MOVILNOVEDAD_CF_0400");
-//                column.setVisible(false);
-//
-//                Field signature = new Field();
-//                signature.setColumn(column);
-//                signature.setValue("");
-//
-//                record.getFields().add(signature);
-//
-//                Column photoColumn = new Column();
-//                photoColumn.setId("OM_MOVILNOVEDAD_CF_0500");
-//                photoColumn.setVisible(false);
-//
-//                Field photo = new Field();
-//                photo.setColumn(photoColumn);
-//                photo.setValue("");
-//
-//                record.getFields().add(photo);
-//
-//                Column photoColumn1 = new Column();
-//                photoColumn1.setId("OM_MOVILNOVEDAD_CF_0600");
-//                photoColumn1.setVisible(false);
-//
-//                Field photo1 = new Field();
-//                photo1.setColumn(photoColumn1);
-//                photo1.setValue("");
-//
-//                record.getFields().add(photo1);
-//
-//                Column photoColumn2 = new Column();
-//                photoColumn2.setId("OM_MOVILNOVEDAD_CF_0700");
-//                photoColumn2.setVisible(false);
-//
-//                Field photo2 = new Field();
-//                photo2.setColumn(photoColumn2);
-//                photo2.setValue("");
-//
-//                record.getFields().add(photo2);
-//
-//                Column photoColumn3 = new Column();
-//                photoColumn3.setId("OM_MOVILNOVEDAD_CF_0800");
-//                photoColumn3.setVisible(false);
-//
-//                Field photo3 = new Field();
-//                photo3.setColumn(photoColumn3);
-//                photo3.setValue("");
-//
-//                record.getFields().add(photo3);
-//            }
+            if(table.getId().equalsIgnoreCase("OM_MovilNovedad")){
+
+                Column column = new Column();
+                column.setId("OM_MOVILNOVEDAD_CF_0400");
+                column.setVisible(false);
+
+                Field signature = new Field();
+                signature.setColumn(column);
+                signature.setValue("");
+
+                record.getFields().add(signature);
+
+                Column photoColumn = new Column();
+                photoColumn.setId("OM_MOVILNOVEDAD_CF_0500");
+                photoColumn.setVisible(false);
+
+                Field photo = new Field();
+                photo.setColumn(photoColumn);
+                photo.setValue("");
+
+                record.getFields().add(photo);
+
+                Column photoColumn1 = new Column();
+                photoColumn1.setId("OM_MOVILNOVEDAD_CF_0600");
+                photoColumn1.setVisible(false);
+
+                Field photo1 = new Field();
+                photo1.setColumn(photoColumn1);
+                photo1.setValue("");
+
+                record.getFields().add(photo1);
+
+                Column photoColumn2 = new Column();
+                photoColumn2.setId("OM_MOVILNOVEDAD_CF_0700");
+                photoColumn2.setVisible(false);
+
+                Field photo2 = new Field();
+                photo2.setColumn(photoColumn2);
+                photo2.setValue("");
+
+                record.getFields().add(photo2);
+
+                Column photoColumn3 = new Column();
+                photoColumn3.setId("OM_MOVILNOVEDAD_CF_0800");
+                photoColumn3.setVisible(false);
+
+                Field photo3 = new Field();
+                photo3.setColumn(photoColumn3);
+                photo3.setValue("");
+
+                record.getFields().add(photo3);
+            }
 
             record.setExternalId(record.getExternalId());
             record.setTable(table);

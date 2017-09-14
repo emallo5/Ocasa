@@ -23,6 +23,12 @@ public class PodStructuresById {
         return false;
     }
 
+    public VisibleColumn getColumn(String columnId) {
+        for (VisibleColumn column : columns)
+            if (column.getId().equalsIgnoreCase(columnId)) return column;
+        return null;
+    }
+
     public String getId() {
         return id;
     }
